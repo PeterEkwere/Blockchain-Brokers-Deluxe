@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='signup.css') }}">
+    <title>Login</title>
+</head>
+<style>
+
+    body{
+
+        padding: 0;
+        margin: 0;
+        background-color: #fff;
+        display: flex;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+    }
+
+    .logo-container{
+        display: flex;
+    }
+    
+    .logo-container p{
+       font-size: 18px;
+       display: inline-block;
+       font-weight: 600;
+       letter-spacing: 1px;
+    }
+    
+    .logo-container .home-btn{
+        color: #000000;
+     }
+    
+    
+    .logo{
+        width: 28px;
+        display: inline;
+        margin-top: 17px;
+        margin-right: 7px;
+    }
+    
+
+   .signup-page{
+    position: absolute;
+    height: 100%;
+    width: 50%;
+    background-color: #fff;
+   }
+
+   .signup-box{
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+    padding: 10px;
+   }
+
+   .h-p{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 400px;
+   }
+
+   .banner-h{
+    font-size: 26px;
+    margin-bottom: 10px;
+   }
+
+   .banner-p{
+    font-size: 16px;
+    margin-top: 0;
+   }
+
+   .inputs{
+
+    width: 400px;
+    margin-top: 40px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+   }
+
+   .input-box{
+    border: 2px solid black;
+    color: #333;
+    border-radius: 10px;
+    width: 75%;
+    height: 40px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+   }
+
+   input{
+    margin-left: 10px;
+    margin-top: 5px;
+    width: 75%;
+    height: 70%;
+    padding-left: 30px;
+    border: none;
+   }
+
+   input:focus{
+    outline: none;
+   }
+
+   .pw-box{
+    width: 75%;
+   }
+
+   .input-icon{
+    width: 17px;
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 10px;
+    z-index: 2;
+   }
+
+   .input-icon2{
+    width: 17px;
+    position: absolute;
+    margin-top: 10px;
+    cursor: pointer;
+   }
+
+
+   .rs-btn{
+    background: none;
+    color: #000;
+    border: 2px solid #5915df;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    background-color: #5915df;
+    font-size: 15px;
+    letter-spacing: 1px;
+    font-weight: 400;
+    color: #fff;
+    width: 75%;
+    height: 40px;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+   }
+
+   .rs-btn:hover{
+    background-color: #fff;
+    color: #5915df;
+   }
+
+   .submit-btn{
+    display: block;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    background-color: #000;
+    font-size: 15px;
+    letter-spacing: 1px;
+    font-weight: 400;
+    color: #fff;
+    width: 75%;
+    height: 40px;
+    padding: 10px;
+    border: 2px solid #000;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.5s;
+   }
+
+   .submit-btn:hover{
+    background-color: #fff;
+    color: #000;
+   }
+
+   /* .username-email{
+   display: block;
+   margin-left: 25px;
+   margin-bottom: 5px;
+   }
+
+   .name-box{
+    width: ;
+    display: inline;
+   }
+
+   .email-box{
+    width:;
+    display: inline;
+   } */
+
+   .p1{
+    font-size: 15px;
+    color: #818181;
+    text-align: center;
+    margin-bottom: 0;
+   }
+
+   .socials{
+    display: flex;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+   }
+
+   .social-logo{
+    width: 25px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+   }
+
+   .social-container{
+    display: inline;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 15px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 10px;
+    width: 80px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.352);
+    cursor: pointer;
+    transition: 0.3s ease;
+   }
+
+   .social-container:hover{
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.492);
+   }
+
+   .cap-div{
+    position: absolute;
+    right: 0;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #5915df;
+    height: 100%;
+    width: 0;
+    transition: 2s ease;
+    z-index: 99;
+   }
+
+   .signup-cap{
+    position: absolute;
+    font-size: 60px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    top: 30%;
+    left: 49.5%;
+    z-index: 100;
+   }
+
+   @media only screen and (max-width: 800px){
+
+    body{
+        display: block;
+        margin: 0;
+    }
+
+    .cap-div{
+        display: none;
+    }
+
+    .signup-cap{
+        display: none;
+    }
+
+    .signup-page{
+        position: absolute;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .signup-box{
+        margin: 0;
+        width: 100%;
+        padding: 0;
+        margin-top: 30px;
+    }
+   }
+
+</style>
+
+<body onload="anime()">
+    
+    <div class="signup-page">
+        <div class="signup-header">
+            <div class="logo-container">
+                <a href="{{ url_for('app_views.Home') }}"><img src="{{ url_for('static', filename='img/Screenshot_2024-04-02_014934-removebg-preview.png') }}" alt="logo" class="logo"></a>
+                <a href="{{ url_for('app_views.Home') }}" class="home-btn"><p>WAGER BRAIN</p></a>
+            </div>
+        </div>
+
+        <div class="signup-box">
+            {% if error_message %}
+            <div class="h-p">
+                <h2 class="banner-h"><p>{{ error_message }}<p></h2>
+                    <p class="banner-p">This Email Might not exist<br> Or you might 
+                        be using the a wrong password
+                    </p>
+            </div>
+            {% elif password_error %}
+            <div class="h-p">
+            <h2 class="banner-h"><p>{{ password_error }}<p></h2>
+            </div>
+            {% else %}
+            <div class="h-p">
+                <h2 class="banner-h">Welcome back!</h2>
+                <p class="banner-p">Become a member and enjoy access<br> to the number #1
+                    Arbitrage Scanner there is.
+                </p>
+            </div>
+            {% endif %}
+            <form method="POST" action="" id="Login_form">
+                <div class="inputs">
+                    <div class="input-box">
+                        <!-- {{ Login_form.email( placeholder = "Email") }} -->
+                        <img src="{{ url_for('static', filename='img/icons8-email-48.png' ) }}" alt="" class="input-icon">
+                        {{ Login_form.email(class="email-box", placeholder = "Email") }}
+                        <!-- <input type="email" id="email" class="email-box" placeholder="Email" {{ Login_form.email( placeholder = "Email") }}> -->
+                    </div>
+                    <div class="input-box">
+                        <!-- {{ Login_form.password( placeholder = "Password") }} -->
+                        <img src="{{ url_for('static', filename='img/icons8-lock-50.png' ) }}" alt="" class="input-icon">
+                        {{ Login_form.password(class="pw-box", placeholder = "Password") }}
+                    <!--<input type="password" id="password" class="pw-box" placeholder="Password" {{ Login_form.password(class_="pw-box", placeholder = "Password") }}> -->
+                    <img src="{{ url_for('static', filename='img/icons8-eye-48.png' ) }}" alt="" class="input-icon2">
+                    </div>
+                    <button class="rs-btn" id="reset-password-btn"> Reset Password</button>
+                    <!--<button type="submit" class="submit-btn" id="submitBtn">Submit</button>-->
+                    {{ Login_form.submit(class="submit-btn") }}
+
+                    <p class="p1">or countinue with</p>
+                    <div class="socials">
+                        <div class="social-container">
+                            <img src="{{ url_for('static', filename='img/icons8-google-48.png' ) }}" alt="" class="socials-1 social-logo">
+                        </div>
+                        <div class="social-container">
+                            <img src="{{ url_for('static', filename='img/icons8-facebook-48.png' ) }}" alt="" class="socials-2 social-logo">
+                        </div>
+                        <div class="social-container">
+                            <img src="{{ url_for('static', filename='img/icons8-apple-50.png' ) }}" alt="" class="socials-3 social-logo">
+                        </div>
+                    </div>
+                </div>
+            <form>
+        </div>
+    </div>
+
+    <h1 class="signup-cap">BEAT THE ODDS.</h1>
+
+    <div class="cap-div" id="capDiv">
+    </div>
+    <script>
+        document.getElementById("reset-password-btn").addEventListener("click", function() {
+            // Redirect to the reset password page
+            window.location.href = "{{ url_for('app_views.reset_password') }}";
+        });
+        //document.getElementById("submit-btn").addEventListener("click", function() {
+            // submit login
+        //    {{ Login_form.submit() }}
+        //});
+
+        let capDiv = document.getElementById('capDiv');
+
+        function anime(){
+            capDiv.style.width = '50%'
+        }
+    </script>
+</body>
+</html>
