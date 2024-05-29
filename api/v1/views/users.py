@@ -37,11 +37,11 @@ def register():
         email = form.email.data
         username = form.username.data
         password = form.password.data
-        role = form.role.data
+        #role = form.role.data
 
         # Create a new user object with the extracted details
         try:
-            new_user = auth.register_user(username, email, password, role)
+            new_user = auth.register_user(username.lower(), email.lower(), password)
         except ValueError:
             error_message = "This email address has already been used."  
             return render_template('signup.html',
@@ -62,7 +62,7 @@ def login():
             password = form.password.data
 
             # Verify user credentials (you need to implement this)
-            user = auth.valid_login(email, password)
+            user = auth.valid_login(email.lower(), password.lower())
             if user:
                 if current_user.is_authenticated and current_user.role == 'admin':
                     login_user(user)
@@ -90,7 +90,7 @@ def admin():
 @cache.cached(timeout=50)
 def profile():
     #print(f"In Profile endpoint authentication status is {current_user.is_authenticated}")
-    return render_template('users_dashboard.html')
+    return render_template('user_dashboard.html')
 
 
 @app_views.route('/users/logout/', strict_slashes=False, endpoint='logout')
