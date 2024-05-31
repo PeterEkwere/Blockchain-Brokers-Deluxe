@@ -56,3 +56,4 @@ mysql
 gunicorn
 psycopg2-binary
 Flask-Caching
+google-recaptcha

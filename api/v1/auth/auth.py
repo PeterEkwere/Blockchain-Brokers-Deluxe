@@ -42,7 +42,7 @@ class Auth:
     def __init__(self):
         self._db = DBStorage()
 
-    def register_user(self, username: str, email: str, password: str, role: str = "regular") -> User:
+    def register_user(self, username: str, email: str, password: str, PhoneNumber: str, role: str = "regular") -> User:
         """ This method register users
 
         Args:
@@ -54,11 +54,12 @@ class Auth:
         """
         try:
             user = self._db.find_by('user', email=email)
+            #print("User Was Found")
         except NoResultFound:
             hashed_password = _hash_password(password)
-            print(f"\n in register function \n")
+            #print(f"\n in register function \n")
             #print(f"\nin register function hashed_password is {hashed_password}\nits type is {type(hashed_password).__name__}\nits decoded version saved to the db is {hashed_password.decode('utf-8')}")
-            new_user = self._db.add_user(username, email, hashed_password.decode('utf-8'), role)
+            new_user = self._db.add_user(username, email, hashed_password.decode('utf-8'), PhoneNumber, role)
             return new_user
         raise ValueError
 
@@ -74,7 +75,6 @@ class Auth:
         """
         try:
             user = self._db.find_by('user', email=email)
-            print(f"User Was Found email is :{user.email}")
         except NoResultFound:
             return None
         password_bytes = password.encode('utf-8')

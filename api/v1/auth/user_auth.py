@@ -6,7 +6,7 @@
 from models.base_model import Base, BaseModel
 from sqlalchemy import Column, String, Integer
 #from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, validators, ValidationError, Form
+from wtforms import StringField, PasswordField, SubmitField, validators, ValidationError, Form, IntegerField
 from wtforms.validators import DataRequired, Email, Length, EqualTo
 
 
@@ -16,7 +16,7 @@ class RegistrationForm(Form):
                                                    Length(min=4, max=20, message="username cannot be less than 4 and more than 20 characters")])
     password = PasswordField('Password', validators=[DataRequired(),
                                                     Length(min=6, message="Password must be at least 6 characters long.")])
-    #role = StringField('role', validators=[Length(min=5, max=7)])
+    PhoneNumber = StringField('PhoneNumber', validators=[DataRequired()])
     submit = SubmitField('Register')
 
 class LoginForm(Form):

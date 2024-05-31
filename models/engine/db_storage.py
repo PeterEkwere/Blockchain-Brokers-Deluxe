@@ -105,7 +105,7 @@ class DBStorage:
             raise NoResultFound()
         except InvalidRequestError:
             raise InvalidRequestError()
-        print(f"\n findby was called and user id is {obj.id} and its type is {type(obj.id).__name__}")
+        #print(f"\n findby was called and user id is {obj.id} and its type is {type(obj.id).__name__}")
         return obj
     
     def update_user(self, user_id: int, **kwd: Dict):
@@ -121,7 +121,7 @@ class DBStorage:
             setattr(user, key, value)
         self.save()
             
-    def add_user(self, username: str, email: str, hashed_password: str, role: str) -> User:
+    def add_user(self, username: str, email: str, hashed_password: str, PhoneNumber: str,  role: str) -> User:
         """ This method takes an email and hashed_password
         And returns a user object
 
@@ -134,7 +134,8 @@ class DBStorage:
         """
         new_user = User(email=email,
                         username=username,
-                        hashed_password=hashed_password,)
+                        hashed_password=hashed_password,
+                        PhoneNumber=PhoneNumber)
         try:
             self.new(new_user)
             self.save()
