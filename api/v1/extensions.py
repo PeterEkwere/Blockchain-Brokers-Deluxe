@@ -53,3 +53,8 @@ def strong_password(password: str):
         raise ValidationError("Password must contain at least one uppercase letter.")
     if not any(char.isdigit() for char in password):
         raise ValidationError("Password must contain at least one digit.")
+    
+    
+    
+
+
