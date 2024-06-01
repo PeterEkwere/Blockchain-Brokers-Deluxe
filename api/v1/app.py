@@ -13,7 +13,7 @@ from api.v1.extensions import mail
 from flasgger import Swagger
 from flasgger.utils import swag_from
 from sqlalchemy.exc import NoResultFound, InvalidRequestError
-from api.v1.extensions import auth, socketio, login_manager, cache
+from api.v1.extensions import auth, socketio, login_manager, cache, ReCaptcha
 from datetime import timedelta
 import threading
 import asyncio
@@ -28,7 +28,7 @@ app.config['SESSION_TYPE'] = 'filesystem'  # Or a suitable session backend
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=60)  # Persists for 60 mins
 cors = CORS(app, resources={r"/api/v1/*": {"origins": "*"}}, expose_headers=["Content-Type", "X-CSRFToken"], supports_credentials=True)
 app.config['SWAGGER'] = {
-    'title': 'WAGERBRAIN Restful API',
+    'title': 'Deluxe Restful API',
     'ui_version': 1 
 }
 #app.config["SESSION_COOKIE_SAMESITE"] = "strict"
@@ -39,7 +39,7 @@ app.config["REMEMBER_COOKIE_SECURE"] = True
 app.config['MAIL_SERVER'] = 'smtp-relay.brevo.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USERNAME'] = '759a9d001@smtp-brevo.com'
-app.config['MAIL_DEFAULT_SENDER'] = 'WagerBrain@gmail.com'
+app.config['MAIL_DEFAULT_SENDER'] = 'Deluxe@gmail.com'
 app.config['MAIL_PASSWORD'] = 'jm7hEWcJRB4IgkHv'
 app.config['MAIL_USE_TLS'] = False
 #app.config['MAIL_USE_SSL'] = True
@@ -57,6 +57,7 @@ socketio.init_app(app)
 cache.init_app(app, config={'CACHE_TYPE': 'SimpleCache'})
 app.register_blueprint(app_views)
 Swagger(app)
+
 
 @login_manager.user_loader
 def load_user(user_id):

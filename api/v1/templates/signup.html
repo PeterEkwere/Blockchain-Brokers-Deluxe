@@ -542,6 +542,7 @@
 </style>
 <body>
     
+<<<<<<< HEAD
     <!-- SECTION-ONE -->
     <div class="section-one" id="top">
         <div class="overlay"></div>
@@ -615,6 +616,13 @@
                         </li>
                     </ul>
                 </div>
+=======
+    <div class="signup-page">
+        <div class="signup-header">
+            <div class="logo-container">
+                <a href="{{ url_for('app_views.login') }}"><img src="{{ url_for('static', filename='img/Screenshot_2024-04-02_014934-removebg-preview.png') }}" alt="logo" class="logo"></a>
+                <a href="{{ url_for('app_views.login') }}" class="home-btn"><p>WAGER BRAIN</p></a>
+>>>>>>> main
             </div>
         </nav>
 
@@ -637,6 +645,34 @@
                 <h1 class="text-center fs-3 form-h1">Create An Account.</h1>
                 <p class="text-center form-banner-p">Use the form below to create a new account on Deluxe4.</p>
             </div>
+<<<<<<< HEAD
+=======
+            {% endif %}
+            <form method="POST" action="" id="register_form">
+                <div class="inputs">
+                    <div class="input-box">
+                        <img src="{{ url_for('static', filename='img/icons8-username-30.png') }}" alt="" class="input-icon">
+                        {{ register_form.username(class="name-box", placeholder = "Username") }}
+                        <!--<input type="text" id="username" class="name-box" placeholder="Username"> -->
+                    </div>
+                    <div class="input-box">
+                        <img src="{{ url_for('static', filename='img/icons8-email-48.png') }}" alt="" class="input-icon">
+                        {{ register_form.email(class="email-box", placeholder = "Email") }}
+                        <!--<input type="email" id="email" class="email-box" placeholder="Email"> --> 
+                    </div>
+                    <div class="input-box">
+                        <img src="{{ url_for('static', filename='img/icons8-lock-50.png') }}" alt="" class="input-icon">
+                        <!--<input type="password" id="password" class="pw-box" placeholder="Password"> -->
+                        {{ register_form.password(class="pw-box", placeholder = "Password") }}
+                        <img src="{{ url_for('static', filename='img/icons8-eye-48.png') }}" alt="" class="input-icon2"> 
+                    </div>
+                    <div class="input-box">
+                        <img src="{{ url_for('static', filename='img/icons8-email-48.png') }}" alt="" class="input-icon">
+                        {{ register_form.PhoneNumber(class="email-box", placeholder = "Phone Number") }}
+                        <!--<input type="email" id="email" class="email-box" placeholder="Email"> --> 
+                    </div>
+                    {{ recaptcha }}
+>>>>>>> main
 
             <!-- FORM -->
             <form data-aos="fade-up" data-aos-duration="1000">

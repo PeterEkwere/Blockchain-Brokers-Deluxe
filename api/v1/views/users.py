@@ -13,7 +13,13 @@ from functools import wraps
 from flasgger.utils import swag_from
 from datetime import datetime
 from wtforms import ValidationError
-from api.v1.extensions import admin_required, strong_password, auth, login_manager, cache
+from api.v1.extensions import admin_required, strong_password, auth, login_manager, cache, ReCaptcha
+
+recaptcha = ReCaptcha(
+    app_views,
+    site_key="6LcWGewpAAAAAJ_pTOCycIUhR4FoD4DuhiVHsyS8",
+    version=2
+)
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
 @swag_from('documentation/user/all_users.yml')
@@ -37,11 +43,11 @@ def register():
         email = form.email.data
         username = form.username.data
         password = form.password.data
-        #role = form.role.data
-
+        PhoneNumber = form.PhoneNumber.data
+        
         # Create a new user object with the extracted details
         try:
-            new_user = auth.register_user(username.lower(), email.lower(), password)
+            new_user = auth.register_user(username.lower(), email.lower(), password, PhoneNumber)
         except ValueError:
             error_message = "This email address has already been used."  
             return render_template('signup.html',
@@ -62,7 +68,7 @@ def login():
             password = form.password.data
 
             # Verify user credentials (you need to implement this)
-            user = auth.valid_login(email.lower(), password.lower())
+            user = auth.valid_login(email.lower(), password)
             if user:
                 if current_user.is_authenticated and current_user.role == 'admin':
                     login_user(user)
@@ -70,12 +76,11 @@ def login():
                     return response
                 else:
                     check = login_user(user)
-                    #print(f"IN Login View current user authentication status is {current_user.is_authenticated}")
                     response = redirect(url_for('app_views.dashboard'))
                     response.cache_control.no_cache = True
                     return response
             else:
-                error_message = "Invalid email or password"
+                error_message = "These credentials do not match our records."
                 return render_template('login.html', Login_form=form, error_message=error_message)
     # Render the login page with the form
     return render_template('login.html', Login_form=form)
@@ -97,17 +102,17 @@ def profile():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for(''))
+    return redirect(url_for('app_views.login'))
 
 @app_views.route('/users/reset_password', methods=['GET', 'POST'], strict_slashes=False, endpoint='reset_password')
 def reset_password():
     form = ResetForm(request.form)
     if form.validate():
         email = form.email.data
-        user = auth.validate_user(email)
+        user = auth.validate_user(email.lower())
         if user:
             try:
-                token = auth.get_reset_password_token(email)
+                token = auth.get_reset_password_token(email.lower())
                 try:
                     auth.send_password_reset_email(user, token)
                 except Exception as e:
@@ -137,7 +142,7 @@ def update_password():
         except ValidationError as e:
             return render_template('update_password.html', update_form=form, error_message=e)
         
-        user = auth.validate_user(email)
+        user = auth.validate_user(email.lower())
         if user:
             try:
                 updated = auth.update_password(token, new_password)
