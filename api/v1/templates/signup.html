@@ -3,347 +3,933 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="signup.css">
-    <title>Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <title>Sign Up - delux4.com</title>
 </head>
 <style>
+/* `sm` applies to x-small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) { ... }
+
+`md` applies to small devices (landscape phones, less than 768px)
+@media (max-width: 767.98px) { ... }
+
+`lg` applies to medium devices (tablets, less than 992px)
+@media (max-width: 991.98px) { ... }
+
+`xl` applies to large devices (desktops, less than 1200px)
+@media (max-width: 1199.98px) { ... }
+
+`xxl` applies to x-large devices (large desktops, less than 1400px)
+@media (max-width: 1399.98px) { ... } */
 
     body{
-
         padding: 0;
         margin: 0;
-        background-color: #fff;
-        display: flex;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-
     }
 
-    .logo-container{
-        display: flex;
+    .coinmarketcap {
+      position: fixed; 
+      top: 0;
+      left: 0;
+      right: 0; 
+      width: 100%; 
+      z-index: 1000; 
+      justify-content: center;
     }
-    
-    .logo-container p{
-       font-size: 18px;
-       display: inline-block;
-       font-weight: 600;
-       letter-spacing: 1px;
+
+    .section-one{
+        background-image: url('assets/1__o9tM4VLLV9628YvEtOX8Q.jpeg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        width: 100%;
+        height: 65vh;
+        padding: 20px 7%;
     }
-    
-    .logo-container .home-btn{
-        color: #000000;
-     }
-    
-    
+
+    .section-one .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 65vh;
+        background-color: rgba(25, 123, 193, 0.876); /* White with 30% opacity */
+        pointer-events: none; /* Allows interaction with elements below the overlay */
+    }
+
+    .navbar{
+        background: transparent !important;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .fixed-top{
+        position: fixed !important;
+        width: 100% !important;
+        margin: 0 !important;
+        top: 60px !important;
+    }
+
+    .navbar.scrolled {
+        background-color: white !important;
+    }
+
     .logo{
-        width: 28px;
-        display: inline;
-        margin-top: 17px;
-        margin-right: 7px;
+        width: 230px;
     }
+
+    .nav-link{
+        color: #fff;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-size: 14px !important;
+        letter-spacing: 0.5px;
+        margin: 0 5px;
+    }
+
+    .nav-link:hover{
+        color: #fff !important;
+    }
+
+    .nav-link:focus{
+        color: #fff !important;
+    }
+
+    .nav-link.link-scrolled{
+        color: #000 !important;
+    }
+
+    .nav-item{
+        cursor: pointer;
+        color: #fff;
+    }
+
+    .dropdown-menu{
+        border: 0;
+        margin: 0;
+        padding: 0;
+        border-radius: 0;
+        background: #fff;
+        -webkit-box-shadow: 0 13px 35px 0 rgba(0, 51, 204, 0.1) !important;
+        box-shadow: 0 13px 35px 0 rgba(0, 51, 204, 0.1) !important;
+    }
+
+    .dropdown-item{
+        width: 100%;
+        color: #000;
+        display: block;
+        font-size: 14px;
+        font-weight: 400;
+        position: relative;
+        padding: 12px 28px;
+        text-decoration: none;
+        -webkit-transition: all 0.25s ease;
+        transition: all 0.25s ease;
+    }
+
+    .dropdown-item:hover{
+        background-color: #1d90d3;
+        color: #fff;
+    }
+
+    .nav-icon2{
+        position: relative;
+        vertical-align: bottom;
+        top: 10px;
+    }
+
+    .login-p{
+        position: relative;
+        top: 10px;
+    }
+
+    .nav-icon1{
+        bottom: 20px !important;
+    }
+
+    .section-one-banner{
+        padding-top: 150px !important;
+    }
+
+    .banner-h1{
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+    }
+
+    @media (max-width: 991.98px) {
+
+        .nav-container{
+            padding: 0 !important;
+        }
+
+        .main-menu{
+            background: #fff !important;
+            width: 100% !important;
+            margin: 0 !important;
+        }
+
+        .mobile-nav-icon1{
+            position: absolute;
+            right: 100px;
+            top: 30px;
+            display: block !important;
+        }
+
+        .mobile-nav-icon2{
+            position: absolute;
+            right: 150px;
+            top: 30px;
+            display: block !important;
+        }
+
+        .mobile-icon-white{
+            color: #000 !important; /* Set text color to black */
+        }
+
+
+        .white-toggler {
+            background-color: none !important; /* Remove default background */
+            filter: invert(100%) hue-rotate(180deg) !important; /* Invert colors */
+        }
     
+        .navbar-toggler{
+            border: 1px solid transparent !important;
+        }
 
-   .signup-page{
-    position: absolute;
-    height: 100%;
-    width: 50%;
-    background-color: #fff;
-   }
+        button:focus:not(:focus-visible) {
+            outline: 1px solid transparent !important;
+        }       
 
-   .signup-box{
-    margin-left: auto;
-    margin-right: auto;
-    width: 95%;
-    padding: 10px;
-   }
+        .navbar-toggler:focus {
+            text-decoration: none;
+            outline: 0;
+            box-shadow: none !important;
+        }
 
-   .h-p{
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-   }
+        .nav-item{
+            width: 100% !important;
+            padding: 0 !important;
+        }
 
-   .banner-h{
-    font-size: 24px;
-    margin-bottom: 10px;
-   }
+        .nav-link{
+            color: #000 !important;
+            border-bottom: 1px solid #f2f2f2 !important;
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 10px 15px !important;
+        }
 
-   .banner-p{
-    font-size: 16px;
-    margin-top: 0;
-   }
+        .nav-link:hover{
+            color: #000 !important;
+        }
 
-   .inputs{
+        .nav-link:focus{
+            color: #000 !important;
+            outline: 1px solid transparent !important;
+            box-shadow: none !important;
+         }
 
-width: 400px;
-margin-top: 40px;
-display: block;
-margin-left: auto;
-margin-right: auto;
-}
+        .navbar-nav{
+            align-items: start !important;
+            margin-top: 10px !important;
+        }
 
-.input-box{
-border: 2px solid black;
-color: #333;
-border-radius: 10px;
-width: 70%;
-height: 40px;
-display: block;
-margin-left: auto;
-margin-right: auto;
-margin-bottom: 10px;
-}
+        .lg-nav-icons{
+            display: none;
+        }
 
-input{
-margin-left: 10px;
-margin-top: 5px;
-width: 75%;
-height: 70%;
-padding-left: 30px;
-border: none;
-}
+        .dropdown-menu{
+            border: 1px solid transparent !important;
+            margin: 0px !important;
+            background: rgba(19, 168, 116, 0.1) !important;
+            border-radius: 0px !important;
+            transition: 0.3s;
+        }
 
-input:focus{
-outline: none;
-}
+        .dropdown-item{
+            margin-bottom: 10px !important;
+            margin-left: 5px !important;
+        }
 
-.pw-box{
-width: 75%;
-}
+        .section-one-banner{
+            padding-top: 200px !important;
+        }
 
-.input-icon{
-width: 17px;
-position: absolute;
-margin-top: 10px;
-margin-left: 10px;
-z-index: 2;
-}
+        .banner-h1{
+            width: 70% !important;
+        }
+    }
 
-.input-icon2{
-width: 17px;
-position: absolute;
-margin-top: 10px;
-cursor: pointer;
-}
+    @media (max-width: 767.98px) { 
+        .section-one,
+        .overlay{
+            height: 70vh !important;
+        }
+
+        .section-one-banner{
+            padding-top: 100px !important;
+        }
+    }
+
+    @media (max-width: 575.98px) {
+
+        body{
+            padding-inline-start: 1px; /* Adjust the value based on your navbar width */
+            padding-inline-end: 5px;
+        }
+
+        .section-one{
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+            padding-inline-end: -5px;
+            width: 100.8% !important;
+        }
+
+        .nav-container{
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .logo{
+            width: 160px !important;
+        }
 
 
-   .submit-btn{
-    display: block;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 30px;
-    background-color: #000;
-    font-size: 15px;
-    letter-spacing: 1.5px;
-    font-weight: 400;
-    color: #fff;
-    width: 73%;
-    height: 40px;
-    padding: 10px;
-    border: 2px solid #000;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 0.5s;
-   }
+        .mobile-nav-icon2{
+            right: 120px;
+            top: 25px;
+        }
 
-   .submit-btn:hover{
-    background-color: #fff;
-    color: #000;
-   }
+        .mobile-nav-icon1{
+            right: 70px;
+            top: 25px;
+        }
 
-   /* .username-email{
-   display: block;
-   margin-left: 25px;
-   margin-bottom: 5px;
-   }
+        .navbar{
+            width: 100% !important;
+        }
 
-   .name-box{
-    width: ;
-    display: inline;
-   }
+        .main-menu{
+            width: 80% !important;
+        }
 
-   .email-box{
-    width:;
-    display: inline;
-   } */
+        .section-one-banner{
+            padding-top: 100px !important;
+        }
 
-   .p1{
-    font-size: 15px;
-    color: #818181;
-    text-align: center;
-    margin-bottom: 0;
-   }
+        .section-one,
+        .overlay{
+            height: 65vh !important;
+            margin-right: -10px !important;
+        }
 
-   .socials{
-    display: flex;
-    justify-content: space-between;
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
-   }
+        .overlay{
+            margin-right: -10px !;
+        }
 
-   .social-logo{
-    width: 25px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-   }
+        .banner-h1{
+            width: 95% !important;
+            line-height: 150%;
+            font-weight: 400;
+            text-align: left !important;
+            font-size: 32px !important;
+        }
+    }
 
-   .social-container{
-    display: inline;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 15px;
-    border: 1px solid transparent;
-    border-radius: 10px;
-    padding: 10px;
-    width: 80px;
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.352);
-    cursor: pointer;
-    transition: 0.3s ease;
-   }
 
-   .social-container:hover{
-    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.492);
-   }
 
-   .cap-div{
-    position: absolute;
-    right: 0;
-    display: flex;
-    flex-wrap: wrap;
-    background-color: #5915df;
-    height: 100%;
-    width: 0;
-    transition: 2s ease;
-    z-index: 99;
-   }
 
-   .signup-cap{
-    position: absolute;
-    font-size: 60px;
-    color: white;
-    font-family: Arial, Helvetica, sans-serif;
-    top: 30%;
-    left: 49.5%;
-    z-index: 100;
-   }
+    /* SECTION-TWO STARTS HERE */
+    .section-two{
+        padding: 10% 0px !important;
+    }
 
-   @media only screen and (max-width: 800px){
+    .form-container{
+        width: 60% !important;
+    }
 
-body{
-    display: block;
-    margin: 0;
-}
+    label{
+        font-size: 18px !important;
+        font-weight: 600;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-optical-sizing: auto;
+        margin-bottom: 10px;
+    }
 
-.cap-div{
-    display: none;
-}
+    .input-box{
+        height: 60px !important;
+        border: none !important;
+    }
 
-.signup-cap{
-    display: none;
-}
+    .iti{
+        width: 100%;
+    }
 
-.signup-page{
-    position: absolute;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
+    .iti__country-list {
+        max-height: 300px; /* Limit the height of the dropdown */
+        overflow-y: auto; /* Enable vertical scrolling */
+        z-index: 1051; 
+        position: absolute;
+        top: 100%;
+    }
 
-.signup-box{
-    margin: 0;
-    width: 100%;
-    padding: 0;
-    margin-top: 30px;
-}
-}
+    .form-check-input{
+        top: 2px !important;
+    }
+
+    .submit-btn{
+        height: 60px;
+        border: none;
+        background-color: #1d90d3;
+        color: white;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-optical-sizing: auto;
+        letter-spacing: 0.5px;
+        transition: 0.3s all;
+    }
+
+    .submit-btn:hover {
+         box-shadow: 0px 6px 12px #0000003b;
+    }
+
+    @media (max-width: 767.98px) { 
+
+        .form-container{
+            width: 90% !important;
+        }
+
+        .form-banner{
+            width: 90% !important;
+            margin: 0 auto !important;
+        }
+
+        .form-h1{
+            width: 100% !important;
+        }
+
+        .username-phone,
+        .pw-cpw{
+            flex-direction: column !important;
+        }
+
+        .pw-cpw{
+            margin-bottom: 5px !important;
+        }
+
+        .username-container,
+        .phone-container,
+        .pw-container,
+        .cpw-container{
+            width: 100% !important;
+        }
+
+        .input-box{
+            margin-bottom: 20px !important;
+        }
+
+        label{
+            font-size: 16px !important;
+        }
+
+        .form-check-label{
+            font-size: 16px !important;
+        }
+
+        .terms-forgot-pw{
+            flex-direction: column !important;
+            margin-bottom: 0px !important;
+        }
+     }
+
+
+
+
+    /* FOOTER STARTS HERE*/
+    footer{
+        padding: 7% 2% 2px 2%;
+        background-color: #2f3542 !important;
+        font-family:"Plus Jakarta Sans", sans-serif;
+        color: #fff;
+    }
+
+    .abt-us-p{
+        opacity: 0.7;
+        line-height: 170%;
+    }
+
+    .social-container{
+        background-color: #3a3f4c;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+
+    .mail:hover{
+        background-color: #ea4335;
+    }
+
+    .twitter:hover{
+        background-color: #1d90d3;
+    }
+
+    .footer-list-item{
+        opacity: 0.7;
+        font-size: 17px !important;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+
+    .footer-list-item:hover{
+        opacity: 1;
+
+    }
+
+    @media (max-width: 575.98px){
+
+        footer{
+            margin: 0 -5px !important;
+            padding: 100px 0px 100px 15px!important;
+        }
+
+
+        .footer-top{
+            width: 100% !important;
+        }
+
+        .footer-p{
+            font-size: 14px !important;
+            line-height: 200% !important;
+        }
+
+        .footer-list-item{
+            font-size: 14px !important;
+        }
+    }
+
+    .back-to-top {
+        position: fixed;
+        bottom: 30px;
+        left: 30px;
+        padding: 10px;
+        width: 50px;
+        height: 50px;
+        display: none;
+        border-radius: 5px;
+        align-items: center;
+        justify-content: center;
+        background-color: #1d90d3;
+        box-shadow: 0px 6px 12px #00000074;
+        z-index: 1000;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+
+    .back-to-top:hover {
+        bottom: 40px;
+    }
+
 
 </style>
-
-<body onload="anime()">
+<body>
     
-    <div class="signup-page">
-        <div class="signup-header">
-            <div class="logo-container">
-                <a href="{{ url_for('app_views.Home') }}"><img src="{{ url_for('static', filename='img/Screenshot_2024-04-02_014934-removebg-preview.png') }}" alt="logo" class="logo"></a>
-                <a href="{{ url_for('app_views.Home') }}" class="home-btn"><p>WAGER BRAIN</p></a>
+    <!-- SECTION-ONE -->
+    <div class="section-one" id="top">
+        <div class="overlay"></div>
+        <div id="coinmarketcap-widget-marquee" class="coinmarketcap" coins="1,1027,825,1839,5426,21540,11419,2087" currency="USD" theme="dark" transparent="false" show-symbol-logo="true"></div>
+        
+        <!-- NAVBAR STARTS HERE -->
+        <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary bg-dark position-relative pt-3 d-flex flex-row">
+
+            <!-- NAVBAR CONTAINER -->
+            <div class="container-fluid px-5 py-0 nav-container">
+                <a class="navbar-brand p-0" href="#">
+                    <img src="assets/logo-light.png" alt="" class="logo">
+                </a>
+
+                <!-- SIGN UP & LOGIN ICONS FOR MOBILE-->
+                <a href="">
+                    <i class="bi-box-arrow-in-right text-white fs-3 mobile-nav-icon1 mobile-icon d-none"></i>
+                </a>
+                <a href="">
+                    <i class="bi-person-fill text-white fs-3 mobile-nav-icon2 mobile-icon d-none"></i>
+                </a>
+
+                <!-- NAVBAR-TOGGLER -->
+                <button class="navbar-toggler white-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- NAVBAR-INFO -->
+                <div class="collapse navbar-collapse main-menu" id="navbarNavDropdown">
+                    <ul class="navbar-nav ms-auto d-flex align-items-center">
+                        <li class="nav-item">
+                            <a class="nav-link active text-white aria-current="page" href="#">HOME</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            RESOURCE
+                            </a>
+                            <ul class="dropdown-menu shadow-lg">
+                            <li><a class="dropdown-item" href="#">Bitcoin Trading</a></li>
+                            <li><a class="dropdown-item" href="#">Bitcoin Cash Trading</a></li>
+                            <li><a class="dropdown-item" href="#">Litecoin Trading</a></li>
+                            <li><a class="dropdown-item" href="#">Ethereum Trading</a></li>
+                            <li><a class="dropdown-item" href="#">Ripple Trading</a></li>
+                            <li><a class="dropdown-item" href="#">Economic Calender</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            COMPANY
+                            </a>
+                            <ul class="dropdown-menu shadow-lg">
+                            <li><a class="dropdown-item" href="#">Afiliate Program</a></li>
+                            <li><a class="dropdown-item" href="#">About Us</a></li>
+                            <li><a class="dropdown-item" href="#">Terms Of Services</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">NEWS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">CONTACT</a>
+                        </li>
+
+                        <!-- SIGN-UP & LOGIN ICONS FOR LARGE WIDTH DEVICES -->
+                        <li class="nav-item mx-3 lg-nav-icons">
+                            <a class="nav-link href=""><i class="bi bi-person-fill nav-icon nav-icon1"></i></a>
+                        </li>
+                        <li class="nav-item lg-nav-icons">
+                            <a class="nav-link d-flex" href=""><i class="bi bi-box-arrow-in-right nav-icon nav-icon2 me-2"></i>
+                            <p class="login-p">LOGIN</p></a>
+                        </li>
+                    </ul>
+                </div>
             </div>
+        </nav>
+
+        <!--   BANNER -->
+        <div class="section-one-banner container-fluid mt-5 position-relative text-center" data-aos="fade-up" data-aos-duration="1000">
+            <h1 class="banner-h1 w-50 mx-auto fs-1 text-white">Sign up now and experience the Future of Trading</h1>
         </div>
+    </div>
+    
 
-        <div class="signup-box">
-            {% if error_message %}
-                <div class="h-p">
-                    <h2 class="banner-h"><p>{{ error_message }}<p><h2>
-                    <p class="banner-p">You might have an account with us.<br> <i class="fas fa-lightbulb"></i> Try Registering with another email.
-                    </p>
-                </div>
-            {% elif password_error %}
-                <div class="h-p">
-                    <h2 class="banner-h"><p>{{ password_error }}<p><h2>
-                    <p class="banner-p">Please adhere to the password requirements.
-                    </p>
-                </div>
-            {% else %}
-            <div class="h-p">
-                <h2 class="banner-h">Join Our Exclusive Community!</h2>
-                <p class="banner-p">Become a member and enjoy access<br> to the cheapest
-                    Arbitrage Scanner there is.
-                </p>
+
+
+
+    <!-- SECTION-TWO -->
+    <div class="section-two">
+
+        <!-- FORM-CONTAINER -->
+        <div class="form-container mx-auto">
+            <div class="form-banner mb-5">
+                <h1 class="text-center fs-3 form-h1">Create An Account.</h1>
+                <p class="text-center form-banner-p">Use the form below to create a new account on Deluxe4.</p>
             </div>
-            {% endif %}
-            <form method="POST" action="" id="register_form">
-                <div class="inputs">
-                    <div class="input-box">
-                        <img src="{{ url_for('static', filename='img/icons8-username-30.png') }}" alt="" class="input-icon">
-                        {{ register_form.username(class="name-box", placeholder = "Username") }}
-                        <!--<input type="text" id="username" class="name-box" placeholder="Username"> -->
-                    </div>
-                    <div class="input-box">
-                        <img src="{{ url_for('static', filename='img/icons8-email-48.png') }}" alt="" class="input-icon">
-                        {{ register_form.email(class="email-box", placeholder = "Email") }}
-                        <!--<input type="email" id="email" class="email-box" placeholder="Email"> --> 
-                    </div>
-                    <div class="input-box">
-                        <img src="{{ url_for('static', filename='img/icons8-lock-50.png') }}" alt="" class="input-icon">
-                        <!--<input type="password" id="password" class="pw-box" placeholder="Password"> -->
-                        {{ register_form.password(class="pw-box", placeholder = "Password") }}
-                        <img src="{{ url_for('static', filename='img/icons8-eye-48.png') }}" alt="" class="input-icon2"> 
-                    </div>
 
-                    <!--<a href="{{ url_for('app_views.login') }}"><button class="submit-btn" id="submitBtn">Sign in</button></a>-->
-                    {{ register_form.submit(class="submit-btn") }}
+            <!-- FORM -->
+            <form data-aos="fade-up" data-aos-duration="1000">
 
-                    <p class="p1">or countinue with</p>
-                    <div class="socials">
-                        <div class="social-container">
-                            <img src="{{ url_for('static', filename='img/icons8-google-48.png') }}" alt="" class="socials-1 social-logo">
-                        </div>
-                        <div class="social-container">
-                            <img src="{{ url_for('static', filename='img/icons8-facebook-48.png') }}" alt="" class="socials-2 social-logo">
-                        </div>
-                        <div class="social-container">
-                            <img src="{{ url_for('static', filename='img/icons8-apple-50.png') }}" alt="" class="socials-3 social-logo">
-                        </div>
+                <!-- EMAIL INPUT -->
+                <div class="mb-4">
+                    <label for="emailInput">Enter Your Email</label>
+                    <input type="email" class="form-control input-box shadow-lg px-4" id="emailInput" aria-describedby="emailHelp" placeholder="Valid Email address">
+                </div>
+
+                <!-- USERNAME & PHONE-NUMBER INPUT -->
+                <div class="d-flex mb-4 username-phone">
+                    <div class="w-50 me-5 username-container">
+                        <label for="usernameInput">Enter Your Username</label>
+                        <input type="text" class="form-control input-box shadow-lg px-4" id="usernameInput" placeholder="Choose a username">
                     </div>
+                    <div class="w-50 phone-container">
+                        <label for="phone">Provide your phone</label>
+                        <input type="tel" class="form-control input-box shadow-lg" id="phone" placeholder="Enter phone">
+                    </div>
+                </div>
+
+                <!-- PASSWORD & CONFRIM-PASSWORD INPUT -->
+                <div class="d-flex mb-5 pw-cpw">
+                    <div class="w-50 me-5 pw-container">
+                        <label for="exampleInputPassword1">Enter Your Password</label>
+                        <input type="password" class="form-control input-box shadow-lg px-4 pw-box" id="exampleInputPassword1" placeholder="Choose a password">
+                    </div>
+                    <div class="w-50 cpw-container">
+                        <label for="exampleInputPassword1">Confirm Password</label>
+                        <input type="password" class="form-control input-box shadow-lg px-4 pw-box" id="exampleInputPassword1" placeholder="Confirm your password"> 
+                    </div>
+                </div>
+
+                <!-- CAPTCHA -->
+                <div class="captcha">
+                    <!-- SET CAPTCHA HERE -->
+                </div>
+
+                <!-- TERMS & FORGOT PASSWORD DIV -->
+                <div class="terms-forgot-pw d-flex justify-content-between">
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input position-relative" id="exampleCheck1">
+                        <label class="form-check-label fw-normal" for="exampleCheck1">I accept the terms of services</label>
+                    </div>
+                    <a href="" class="text-decoration-none"><p class=" text-black">Forgot password ?</p></a>
+                </div>
+
+                <!-- FORM BUTTON -->
+                <div>
+                    <button type="submit" class="submit-btn w-100 mb-3">Create Account</button>
+                    <p class="fs-6">Already have an account ? <a href="Login.html" class="text-info text-decoration-none">Login</a></p>
                 </div>
             </form>
         </div>
     </div>
 
-    <h1 class="signup-cap">BEAT THE ODDS.</h1>
 
-    <div class="cap-div" id="capDiv">
+
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-box">
+            <div class="row footer-top">
+
+                <!-- ABOUT US -->
+                <div class="col-lg-4 col-md-6 col-sm-6 abt-us me-5 mb-5">
+                    <div class="footer-box-title">
+                       <h2 class="fs-4">About Delux4</h2> 
+                    </div>
+                    <p class="abt-us-p footer-p">
+                        Deluxe 4 is a modern trading platform curated with all categories of traders in mind.
+                         With an easy to explore and use interface, we built integrity, innovation,
+                          and security into a product that is quickly becoming the favorite among traders
+                           in over 60 countries. We are happy to help people unleash their true potential while
+                            expanding their portfolios in a wide range of digital currencies. FCA REGULATED
+                    </p>
+                    <div class="abt-us-icons d-flex">
+                        <div class="twitter social-container me-3">
+                            <i class="bi bi-twitter-x fs-5"></i>
+                        </div>
+                        <div class="mail social-container">
+                            <i class="bi bi-envelope-fill fs-5"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NAVIGATION LINKS -->
+                <div class="col-lg-2 col-md-6 col-sm-6 navigation-links mb-5">
+                    <div class="footer-box-title">
+                      <h2 class="fs-4">Navigation</h2>  
+                    </div>
+                    <ul class="list-unstyled">
+                        <li class="footer-list-item">
+                            <i class="bi bi-arrow-right-short text-info footer-p"></i>
+                            Home
+                        </li>
+                        <li class="footer-list-item">
+                            <i class="bi bi-arrow-right-short text-info footer-p"></i>
+                            News
+                        </li>
+                        <li class="footer-list-item">
+                            <i class="bi bi-arrow-right-short text-info footer-p"></i>
+                            Coin mama
+                        </li>
+                        <li class="footer-list-item">
+                            <i class="bi bi-arrow-right-short text-info footer-p"></i>
+                            Blockchain Wallet
+                        </li>
+                        <li class="footer-list-item">
+                            <i class="bi bi-arrow-right-short text-info footer-p"></i>
+                            Coin market cap
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- RESOURCES -->
+                <div class="col-lg-2 col-md-6 col-sm-6 resources mb-5">
+                    <div class="footer-box-title">
+                       <h2 class="fs-4">Resources</h2> 
+                    </div>
+                    <ul class="list-unstyled">
+                        <li class="footer-list-item">
+                            <i class="bi bi-arrow-right-short text-info footer-p"></i>
+                            Account Types
+                        </li>
+                        <li class="footer-list-item">
+                            <i class="bi bi-arrow-right-short text-info footer-p"></i>
+                            Help Center
+                        </li>
+                        <li class="footer-list-item">
+                            <i class="bi bi-arrow-right-short text-info footer-p"></i>
+                            Funding Methods
+                        </li>
+                        <li class="footer-list-item">
+                            <i class="bi bi-arrow-right-short text-info footer-p"></i>
+                            Withdrawal Methods
+                        </li>
+                        <li class="footer-list-item">
+                            <i class="bi bi-arrow-right-short text-info footer-p"></i>
+                            Legal Agreements
+                        </li>
+                        <li class="footer-list-item">
+                            <i class="bi bi-arrow-right-short text-info footer-p"></i>
+                            Privacy Policy
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- CONTACT -->
+                <div class="col-lg-3 col-md-6 col-sm-6 contact-info mb-5">
+                    <div class="footer-box-title">
+                        <h2 class="fs-4">contact-info</h2>
+                    </div>
+                    <div class="address mb-4 footer-p" style="opacity: 0.7;">
+                        Aqueous II, Aston Cross Business Village, Rocky Lane, Birmingham,<br> B6 5RQ. UK
+                    </div>
+                    <div class="number mb-3 footer-p">
+                        <i class="bi bi-telephone-fill text-info me-2"></i>
+                        +44 7862802661
+                    </div>
+                    <div class="email footer-p">
+                        <i class="bi bi-envelope-fill text-info me-2"></i>
+                        helpdesk@deluxe4.com
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom text-center mt-5 footer-p">
+                <p>© Copyright Deluxe 4 2024. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BACK TO TOP BUTTON -->
+    <div class="back-to-top">
+        <a href="">
+            <i class="bi bi-chevron-up text-white fs-3"></i>
+        </a>  
     </div>
-    <script>
+<script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/coinMarquee.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    $(document).ready(function() {
+        var input = document.querySelector("#phone");
+        var iti = window.intlTelInput(input, {
+            initialCountry: "auto",
+            geoIpLookup: function(callback) {
+                $.get('https://ipinfo.io', function() {}, "jsonp").always(function(resp) {
+                    var countryCode = (resp && resp.country) ? resp.country : "us";
+                    callback(countryCode);
+                });
+            },
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+        });
 
-        let capDiv = document.getElementById('capDiv');
+        // Ensure the dropdown appears below the input
+        $(input).on("countrychange", function() {
+            adjustDropdownPosition();
+        });
 
-        function anime(){
-            capDiv.style.width = '50%'
+        function adjustDropdownPosition() {
+            var countryList = $('.iti__country-list');
+            var inputRect = input.getBoundingClientRect();
+            var viewportHeight = window.innerHeight;
+            var spaceBelow = viewportHeight - inputRect.bottom;
+            var spaceAbove = inputRect.top;
+
+            if (spaceBelow < countryList.outerHeight() && spaceAbove > spaceBelow) {
+                // If not enough space below and more space above, position above
+                countryList.css({
+                    top: 'auto',
+                    bottom: '100%',
+                });
+            } else {
+                // Otherwise, position below
+                countryList.css({
+                    top: '100%',
+                    bottom: 'auto',
+                });
+            }
         }
 
-     
-    </script>
+        // Adjust position on window resize
+        $(window).on("resize", function() {
+            adjustDropdownPosition();
+        });
+
+        // Initial adjustment
+        adjustDropdownPosition();
+    });
+
+
+    // fixed navbar
+    window.addEventListener('scroll', function() {
+        var navbar = document.querySelector('.navbar');
+        var mobileIcon = document.querySelectorAll('.mobile-icon');
+        var navLinks = document.querySelectorAll('.nav-link');
+        var navToggler = document.querySelector('.navbar-toggler');
+        var logo = document.querySelector('.logo');
+        var backToTop = document.querySelector('.back-to-top')
+
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+            navbar.classList.add('shadow-lg')
+            navLinks.forEach(function(navLink) {
+                navLink.classList.add('link-scrolled');
+                console.log('link-scrolled class added');
+            });
+            mobileIcon.forEach(function(mobileIcon){
+                mobileIcon.classList.add('mobile-icon-white');
+            })
+            navToggler.classList.remove('white-toggler');
+            logo.src = "assets/logo (1).png"
+        } else {
+            navbar.classList.remove('scrolled');
+            navbar.classList.remove('shadow-lg')
+            navLinks.forEach(function(navLink) {
+                navLink.classList.remove('link-scrolled');
+                console.log('link-scrolled class removed');
+            });
+            mobileIcon.forEach(function(mobileIcon){
+                mobileIcon.classList.remove('mobile-icon-white')
+            })
+            navToggler.classList.add('white-toggler')
+            logo.src = "assets/logo-light.png"
+        }
+    });
+
+
+    // BACK TO TOP BUTTON HANDLER
+    const backToTopButton = document.querySelector('.back-to-top');
+
+    window.addEventListener('scroll', function() {
+    const scrollY = window.scrollY;
+    if (scrollY > 100) {
+        backToTopButton.classList.add('d-flex');
+    } else {
+        backToTopButton.classList.remove('d-flex');
+    }
+    });
+
+    backToTopButton.addEventListener('click', function(e) {
+    e.preventDefault();
+    document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+
+    // fade up animation for each sections
+    AOS.init();
+</script>
 </body>
 </html>

@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-    <title>Login - delux4.com</title>
+    <title>Validate Your Email - delux4.com</title>
 </head>
 <style>
 /* `sm` applies to x-small devices (portrait phones, less than 576px)
@@ -29,7 +29,7 @@
 @media (max-width: 1399.98px) { ... } */
 
     body{
-        padding: 0;
+        padding: 70px 0 0 0;
         margin: 0;
     }
 
@@ -43,28 +43,8 @@
       justify-content: center;
     }
 
-    .section-one{
-        background-image: url('assets/1__o9tM4VLLV9628YvEtOX8Q.jpeg');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center center;
-        width: 100%;
-        height: 65vh;
-        padding: 20px 7%;
-    }
-
-    .section-one .overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 65vh;
-        background-color: rgba(25, 123, 193, 0.876); /* White with 30% opacity */
-        pointer-events: none; /* Allows interaction with elements below the overlay */
-    }
-
     .navbar{
-        background: transparent !important;
+        background: #fff !important;
         transition: background-color 0.3s ease-in-out;
     }
 
@@ -75,16 +55,13 @@
         top: 60px !important;
     }
 
-    .navbar.scrolled {
-        background-color: white !important;
-    }
 
     .logo{
-        width: 230px;
+        width: 210px;
     }
 
     .nav-link{
-        color: #fff;
+        color: #000;
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         font-size: 14px !important;
         letter-spacing: 0.5px;
@@ -92,11 +69,11 @@
     }
 
     .nav-link:hover{
-        color: #fff !important;
+        color: #000!important;
     }
 
     .nav-link:focus{
-        color: #fff !important;
+        color: #000 !important;
     }
 
     .nav-link.link-scrolled{
@@ -105,7 +82,7 @@
 
     .nav-item{
         cursor: pointer;
-        color: #fff;
+        color: #000;
     }
 
     .dropdown-menu{
@@ -187,7 +164,7 @@
             display: block !important;
         }
 
-        .mobile-icon-white{
+        .mobile-icon{
             color: #000 !important; /* Set text color to black */
         }
 
@@ -266,13 +243,9 @@
     }
 
     @media (max-width: 767.98px) { 
-        .section-one,
-        .overlay{
-            height: 70vh !important;
-        }
 
-        .section-one-banner{
-            padding-top: 100px !important;
+        body{
+            padding-top: 120px;
         }
     }
 
@@ -281,13 +254,6 @@
         body{
             padding-inline-start: 1px; /* Adjust the value based on your navbar width */
             padding-inline-end: 5px;
-        }
-
-        .section-one{
-            padding-left: 0px !important;
-            padding-right: 0px !important;
-            padding-inline-end: -5px;
-            width: 100.8% !important;
         }
 
         .nav-container{
@@ -317,28 +283,6 @@
         .main-menu{
             width: 80% !important;
         }
-
-        .section-one-banner{
-            padding-top: 100px !important;
-        }
-
-        .section-one,
-        .overlay{
-            height: 65vh !important;
-            margin-right: -10px !important;
-        }
-
-        .overlay{
-            margin-right: -10px !;
-        }
-
-        .banner-h1{
-            width: 95% !important;
-            line-height: 150%;
-            font-weight: 400;
-            text-align: left !important;
-            font-size: 30px !important;
-        }
     }
 
 
@@ -353,6 +297,10 @@
         width: 60% !important;
     }
 
+    .form-banner-p{
+        width: 500px !important;
+    }
+
     label{
         font-size: 18px !important;
         font-weight: 600;
@@ -364,18 +312,6 @@
     .input-box{
         height: 60px !important;
         border: none !important;
-    }
-
-    .iti{
-        width: 100%;
-    }
-
-    .iti__country-list {
-        max-height: 300px; /* Limit the height of the dropdown */
-        overflow-y: auto; /* Enable vertical scrolling */
-        z-index: 1051; 
-        position: absolute;
-        top: 100%;
     }
 
     .form-check-input{
@@ -407,19 +343,7 @@
             width: 100% !important;
         }
 
-        .username-phone,
-        .pw-cpw{
-            flex-direction: column !important;
-        }
-
-        .pw-cpw{
-            margin-bottom: 5px !important;
-        }
-
-        .username-container,
-        .phone-container,
-        .pw-container,
-        .cpw-container{
+        .form-banner-p{
             width: 100% !important;
         }
 
@@ -427,19 +351,11 @@
             margin-bottom: 20px !important;
         }
 
-        label{
-            font-size: 16px !important;
-        }
-
-        .form-check-label{
-            font-size: 16px !important;
-        }
-
         .terms-forgot-pw{
             flex-direction: column !important;
             margin-bottom: 0px !important;
         }
-     }
+    }
 
 
 
@@ -538,19 +454,17 @@
 <body>
     
     <!-- SECTION-ONE -->
-    <div class="section-one" id="top">
-        <div class="overlay"></div>
         <div id="coinmarketcap-widget-marquee" class="coinmarketcap" coins="1,1027,825,1839,5426,21540,11419,2087" currency="USD" theme="dark" transparent="false" show-symbol-logo="true"></div>
         
         <!-- NAVBAR -->
-        <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary bg-dark position-relative pt-3 d-flex flex-row">
+        <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary bg-white position-relative pt-3 d-flex flex-row">
 
             <!-- NAVBER-CONTAINER -->
             <div class="container-fluid px-5 py-0 nav-container">
 
                 <!-- WEBSITE LOGO -->
-                <a class="navbar-brand p-0" href="#">
-                    <img src="assets/logo-light.png" alt="" class="logo">
+                <a class="navbar-brand p-0 d-flex justify-content-center" href="#">
+                    <img src="assets/logo (1).png" alt="" class="logo mx-auto">
                 </a>
 
                 <!-- SIGN UP & LOGIN ICON FOR MOBILE VIEW -->
@@ -562,7 +476,7 @@
                 </a>
 
                 <!-- NAVBAR-TOGGLER -->
-                <button class="navbar-toggler white-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -615,35 +529,18 @@
             </div>
         </nav>
 
-        <!--   BANNER -->
-        <div class="section-one-banner container-fluid mt-5 position-relative text-center" data-aos="fade-up" data-aos-duration="1000">
-            <h1 class="banner-h1 w-50 mx-auto fs-1 text-white">Welcome Back! We have some exciting updates waiting for you.</h1>
-        </div>
-    </div>
-    
-
-
-
-
     <!-- SECTION-TWO -->
     <div class="section-two">
 
         <!-- FORM -->
         <div class="form-container mx-auto">
-            <div class="form-banner mb-5">
-                <h1 class="text-center fs-3 form-h1">Login Account.</h1>
-                <p class="text-center form-banner-p">Use the form below to Login your delux4 account</p>
+            <div class="form-banner mb-5" data-aos="fade-up" data-aos-duration="1000">
+                <h1 class="text-center fs-3 form-h1">Email Validation</h1>
+                <p class="text-center form-banner-p mx-auto">A verification code was sent to ${user.email} . Check your inbox (including spam) and enter it below to continue. Didn't receive it? Request a new one.</p>
             </div>
-            <form class="mt-5" data-aos="fade-up" data-aos-duration="1000">
+            <form class="mt-5" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
                 <div class="mb-4 w-100">
-                    <label for="emailInput">Enter Your Email</label>
-                    <input type="email" class="form-control input-box shadow-lg px-4" id="emailInput" aria-describedby="emailHelp" placeholder="Valid Email address">
-                </div>
-                <div class="d-flex mb-5 pw-cpw">
-                    <div class="w-100 pw-container">
-                        <label for="exampleInputPassword1">Enter Your Password</label>
-                        <input type="password" class="form-control input-box shadow-lg px-4 pw-box" id="exampleInputPassword1" placeholder="Valid password">
-                    </div>
+                    <input type="number" class="form-control input-box shadow-lg px-4" id="code" placeholder="Enter Validation Code">
                 </div>
 
                 <!-- CAPTCHA -->
@@ -651,19 +548,10 @@
                     <!-- SET CAPTCHA HERE -->
                 </div>
 
-                <!-- TERMS & FORGOT PASSWORD DIV -->
-                <div class="terms-forgot-pw d-flex justify-content-between">
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input position-relative" id="exampleCheck1">
-                        <label class="form-check-label fw-normal" for="exampleCheck1">I accept the terms of services</label>
-                    </div>
-                    <a href="" class="text-decoration-none"><p class=" text-black">Forgot password ?</p></a>
-                </div>
-
                 <!-- SUBMIT BUTTON -->
                 <div>
-                    <button type="submit" class="submit-btn w-100 mb-3">Login</button>
-                    <p class="fs-6">Dont have an account ? <a href="signup.html" class="text-info text-decoration-none">Sign up</p>
+                    <button type="submit" class="submit-btn w-100 mb-3">Submit</button>
+                    <p class="fs-6">Did not receive any code ? <a href="signup.html" class="text-info text-decoration-none">Resend</p>
                 </div>
             </form>
         </div>
@@ -850,36 +738,15 @@
     // fixed navbar
     window.addEventListener('scroll', function() {
         var navbar = document.querySelector('.navbar');
-        var mobileIcon = document.querySelectorAll('.mobile-icon');
         var navLinks = document.querySelectorAll('.nav-link');
-        var navToggler = document.querySelector('.navbar-toggler');
-        var logo = document.querySelector('.logo');
         var backToTop = document.querySelector('.back-to-top')
 
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
             navbar.classList.add('shadow-lg')
-            navLinks.forEach(function(navLink) {
-                navLink.classList.add('link-scrolled');
-                console.log('link-scrolled class added');
-            });
-            mobileIcon.forEach(function(mobileIcon){
-                mobileIcon.classList.add('mobile-icon-white');
-            })
-            navToggler.classList.remove('white-toggler');
-            logo.src = "assets/logo (1).png"
         } else {
             navbar.classList.remove('scrolled');
             navbar.classList.remove('shadow-lg')
-            navLinks.forEach(function(navLink) {
-                navLink.classList.remove('link-scrolled');
-                console.log('link-scrolled class removed');
-            });
-            mobileIcon.forEach(function(mobileIcon){
-                mobileIcon.classList.remove('mobile-icon-white')
-            })
-            navToggler.classList.add('white-toggler')
-            logo.src = "assets/logo-light.png"
         }
     });
 
