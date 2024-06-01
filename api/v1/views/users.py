@@ -102,7 +102,7 @@ def profile():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for(''))
+    return redirect(url_for('app_views.login'))
 
 @app_views.route('/users/reset_password', methods=['GET', 'POST'], strict_slashes=False, endpoint='reset_password')
 def reset_password():
