@@ -16,7 +16,7 @@ class RegistrationForm(Form):
                                                    Length(min=4, max=20, message="username cannot be less than 4 and more than 20 characters")])
     password = PasswordField('Password', validators=[DataRequired(),
                                                     Length(min=6, message="Password must be at least 6 characters long.")])
-    PhoneNumber = StringField('PhoneNumber', validators=[DataRequired()])
+    phonenumber = StringField('PhoneNumber', validators=[DataRequired()])
     submit = SubmitField('Register')
 
 class LoginForm(Form):

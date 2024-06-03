@@ -44,7 +44,7 @@
     }
 
     .section-one{
-        background-image: url('assets/1__o9tM4VLLV9628YvEtOX8Q.jpeg');
+        background-image: url("{{ url_for('static', filename='img/1__o9tM4VLLV9628YvEtOX8Q.jpeg') }}");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center center;
@@ -533,6 +533,10 @@
         bottom: 40px;
     }
 
+    .h-p {
+        text-decoration: red;
+    }
+
 
 </style>
 <body>
@@ -550,7 +554,7 @@
 
                 <!-- WEBSITE LOGO -->
                 <a class="navbar-brand p-0" href="#">
-                    <img src="assets/logo-light.png" alt="" class="logo">
+                    <img src="logo-light.png" alt="" class="logo">
                 </a>
 
                 <!-- SIGN UP & LOGIN ICON FOR MOBILE VIEW -->
@@ -570,7 +574,7 @@
                 <div class="collapse navbar-collapse main-menu" id="navbarNavDropdown">
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
                         <li class="nav-item">
-                            <a class="nav-link active text-white aria-current="page" href="#">HOME</a>
+                            <a class="nav-link active text-white aria-current"="page" href="#">HOME</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -604,7 +608,7 @@
 
                         <!-- SIGN-UP & LOGIN ICONS FOR LARGE WIDTH DEVICES -->
                         <li class="nav-item mx-3 lg-nav-icons">
-                            <a class="nav-link href=""><i class="bi bi-person-fill nav-icon nav-icon1"></i></a>
+                            <a class="nav-link href="><i class="bi bi-person-fill nav-icon nav-icon1"></i></a>
                         </li>
                         <li class="nav-item lg-nav-icons">
                             <a class="nav-link d-flex" href=""><i class="bi bi-box-arrow-in-right nav-icon nav-icon2 me-2"></i>
@@ -628,27 +632,33 @@
     <!-- SECTION-TWO -->
     <div class="section-two">
 
-        <!-- FORM -->
+    <!-- FORM -->
         <div class="form-container mx-auto">
             <div class="form-banner mb-5">
                 <h1 class="text-center fs-3 form-h1">Login Account.</h1>
                 <p class="text-center form-banner-p">Use the form below to Login your delux4 account</p>
             </div>
-            <form class="mt-5" data-aos="fade-up" data-aos-duration="1000">
+            <form method="POST" id="Login_form" class="mt-5" data-aos="fade-up" data-aos-duration="1000">
                 <div class="mb-4 w-100">
                     <label for="emailInput">Enter Your Email</label>
-                    <input type="email" class="form-control input-box shadow-lg px-4" id="emailInput" aria-describedby="emailHelp" placeholder="Valid Email address">
+                    <!-- <input type="email" class="form-control input-box shadow-lg px-4" id="emailInput" aria-describedby="emailHelp" placeholder="Valid Email address"> -->
+                    {{ Login_form.email(class="form-control input-box shadow-lg px-4", placeholder = "Valid Email address") }}
                 </div>
+                {% if error_message %}
+                    <p class="h-p">{{ error_message }}<p>
+                {% endif %}
                 <div class="d-flex mb-5 pw-cpw">
                     <div class="w-100 pw-container">
                         <label for="exampleInputPassword1">Enter Your Password</label>
-                        <input type="password" class="form-control input-box shadow-lg px-4 pw-box" id="exampleInputPassword1" placeholder="Valid password">
+                        <!-- <input type="password" class="form-control input-box shadow-lg px-4 pw-box" id="exampleInputPassword1" placeholder="Valid password"> -->
+                        {{ Login_form.password(class="form-control input-box shadow-lg px-4 pw-box", placeholder = "Valid password") }}
                     </div>
                 </div>
 
                 <!-- CAPTCHA -->
                 <div class="captcha">
                     <!-- SET CAPTCHA HERE -->
+                    {{ recaptcha }}
                 </div>
 
                 <!-- TERMS & FORGOT PASSWORD DIV -->
@@ -662,12 +672,14 @@
 
                 <!-- SUBMIT BUTTON -->
                 <div>
-                    <button type="submit" class="submit-btn w-100 mb-3">Login</button>
+                    <!-- <button type="submit" class="submit-btn w-100 mb-3">Login</button> -->
+                    {{ Login_form.submit(class="submit-btn w-100 mb-3") }}
                     <p class="fs-6">Dont have an account ? <a href="signup.html" class="text-info text-decoration-none">Sign up</p>
                 </div>
             </form>
         </div>
-    </div>
+        </div>
+    </form>
 
 
 
@@ -867,7 +879,7 @@
                 mobileIcon.classList.add('mobile-icon-white');
             })
             navToggler.classList.remove('white-toggler');
-            logo.src = "assets/logo (1).png"
+            logo.src = "{{ url_for('static', filename='img/logo (1).png') }}"
         } else {
             navbar.classList.remove('scrolled');
             navbar.classList.remove('shadow-lg')
@@ -879,7 +891,7 @@
                 mobileIcon.classList.remove('mobile-icon-white')
             })
             navToggler.classList.add('white-toggler')
-            logo.src = "assets/logo-light.png"
+            logo.src = "{{ url_for('static', filename='img/logo-light.png') }}"
         }
     });
 

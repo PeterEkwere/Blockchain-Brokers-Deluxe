@@ -43,17 +43,20 @@ def register():
         email = form.email.data
         username = form.username.data
         password = form.password.data
-        PhoneNumber = form.PhoneNumber.data
+        phonenumber = form.phonenumber.data
+        print(f"\n\nemail is {email}, password is {password}\n")
         
         # Create a new user object with the extracted details
         try:
-            new_user = auth.register_user(username.lower(), email.lower(), password, PhoneNumber)
+            new_user = auth.register_user(username.lower(), email.lower(), password, phonenumber)
+            print("User was found")
         except ValueError:
             error_message = "This email address has already been used."  
             return render_template('signup.html',
                                    register_form = form, error_message=error_message)
         
         return redirect(url_for('app_views.login'))
+    print("\nRENDERING TEMPLATE AGAIN\n")
     return render_template('signup.html',
                            register_form = RegistrationForm())
     

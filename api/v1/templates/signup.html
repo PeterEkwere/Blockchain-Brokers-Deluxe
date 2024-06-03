@@ -552,7 +552,7 @@
             <!-- NAVBAR CONTAINER -->
             <div class="container-fluid px-5 py-0 nav-container">
                 <a class="navbar-brand p-0" href="#">
-                    <img src="assets/logo-light.png" alt="" class="logo">
+                    <img src="logo-light.png" alt="" class="logo">
                 </a>
 
                 <!-- SIGN UP & LOGIN ICONS FOR MOBILE-->
@@ -629,6 +629,9 @@
 
     <!-- SECTION-TWO -->
     <div class="section-two">
+        {% if error_message %}
+                <p class="h-p">{{ error_message }}<p>
+        {% endif %}
 
         <!-- FORM-CONTAINER -->
         <div class="form-container mx-auto">
@@ -637,23 +640,26 @@
                 <p class="text-center form-banner-p">Use the form below to create a new account on Deluxe4.</p>
             </div>
             <!-- FORM -->
-            <form data-aos="fade-up" data-aos-duration="1000">
+            <form method="POST" id="Login_form"  data-aos="fade-up" data-aos-duration="1000">
 
                 <!-- EMAIL INPUT -->
                 <div class="mb-4">
                     <label for="emailInput">Enter Your Email</label>
-                    <input type="email" class="form-control input-box shadow-lg px-4" id="emailInput" aria-describedby="emailHelp" placeholder="Valid Email address">
+                    <!-- <input type="email" class="form-control input-box shadow-lg px-4" id="emailInput" aria-describedby="emailHelp" placeholder="Valid Email address"> -->
+                    {{ register_form.email(class="form-control input-box shadow-lg px-4", placeholder = "Valid Email address") }}
                 </div>
 
                 <!-- USERNAME & PHONE-NUMBER INPUT -->
                 <div class="d-flex mb-4 username-phone">
                     <div class="w-50 me-5 username-container">
                         <label for="usernameInput">Enter Your Username</label>
-                        <input type="text" class="form-control input-box shadow-lg px-4" id="usernameInput" placeholder="Choose a username">
+                        <!-- <input type="text" class="form-control input-box shadow-lg px-4" id="usernameInput" placeholder="Choose a username"> -->
+                        {{ register_form.username(class="form-control input-box shadow-lg px-4", placeholder = "Choose a username") }}
                     </div>
                     <div class="w-50 phone-container">
                         <label for="phone">Provide your phone</label>
-                        <input type="tel" class="form-control input-box shadow-lg" id="phone" placeholder="Enter phone">
+                        <!-- <input type="tel" class="form-control input-box shadow-lg" id="phone" placeholder="Enter phone"> -->
+                        {{ register_form.phonenumber(class="form-control input-box shadow-lg px-4", placeholder = "Enter Phone ") }}
                     </div>
                 </div>
 
@@ -661,17 +667,19 @@
                 <div class="d-flex mb-5 pw-cpw">
                     <div class="w-50 me-5 pw-container">
                         <label for="exampleInputPassword1">Enter Your Password</label>
-                        <input type="password" class="form-control input-box shadow-lg px-4 pw-box" id="exampleInputPassword1" placeholder="Choose a password">
+                        <!-- <input type="password" class="form-control input-box shadow-lg px-4 pw-box" id="exampleInputPassword1" placeholder="Choose a password"> -->
+                        {{ register_form.password(class="form-control input-box shadow-lg px-4", placeholder = "Choose a password") }}
                     </div>
                     <div class="w-50 cpw-container">
-                        <label for="exampleInputPassword1">Confirm Password</label>
-                        <input type="password" class="form-control input-box shadow-lg px-4 pw-box" id="exampleInputPassword1" placeholder="Confirm your password"> 
+                        <label for="exampleInputPassword2">Confirm Password</label>
+                        <input type="password" class="form-control input-box shadow-lg px-4 pw-box" id="exampleInputPassword2" placeholder="Confirm your password"> 
                     </div>
                 </div>
 
                 <!-- CAPTCHA -->
                 <div class="captcha">
                     <!-- SET CAPTCHA HERE -->
+                    {{ recaptcha }}
                 </div>
 
                 <!-- TERMS & FORGOT PASSWORD DIV -->
@@ -685,7 +693,8 @@
 
                 <!-- FORM BUTTON -->
                 <div>
-                    <button type="submit" class="submit-btn w-100 mb-3">Create Account</button>
+                    <!-- <button type="submit" class="submit-btn w-100 mb-3">Create Account</button> -->
+                    {{ register_form.submit(class="submit-btn w-100 mb-3") }}
                     <p class="fs-6">Already have an account ? <a href="Login.html" class="text-info text-decoration-none">Login</a></p>
                 </div>
             </form>
@@ -891,7 +900,7 @@
                 mobileIcon.classList.add('mobile-icon-white');
             })
             navToggler.classList.remove('white-toggler');
-            logo.src = "assets/logo (1).png"
+            logo.src = "{{ url_for('static', filename='img/logo (1).png') }}"
         } else {
             navbar.classList.remove('scrolled');
             navbar.classList.remove('shadow-lg')
@@ -903,7 +912,7 @@
                 mobileIcon.classList.remove('mobile-icon-white')
             })
             navToggler.classList.add('white-toggler')
-            logo.src = "assets/logo-light.png"
+            logo.src = "{{ url_for('static', filename='img/logo-light.png') }}"
         }
     });
 
