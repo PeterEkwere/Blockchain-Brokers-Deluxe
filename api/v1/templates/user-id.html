@@ -9,34 +9,924 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/monzanifabio/cryptofont/cryptofont.css">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
     <title>Verify ID - delux4.com</title>
 </head>
 <style>
+    /* `sm` applies to x-small devices (portrait phones, less than 576px)
+    @media (max-width: 575.98px) { ... }
 
+    `md` applies to small devices (landscape phones, less than 768px)
+    @media (max-width: 767.98px) { ... }
+
+    `lg` applies to medium devices (tablets, less than 992px)
+    @media (max-width: 991.98px) { ... }
+
+    `xl` applies to large devices (desktops, less than 1200px)
+    @media (max-width: 1199.98px) { ... }
+
+    `xxl` applies to x-large devices (large desktops, less than 1400px)
+    @media (max-width: 1399.98px) { ... } */
+
+    body{
+        padding: 0;
+        margin: 0;
+    }
+
+    .main{
+        padding-top: 70px;
+    }
+
+    .header{
+        z-index: 2 !important;
+    }
+
+    .logo-box{
+        background-color: #fbfaff;
+        z-index: 2 !important;
+    }
+
+    .logo{
+        width: 45px;
+    }
+
+    .currency-box {
+        display: flex; /* Ensure flexbox is enabled */
+        flex-wrap: nowrap; /* Prevent wrapping */
+        align-items: center; /* Maintain vertical alignment */
+        cursor: pointer;
+    }
+
+    .wallet-dropdown{
+        position: absolute;
+        visibility: hidden;
+        height: 0;
+        opacity: 0;
+        top: 60px;
+        transition: 0.3s;
+        overflow-y: auto;
+        overflow-y: scroll;
+        scrollbar-width: thin;
+        background-color: #fff;
+    }
+
+    .wallet-dropdown.active{
+        position: absolute;
+        top: 80px;
+        width: 350px;
+        visibility: visible;
+        opacity: 1;
+        padding: 0px !important;
+        margin: 0px;
+        height: 300px;
+        vertical-align: middle;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: start;
+        box-shadow: 0px 3px 6px #3333333f;
+        overflow-y: scroll;
+        scrollbar-width: thin;
+    }
+
+    .wallet-dropdown::-webkit-scrollbar {
+        width: 8px; /* Adjust width as desired */
+        background-color: #f5f5f5; /* Set track background color */
+    }
+
+    .wallet-dropdown::-webkit-scrollbar-thumb {
+        background-color: #ccc; /* Set thumb color */
+        border-radius: 6px; /* Add rounded corners */
+    }
+
+    .wallet{
+        width: 100%;
+        border-radius: 0px !important;
+        height: 140px !important;
+        font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    .currency-coin{
+        bottom: 5px;
+    }
+
+    .currency-name{
+        color: #f7931a;
+    }
+
+    .coin-name{
+        opacity: 0.5 !important;
+        font-size: 14px !important;
+    }
+
+    .coin-logo{
+        opacity: 0.5 !important;
+    }
+
+    .wallet-btn{
+        border: 1px solid #fff;
+        padding: 5px 10px;
+        font-size: 14px;
+        background: none !important;
+        color: #fff;
+        position: relative;
+        top: 30px;
+    }
+
+    .header-p{
+        font-family:"Plus Jakarta Sans", sans-serif;
+        font-size: 13px !important;
+    }
+
+
+    @media (max-width: 767.98px) { 
+        .currency-box{
+            display: none !important;
+        }
+
+        .logo{
+            width: 30px;
+            top: 50px;
+        }
+    }
+
+    /* ================== HEADER RIGHT STYLES================== */
+
+
+    .total-balance-digits{
+        top: 5px;
+    }
+
+    .flags-dropdown-btn{
+        top: 20px !important;
+    }
+
+    .flag-menu{
+        top: 100% !important;
+        left: -100% !important;
+        border-radius: 0px !important;
+        box-shadow: 0px 3px 6px #3333331f;
+        transition: 0.3s;
+    }
+
+    .flag-btn{
+        width: 30px !important;
+    }
+
+    .profile-box{
+        cursor: pointer;
+    }
+
+    .profile-icon{
+        color: #333;
+    }
+
+    .profile-name{
+        top: 9px;
+        color: #333;
+        font-family:"Plus Jakarta Sans", sans-serif;
+        font-weight: 500;
+    }
+
+    .profile-dropdown{
+        visibility: hidden;
+        position: absolute;
+        top: 50px;
+        right: 10px;
+        width: 200px;
+        padding: 5px 10px;
+        opacity: 0;
+        transition: 0.2s;
+        background-color: #fff;
+        border-radius: 0px !important;
+    }
+
+    .profile-dropdown.active{
+        visibility: visible;
+        opacity: 1;
+        position: absolute;
+        border:1px solid #ccc !important;
+        box-shadow: 0px 3px 6px #33333322;
+        padding: 5px 10px;
+        top: 80px;
+        right: 8px;
+    }
+
+    .profile-item{
+        margin-bottom: 10px;
+    }
+
+    .profile-item:hover{
+        opacity: 0.7;
+    }
+
+    @media (max-width: 991.98px) { 
+        .balance-lg{
+            display: none !important;
+        }
+
+        .total-balance{
+            display: none;
+        }
+
+        .balance-sm{
+            display: block !important; 
+            top: 10px;
+        }
+
+        .balance-dropdown-sm.show{
+            top: 10px !important;
+            border-radius: 0px !important;
+            box-shadow: 0px 3px 6px #33333324;
+            transition: 0.3s all;
+        }
+
+        .profile-name{
+            display: none !important;
+        }
+    }
+
+
+    /* ================== FIXED SIDE NAV STYLES ================= */ 
+
+    .fixed-side-nav{
+        height: 100%;
+        top: 40px !important;
+        width: 79px !important;
+        padding-top: 50px;
+        z-index: 0;
+    }
+
+    .trade-box {
+        position: relative; 
+        cursor: pointer;
+    }
+
+    .drop-header{
+        background-color: #fbfaff;
+        width: 100%;
+        margin-bottom: 0;
+    }
+
+    .trade-box .icon-dropdown {
+        visibility: hidden;
+        position: absolute;
+        top: -50%;
+        left: 30px;
+        background-color: #fff; 
+        box-shadow: 0px 3px 6px #33333338;
+        border-radius: 5px;
+        padding: 0;
+        width: 150px;
+        opacity: 0;
+        transition: 0.2s all;
+    }
+
+    .trade-box:hover .icon-dropdown {
+        opacity: 1;
+        visibility: visible;
+        left: 60px;
+    }
+
+    .drop-list{
+        width: 100%;
+        padding: 0px 10px;
+        margin: 0px;
+        height: 40px;
+        vertical-align: middle;
+        display: flex;
+        align-items: center;
+    }
+
+    .drop-list:hover{
+        background-color: #fbfaff;
+    }
+
+    .nav-sm{
+        display: none;
+    }
+
+    @media (max-width: 991.98px){
+        
+        .translations{
+            display: none !important;
+        }
+
+        .profile-dropdown,
+        .profile-dropdown.active{
+            width: 300px;
+            right: 20px;
+        }
+
+        .nav-lg{
+            display: none !important;
+        }
+
+        .nav-sm{
+            display: block;
+        }
+    }
+
+    @media (max-width: 767.98px){
+        .profile-dropdown.active{
+            top: 50px !important;
+            width: 90%;
+            right: 20px;
+        }
+
+        .profile-item{
+            margin-bottom: 20px;
+        }
+    }
+
+
+
+    /* ================== PAGE FORM STYLES ================= */
+    .page-form{
+        margin-left: 100px;
+        margin-right: 50px;
+        margin-top: 20px !important;
+        border-radius: 10px;
+        box-shadow: 0px 3px 6px #33333326;
+    }
+
+
+    .form-header, h1{
+        font-family:"Plus Jakarta Sans", sans-serif;
+        font-weight: 500;
+        font-size: 20px;
+        margin-top: 10px;
+    }
+
+    .form-guide{
+        border-radius: 10px;
+        background-color: #b7dbf9;
+        color: #3574a7;
+    }
+
+    .guide-p{
+        font-size: 14px;
+    }
+
+    .form-select{
+        transition: 0.5s all;
+    }
+
+    .form-select:focus {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    .form-btn{
+        border: none;
+    }
+
+    .upload-btn{
+        font-size: 16px;
+        padding: 10px 10px;
+        background-color: #5156be;
+        border-radius: 5px !important;
+        color: #fff;
+        box-shadow: 0px 6px 12px #5156be54;
+        font-family:"Plus Jakarta Sans", sans-serif;
+        transition: 0.5s;
+    }
+
+    .form-btn:hover{
+        box-shadow: none;
+    }
+
+    .skip-btn{
+        padding: 10px 25px;
+        border: 1px solid #5156be;
+        border-radius: 5px;
+        background-color: #fff;
+        color: #5156be;
+        box-shadow: 0px 6px 12px #5156be4a;
+        transition: 0.5s;
+    }
+
+    @media (max-width: 991.98px){
+        .page-form{
+            margin: 20px 20px 100px 20px !important;
+        }
+    }
+
+
+
+    /* ================== FOOTER STYLES ================= */
+
+    footer{
+
+        display: flex !important;
+        bottom: 0 !important;
+    }
+
+    footer p{
+        opacity: 0.8;
+    }
+
+    @media (max-width: 991.98px){
+        footer{
+            margin: 0 !important;
+            position: absolute;
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 767.98px){
+        footer{
+            position: relative;
+            height: 50px;
+        }
+    }
+   
 </style>
 <body>
-
     <!-- ====================================== MAIN PAGE ============================== -->
     <div class="main">
-
         <!-- ================================== HEADER STARTS HERE ====================================== -->
-        <div class="header">
+        <div class="header container-fluid p-0 mx-0 border-bottom d-flex justify-content-between fixed-top bg-white">
 
-            <!-- logo and balance container -->
-            <div class="logo-balance">
-                
+            <!-- ============================== HEADER LEFT ========================================  -->
+
+            <!-- Logo and balance container -->
+            <div class="logo-balance d-flex">
+
+                <!-- Logo -->
+                <div class="logo-box me-2 border-bottom-0 px-3 py-2 border border-end">
+                    <img src="assets/favicon.png" alt="" class="logo">
+                </div>
+
+                <!-- Currency-->
+                <div class="currency-box d-flex align-items-center me-2 px-3 py-2" onclick="dropDownWallets()">
+                    <i class="cf cf-btc fs-3 currency-coin position-relative me-2" style="color: #f7931a;"></i>
+                    <h3 class="currency-name fs-6 position-relative">
+                        Bitcoin Cash 
+                        <i class="bi bi-chevron-down text-black ms-2"></i>
+                    </h3>
+
+                    <!--    wallet dropdown -->
+                    <div class="wallet-dropdown">
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #74788d;">
+                            <div class="wallet-logo-container me-4">
+                                <i class="cf cf-eth coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
+                            </div>
+                            <div class="wallet-name-balance-holding me-4">
+                                <p class="coin-name mb-2 fs-6"">Ethereum</p>
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> ETH</p>
+                            </div>
+                            <div class="default-swap-btn">
+                                <button type="button" class="wallet-btn">Make default</button>
+                            </div>
+                        </div>
+                        <div class="wallet d-flex flex-row align-items-center bg-warning text-white p-4 h-auto rounded mb-3">
+                            <div class="wallet-logo-container me-4">
+                                <i class="cf cf-steem coin-logo fs-2 position-relative" style=" bottom: 30px;"></i>
+                            </div>
+                            <div class="wallet-name-balance-holding me-4">
+                                <p class="coin-name mb-2 fs-6">Steem</p>
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> SBD</p>
+                            </div>
+                            <div class="default-swap-btn">
+                                <button type="button" class="wallet-btn">Make default</button>
+                            </div>
+                        </div>
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #2ab57d;">
+                            <div class="wallet-logo-container me-4">
+                                <i class="cf cf-usdt coin-logo fs-2 position-relative" style=" bottom: 30px;"></i>
+                            </div>
+                            <div class="wallet-name-balance-holding me-4">
+                                <p class="coin-name mb-2 fs-6">Tether USD</p>
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> USDT</p>
+                            </div>
+                            <div class="default-swap-btn">
+                                <button type="button" class="wallet-btn">Make default</button>
+                            </div>
+                        </div>
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #fd625e;">
+                            <div class="wallet-logo-container me-4">
+                                <i class="cf cf-xrp coin-logo fs-2 position-relative" style=" bottom: 30px;"></i>
+                            </div>
+                            <div class="wallet-name-balance-holding me-4">
+                                <p class="coin-name mb-2 fs-6">Ripple</p>
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> XRP</p>
+                            </div>
+                            <div class="default-swap-btn">
+                                <button type="button" class="wallet-btn">Make default</button>
+                            </div>
+                        </div>
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #ffbf53;">
+                            <div class="wallet-logo-container me-4">
+                                <i class="cf cf-doge coin-logo fs-2 position-relative" style=" bottom: 30px;"></i>
+                            </div>
+                            <div class="wallet-name-balance-holding me-4">
+                                <p class="coin-name mb-2 fs-6">Dogecoin</p>
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> DOGE</p>
+                            </div>
+                            <div class="default-swap-btn">
+                                <button type="button" class="wallet-btn">Make default</button>
+                            </div>
+                        </div>
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #4ba6ef;">
+                            <div class="wallet-logo-container me-4">
+                                <i class="cf cf-eth coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
+                            </div>
+                            <div class="wallet-name-balance-holding me-4">
+                                <p class="coin-name mb-2 fs-6"">Ethereum classic</p>
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> ETC</p>
+                            </div>
+                            <div class="default-swap-btn">
+                                <button type="button" class="wallet-btn">Make default</button>
+                            </div>
+                        </div>
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #343a40;">
+                            <div class="wallet-logo-container me-4">
+                                <i class="cf cf-sol coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
+                            </div>
+                            <div class="wallet-name-balance-holding me-4">
+                                <p class="coin-name mb-2 fs-6"">Solana</p>
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> SOL</p>
+                            </div>
+                            <div class="default-swap-btn">
+                                <button type="button" class="wallet-btn">Make default</button>
+                            </div>
+                        </div>
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #5156be;">
+                            <div class="wallet-logo-container me-4">
+                                <i class="cf cf-dot coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
+                            </div>
+                            <div class="wallet-name-balance-holding me-4">
+                                <p class="coin-name mb-2 fs-6"">Polkadot</p>
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> DOT</p>
+                            </div>
+                            <div class="default-swap-btn">
+                                <button type="button" class="wallet-btn">Make default</button>
+                            </div>
+                        </div>
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #4ba6ef;">
+                            <div class="wallet-logo-container me-4">
+                                <i class="cf cf-bch coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
+                            </div>
+                            <div class="wallet-name-balance-holding me-4">
+                                <p class="coin-name mb-2 fs-6"">Bitcoin</p>
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> BCH</p>
+                            </div>
+                            <div class="default-swap-btn">
+                                <button type="button" class="wallet-btn">Make default</button>
+                            </div>
+                        </div>
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #f7931a;">
+                            <div class="wallet-logo-container me-4">
+                                <i class="cf cf-btc coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
+                            </div>
+                            <div class="wallet-name-balance-holding me-4">
+                                <p class="coin-name mb-2 fs-6"">Bitcoin</p>
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> BTC</p>
+                            </div>
+                            <div class="default-swap-btn">
+                                <button type="button" class="wallet-btn">Make default</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Balance -->
+                <div class="balance-box me-2 px-3 py-2 balance-lg" style="text-align: left;">
+                    <p class="mb-0 text-left header-p">Balance</p>
+                    <p class="text-left header-p">$<span class="balance-amount">0.00</span></p>
+                </div>
+
+                <!-- Total Equity -->
+                <div class="equity-box me-2 px-3 py-2 balance-lg" style="text-align: left;">
+                    <p class="mb-0 text-left header-p">T.Equity</p>
+                    <p class="text-left header-p">$<span class="equity-amount">0.00</span></p>
+                </div>
+
+                <!-- P/L -->
+                <div class="p/l-box me-2 px-3 py-2 balance-lg" style="text-align: left;">
+                    <p class="mb-0 text-left header-p">P/L</p>
+                    <p class="text-left header-p">$<span class="p/l-amount">0.00</span></p>
+                </div>
+
+                <!-- T.Margin -->
+                <div class="t.margin-box me-2 px-3 py-2 balance-lg" style="text-align: left;">
+                    <p class="mb-0 text-left header-p">P/L</p>
+                    <p class="text-left header-p">$<span class="t.margin-amount">0.00</span></p>
+                </div>
+
+
+                <!-- Mobile balance -->
+                <div class="dropdown balance-sm bg-none d-none">
+                    <button class="border-0 bg-white dropdown-toggle d-flex align-items-center position-relative text-black" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <h3 class="mb-0 fs-6 pe-3 me-0 text-black">Total Balance</h3>
+                        <h3 class="fs-6 total-balance-digits position-relative ms-0 text-black">$<span class="total-balance-amount">0</span></h3>
+                    </button>
+                    <ul class="dropdown-menu balance-dropdown-sm">
+                    <li style="height: fit-content;">
+                        <a class="dropdown-item mb-0" href="#">
+                            <div class="equity-box me-2 px-3 d-flex" style="text-align: left;">
+                                <p class="mb-0 text-left header-p me-2">T.Equity</p>
+                                <p class="text-left header-p mb-0">$<span class="equity-amount">0.00</span></p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="#">
+                            <div class="p/l-box me-2 px-3 py-2 d-flex" style="text-align: left;">
+                                <p class="mb-0 text-left header-p me-2">P/L</p>
+                                <p class="text-left header-p mb-0">$<span class="p/l-amount">0.00</span></p>
+                            </div>
+                        </a>
+                    </li>
+                      <li>
+                        <a class="dropdown-item" href="#">
+                            <div class="t.margin-box me-2 px-3 py-2 d-flex" style="text-align: left;">
+                                <p class="mb-0 text-left header-p">P/L</p>
+                                <p class="text-left header-p mb-0">$<span class="t.margin-amount">0.00</span></p>
+                            </div>
+                        </a>
+                    </li>
+                    </ul>
+                </div>
             </div>
-            <div>
 
+
+
+            <!-- ================================ HEADER RIGHT =============================== -->
+            <div class="header-right-side d-flex">
+
+                <!-- Total balance -->
+                <div class="total-balance px-3 py-1  d-flex align-items-center balance-lg">
+                    <h3 class="mb-0 fs-6 pe-3 text-black">Total Balance</h3>
+                    <h3 class="fs-6 total-balance-digits position-relative text-black">$<span class="total-balance-amount">0</span></h3>
+                </div>
+
+                <!-- Translations -->
+                <div class="translations px-3">
+                    <div class="dropdown">
+                        <button class="border-0 bg-white position-relative flags-dropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://flagcdn.com/w40/es.png" srcset="https://flagcdn.com/w80/es.png 2x" width="30" alt="Spain" class="flag-btn">
+                        </button>
+                        <ul class="dropdown-menu flag-menu">
+                            <li class="d-flex">
+                                <a class="dropdown-item" href="#">
+                                    <img src="assets/us.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <img src="assets/es.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    Spanish
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <img src="assets/de.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    German
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <img src="assets/it.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    Italian
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <img src="assets/ru.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    Russian
+                                </a>
+                            </li>
+                        </ul>
+                      </div>
+                </div>
+
+                <!-- Profile Dropdown -->
+                <div class="profile-box px-3 d-flex align-items-center border border-secondary-subtle border-top-0 border-bottom-0" style="background-color: #fbfaff;">
+                    <i class="bi bi-person-circle profile-icon fs-3 me-3"></i>
+                    <p class="profile-name position-relative me-3 fs-6">JOHN DOE</p>
+                    <i class="bi bi-chevron-down text-black"></i>
+                    <div class="profile-dropdown list-unstyled border">
+                        <div class="border-bottom mb-3 pb-2">
+                            <li class="dropdown-item profile-item">
+                                <i class="bi bi-person-circle me-1 profile-item"></i>
+                                Profile
+                            </li>
+                            <li class="dropdown-item profile-item">
+                                <i class="bi bi-wallet-fill me-1"></i>
+                                Wallet
+                                </li>
+                            <li class="dropdown-item profile-item nav-sm">
+                                <i class="bi bi-bar-chart me-1"></i>
+                                Trade
+                            </li>
+                            <li class="dropdown-item profile-item nav-sm">
+                                <i class="bi bi-radar"></i>
+                                Positons
+                            </li>
+                            <li class="dropdown-item profile-item">
+                                <i class="bi bi-wallet2 me-1"></i>
+                                Manage funds
+                            </li>
+                            <li class="dropdown-item profile-item nav-sm">
+                                <i class="bi bi-graph-up-arrow me-1"></i>
+                                Auto trader
+                            </li>
+                            <li class="dropdown-item profile-item">
+                                <i class="bi bi-key-fill me-1"></i>
+                                Change Password
+                            </li>
+                        </div>
+                        <div>
+                            <li class="dropdown-item profile-item">
+                                <i class="bi bi-toggle-on me-1"></i>
+                                Switch : Demo
+                            </li>
+                            <li class="dropdown-item profile-item">
+                                <i class="bi bi-door-closed-fill me-1"></i>
+                                Logout
+                            </li>
+                        </div>
+                    </div>
+                </div>       
             </div>
         </div>
+        <!-- ======================================== HEADER ENDS HERE =========================================== -->
+
+
+
+
+        <!-- ======================================== FIXED-SIDE-NAV STARTS HERE ===================================== -->
+        <div class="fixed-side-nav position-fixed top-0 start-0 border-end d-flex align-items-center flex-column nav-lg" style="background-color: #fbfaff;">
+            <div class="trade-box sidenav-icon-box mb-5">
+                <i class="bi bi-bar-chart fs-4"></i>
+                <div class="icon-dropdown">
+                    <p class="drop-header px-3 py-2">Trade</p>
+                </div>
+            </div>
+            <div class="trade-box sidenav-icon-box mb-5">
+                <i class="bi bi-radar fs-4"></i>
+                <div class="icon-dropdown">
+                    <p class="drop-header px-3 py-2">Open Positons</p>
+                    <div class="w-100">
+                        <p class="drop-list">Closed Positons</p>
+                        <p class="drop-list">Earnings</p> 
+                    </div>
+                </div>
+            </div>
+            <div class="trade-box sidenav-icon-box mb-5">
+                <i class="bi bi-wallet2 fs-4"></i>
+                <div class="icon-dropdown">
+                    <p class="drop-header px-3 py-2">Manage Funds</p>
+                    <div class="w-100">
+                        <p class="drop-list">Wallet</p>
+                        <p class="drop-list">Swap wallet</p>
+                        <p class="drop-list">Swap history</p>
+                        <p class="drop-list">Deposit log</p>
+                        <p class="drop-list">Withdrowal log</p>
+                    </div>
+                </div>
+            </div>
+            <div class="trade-box sidenav-icon-box mb-5">
+                <i class="bi bi-graph-up-arrow fs-4"></i>
+                <div class="icon-dropdown">
+                    <a href="auto-trade.html" class="text-decoration-none text-black"><p class="drop-header px-3 py-2">Auto Trader</p></a>
+                </div>
+            </div>
+            <div class="trade-box sidenav-icon-box mb-5">
+                <i class="bi bi-person fs-4"></i>
+                <div class="icon-dropdown">
+                    <p class="drop-header px-3 py-2">Profile</p>
+                    <div class="w-100">
+                        <a href="edit-profile.html" class="text-decoration-none text-black"><p class="drop-list">Edit Profile</p></a>
+                        <a href="user-id.html" class="text-decoration-none text-black"><p class="drop-list">Verify Id</p> </a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== PAGE MAIN SECTION ( FORM ) ====================================-->
+        <div class="page-form border border-secondary-subtle p-3 mb-5">
+            <div class="form-header border-bottom border-secondary-subtle pb-4 mb-4">
+                <h1>Verify Your Identity</h1>
+            </div>
+
+            <!-- Form guid -->
+            <div class="form-guide p-3 mb-4">
+                <p class="mb-0 guide-p">
+                    Use the form below to submit a scanned/photographed copy of your valid ID
+                </p>
+                <p class="guide-p">
+                    Scan the front and back page of your valid identification and upload for verification   
+                </p>
+            </div>
+
+            <!-- Form -->
+            <div class="form">
+                <div class="mb-3">
+                    <label for="verification-mode">
+                        Method of verification
+                    </label>
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Drivers License</option>
+                        <option value="1">International Passport</option>
+                        <option value="2">National ID</option>
+                        <option value="3">Others</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Front of ID</label>
+                    <input class="form-control" type="file" id="formFile">
+                </div>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Back of ID</label>
+                    <input class="form-control" type="file" id="formFile">
+                </div>
+                <div class="form-btns">
+                    <button class="upload-btn form-btn me-3">
+                        <i class="bi bi-cloud-arrow-up-fill"></i>
+                        Upload verification
+                    </button>
+                    <button class="skip-btn form-btn">Skip</button>
+                </div>
+            </div>
+        </div>
+        <!-- ========================================== FORM ENDS HERE ===================================== -->
     </div>
+    <!-- =========================================== MAIN ENDS HERE====================================== -->
+
+
+
+    <!-- ========================================== FOOTER STARTS HERE ==================================== -->
+    <footer class="d-flex justify-content-between p-3" style="background-color: #fbfaff; margin-left: 80px;">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between">
+                <div class="col-sm-3">2024 Delux4</div>
+                <div class="col-sm-3">
+                    <p>All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/coinMarquee.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+
+function dropDownWallets() {
+  const walletDropDown = document.querySelector('.wallet-dropdown');
+  walletDropDown.classList.toggle('active'); // Toggle dropdown visibility
+
+  // Get selected wallet details (if any)
+  const selectedWallet = document.querySelector('.wallet-dropdown .wallet.active');
+  if (selectedWallet) {
+    const coinName = selectedWallet.querySelector('.coin-name').textContent.trim();
+    const coinLogo = selectedWallet.querySelector('.coin-logo').classList[1]; // Assuming the logo class is the second class
+    const holdingBalance = parseFloat(selectedWallet.querySelector('.wallet-holdings').textContent);
+    const coinBalance = parseFloat(selectedWallet.querySelector('.coin-balance').textContent);
+
+    // Create a new currencyBox object with selected details
+    const newCurrencyBox = new currencyBox(coinName, coinLogo, holdingBalance, coinBalance);
+
+    // Update the .currency-box content dynamically
+    updateCurrencyBox(newCurrencyBox);
+  }
+}
+
+// Function to update currencyBox content (implementation details omitted)
+function updateCurrencyBox(currencyBox) {
+  // Update elements within .currency-box based on currencyBox properties
+  // ... (your implementation here) ...
+}
+
+
+// profile dropdown
+const profileBox = document.querySelector('.profile-box');
+const profileDropdown = document.querySelector('.profile-dropdown');
+
+profileBox.addEventListener('click', () => {
+  profileDropdown.classList.toggle('active'); // Toggle visibility on click
+});
+
+
+    </script>
 </body>
 </html>
