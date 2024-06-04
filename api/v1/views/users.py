@@ -4,7 +4,7 @@
     Author: Peter Ekwere
 """
 from models.user import User
-from api.v1.auth.user_auth import RegistrationForm, LoginForm, ResetForm, UpdatePasswordForm
+from api.v1.auth.user_auth import RegistrationForm, LoginForm, ResetForm, UpdatePasswordForm, VerifyEmailForm
 from api.v1.views import app_views
 from flask_login import login_user, current_user, logout_user, login_required
 from flask import abort, jsonify, make_response, request, session
@@ -44,19 +44,16 @@ def register():
         username = form.username.data
         password = form.password.data
         phonenumber = form.phonenumber.data
-        print(f"\n\nemail is {email}, password is {password}\n")
         
         # Create a new user object with the extracted details
         try:
             new_user = auth.register_user(username.lower(), email.lower(), password, phonenumber)
-            print("User was found")
         except ValueError:
             error_message = "This email address has already been used."  
             return render_template('signup.html',
                                    register_form = form, error_message=error_message)
         
-        return redirect(url_for('app_views.login'))
-    print("\nRENDERING TEMPLATE AGAIN\n")
+        return redirect(url_for('app_views.verify_email', email=email))
     return render_template('signup.html',
                            register_form = RegistrationForm())
     
@@ -77,11 +74,13 @@ def login():
                     login_user(user)
                     response = redirect(url_for('app_views.admin'))
                     return response
-                else:
+                elif current_user.is_authenticated:
                     check = login_user(user)
                     response = redirect(url_for('app_views.dashboard'))
                     response.cache_control.no_cache = True
                     return response
+                else:
+                    return redirect(url_for('app_views.verify_email', email=email))
             else:
                 error_message = "These credentials do not match our records."
                 return render_template('login.html', Login_form=form, error_message=error_message)
@@ -107,6 +106,58 @@ def logout():
     logout_user()
     return redirect(url_for('app_views.login'))
 
+@app_views.route('/users/verify_email', methods=['GET', 'POST'], strict_slashes=False, endpoint='verify_email')
+def verify_email():
+    form = VerifyEmailForm(request.form)
+    user_email = request.args.get("email")
+    user = auth.validate_user(user_email.lower())
+    
+    if form.validate():
+        code = form.code.data
+        check = auth.verify_code(code, user)
+
+        if check:
+            auth._db.update_user(user.id, is_active=True)
+            return redirect(url_for('app_views.login'))
+        else:
+            if user:
+                error_message = "Verification code is incorrect. Please make sure there are no spaces before or after the code and try again. "
+                return render_template('validateEmail.html', verify_form=form, error_message=error_message, email=user_email)
+    else:
+        if user:
+            try:
+                token = auth.get_code(user_email.lower())
+                try:
+                    auth.send_verification_code(user, token)
+                except Exception as e:
+                    print(e)
+            except ValueError:
+                error_message = "User does not exist Please Go Back and Input Correct email or Signup"
+                return render_template('validateEmail.html', verify_form=form, error_message=error_message, email=user_email)
+    return render_template('validateEmail.html', verify_form=form, email=user_email)
+        
+        
+@app_views.route('/users/resend_code', methods=['GET', 'POST'], strict_slashes=False, endpoint='resend_code')
+def resend_code():
+    user_email = request.args.get("email")
+    user = auth.validate_user(user_email.lower())
+    if user:
+        try:
+            token = auth.get_code(user_email.lower())
+            try:
+                auth.send_verification_code(user, token)
+                return redirect(url_for('app_views.verify_email', email=user_email))
+            except Exception as e:
+                error_message = "Error occurred while sending the verification code. Please try again later."
+                return redirect(url_for('app_views.verify_email', email=user_email, error_message=error_message))
+        except ValueError:
+            error_message = "User does not exist Please Input Correct email or Signup"
+            return redirect(url_for('app_views.verify_email', email=user_email, error_message=error_message))
+    else:
+        return redirect(url_for('app_views.verify_email', email=user_email))
+
+
+
 @app_views.route('/users/reset_password', methods=['GET', 'POST'], strict_slashes=False, endpoint='reset_password')
 def reset_password():
     form = ResetForm(request.form)
@@ -115,7 +166,7 @@ def reset_password():
         user = auth.validate_user(email.lower())
         if user:
             try:
-                token = auth.get_reset_password_token(email.lower())
+                token = auth.get_code(email.lower())
                 try:
                     auth.send_password_reset_email(user, token)
                 except Exception as e:

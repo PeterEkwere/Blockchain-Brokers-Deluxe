@@ -15,15 +15,6 @@ class Trade:
     """ THis Class encapsulates all user Trade logic
     """
     
-    trading_client = TradingClient(
-                    api_key=API_KEY,
-                    secret_key=API_SECRET,
-                    paper=True,
-                )
-    search_params = GetAssetsRequest(asset_class=AssetClass.CRYPTO)
-
-    assets = trading_client.get_all_assets(search_params)
-    
     def __init__(self) -> None:
         pass
 
@@ -86,3 +77,7 @@ class Trade:
 #print(f"Account id is {account.id}\n Account name is {account.identity.given_name} \n Account Number is {account.account_number}\n")
 
 
+import random
+
+digits = ''.join([str(random.randint(0, 9)) for _ in range(5)])
+print(digits)

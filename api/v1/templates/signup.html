@@ -629,15 +629,16 @@
 
     <!-- SECTION-TWO -->
     <div class="section-two">
-        {% if error_message %}
-                <p class="h-p">{{ error_message }}<p>
-        {% endif %}
 
         <!-- FORM-CONTAINER -->
         <div class="form-container mx-auto">
             <div class="form-banner mb-5">
                 <h1 class="text-center fs-3 form-h1">Create An Account.</h1>
+                {% if error_message %}
+                <p class="text-center form-banner-p">{{ error_message }}<p>
+                {% else %}
                 <p class="text-center form-banner-p">Use the form below to create a new account on Deluxe4.</p>
+                {% endif %}
             </div>
             <!-- FORM -->
             <form method="POST" id="Login_form"  data-aos="fade-up" data-aos-duration="1000">

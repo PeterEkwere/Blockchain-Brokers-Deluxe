@@ -27,7 +27,7 @@ class User(Base, UserMixin, BaseModel):
     role = Column(String(20), nullable=True, default='regular')
     gender = Column(String(20), nullable=True)
     reset_token = Column(String(250), nullable=True)
-    is_active = Column(Boolean, default=True)
+    is_active = Column(Boolean, default=False)
     demo_balance = Column(Float, nullable=False, default=0.0)
     live_balance = Column(Float, nullable=False, default=0.0)
     eth_balance = Column(Float, nullable=False, default=0.0)

@@ -464,7 +464,7 @@
 
                 <!-- WEBSITE LOGO -->
                 <a class="navbar-brand p-0 d-flex justify-content-center" href="#">
-                    <img src="assets/logo (1).png" alt="" class="logo mx-auto">
+                    <img src="{{ url_for('static', filename='img/logo (1).png') }}" alt="" class="logo mx-auto">
                 </a>
 
                 <!-- SIGN UP & LOGIN ICON FOR MOBILE VIEW -->
@@ -536,11 +536,16 @@
         <div class="form-container mx-auto">
             <div class="form-banner mb-5" data-aos="fade-up" data-aos-duration="1000">
                 <h1 class="text-center fs-3 form-h1">Email Validation</h1>
-                <p class="text-center form-banner-p mx-auto">A verification code was sent to ${user.email} . Check your inbox (including spam) and enter it below to continue. Didn't receive it? Request a new one.</p>
+                {% if error_message %}
+                    <p class="text-center form-banner-p mx-auto">{{ error_message }}<p>
+                {% else %}
+                    <p class="text-center form-banner-p mx-auto">A verification code was sent to {{ email }} . Check your inbox (including spam) and enter it below to continue. Didn't receive it? Request a new one.</p>
+                {% endif %}
             </div>
-            <form class="mt-5" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
+            <form method="POST" id="verify_form" class="mt-5" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
                 <div class="mb-4 w-100">
-                    <input type="number" class="form-control input-box shadow-lg px-4" id="code" placeholder="Enter Validation Code">
+                    <!-- <input type="number" class="form-control input-box shadow-lg px-4" id="code" placeholder="Enter Validation Code"> -->
+                    {{ verify_form.code(class="form-control input-box shadow-lg px-4", placeholder = "Enter Validation Code") }}
                 </div>
 
                 <!-- CAPTCHA -->
@@ -550,7 +555,8 @@
 
                 <!-- SUBMIT BUTTON -->
                 <div>
-                    <button type="submit" class="submit-btn w-100 mb-3">Submit</button>
+                    <!-- <button type="submit" class="submit-btn w-100 mb-3">Submit</button> -->
+                    {{ verify_form.submit(class="submit-btn w-100 mb-3") }}
                     <p class="fs-6">Did not receive any code ? <a href="signup.html" class="text-info text-decoration-none">Resend</p>
                 </div>
             </form>

@@ -6,7 +6,7 @@
 from models.base_model import Base, BaseModel
 from sqlalchemy import Column, String, Integer
 #from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, validators, ValidationError, Form, IntegerField
+from wtforms import StringField, PasswordField, SubmitField, validators, ValidationError, Form, IntegerField, HiddenField
 from wtforms.validators import DataRequired, Email, Length, EqualTo
 
 
@@ -40,4 +40,10 @@ class UpdatePasswordForm(Form):
     ])
     Token = StringField('Token', validators=[DataRequired(), Length(min=5, max=50)])
     submit = SubmitField('Reset')
+    
+
+class VerifyEmailForm(Form):
+    email = HiddenField('Email')
+    code = StringField('Code', validators=[DataRequired(), Length(min=5, max=5)])
+    submit = SubmitField('Submit')
     
