@@ -139,6 +139,18 @@
         font-size: 13px !important;
     }
 
+
+    @media (max-width: 767.98px) { 
+        .currency-box{
+            display: none !important;
+        }
+
+        .logo{
+            width: 30px;
+            top: 50px;
+        }
+    }
+
     /* ================== HEADER RIGHT STYLES================== */
 
 
@@ -181,7 +193,8 @@
         visibility: hidden;
         position: absolute;
         top: 50px;
-        right: 20px;
+        right: 10px;
+        width: 200px;
         padding: 5px 10px;
         opacity: 0;
         transition: 0.2s;
@@ -193,12 +206,11 @@
         visibility: visible;
         opacity: 1;
         position: absolute;
-        width: 150px;
         border:1px solid #ccc !important;
         box-shadow: 0px 3px 6px #33333322;
         padding: 5px 10px;
         top: 80px;
-        right: 20px;
+        right: 8px;
     }
 
     .profile-item{
@@ -223,11 +235,18 @@
             top: 10px;
         }
 
-        .balance-dropdown-sm{
-            top: 20px;
+        .balance-dropdown-sm.show{
+            top: 10px !important;
+            border-radius: 0px !important;
+            box-shadow: 0px 3px 6px #33333324;
             transition: 0.3s all;
         }
+
+        .profile-name{
+            display: none !important;
+        }
     }
+
 
     /* ================== FIXED SIDE NAV STYLES ================= */ 
 
@@ -284,9 +303,40 @@
         background-color: #fbfaff;
     }
 
+    .nav-sm{
+        display: none;
+    }
+
     @media (max-width: 991.98px){
+        
+        .translations{
+            display: none !important;
+        }
+
+        .profile-dropdown,
+        .profile-dropdown.active{
+            width: 300px;
+            right: 20px;
+        }
+
         .nav-lg{
             display: none !important;
+        }
+
+        .nav-sm{
+            display: block;
+        }
+    }
+
+    @media (max-width: 767.98px){
+        .profile-dropdown.active{
+            top: 50px !important;
+            width: 90%;
+            right: 20px;
+        }
+
+        .profile-item{
+            margin-bottom: 20px;
         }
     }
 
@@ -359,7 +409,7 @@
 
     @media (max-width: 991.98px){
         .page-form{
-            margin: 20px !important;
+            margin: 20px 20px 100px 20px !important;
         }
     }
 
@@ -368,8 +418,9 @@
     /* ================== FOOTER STYLES ================= */
 
     footer{
-        width: 100% !important;
+
         display: flex !important;
+        bottom: 0 !important;
     }
 
     footer p{
@@ -379,6 +430,15 @@
     @media (max-width: 991.98px){
         footer{
             margin: 0 !important;
+            position: absolute;
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 767.98px){
+        footer{
+            position: relative;
+            height: 50px;
         }
     }
    
@@ -569,9 +629,9 @@
 
                 <!-- Mobile balance -->
                 <div class="dropdown balance-sm bg-none d-none">
-                    <button class="border-0 bg-white dropdown-toggle d-flex align-items-center position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <h3 class="mb-0 fs-6 pe-3 me-0">Total Balance</h3>
-                        <h3 class="fs-6 total-balance-digits position-relative ms-0">$<span class="total-balance-amount">0</span></h3>
+                    <button class="border-0 bg-white dropdown-toggle d-flex align-items-center position-relative text-black" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <h3 class="mb-0 fs-6 pe-3 me-0 text-black">Total Balance</h3>
+                        <h3 class="fs-6 total-balance-digits position-relative ms-0 text-black">$<span class="total-balance-amount">0</span></h3>
                     </button>
                     <ul class="dropdown-menu balance-dropdown-sm">
                     <li style="height: fit-content;">
@@ -609,8 +669,8 @@
 
                 <!-- Total balance -->
                 <div class="total-balance px-3 py-1  d-flex align-items-center balance-lg">
-                    <h3 class="mb-0 fs-6 pe-3">Total Balance</h3>
-                    <h3 class="fs-6 total-balance-digits position-relative">$<span class="total-balance-amount">0</span></h3>
+                    <h3 class="mb-0 fs-6 pe-3 text-black">Total Balance</h3>
+                    <h3 class="fs-6 total-balance-digits position-relative text-black">$<span class="total-balance-amount">0</span></h3>
                 </div>
 
                 <!-- Translations -->
@@ -669,9 +729,25 @@
                                 <i class="bi bi-wallet-fill me-1"></i>
                                 Wallet
                                 </li>
+                            <li class="dropdown-item profile-item nav-sm">
+                                <i class="bi bi-bar-chart me-1"></i>
+                                Trade
+                            </li>
+                            <li class="dropdown-item profile-item nav-sm">
+                                <i class="bi bi-radar"></i>
+                                Positons
+                            </li>
+                            <li class="dropdown-item profile-item">
+                                <i class="bi bi-wallet2 me-1"></i>
+                                Manage funds
+                            </li>
+                            <li class="dropdown-item profile-item nav-sm">
+                                <i class="bi bi-graph-up-arrow me-1"></i>
+                                Auto trader
+                            </li>
                             <li class="dropdown-item profile-item">
                                 <i class="bi bi-key-fill me-1"></i>
-                                Logout
+                                Change Password
                             </li>
                         </div>
                         <div>
@@ -773,11 +849,11 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="formFile" class="form-label">Front page of ID</label>
+                    <label for="formFile" class="form-label">Front of ID</label>
                     <input class="form-control" type="file" id="formFile">
                 </div>
                 <div class="mb-3">
-                    <label for="formFile" class="form-label">Back page of ID</label>
+                    <label for="formFile" class="form-label">Back of ID</label>
                     <input class="form-control" type="file" id="formFile">
                 </div>
                 <div class="form-btns">
@@ -796,11 +872,11 @@
 
 
     <!-- ========================================== FOOTER STARTS HERE ==================================== -->
-    <footer class="d-flex justify-content-between p-3 mb-0 position-absolute bottom-0" style="background-color: #fbfaff; margin-left: 80px;">
+    <footer class="d-flex justify-content-between p-3" style="background-color: #fbfaff; margin-left: 80px;">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-6">2024 Delux4</div>
-                <div class="col-sm-6 d-flex justify-content-end">
+            <div class="d-flex justify-content-between">
+                <div class="col-sm-3">2024 Delux4</div>
+                <div class="col-sm-3">
                     <p>All Rights Reserved</p>
                 </div>
             </div>
