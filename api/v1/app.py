@@ -18,8 +18,13 @@ from datetime import timedelta
 import threading
 import asyncio
 
+UPLOAD_FOLDER = 'static/uploads/'
 
 app = Flask(__name__, static_url_path='/static')
+
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 #csrf.init_app(app)
 app.config['WTF_CSRF_CHECK_DEFAULT'] = False

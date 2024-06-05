@@ -757,7 +757,7 @@
                             </li>
                             <li class="dropdown-item profile-item">
                                 <i class="bi bi-door-closed-fill me-1"></i>
-                                Logout
+                                <a href="{{ url_for('app_views.logout') }}"> Logout </a>
                             </li>
                         </div>
                     </div>
@@ -836,34 +836,36 @@
             </div>
 
             <!-- Form -->
-            <div class="form">
-                <div class="mb-3">
-                    <label for="verification-mode">
-                        Method of verification
-                    </label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Drivers License</option>
-                        <option value="1">International Passport</option>
-                        <option value="2">National ID</option>
-                        <option value="3">Others</option>
-                    </select>
+                <div class="form">
+                    <div class="mb-3">
+                        <label for="verification-mode">
+                            Method of verification
+                        </label>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Drivers License</option>
+                            <option value="1">International Passport</option>
+                            <option value="2">National ID</option>
+                            <option value="3">Others</option>
+                        </select>
                 </div>
-                <div class="mb-3">
-                    <label for="formFile" class="form-label">Front of ID</label>
-                    <input class="form-control" type="file" id="formFile">
-                </div>
-                <div class="mb-3">
-                    <label for="formFile" class="form-label">Back of ID</label>
-                    <input class="form-control" type="file" id="formFile">
-                </div>
-                <div class="form-btns">
-                    <button class="upload-btn form-btn me-3">
-                        <i class="bi bi-cloud-arrow-up-fill"></i>
-                        Upload verification
-                    </button>
-                    <button class="skip-btn form-btn">Skip</button>
-                </div>
-            </div>
+                <form method="post" action="/KYC" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">Front of ID</label>
+                            <input class="form-control" type="file" id="formFile">
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">Back of ID</label>
+                            <input class="form-control" type="file" id="formFile">
+                        </div>
+                        <div class="form-btns">
+                            <button class="upload-btn form-btn me-3">
+                                <i class="bi bi-cloud-arrow-up-fill"></i>
+                                Upload verification
+                            </button>
+                            <button class="skip-btn form-btn">Skip</button>
+                        </div>
+                    </div>
+                </form>
         </div>
         <!-- ========================================== FORM ENDS HERE ===================================== -->
     </div>

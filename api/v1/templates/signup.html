@@ -44,7 +44,7 @@
     }
 
     .section-one{
-        background-image: url('assets/1__o9tM4VLLV9628YvEtOX8Q.jpeg');
+        background-image: url("{{ url_for('static', filename='img/1__o9tM4VLLV9628YvEtOX8Q.jpeg') }}");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center center;
@@ -572,7 +572,7 @@
                 <div class="collapse navbar-collapse main-menu" id="navbarNavDropdown">
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
                         <li class="nav-item">
-                            <a class="nav-link active text-white aria-current="page" href="#">HOME</a>
+                            <a class="nav-link active text-white aria-current" href="#">HOME</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -606,7 +606,7 @@
 
                         <!-- SIGN-UP & LOGIN ICONS FOR LARGE WIDTH DEVICES -->
                         <li class="nav-item mx-3 lg-nav-icons">
-                            <a class="nav-link href=""><i class="bi bi-person-fill nav-icon nav-icon1"></i></a>
+                            <a class="nav-link" href=""><i class="bi bi-person-fill nav-icon nav-icon1"></i></a>
                         </li>
                         <li class="nav-item lg-nav-icons">
                             <a class="nav-link d-flex" href=""><i class="bi bi-box-arrow-in-right nav-icon nav-icon2 me-2"></i>
@@ -636,6 +636,10 @@
                 <h1 class="text-center fs-3 form-h1">Create An Account.</h1>
                 {% if error_message %}
                 <p class="text-center form-banner-p">{{ error_message }}<p>
+                {% elif register_form.confirm_password.errors %}
+                    {% for error in register_form.confirm_password.errors %}
+                        <p class="text-center form-banner-p" style="color: red;" >{{ error }}</p>
+                    {% endfor %}
                 {% else %}
                 <p class="text-center form-banner-p">Use the form below to create a new account on Deluxe4.</p>
                 {% endif %}
@@ -647,7 +651,7 @@
                 <div class="mb-4">
                     <label for="emailInput">Enter Your Email</label>
                     <!-- <input type="email" class="form-control input-box shadow-lg px-4" id="emailInput" aria-describedby="emailHelp" placeholder="Valid Email address"> -->
-                    {{ register_form.email(class="form-control input-box shadow-lg px-4", placeholder = "Valid Email address") }}
+                    {{ register_form.email(class="form-control input-box shadow-lg px-4", placeholder = "Valid Email address", id="emailInput") }}
                 </div>
 
                 <!-- USERNAME & PHONE-NUMBER INPUT -->
@@ -655,12 +659,12 @@
                     <div class="w-50 me-5 username-container">
                         <label for="usernameInput">Enter Your Username</label>
                         <!-- <input type="text" class="form-control input-box shadow-lg px-4" id="usernameInput" placeholder="Choose a username"> -->
-                        {{ register_form.username(class="form-control input-box shadow-lg px-4", placeholder = "Choose a username") }}
+                        {{ register_form.username(class="form-control input-box shadow-lg px-4", placeholder = "Choose a username", id="usernameInput") }}
                     </div>
                     <div class="w-50 phone-container">
                         <label for="phone">Provide your phone</label>
-                        <!-- <input type="tel" class="form-control input-box shadow-lg" id="phone" placeholder="Enter phone"> -->
-                        {{ register_form.phonenumber(class="form-control input-box shadow-lg px-4", placeholder = "Enter Phone ") }}
+                        <!-- <input type="tel" class="form-control input-box shadow-lg" id="phone" placeholder="Enter phone"> --> 
+                         {{ register_form.phonenumber(class="form-control input-box shadow-lg", placeholder = "Enter Phone ", id="phone") }}
                     </div>
                 </div>
 
@@ -668,12 +672,12 @@
                 <div class="d-flex mb-5 pw-cpw">
                     <div class="w-50 me-5 pw-container">
                         <label for="exampleInputPassword1">Enter Your Password</label>
-                        <!-- <input type="password" class="form-control input-box shadow-lg px-4 pw-box" id="exampleInputPassword1" placeholder="Choose a password"> -->
                         {{ register_form.password(class="form-control input-box shadow-lg px-4", placeholder = "Choose a password") }}
+                        <!-- <input type="password" class="form-control input-box shadow-lg px-4 pw-box" id="exampleInputPassword1" placeholder="Choose a password"> -->
                     </div>
                     <div class="w-50 cpw-container">
                         <label for="exampleInputPassword2">Confirm Password</label>
-                        <input type="password" class="form-control input-box shadow-lg px-4 pw-box" id="exampleInputPassword2" placeholder="Confirm your password"> 
+                        {{ register_form.confirm_password(class="form-control input-box shadow-lg px-4", placeholder = "Confirm your password") }}
                     </div>
                 </div>
 

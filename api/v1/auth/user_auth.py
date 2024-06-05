@@ -16,6 +16,11 @@ class RegistrationForm(Form):
                                                    Length(min=4, max=20, message="username cannot be less than 4 and more than 20 characters")])
     password = PasswordField('Password', validators=[DataRequired(),
                                                     Length(min=6, message="Password must be at least 6 characters long.")])
+    confirm_password = PasswordField('ConfirmPassword', validators=[DataRequired(),
+        validators.Length(min=6, message="Password must be at least 6 characters long"),
+        validators.EqualTo("password", message='Passwords must match'),
+        validators.DataRequired()
+    ])
     phonenumber = StringField('PhoneNumber', validators=[DataRequired()])
     submit = SubmitField('Register')
 
@@ -29,17 +34,18 @@ class ResetForm(Form):
     submit = SubmitField('Submit')
     
 class UpdatePasswordForm(Form):
-    email = StringField('Email', validators=[DataRequired(), Email()])
+    email = HiddenField('Email')
     new_password = PasswordField('NewPassword', validators=[DataRequired(),
-        validators.Length(min=8, message="Password must be at least 8 characters long"),
+        validators.Length(min=6, message="Password must be at least 6 characters long"),
         validators.DataRequired()
     ])
-    Confirm_new_password = PasswordField('ConfirmPassword', validators=[
-        validators.EqualTo('new_password', message="Passwords must match"),
+    confirm_new_password = PasswordField('ConfirmPassword', validators=[DataRequired(),
+        validators.Length(min=6, message="Password must be at least 6 characters long"),
+        validators.EqualTo("new_password", message='Passwords must match'),
         validators.DataRequired()
     ])
-    Token = StringField('Token', validators=[DataRequired(), Length(min=5, max=50)])
-    submit = SubmitField('Reset')
+    code = StringField('Code', validators=[DataRequired(), Length(min=5, max=5)])
+    submit = SubmitField('Update Password')
     
 
 class VerifyEmailForm(Form):

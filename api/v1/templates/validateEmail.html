@@ -537,7 +537,7 @@
             <div class="form-banner mb-5" data-aos="fade-up" data-aos-duration="1000">
                 <h1 class="text-center fs-3 form-h1">Email Validation</h1>
                 {% if error_message %}
-                    <p class="text-center form-banner-p mx-auto">{{ error_message }}<p>
+                    <p class="text-center form-banner-p mx-auto" style="color: red;">{{ error_message }}<p>
                 {% else %}
                     <p class="text-center form-banner-p mx-auto">A verification code was sent to {{ email }} . Check your inbox (including spam) and enter it below to continue. Didn't receive it? Request a new one.</p>
                 {% endif %}
@@ -557,7 +557,7 @@
                 <div>
                     <!-- <button type="submit" class="submit-btn w-100 mb-3">Submit</button> -->
                     {{ verify_form.submit(class="submit-btn w-100 mb-3") }}
-                    <p class="fs-6">Did not receive any code ? <a href="signup.html" class="text-info text-decoration-none">Resend</p>
+                    <p class="fs-6">Did not receive any code ? <a href="{{ url_for('app_views.register') }}" class="text-info text-decoration-none">Resend</p>
                 </div>
             </form>
         </div>
