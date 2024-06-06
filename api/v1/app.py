@@ -18,7 +18,7 @@ from datetime import timedelta
 import threading
 import asyncio
 
-UPLOAD_FOLDER = 'static/uploads/'
+UPLOAD_FOLDER = 'static/uploads/kyc'
 
 app = Flask(__name__, static_url_path='/static')
 

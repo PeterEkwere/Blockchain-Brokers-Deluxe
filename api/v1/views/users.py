@@ -14,12 +14,23 @@ from flasgger.utils import swag_from
 from datetime import datetime
 from wtforms import ValidationError
 from api.v1.extensions import admin_required, strong_password, auth, login_manager, cache, ReCaptcha
+import urllib.request
+import os
+from werkzeug.utils import secure_filename
 
 recaptcha = ReCaptcha(
     app_views,
     site_key="6LcWGewpAAAAAJ_pTOCycIUhR4FoD4DuhiVHsyS8",
     version=2
 )
+
+UPLOAD_FOLDER = 'api/v1/static/uploads/kyc'
+
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'JPG'])
+ 
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+     
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
 @swag_from('documentation/user/all_users.yml')
@@ -77,7 +88,7 @@ def login():
                     return response
                 elif user.is_verified is True:
                     check = login_user(user)
-                    response = redirect(url_for('app_views.dashboard'))
+                    response = redirect(url_for('app_views.dashboard', user_id = user.id))
                     response.cache_control.no_cache = True
                     return response
                 else:
@@ -97,8 +108,9 @@ def admin():
 @app_views.route('/dashboard/', strict_slashes=False, endpoint='dashboard')
 @cache.cached(timeout=50)
 def profile():
-    #print(f"In Profile endpoint authentication status is {current_user.is_authenticated}")
-    return render_template('user-id.html')
+    user_id = request.args.get("user_id")
+    print(f"IN PROFILE USER ID IS {user_id}")
+    return render_template('user-id.html', user_id=user_id)
 
 
 @app_views.route('/users/logout/', strict_slashes=False, endpoint='logout')
@@ -118,7 +130,6 @@ def verify_email():
         check = auth.verify_code(code, user)
 
         if check:
-            print(f"IN VERIFY EMAIL USER IS VERIFIED IS {user.is_verified}")
             auth._db.update_user(user.id, is_verified=True)
             return redirect(url_for('app_views.login'))
         else:
@@ -200,12 +211,60 @@ def update_password():
         try:
             updated = auth.update_password(token, new_password)
             if updated:
-                print("PASSWORD HAS BEEN UPDATED")
                 return redirect(url_for('app_views.login'))
-            print("PASSWORD NOT UPDATED")
         except ValueError:
             error_message = "Invalid Reset Code"
             print(error_message)
             return render_template('update_password.html', update_form=form, error_message=error_message)
-    print("RENDERING AGAIN")
     return render_template('update_password.html', update_form=form)
+ 
+
+ 
+@app_views.route('/KYC/', methods=['GET', 'POST'])
+def upload_image():
+    if request.method == 'POST':
+        user_id = request.form['user_id']
+        user = auth.get_user_by_id(user_id)
+        verification_mode = request.form.get('verification_mode')
+        if verification_mode in ['drivers_license', 'national_id']:
+            if 'file1' not in request.files or 'file2' not in request.files:
+                error_message = "file 1 and 2 missing"
+                return render_template('user-id.html', error_message=error_message, user_id=user_id)
+            file1 = request.files['file1']
+            file2 = request.files['file2']
+            if file1.filename == '':
+                error_message = 'Oops! It looks like you forgot to select a document for file 1. Please choose one before continuing'
+                return render_template('user-id.html', error_message=error_message, user_id=user_id)
+            if file2.filename == '':
+                error_message = 'Oops! It looks like you forgot to select a document for file 2. Please choose one before continuing'
+                return render_template('user-id.html', error_message=error_message, user_id=user_id)
+            if file1 and allowed_file(file1.filename) and file2 and allowed_file(file2.filename):
+                file1name = secure_filename(file1.filename)
+                file2name = secure_filename(file2.filename)
+                file1_path = os.path.join(UPLOAD_FOLDER, file1name)
+                file2_path = os.path.join(UPLOAD_FOLDER, file2name)
+                file1.save(file1_path)
+                file2.save(file2_path)
+                auth._db.update_user(user.id,  kyc_data={"front": file1_path, "back": file2_path})
+                message = "Your KYC information has been submitted for verification."
+                return render_template('user-id.html', message=message, user_id=user_id)
+        else:
+            if 'file1' not in request.files:
+                error_message = "File 1 input missing"
+                return render_template('user-id.html', error_message=error_message, user_id=user_id)
+            file1 = request.files['file1']
+            if file1.filename == '':
+                error_message = 'Oops! It looks like you forgot to select a document for file 1. Please choose one before continuing'
+                return render_template('user-id.html', error_message=error_message, user_id=user_id)
+            if file1 and allowed_file(file1.filename):
+                file1name = secure_filename(file1.filename)
+                file1_path = os.path.join(UPLOAD_FOLDER, file1name)
+                file1.save(file1_path)
+                auth._db.update_user(user.id,  kyc_data={"front": file1_path})
+                message = "Your KYC information has been submitted for verification."
+                return render_template('user-id.html', message=message, user_id=user_id)
+    else:
+            error_message = 'Please upload a document in one of the following formats: PNG, JPG, JPEG, or GIF.'
+            return render_template('user-id.html', error_message=error_message, user_id=user_id)
+    return render_template('user-id.html')
+ 
