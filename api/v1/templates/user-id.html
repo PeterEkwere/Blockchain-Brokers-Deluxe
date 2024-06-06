@@ -366,7 +366,7 @@
     }
 
     .guide-p{
-        font-size: 14px;
+        font-size: 20px;
     }
 
     .form-select{
@@ -717,7 +717,7 @@
                 <!-- Profile Dropdown -->
                 <div class="profile-box px-3 d-flex align-items-center border border-secondary-subtle border-top-0 border-bottom-0" style="background-color: #fbfaff;">
                     <i class="bi bi-person-circle profile-icon fs-3 me-3"></i>
-                    <p class="profile-name position-relative me-3 fs-6">JOHN DOE</p>
+                    <p class="profile-name position-relative me-3 fs-6">{{ current_user.username }}</p>
                     <i class="bi bi-chevron-down text-black"></i>
                     <div class="profile-dropdown list-unstyled border">
                         <div class="border-bottom mb-3 pb-2">
@@ -757,7 +757,7 @@
                             </li>
                             <li class="dropdown-item profile-item">
                                 <i class="bi bi-door-closed-fill me-1"></i>
-                                Logout
+                                <a href="{{ url_for('app_views.logout') }}"> Logout </a>
                             </li>
                         </div>
                     </div>
@@ -826,44 +826,56 @@
             </div>
 
             <!-- Form guid -->
-            <div class="form-guide p-3 mb-4">
-                <p class="mb-0 guide-p">
-                    Use the form below to submit a scanned/photographed copy of your valid ID
-                </p>
-                <p class="guide-p">
-                    Scan the front and back page of your valid identification and upload for verification   
-                </p>
+            <div id="guideDiv" class="form-guide p-3 mb-4">
+                {% if message %}
+                    <script>
+                        document.getElementById('guideDiv').style.backgroundColor = '#E6F4EA';
+                    </script>
+                    <p class="mb-0 guide-p"> {{ message }}</p>
+                {% elif error_message %}
+                    <p class="mb-0 guide-p">{{ error_message}}</p>
+                {% else %}
+                    <p class="mb-0 guide-p">
+                        Use the form below to submit a scanned/photographed copy of your valid document or ID
+                    </p>
+                    <p class="guide-p">
+                        Scan the front and back page of your valid identification and upload for verification   
+                    </p>
+                {% endif %}
             </div>
 
             <!-- Form -->
-            <div class="form">
-                <div class="mb-3">
-                    <label for="verification-mode">
-                        Method of verification
-                    </label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Drivers License</option>
-                        <option value="1">International Passport</option>
-                        <option value="2">National ID</option>
-                        <option value="3">Others</option>
-                    </select>
+            <form method="post" action="http://127.0.0.1:5000/api/v1/KYC/" enctype="multipart/form-data">
+                <div class="form">
+                    <div class="mb-3">
+                        <label for="verification-mode">
+                            Method of verification
+                        </label>
+                        <select class="form-select" id="verification-mode" name="verification_mode" aria-label="Default select example">
+                            <option selected value="drivers_license">Drivers License</option>
+                            <option value="international_passport">International Passport</option>
+                            <option value="national_id">National ID</option>
+                            <option value="others">Others</option>
+                        </select>
                 </div>
-                <div class="mb-3">
-                    <label for="formFile" class="form-label">Front of ID</label>
-                    <input class="form-control" type="file" id="formFile">
+                    <div class="mb-3 id-input">
+                        <label for="formFile" class="form-label">Upload Front Page</label>
+                        <input class="form-control" type="file" name="file1" id="formFile">
+                    </div>
+                    <div class="mb-3 id-input" id="back-id-input">
+                        <label for="formFile" class="form-label">Back of ID or Drivers License</label>
+                        <input class="form-control" type="file" name="file2" id="formFile">
+                    </div>
+                    <div class="form-btns">
+                        <input type="hidden" name="user_id" value="{{ user_id }}">
+                        <button class="upload-btn form-btn me-3">
+                            <i class="bi bi-cloud-arrow-up-fill"></i>
+                            Upload verification
+                        </button>
+                        <button class="skip-btn form-btn">Skip</button>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="formFile" class="form-label">Back of ID</label>
-                    <input class="form-control" type="file" id="formFile">
-                </div>
-                <div class="form-btns">
-                    <button class="upload-btn form-btn me-3">
-                        <i class="bi bi-cloud-arrow-up-fill"></i>
-                        Upload verification
-                    </button>
-                    <button class="skip-btn form-btn">Skip</button>
-                </div>
-            </div>
+            </form>
         </div>
         <!-- ========================================== FORM ENDS HERE ===================================== -->
     </div>
@@ -928,5 +940,23 @@ profileBox.addEventListener('click', () => {
 
 
     </script>
+    <script>
+        // Get the verification mode select element
+        const verificationMode = document.getElementById('verification-mode');
+      
+        // Get the back ID input element
+        const backIdInput = document.getElementById('back-id-input');
+      
+        // Update visibility of back ID input based on selected option
+        verificationMode.addEventListener('change', function() {
+          const selectedValue = this.value;
+          backIdInput.style.display = selectedValue === 'drivers_license' || selectedValue === 'national_id' ? 'block' : 'none';
+        });
+      
+        // Initial display based on selected option (optional)
+        window.onload = function() {
+          verificationMode.dispatchEvent(new Event('change'));
+        };
+      </script>
 </body>
 </html>

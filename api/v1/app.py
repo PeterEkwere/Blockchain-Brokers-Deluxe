@@ -18,8 +18,13 @@ from datetime import timedelta
 import threading
 import asyncio
 
+UPLOAD_FOLDER = 'static/uploads/kyc'
 
 app = Flask(__name__, static_url_path='/static')
+
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 #csrf.init_app(app)
 app.config['WTF_CSRF_CHECK_DEFAULT'] = False
@@ -39,7 +44,7 @@ app.config["REMEMBER_COOKIE_SECURE"] = True
 app.config['MAIL_SERVER'] = 'smtp-relay.brevo.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USERNAME'] = '759a9d001@smtp-brevo.com'
-app.config['MAIL_DEFAULT_SENDER'] = 'Deluxe@gmail.com'
+app.config['MAIL_DEFAULT_SENDER'] = 'WagerBrain@gmail.com'
 app.config['MAIL_PASSWORD'] = 'jm7hEWcJRB4IgkHv'
 app.config['MAIL_USE_TLS'] = False
 #app.config['MAIL_USE_SSL'] = True
