@@ -11,6 +11,7 @@ from typing import Dict, List
 from api.v1.extensions import mail, Message
 from sqlalchemy.exc import NoResultFound
 from itsdangerous import URLSafeTimedSerializer
+import random
 from uuid import uuid4
 
 
@@ -101,7 +102,7 @@ class Auth:
             return None
         return user
 
-    def get_reset_password_token(self, email: str) -> str:
+    def get_code(self, email: str) -> str:
         """ This method is used for resetting a users password
 
         Args:
@@ -112,7 +113,8 @@ class Auth:
         """
         user = self._db.find_by('user', email=email)
         if user:
-            self._db.update_user(user.id, reset_token=_generate_uuid())
+            digits = ''.join([str(random.randint(0, 9)) for _ in range(5)])
+            self._db.update_user(user.id, reset_token=digits)
             # user.reset_token = _generate_uuid()
             return user.reset_token
         raise ValueError
@@ -120,15 +122,43 @@ class Auth:
     def send_password_reset_email(self, user, token):
         try:
             # Create the password reset email message
-            msg = Message('Password Reset', recipients=[user.email])
-            msg.body = f"**Subject: Reset Password for WagerBrain**\n\nHi {user.username},\n\nTo reset your password, use the following token: {token}\n\nIf you didn't request this, please ignore this email."
-            # msg.body = f"Hi {user.username},\n\nTo reset your password, use the following token: {token}\n\nIf you didn't request this, please ignore this email."
-            # Alternatively, you can use HTML email template
-            # msg.html = render_template('password_reset_email.html', user=user, token=token)
-            # Send the email
+            msg = Message('PASSWORD RESET CODE', recipients=[user.email])
+            msg.body = f"SUBJECT: Reset Password for Deluxe4.com\n\nHi {user.username},\n\nTo reset your password, use the following token: {token}\n\nIf you didn't request this, please ignore this email."
             mail.send(msg)
         except Exception as e:
-            print(f"Error sending password reset email error: {e}")
+            print(f"Error sending password reset code to  email({user.email}) error:{e}")
+            
+    def send_verification_code(self, user, token):
+        try:
+            # Create the password reset email message
+            msg = Message('EMAIL VERIFICATION CODE', recipients=[user.email])
+            msg.body = f"Subject: Email Verification Code for Deluxe4.com **\n\nHi {user.username},\n\nYout Code IS {token}\n\nIf you didn't request this, please ignore this email."
+            mail.send(msg)
+        except Exception as e:
+            print(f"Error sending verification code for Email({user.email}) Error:{e}")
+            
+    
+    def verify_code(self, code: str, user: object) -> bool:
+        """ THis method Verify's the user's mail
+
+        Args:
+            code (str): _description_
+            user (object): _description_
+
+        Returns:
+            bool: _description_
+        """
+        try:
+            user = self._db.find_by('user', reset_token=code)
+        except NoResultFound:
+            return False
+        except Exception as e:
+            print(f"Error Found while verifing code: {e}")
+        if user:
+            self._db.update_user(user.id, reset_token=None)
+            return True
+        return False
+        
 
     def update_password(self, reset_token: str, password: str):
         """ This method updates a users password

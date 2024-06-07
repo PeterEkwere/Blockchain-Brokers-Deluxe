@@ -59,3 +59,4 @@ Flask-Caching
 google-recaptcha
 websockets
 alpaca-py
+ccxt

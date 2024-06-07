@@ -16,5 +16,3 @@ from datetime import datetime, timedelta
 from wtforms import ValidationError
 import time
 from api.v1.extensions import admin_required, auth, socketio, emit, cache
-
-
