@@ -189,7 +189,7 @@
         font-weight: 500;
     }
 
-    .profile-dropdown{
+    .profile-dropdown {
         visibility: hidden;
         position: absolute;
         top: 50px;
@@ -202,11 +202,11 @@
         border-radius: 0px !important;
     }
 
-    .profile-dropdown.active{
+    .profile-dropdown.active {
         visibility: visible;
         opacity: 1;
         position: absolute;
-        border:1px solid #ccc !important;
+        border: 1px solid #ccc !important;
         box-shadow: 0px 3px 6px #33333322;
         padding: 5px 10px;
         top: 80px;
@@ -214,12 +214,31 @@
     }
 
     .profile-item{
-        margin-bottom: 10px;
+        margin: 5px 0 !important;
     }
 
-    .profile-item:hover{
-        opacity: 0.7;
+    .nav-sm{
+        display: none;
     }
+
+    .inner-dropdown{
+        display: none;
+        flex-direction: column;
+        border-left: 1px solid #000;
+        padding-left: 30px;
+        margin-left: 0px;
+        transition: 0.3s all;
+    }
+
+    .inner-dropdown-item{
+        color: #000;
+        text-decoration: none;
+        margin: 5px 0;
+        opacity: 0;
+        transition: 0.3s all;
+    }
+
+
 
     @media (max-width: 991.98px) { 
         .balance-lg{
@@ -242,8 +261,35 @@
             transition: 0.3s all;
         }
 
+        .profile-dropdown{
+            top: 50px !important;
+            right: 20px;
+            width: 95%;
+        }
+
+        .nav-sm{
+            display: block;
+        }
+
+        .profile-item{
+            margin-bottom: 20px !important;
+        }
+
         .profile-name{
             display: none !important;
+        }
+
+        .nav-lg{
+            display: none !important;
+        }
+
+        .inner-dropdown.active{
+            display: flex;
+            margin-left: 8px;
+        }   
+
+        .inner-dropdown-item{
+            opacity: 1;
         }
     }
 
@@ -303,41 +349,12 @@
         background-color: #fbfaff;
     }
 
-    .nav-sm{
-        display: none;
-    }
-
     @media (max-width: 991.98px){
         
         .translations{
             display: none !important;
         }
 
-        .profile-dropdown,
-        .profile-dropdown.active{
-            width: 300px;
-            right: 20px;
-        }
-
-        .nav-lg{
-            display: none !important;
-        }
-
-        .nav-sm{
-            display: block;
-        }
-    }
-
-    @media (max-width: 767.98px){
-        .profile-dropdown.active{
-            top: 50px !important;
-            width: 90%;
-            right: 20px;
-        }
-
-        .profile-item{
-            margin-bottom: 20px;
-        }
     }
 
 
@@ -460,11 +477,11 @@
                 </div>
 
                 <!-- Currency-->
-                <div class="currency-box d-flex align-items-center me-2 px-3 py-2" onclick="dropDownWallets()">
+                <div class="currency-box d-flex align-items-center me-2 px-3 py-2">
                     <i class="cf cf-btc fs-3 currency-coin position-relative me-2" style="color: #f7931a;"></i>
                     <h3 class="currency-name fs-6 position-relative">
                         Bitcoin Cash 
-                        <i class="bi bi-chevron-down text-black ms-2"></i>
+                        <i class="bi bi-chevron-down text-black ms-2 wallet-dropdown-toggler"></i>
                     </h3>
 
                     <!--    wallet dropdown -->
@@ -728,40 +745,56 @@
                             <li class="dropdown-item profile-item">
                                 <i class="bi bi-wallet-fill me-1"></i>
                                 Wallet
-                                </li>
-                            <li class="dropdown-item profile-item nav-sm">
+                            </a>
+                            <a href="trade.html" class="dropdown-item profile-item ">
                                 <i class="bi bi-bar-chart me-1"></i>
                                 Trade
-                            </li>
-                            <li class="dropdown-item profile-item nav-sm">
-                                <i class="bi bi-radar"></i>
-                                Positons
-                            </li>
-                            <li class="dropdown-item profile-item">
-                                <i class="bi bi-wallet2 me-1"></i>
-                                Manage funds
-                            </li>
-                            <li class="dropdown-item profile-item nav-sm">
+                            </a>
+                            <div class="dropdown-item profile-item " data-toggle="inner-dropdown" id="inner-dropdown-toggler">
+                                <div class="inner-dropdown-toggler">
+                                    <i class="bi bi-radar"></i>
+                                    Positions 
+                                </div>
+                                <div class="inner-dropdown">
+                                    <a href="open_postions.html" class="inner-dropdown-item">Open positions</a>
+                                    <a href="closed_positions.html" class="inner-dropdown-item">Closed positions</a>
+                                    <a href="earnings.html" class="inner-dropdown-item">Earnings</a>
+                                </div>
+                            </div>
+                            <div class="dropdown-item profile-item " data-toggle="inner-dropdown">
+                                <div class="inner-dropdown-toggler">
+                                   <i class="bi bi-wallet2 me-1"></i>
+                                    Manage funds 
+                                </div> 
+                                <div class="inner-dropdown">
+                                    <a href="swap_assets.html" class="inner-dropdown-item">Swap assets</a>
+                                    <a href="swap_history.html" class="inner-dropdown-item">Swap History</a>
+                                    <a href="deposit_log.html" class="inner-dropdown-item">Deposit log</a>
+                                    <a href="withdraw_log.html" class="inner-dropdown-item">Withdraw log</a>
+                                </div>
+                            </div>
+                            <a href="auto_trade.html" class="dropdown-item profile-item ">
                                 <i class="bi bi-graph-up-arrow me-1"></i>
                                 Auto trader
-                            </li>
-                            <li class="dropdown-item profile-item">
+                            </a>
+                            <a href="reset_password.html" class="dropdown-item profile-item ">
                                 <i class="bi bi-key-fill me-1"></i>
                                 Change Password
-                            </li>
+                            </a>
                         </div>
                         <div>
-                            <li class="dropdown-item profile-item">
+                            <a href="#" class="dropdown-item profile-item switch-demo">
                                 <i class="bi bi-toggle-on me-1"></i>
                                 Switch : Demo
-                            </li>
-                            <li class="dropdown-item profile-item">
+                            </a>
+                            <a href="#" class="dropdown-item profile-item">
                                 <i class="bi bi-door-closed-fill me-1"></i>
+
                                 <a href="{{ url_for('app_views.logout') }}"> Logout </a>
                             </li>
                         </div>
                     </div>
-                </div>       
+                </div>  
             </div>
         </div>
         <!-- ======================================== HEADER ENDS HERE =========================================== -->
@@ -774,16 +807,16 @@
             <div class="trade-box sidenav-icon-box mb-5">
                 <i class="bi bi-bar-chart fs-4"></i>
                 <div class="icon-dropdown">
-                    <p class="drop-header px-3 py-2">Trade</p>
+                    <a href="trade.html" class="text-decoration-none text-black"><p class="drop-header px-3 py-2">Trade</p></a>
                 </div>
             </div>
             <div class="trade-box sidenav-icon-box mb-5">
                 <i class="bi bi-radar fs-4"></i>
                 <div class="icon-dropdown">
-                    <p class="drop-header px-3 py-2">Open Positons</p>
+                    <a href="closed_positions.html" class="text-decoration-none text-black"><p class="drop-header px-3 py-2">Open Positons</p></a>
                     <div class="w-100">
-                        <p class="drop-list">Closed Positons</p>
-                        <p class="drop-list">Earnings</p> 
+                    <a href="closed_positions.html" class="text-decoration-none text-black"><p class="drop-list">Closed Positons</p></a> 
+                        <a href="earnings.html" class="text-decoration-none text-black"><p class="drop-list">Earnings</p></a> 
                     </div>
                 </div>
             </div>
@@ -792,11 +825,11 @@
                 <div class="icon-dropdown">
                     <p class="drop-header px-3 py-2">Manage Funds</p>
                     <div class="w-100">
-                        <p class="drop-list">Wallet</p>
-                        <p class="drop-list">Swap wallet</p>
-                        <p class="drop-list">Swap history</p>
-                        <p class="drop-list">Deposit log</p>
-                        <p class="drop-list">Withdrowal log</p>
+                    <a href="wallet.html" class="text-decoration-none text-black"><p class="drop-list">Wallet</p></a> 
+                        <a href="swap_wallet.html" class="text-decoration-none text-black"><p class="drop-list">Swap wallet</p></a>
+                        <a href="swap_history" class="text-decoration-none text-black"><p class="drop-list">Swap history</p></a>
+                        <a href="deposit_log.html" class="text-decoration-none text-black"><p class="drop-list">Deposit log</p></a>
+                        <a href="withdrawal_log.html" class="text-decoration-none text-black"><p class="drop-list">Withdrowal log</p></a>
                     </div>
                 </div>
             </div>
@@ -807,14 +840,19 @@
                 </div>
             </div>
             <div class="trade-box sidenav-icon-box mb-5">
+                <i class="bi bi-safe2 fs-4"></i>
+                <div class="icon-dropdown">
+                    <a href="acoount-types.html" class="text-decoration-none text-black"><p class="drop-header px-3 py-2">Account Types</p></a>
+                </div>
+            </div>
+            <div class="trade-box sidenav-icon-box mb-5">
                 <i class="bi bi-person fs-4"></i>
                 <div class="icon-dropdown">
                     <p class="drop-header px-3 py-2">Profile</p>
                     <div class="w-100">
-                        <a href="edit-profile.html" class="text-decoration-none text-black"><p class="drop-list">Edit Profile</p></a>
-                        <a href="user-id.html" class="text-decoration-none text-black"><p class="drop-list">Verify Id</p> </a>
+                        <a href="edit_profile.html" class="text-decoration-none text-black"><p class="drop-list">Edit Profile</p></a>
+                        <a href="user_id.html" class="text-decoration-none text-black"><p class="drop-list">Verify Id</p> </a>
                     </div>
-                    
                 </div>
             </div>
         </div>
@@ -902,33 +940,34 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
+// wallet dropdown 
+const walletDropDown = document.querySelector('.wallet-dropdown');
+const walletDropDownToggler = document.querySelector('.wallet-dropdown-toggler');
 
-function dropDownWallets() {
-  const walletDropDown = document.querySelector('.wallet-dropdown');
-  walletDropDown.classList.toggle('active'); // Toggle dropdown visibility
+walletDropDownToggler.addEventListener('click', () => {
+  walletDropDown.classList.toggle('active'); // Toggle visibility on click
+});
 
-  // Get selected wallet details (if any)
-  const selectedWallet = document.querySelector('.wallet-dropdown .wallet.active');
-  if (selectedWallet) {
-    const coinName = selectedWallet.querySelector('.coin-name').textContent.trim();
-    const coinLogo = selectedWallet.querySelector('.coin-logo').classList[1]; // Assuming the logo class is the second class
-    const holdingBalance = parseFloat(selectedWallet.querySelector('.wallet-holdings').textContent);
-    const coinBalance = parseFloat(selectedWallet.querySelector('.coin-balance').textContent);
 
-    // Create a new currencyBox object with selected details
-    const newCurrencyBox = new currencyBox(coinName, coinLogo, holdingBalance, coinBalance);
 
-    // Update the .currency-box content dynamically
-    updateCurrencyBox(newCurrencyBox);
-  }
-}
 
-// Function to update currencyBox content (implementation details omitted)
-function updateCurrencyBox(currencyBox) {
-  // Update elements within .currency-box based on currencyBox properties
-  // ... (your implementation here) ...
-}
+// close profile dropdowns when the document gets clicked
+document.addEventListener('DOMContentLoaded', function() {
+    const walletDropDownToggler = document.querySelector('.wallet-dropdown-toggler');
+    const walletDropdown = document.querySelector('.wallet-dropdown');
 
+    // Close the dropdown when clicking outside of it
+    document.body.addEventListener('click', function(event) {
+        if (!walletDropdown.contains(event.target) && !walletDropDownToggler.contains(event.target)) {
+            walletDropdown.classList.remove('active');
+        }
+    });
+
+    // Prevent the dropdown from closing when clicking inside
+    walletDropDown.addEventListener('click', function(event) {
+        event.stopPropagation();
+    });
+});
 
 // profile dropdown
 const profileBox = document.querySelector('.profile-box');
@@ -939,6 +978,23 @@ profileBox.addEventListener('click', () => {
 });
 
 
+// close profile dropdowns when the document gets clicked
+document.addEventListener('DOMContentLoaded', function() {
+    const dropdownToggler = document.getElementById('profile-dropdown-toggler');
+    const dropdown = document.querySelector('.profile-dropdown');
+
+    // Close the dropdown when clicking outside of it
+    document.body.addEventListener('click', function(event) {
+        if (!dropdown.contains(event.target) && !dropdownToggler.contains(event.target)) {
+            dropdown.classList.remove('active');
+        }
+    });
+
+    // Prevent the dropdown from closing when clicking inside
+    dropdown.addEventListener('click', function(event) {
+        event.stopPropagation();
+    });
+});
     </script>
     <script>
         // Get the verification mode select element
