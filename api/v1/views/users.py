@@ -88,7 +88,7 @@ def login():
                     return response
                 elif user.is_verified is True:
                     check = login_user(user)
-                    response = redirect(url_for('app_views.dashboard', user_id = user.id))
+                    response = redirect(url_for('app_views.onboard', user_id = user.id))
                     response.cache_control.no_cache = True
                     return response
                 else:
@@ -99,6 +99,15 @@ def login():
     # Render the login page with the form
     return render_template('login.html', Login_form=form)
 
+
+@app_views.route('/users/onboard/', strict_slashes=False, endpoint='onboard')
+@cache.cached(timeout=50)
+def onboard():
+    user_id = request.args.get("user_id")
+    print(f"IN users/onboard USER ID IS {user_id}")
+    return render_template('user_id.html', user_id=user_id)
+
+
 @app_views.route('/admin/', strict_slashes=False, endpoint='admin')
 @login_required
 @admin_required
@@ -108,9 +117,7 @@ def admin():
 @app_views.route('/dashboard/', strict_slashes=False, endpoint='dashboard')
 @cache.cached(timeout=50)
 def profile():
-    user_id = request.args.get("user_id")
-    print(f"IN PROFILE USER ID IS {user_id}")
-    return render_template('user-id.html', user_id=user_id)
+    return render_template('user_dashboard')
 
 
 @app_views.route('/users/logout/', strict_slashes=False, endpoint='logout')
