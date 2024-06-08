@@ -313,6 +313,7 @@
         background-color: #fbfaff;
         width: 100%;
         margin-bottom: 0;
+        cursor: default;
     }
 
     .trade-box .icon-dropdown {
@@ -473,7 +474,7 @@
 
                 <!-- Logo -->
                 <div class="logo-box me-2 border-bottom-0 px-3 py-2 border border-end">
-                    <img src="assets/favicon.png" alt="" class="logo">
+                    <img src="../static/img/favicon.png" alt="" class="logo">
                 </div>
 
                 <!-- Currency-->
@@ -692,57 +693,63 @@
 
                 <!-- Translations -->
                 <div class="translations px-3">
-                    <div class="dropdown">
-                        <button class="border-0 bg-white position-relative flags-dropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="dropdown drop-down">
+                        <button class="border-0 bg-white position-relative flags-dropdown-btn dropdown-toggler" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="https://flagcdn.com/w40/es.png" srcset="https://flagcdn.com/w80/es.png 2x" width="30" alt="Spain" class="flag-btn">
                         </button>
-                        <ul class="dropdown-menu flag-menu">
+                        <ul class="dropdown-menu flag-menu closable">
                             <li class="d-flex">
                                 <a class="dropdown-item" href="#">
-                                    <img src="assets/us.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    <img src="../static/img/us.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
                                     English
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="#">
-                                    <img src="assets/es.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    <img src="../static/img/es.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
                                     Spanish
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="#">
-                                    <img src="assets/de.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    <img src="../static/img/de.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
                                     German
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="#">
-                                    <img src="assets/it.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    <img src="../static/img/it.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
                                     Italian
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="#">
-                                    <img src="assets/ru.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    <img src="../static/img/ru.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
                                     Russian
                                 </a>
                             </li>
                         </ul>
-                      </div>
+                    </div>
                 </div>
 
-                <!-- Profile Dropdown -->
-                <div class="profile-box px-3 d-flex align-items-center border border-secondary-subtle border-top-0 border-bottom-0" style="background-color: #fbfaff;">
+                 <!-- Profile Dropdown -->
+                 <div class="profile-box px-3 d-flex align-items-center border border-secondary-subtle border-top-0 border-bottom-0" style="background-color: #fbfaff;">
                     <i class="bi bi-person-circle profile-icon fs-3 me-3"></i>
-                    <p class="profile-name position-relative me-3 fs-6">{{ current_user.username }}</p>
-                    <i class="bi bi-chevron-down text-black"></i>
-                    <div class="profile-dropdown list-unstyled border">
-                        <div class="border-bottom mb-3 pb-2">
-                            <li class="dropdown-item profile-item">
-                                <i class="bi bi-person-circle me-1 profile-item"></i>
-                                Profile
-                            </li>
-                            <li class="dropdown-item profile-item">
+                    <p class="profile-name position-relative me-3 fs-6">JOHN DOE</p>
+                    <i class="bi bi-chevron-down text-black dropdown-toggler" id="profile-dropdown-toggler"></i>
+                    <div class="profile-dropdown list-unstyled drop-down">
+                        <div class="border-bottom mb-3 pb-2 nav-sm">
+                            <div class="dropdown-item profile-item " data-toggle="inner-dropdown">
+                                <div class="inner-dropdown-toggler">
+                                    <i class="bi bi-person-circle me-1 profile-item"></i>
+                                    Profile
+                                </div>
+                                <div class="inner-dropdown">
+                                    <a href="edit_profile.html" class="inner-dropdown-item">Edit profile</a>
+                                    <a href="user_id.html" class="inner-dropdown-item">Verify ID</a>
+                                </div>
+                            </div>
+                            <a href="wallets.html" class="dropdown-item profile-item ">
                                 <i class="bi bi-wallet-fill me-1"></i>
                                 Wallet
                             </a>
@@ -789,12 +796,11 @@
                             </a>
                             <a href="#" class="dropdown-item profile-item">
                                 <i class="bi bi-door-closed-fill me-1"></i>
-
-                                <a href="{{ url_for('app_views.logout') }}"> Logout </a>
-                            </li>
+                                Logout
+                            </a>
                         </div>
                     </div>
-                </div>  
+                </div>   
             </div>
         </div>
         <!-- ======================================== HEADER ENDS HERE =========================================== -->
@@ -813,9 +819,10 @@
             <div class="trade-box sidenav-icon-box mb-5">
                 <i class="bi bi-radar fs-4"></i>
                 <div class="icon-dropdown">
-                    <a href="closed_positions.html" class="text-decoration-none text-black"><p class="drop-header px-3 py-2">Open Positons</p></a>
+                    <p class="drop-header px-3 py-2">Positions</p>
                     <div class="w-100">
-                    <a href="closed_positions.html" class="text-decoration-none text-black"><p class="drop-list">Closed Positons</p></a> 
+                        <a href="opened_positions.html" class="text-decoration-none text-black"><p class="drop-list">Opened Positons</p></a> 
+                        <a href="closed_positions.html" class="text-decoration-none text-black"><p class="drop-list">Closed Positons</p></a> 
                         <a href="earnings.html" class="text-decoration-none text-black"><p class="drop-list">Earnings</p></a> 
                     </div>
                 </div>
@@ -994,6 +1001,19 @@ document.addEventListener('DOMContentLoaded', function() {
     dropdown.addEventListener('click', function(event) {
         event.stopPropagation();
     });
+});
+
+
+
+
+// handle inner dropdown inside the profile
+const innerDropDownToggler = Array.from( document.querySelectorAll('.inner-dropdown-toggler'))
+
+innerDropDownToggler.forEach( toggler => {
+    toggler.addEventListener('click', () => {
+        let target = toggler.nextElementSibling;
+        target.classList.toggle('active')
+    })
 });
     </script>
     <script>
