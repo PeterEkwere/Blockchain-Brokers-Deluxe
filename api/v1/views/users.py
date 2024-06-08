@@ -99,12 +99,15 @@ def login():
     # Render the login page with the form
     return render_template('login.html', Login_form=form)
 
+@app_views.route('/users/profile/', strict_slashes=False, endpoint='profile')
+@login_required
+def profile():
+    return render_template('edit_profile.html')
+
 
 @app_views.route('/users/onboard/', strict_slashes=False, endpoint='onboard')
-@cache.cached(timeout=50)
 def onboard():
     user_id = request.args.get("user_id")
-    print(f"IN users/onboard USER ID IS {user_id}")
     return render_template('user_id.html', user_id=user_id)
 
 
@@ -116,7 +119,7 @@ def admin():
 
 @app_views.route('/dashboard/', strict_slashes=False, endpoint='dashboard')
 @cache.cached(timeout=50)
-def profile():
+def dashboard():
     return render_template('user_dashboard')
 
 
@@ -125,6 +128,7 @@ def profile():
 def logout():
     logout_user()
     return redirect(url_for('app_views.login'))
+
 
 @app_views.route('/users/verify_email', methods=['GET', 'POST'], strict_slashes=False, endpoint='verify_email')
 def verify_email():
