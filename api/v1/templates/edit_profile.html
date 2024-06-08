@@ -35,11 +35,16 @@
     }
 
     .main{
-        padding-top: 70px;
+        padding-top: 50px;
+        padding-right: 20px;
     }
 
     .header{
         z-index: 102 !important;
+    }
+
+    .fixed-top{
+        padding-right: 20px !important;
     }
 
     .logo-box{
@@ -301,6 +306,7 @@
         background-color: #fbfaff;
         width: 100%;
         margin-bottom: 0;
+        cursor: default;
     }
 
     .trade-box .icon-dropdown {
@@ -355,10 +361,15 @@
     /* ================== PAGE PROFILE STYLES ================= */
 
     .user-profile-box{
-        margin-left: 150px;
+        margin-left: 120px;
         margin-bottom: 40px;
         position: relative;
         z-index: 0;
+    }
+
+    .profile-form{
+        border-radius: 0px !important;
+        width: 100% !important;
     }
 
     .profile-input{
@@ -374,8 +385,11 @@
     }
 
     label{
-        font-size: 16px;
+        font-size: 14px;
+        font-family:"Plus Jakarta Sans", sans-serif;
+        margin-bottom: 5px;
     }
+
 
     .update-btn{
         font-size: 16px;
@@ -407,6 +421,15 @@
     }
 
     @media (max-width: 767.98px){
+
+        .fixed-top{
+            padding-right: 0 !important;
+        }
+
+        .main{
+            padding-right: 0 !important;
+        }
+
         .user-profile-box{
             flex-direction: column !important;
             justify-content: center;
@@ -467,7 +490,7 @@
 
                 <!-- Logo -->
                 <div class="logo-box me-2 border-bottom-0 px-3 py-2 border border-end">
-                    <img src="assets/favicon.png" alt="" class="logo">
+                    <img src="../static/img/favicon.png" alt="" class="logo">
                 </div>
 
                 <!-- Currency-->
@@ -693,31 +716,31 @@
                         <ul class="dropdown-menu flag-menu closable">
                             <li class="d-flex">
                                 <a class="dropdown-item" href="#">
-                                    <img src="api/vi/static/img/us.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    <img src="../static/img/us.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
                                     English
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="#">
-                                    <img src="api/vi/static/img/es.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    <img src="../static/img/es.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
                                     Spanish
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="#">
-                                    <img src="assets/de.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    <img src="../static/img/de.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
                                     German
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="#">
-                                    <img src="assets/it.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    <img src="../static/img/it.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
                                     Italian
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="#">
-                                    <img src="assets/ru.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    <img src="../static/img/ru.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
                                     Russian
                                 </a>
                             </li>
@@ -812,9 +835,10 @@
             <div class="trade-box sidenav-icon-box mb-5">
                 <i class="bi bi-radar fs-4"></i>
                 <div class="icon-dropdown">
-                    <a href="closed_positions.html" class="text-decoration-none text-black"><p class="drop-header px-3 py-2">Open Positons</p></a>
+                    <p class="drop-header px-3 py-2">Positions</p>
                     <div class="w-100">
-                       <a href="closed_positions.html" class="text-decoration-none text-black"><p class="drop-list">Closed Positons</p></a> 
+                        <a href="closed_positions.html" class="text-decoration-none text-black"><p class="drop-list">Open Positons</p></a>
+                        <a href="closed_positions.html" class="text-decoration-none text-black"><p class="drop-list">Closed Positons</p></a> 
                         <a href="earnings.html" class="text-decoration-none text-black"><p class="drop-list">Earnings</p></a> 
                     </div>
                 </div>
@@ -858,15 +882,15 @@
 
         <!-- ========================================== PAGE MAIN SECTION ( PROFILE ) ====================================-->
         <div class="user-profile-box mt-5 d-flex">
-            <div class="card me-5 shadow-lg" style="width: 18rem; height: fit-content;">
-                <img src="../static/img/user-default.png" class="card-img-top profile-img" id="profile-img" alt="...">
+            <div class="card me-4 shadow-sm rounded-0" style="width: 18rem; height: fit-content;">
+                <img src="../static/img/user-default.png" class="card-img-top profile-img rounded-0 id="profile-img" alt="...">
                 <div class="card-body">
                   <h5 class="card-title">JOHN DOE</h5>
                   <p class="card-text">johndoe@gmail.com</p>
                   <a href="#" class="btn btn-primary profile-photo-btn" id="profile-photo-btn">Change profile image</a>
                 </div>
             </div>
-            <div class="profile-form border border-secondary-subtle p-4 rounded shadow-lg w-50">
+            <div class="profile-form border border-secondary-subtle p-4 rounded-0 shadow-sm">
                 <div class="profile-form-header">
                     <h4>Edit Profile</h4>
                     <p style="font-size: 14px;">Use the form to edit your Profile on Deluxe 4</p>
@@ -891,10 +915,10 @@
                         <input type="email" id="lastName" class="lastName-box profile-input" placeholder="Johndoe@gmail.com">
                     </div>
                 </div>
-                <div class="col-lg-6 gender d-flex mb-3">
-                    <div class="gender d-flex flex-column me-5 inputs-container">
+                <div class="gender-dob d-flex mb-3 row double-inputs">
+                    <div class="gender d-flex flex-column inputs-container col-lg-5">
                         <label for="lastName mb-5">Gender</label>
-                        <select class="form-select" aria-label="Default select example">
+                        <select class="form-select gender-input" aria-label="Default select example">
                             <option selected>Male</option>
                             <option value="2">Female</option>
                             <option value="3">Others</option>
@@ -920,6 +944,10 @@
                     </div>
                 </div>
                 <div class="profile-form-btn">
+                    <div class="profile-country mb-4 d-flex border-0 align-items-center bg-dark text-white btn py-0 shadow-lg fw-medium" style="width: 150px;">
+                        <img src="../static/img/au.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                        <p style="position: relative; top: 6px;">Australia</p>
+                    </div>
                     <a href="" class="text-decoration-none text-white update-btn">
                         <i class="bi bi-cloud-arrow-up-fill"></i>
                         Update profile
