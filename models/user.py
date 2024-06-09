@@ -26,6 +26,7 @@ class User(Base, UserMixin, BaseModel):
     hashed_password = Column(String(250), nullable=False)
     role = Column(String(20), nullable=True, default='regular')
     gender = Column(String(20), nullable=True)
+    profile_photo = Column(JSON, nullable=True)
     reset_token = Column(String(250), nullable=True)
     is_active = Column(Boolean, default=True)
     is_verified = Column(Boolean, default=False)

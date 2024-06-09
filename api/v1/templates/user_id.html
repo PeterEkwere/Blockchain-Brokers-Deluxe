@@ -473,7 +473,7 @@
 
                 <!-- Logo -->
                 <div class="logo-box me-2 border-bottom-0 px-3 py-2 border border-end">
-                    <img src="assets/favicon.png" alt="" class="logo">
+                    <img src="{{ url_for('static', filename='img/favicon.png') }}" alt="" class="logo">
                 </div>
 
                 <!-- Currency-->
@@ -491,7 +491,7 @@
                                 <i class="cf cf-eth coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
                             </div>
                             <div class="wallet-name-balance-holding me-4">
-                                <p class="coin-name mb-2 fs-6"">Ethereum</p>
+                                <p class="coin-name mb-2 fs-6">Ethereum</p>
                                 <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                 <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> ETH</p>
                             </div>
@@ -582,7 +582,7 @@
                                 <i class="cf cf-dot coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
                             </div>
                             <div class="wallet-name-balance-holding me-4">
-                                <p class="coin-name mb-2 fs-6"">Polkadot</p>
+                                <p class="coin-name mb-2 fs-6">Polkadot</p>
                                 <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                 <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> DOT</p>
                             </div>
@@ -595,7 +595,7 @@
                                 <i class="cf cf-bch coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
                             </div>
                             <div class="wallet-name-balance-holding me-4">
-                                <p class="coin-name mb-2 fs-6"">Bitcoin</p>
+                                <p class="coin-name mb-2 fs-6">Bitcoin</p>
                                 <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                 <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> BCH</p>
                             </div>
@@ -608,7 +608,7 @@
                                 <i class="cf cf-btc coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
                             </div>
                             <div class="wallet-name-balance-holding me-4">
-                                <p class="coin-name mb-2 fs-6"">Bitcoin</p>
+                                <p class="coin-name mb-2 fs-6">Bitcoin</p>
                                 <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                 <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> BTC</p>
                             </div>
@@ -699,31 +699,31 @@
                         <ul class="dropdown-menu flag-menu">
                             <li class="d-flex">
                                 <a class="dropdown-item" href="#">
-                                    <img src="assets/us.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    <img src="{{ url_for('static', filename='img/us.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
                                     English
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="#">
-                                    <img src="assets/es.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    <img src="{{ url_for('static', filename='img/es.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
                                     Spanish
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="#">
-                                    <img src="assets/de.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    <img src="{{ url_for('static', filename='img/de.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
                                     German
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="#">
-                                    <img src="assets/it.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    <img src="{{ url_for('static', filename='img/it.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
                                     Italian
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="#">
-                                    <img src="assets/ru.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    <img src="{{ url_for('static', filename='img/ru.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
                                     Russian
                                 </a>
                             </li>
@@ -850,7 +850,7 @@
                 <div class="icon-dropdown">
                     <p class="drop-header px-3 py-2">Profile</p>
                     <div class="w-100">
-                        <a href="edit_profile.html" class="text-decoration-none text-black"><p class="drop-list">Edit Profile</p></a>
+                        <a href="{{ url_for('app_views.register', user_id=user_id) }}" class="text-decoration-none text-black"><p class="drop-list">Edit Profile</p></a>
                         <a href="user_id.html" class="text-decoration-none text-black"><p class="drop-list">Verify Id</p> </a>
                     </div>
                 </div>

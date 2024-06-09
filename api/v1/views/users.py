@@ -7,7 +7,7 @@ from models.user import User
 from api.v1.auth.user_auth import RegistrationForm, LoginForm, ResetForm, UpdatePasswordForm, VerifyEmailForm
 from api.v1.views import app_views
 from flask_login import login_user, current_user, logout_user, login_required
-from flask import abort, jsonify, make_response, request, session
+from flask import abort, jsonify, make_response, request, session, send_from_directory
 from flask import redirect, url_for, flash, render_template
 from functools import wraps
 from flasgger.utils import swag_from
@@ -17,6 +17,11 @@ from api.v1.extensions import admin_required, strong_password, auth, login_manag
 import urllib.request
 import os
 from werkzeug.utils import secure_filename
+from sqlalchemy.exc import NoResultFound
+from io import BytesIO
+from PIL import Image 
+
+
 
 recaptcha = ReCaptcha(
     app_views,
@@ -24,8 +29,9 @@ recaptcha = ReCaptcha(
     version=2
 )
 
-UPLOAD_FOLDER = 'api/v1/static/uploads/kyc'
 
+UPLOAD_FOLDER = 'api/v1/static/uploads/kyc'
+PROFILE_FOLDER =  'api/v1/static/uploads/profiles'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'JPG'])
  
 def allowed_file(filename):
@@ -88,7 +94,7 @@ def login():
                     return response
                 elif user.is_verified is True:
                     check = login_user(user)
-                    response = redirect(url_for('app_views.onboard', user_id = user.id))
+                    response = redirect(url_for('app_views.profile', user_id = user.id))
                     response.cache_control.no_cache = True
                     return response
                 else:
@@ -102,7 +108,21 @@ def login():
 @app_views.route('/users/profile/', strict_slashes=False, endpoint='profile')
 @login_required
 def profile():
-    return render_template('edit_profile.html')
+    user_id = request.args.get("user_id")
+    try:
+        user = auth.get_user_by_id(user_id)
+    except NoResultFound:
+        print("User was not found")
+        
+    if user.profile_photo:
+        prefix_to_strip = "api/v1/static/"
+        value = user.profile_photo['front']
+        main_filename = value[len(prefix_to_strip):]
+        main_filename = main_filename.replace("\\", "/")
+        if user.first_name and user.last_name and user.address and user.email and user.PhoneNumber and user.state and user.city:
+            return render_template('edit_profile.html', user_id=user_id, profile_path=main_filename, email=user.email, first_name=user.first_name, last_name=user.last_name, address=user.address, PhoneNumber=user.PhoneNumber, state=user.state, city=user.city)
+        return render_template('edit_profile.html', user_id=user_id, profile_path=main_filename)
+    return render_template('edit_profile.html', user_id=user_id)
 
 
 @app_views.route('/users/onboard/', strict_slashes=False, endpoint='onboard')
@@ -229,8 +249,60 @@ def update_password():
             return render_template('update_password.html', update_form=form, error_message=error_message)
     return render_template('update_password.html', update_form=form)
  
-
  
+@app_views.route('users/profile_picture/upload', methods=['GET', 'POST'], endpoint="upload_profile_image")
+def upload_profile_image():
+    """ THis Endpoint handles the retrieval and update of the user's profile photo
+
+    Returns:
+        _type_: _description_
+    """
+    user_id = request.form['user_id']
+    try:
+        user = auth.get_user_by_id(user_id)
+    except NoResultFound:
+        print("User was not found")
+    if request.method == 'POST':
+        if 'file1' not in request.files:
+            error_message = "File 1 input missing"
+            return render_template('edit_profile.html', error_message=error_message, user_id=user_id)
+        file1 = request.files['file1']
+        if file1.filename == '':
+            print(error_message)
+            error_message = 'Oops! It looks like you forgot to select a Valid Image, Please Choose one'
+            return render_template('edit_profile.html', error_message=error_message, user_id=user_id)
+        if file1 and allowed_file(file1.filename):
+            file1name = secure_filename(file1.filename)
+            file1_path = os.path.join(PROFILE_FOLDER, file1name)
+            file1.save(file1_path)
+            auth._db.update_user(user.id,  profile_photo={"front": file1_path})
+            prefix_to_strip = "api/v1/static/"
+            value = user.profile_photo['front']
+            main_filename = value[len(prefix_to_strip):]
+            main_filename = main_filename.replace("\\", "/")
+            message = "Your Profile Image Has Been Uploaded."
+            print(message)
+            return jsonify({"user_id": user_id, "profile_path": main_filename}), 200
+    else:
+        return render_template('edit_profile.html', user_id=user_id)
+    return render_template('edit_profile.html', user_id=user_id)
+        
+        
+        
+@app_views.route('users/update_profile/', methods=['POST'], endpoint="update_profile")
+def update_profile():
+    user_data = request.get_json()  # Use request.get_json() if data is JSON in request body
+    #print(f"user_data is {user_data}")
+    # Update user profile in your database
+    try:
+        user = auth.get_user_by_id(user_data['id'])
+        auth._db.update_user(user.id,  **user_data)
+    except NoResultFound:
+        print("User was not found")
+    
+    
+    return jsonify({"message": "success"})
+        
 @app_views.route('/KYC/', methods=['GET', 'POST'])
 def upload_image():
     if request.method == 'POST':

@@ -490,7 +490,7 @@
 
                 <!-- Logo -->
                 <div class="logo-box me-2 border-bottom-0 px-3 py-2 border border-end">
-                    <img src="../static/img/favicon.png" alt="" class="logo">
+                    <img src="{{ url_for('static', filename='img/favicon.png') }}" alt="" class="logo">
                 </div>
 
                 <!-- Currency-->
@@ -716,31 +716,31 @@
                         <ul class="dropdown-menu flag-menu closable">
                             <li class="d-flex">
                                 <a class="dropdown-item" href="#">
-                                    <img src="../static/img/us.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    <img src="{{ url_for('static', filename='img/us.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
                                     English
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="#">
-                                    <img src="../static/img/es.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    <img src="{{ url_for('static', filename='img/es.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
                                     Spanish
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="#">
-                                    <img src="../static/img/de.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    <img src="{{ url_for('static', filename='img/de.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
                                     German
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="#">
-                                    <img src="../static/img/it.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    <img src="{{ url_for('static', filename='img/it.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
                                     Italian
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="#">
-                                    <img src="../static/img/ru.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    <img src="{{ url_for('static', filename='img/ru.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
                                     Russian
                                 </a>
                             </li>
@@ -810,7 +810,7 @@
                                 <i class="bi bi-toggle-on me-1"></i>
                                 Switch : Demo
                             </a>
-                            <a href="#" class="dropdown-item profile-item">
+                            <a href="{{ url_for('app_views.logout') }}" class="dropdown-item profile-item">
                                 <i class="bi bi-door-closed-fill me-1"></i>
                                 Logout
                             </a>
@@ -882,18 +882,40 @@
 
         <!-- ========================================== PAGE MAIN SECTION ( PROFILE ) ====================================-->
         <div class="user-profile-box mt-5 d-flex">
-            <div class="card me-4 shadow-sm rounded-0" style="width: 18rem; height: fit-content;">
-                <img src="../static/img/user-default.png" class="card-img-top profile-img rounded-0 id="profile-img" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">JOHN DOE</h5>
-                  <p class="card-text">johndoe@gmail.com</p>
-                  <a href="#" class="btn btn-primary profile-photo-btn" id="profile-photo-btn">Change profile image</a>
+            <input type="hidden" id="A_USER_ID" name="user_id" value="{{ user_id }}">
+                <div class="card me-4 shadow-sm rounded-0" style="width: 18rem; height: fit-content;">
+                    {% if profile_path %}
+                        <script>
+                            console.log("I SHOULD WORK IN PROFILE PATH CHECK")
+                        </script>
+                        <img src="{{ url_for('static', filename='' + profile_path) }}" class="card-img-top profile-img rounded-0" id="profile-img" alt="...">
+                    {% else %}
+                        <script>
+                            console.log("I SHOULDnt SHOW")
+                        </script>
+                        <img src="{{ url_for('static', filename='img/user-default.png') }}" class="card-img-top profile-img rounded-0" id="profile-img" alt="...">
+                    {% endif %}
+                    <div class="card-body">
+                        {% if first_name and last_name and email %}
+                            <h5 class="card-title">{{ first_name }} {{ last_name }}</h5>
+                            <p class="card-text">{{ email }}</p>
+                        {% else %}
+                            <h5 class="card-title">JOHN DOE</h5>
+                            <p class="card-text">johndoe@gmail.com</p>
+                        {% endif %}
+                        <form id="profile-picture-form" method="post" action="/api/v1/users/profile_picture/upload" enctype="multipart/form-data">
+                            <input type="hidden" name="user_id" value="{{ user_id }}">
+                            <label for="profile-picture-input" class="btn btn-primary profile-photo-btn">
+                              <i class="bi bi-cloud-arrow-up-fill"></i>
+                              Change profile image
+                            </label>
+                            <input type="file" id="profile-picture-input" name="file1" style="display: none;">
+                        </form>
+                    </div>
                 </div>
-            </div>
-            <div class="profile-form border border-secondary-subtle p-4 rounded-0 shadow-sm">
+        <form id=profileform method="post" action="/api/v1/users/update_profile/" enctype="multipart/form-data">
+            <div  class="profile-form border border-secondary-subtle p-4 rounded-0 shadow-sm">
                 <div class="profile-form-header">
-                    <h4>Edit Profile</h4>
-                    <p style="font-size: 14px;">Use the form to edit your Profile on Deluxe 4</p>
                 </div>
                 <div class="fName-lName row double-inputs">
                     <div class="col-lg-5 first-name d-flex flex-column me-5 inputs-container">
@@ -908,16 +930,16 @@
                 <div class="email-phone row double-inputs">
                     <div class="col-lg-5 phone d-flex flex-column me-5 inputs-container single-container">
                         <label for="userPhone">Phone Number</label>
-                        <input type="number" id="userEmail" class="firstname-box profile-input" placeholder="19202388992">
+                        <input type="number" id="userPhone" class="firstname-box profile-input" placeholder="19202388992">
                     </div>
                     <div class="col-lg-5 last-name d-flex flex-column inputs-container">
-                        <label for="lastName mb-5">Email Address</label>
-                        <input type="email" id="lastName" class="lastName-box profile-input" placeholder="Johndoe@gmail.com">
+                        <label for="userEmail mb-5">Email Address</label>
+                        <input type="email" id="userEmail" class="lastName-box profile-input" placeholder="Johndoe@gmail.com">
                     </div>
                 </div>
                 <div class="gender-dob d-flex mb-3 row double-inputs">
                     <div class="gender d-flex flex-column inputs-container col-lg-5">
-                        <label for="lastName mb-5">Gender</label>
+                        <label for="gender mb-5">Gender</label>
                         <select class="form-select gender-input" aria-label="Default select example">
                             <option selected>Male</option>
                             <option value="2">Female</option>
@@ -945,15 +967,16 @@
                 </div>
                 <div class="profile-form-btn">
                     <div class="profile-country mb-4 d-flex border-0 align-items-center bg-dark text-white btn py-0 shadow-lg fw-medium" style="width: 150px;">
-                        <img src="../static/img/au.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                        <img src="{{ url_for('static', filename='img/au.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
                         <p style="position: relative; top: 6px;">Australia</p>
                     </div>
-                    <a href="" class="text-decoration-none text-white update-btn">
+                    <a href="" class="text-decoration-none text-white update-btn" onclick="submitForm()">
                         <i class="bi bi-cloud-arrow-up-fill"></i>
                         Update profile
                     </a>
                 </div>
             </div>
+        </form>
         </div>
         <!-- ========================================== FORM ENDS HERE ===================================== -->
 
@@ -1038,28 +1061,82 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-
-// user profile photo handler
-document.addEventListener("DOMContentLoaded", function() {
-    var profileImg = document.getElementById("profile-img");
-    var profilePhotoBtn = document.getElementById("profile-photo-btn");
-
-    profilePhotoBtn.addEventListener("click", function(e) {
-        e.preventDefault();
-        var input = document.createElement("input");
-        input.type = "file";
-        input.accept = "image/*";
-        input.onchange = function(event) {
-            var file = event.target.files[0];
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                profileImg.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        };
-        input.click();
+$(document).ready(function() {
+    $('#profile-picture-form').submit(false); // Prevent default form submission
+  
+    $('#profile-picture-input').on('change', function() {
+      var formData = new FormData();
+      formData.append('user_id', $('input[name="user_id"]').val()); // Include user_id
+      formData.append('file1', $(this).prop('files')[0]);
+      console.log('User id is ', $('input[name="user_id"]').val())
+  
+      $.ajax({
+        url: '/api/v1/users/profile_picture/upload',
+        type: 'POST',
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+          if (response) {
+            document.getElementById("profile-img").src = "/static/" + response.profile_path;;  // Update image source
+          }
+        },
+        error: function(error) {
+          console.error('Error uploading profile picture:', error);
+          // Handle upload errors gracefully (e.g., display error message to user)
+        }
+      });
     });
-});
+  });
+    </script>
+    <script>
+        function extractUserInput() {
+          
+            const userData = {
+                first_name: document.getElementById('firstName').value,
+                last_name: document.getElementById('lastName').value,
+                userEmail: document.getElementById('userEmail').value, // Assuming email ID is in the 'userEmail' field
+                PhoneNumber: document.getElementById('userPhone').value,
+                address: document.getElementById('floatingTextarea2').value,
+                city: document.getElementById('userCity').value,
+                state: document.getElementById('userState').value,
+                zipcode: document.getElementById('userZipCode').value,
+                id: $('input[name="user_id"]').val()
+              };
+
+            return userData;
+          }
+          
+          
+          async function submitForm() {
+            event.preventDefault(); // Prevent default form submission behavior
+          
+            const userData = extractUserInput();
+          
+            try {
+              const response = await fetch('/api/v1/users/update_profile/', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json' // Set content type for JSON data
+                },
+                body: JSON.stringify(userData) // Convert data to JSON string
+              });
+          
+              const responseData = await response.json();
+          
+              if (response.ok) { // Handle successful response
+                console.log('User data updated successfully');
+                // Optionally display a success message to the user
+              } else {
+                console.error('Error updating user data:', responseData);
+                // Optionally display an error message to the user
+              }
+            } catch (error) {
+              console.error('Error submitting form:', error);
+              // Handle any errors that may occur during the process
+            }
+          }
     </script>
 </body>
 </html>
