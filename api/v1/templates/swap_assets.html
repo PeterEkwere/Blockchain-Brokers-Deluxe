@@ -35,16 +35,11 @@
     }
 
     .main{
-        padding-top: 50px;
-        padding-right: 20px;
+        padding-top: 70px;
     }
 
     .header{
         z-index: 2 !important;
-    }
-
-    .fixed-top{
-        padding-right: 20px !important;
     }
 
     .logo-box{
@@ -65,16 +60,26 @@
 
     .wallet-dropdown{
         position: absolute;
-        width: 350px;
-        height: 0;
         visibility: hidden;
-        opacity: 1;
-        top: 40px !important;
-        padding: 0px !important;
+        height: 0;
+        opacity: 0;
+        top: 60px;
+        transition: 0.3s;
         overflow-y: auto;
         overflow-y: scroll;
         scrollbar-width: thin;
         background-color: #fff;
+    }
+
+    .wallet-dropdown.active{
+        position: absolute;
+        top: 80px;
+        width: 350px;
+        visibility: visible;
+        opacity: 1;
+        padding: 0px !important;
+        margin: 0px;
+        height: 300px;
         vertical-align: middle;
         display: flex;
         flex-direction: column;
@@ -83,15 +88,17 @@
         box-shadow: 0px 3px 6px #3333333f;
         overflow-y: scroll;
         scrollbar-width: thin;
-        transition: 0.2s;
     }
 
-    .wallet-dropdown.active{
-        top: 80px !important;
-        height: 300px;
-        visibility: visible;
+    .wallet-dropdown::-webkit-scrollbar {
+        width: 8px; /* Adjust width as desired */
+        background-color: #f5f5f5; /* Set track background color */
     }
 
+    .wallet-dropdown::-webkit-scrollbar-thumb {
+        background-color: #ccc; /* Set thumb color */
+        border-radius: 6px; /* Add rounded corners */
+    }
 
     .wallet{
         width: 100%;
@@ -182,7 +189,7 @@
         font-weight: 500;
     }
 
-    .profile-dropdown{
+    .profile-dropdown {
         visibility: hidden;
         position: absolute;
         top: 50px;
@@ -195,25 +202,24 @@
         border-radius: 0px !important;
     }
 
-    .profile-dropdown.active{
+    .profile-dropdown.active {
         visibility: visible;
         opacity: 1;
         position: absolute;
-        border:1px solid #ccc !important;
+        border: 1px solid #ccc !important;
         box-shadow: 0px 3px 6px #33333322;
         padding: 5px 10px;
         top: 80px;
         right: 8px;
     }
 
-    .nav-sm{
-        display: none;
-    }
-
     .profile-item{
         margin: 5px 0 !important;
     }
 
+    .nav-sm{
+        display: none;
+    }
 
     .inner-dropdown{
         display: none;
@@ -287,6 +293,7 @@
         }
     }
 
+
     /* ================== FIXED SIDE NAV STYLES ================= */ 
 
     .fixed-side-nav{
@@ -321,14 +328,12 @@
         width: 150px;
         opacity: 0;
         transition: 0.2s all;
-        z-index: 100 !important;
     }
 
     .trade-box:hover .icon-dropdown {
         opacity: 1;
         visibility: visible;
         left: 60px;
-        z-index: 100 !important;
     }
 
     .drop-list{
@@ -339,12 +344,12 @@
         vertical-align: middle;
         display: flex;
         align-items: center;
+        cursor: pointer;
     }
 
     .drop-list:hover{
         background-color: #fbfaff;
     }
-
 
     @media (max-width: 991.98px){
         
@@ -352,98 +357,44 @@
             display: none !important;
         }
 
-        .nav-lg{
-            display: none !important;
-        }
     }
 
 
-    /* ================== PAGE PROFILE STYLES ================= */
 
-    .user-profile-box{
-        margin-left: 120px;
-        margin-bottom: 40px;
-        position: relative;
-        z-index: 0;
-    }
-
-    .profile-form{
-        border-radius: 0px !important;
-        width: 100% !important;
-    }
-
-    .profile-input{
-        height: 40px;
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px !important;
-    }
-
-    .inputs-container{
-        margin-bottom: 10px !important;
-    }
-
-    label{
-        font-size: 14px;
-        font-family:"Plus Jakarta Sans", sans-serif;
-        margin-bottom: 5px;
-    }
-
-
-    .update-btn{
-        font-size: 16px;
-        padding: 10px 10px;
-        background-color: #5156be;
-        border-radius: 5px !important;
-        color: #fff;
-        box-shadow: 0px 6px 12px #5156be54;
-        font-family:"Plus Jakarta Sans", sans-serif;
-        transition: 0.5s;
-    }
+/* ==================   WALLETS PAGE STYLES ================= */
     
-    .profile-photo-btn{
-        font-size: 16px;
-        padding: 10px 10px;
-        background-color: #5156be;
-        border-radius: 5px !important;
-        border: none !important;
-        color: #fff;
-        box-shadow: 0px 6px 12px #5156be54;
-        font-family:"Plus Jakarta Sans", sans-serif;
-        transition: 0.5s;
+    .swap-assets-box{
+        display: block !important;
+        width: 70%;
+        margin: 30px auto !important;
+    }
+
+    input:focus{
+        box-shadow: none !important;
+        outline: 1px solid transparent !important;
+    }
+
+    select:focus{
+        box-shadow: none !important;
+        outline: 1px solid transparent !important;
+    }
+
+    .col-xl-4 {
+        opacity: 0.9 !important;
+    }
+
+    .card{
+        border: 1px solid transparent !important;
     }
 
     @media (max-width: 991.98px){
-        .user-profile-box{
-            margin: 20px 20px 100px 20px !important;
-        }
-    }
-
-    @media (max-width: 767.98px){
-
-        .fixed-top{
-            padding-right: 0 !important;
+        .swap-assets-box{
+            margin: 30px auto !important;
+            width: 90%;
         }
 
-        .main{
-            padding-right: 0 !important;
-        }
-
-        .user-profile-box{
-            flex-direction: column !important;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .card{
-            width: 100% !important;
+        .assets-banner{
             margin-bottom: 50px !important;
-            margin-right: 0 !important;
-        }
-
-        .profile-form{
-            width: 100% !important;
         }
     }
 
@@ -452,7 +403,7 @@
     /* ================== FOOTER STYLES ================= */
 
     footer{
-
+        width: 94%;
         display: flex !important;
         bottom: 0 !important;
     }
@@ -490,7 +441,7 @@
 
                 <!-- Logo -->
                 <div class="logo-box me-2 border-bottom-0 px-3 py-2 border border-end">
-                    <img src="{{ url_for('static', filename='img/favicon.png') }}" alt="" class="logo">
+                    <img src="../static/img/favicon.png" alt="" class="logo">
                 </div>
 
                 <!-- Currency-->
@@ -502,7 +453,7 @@
                     </h3>
 
                     <!--    wallet dropdown -->
-                    <div class="wallet-dropdown drop-down dropdown-menu">
+                    <div class="wallet-dropdown">
                         <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #74788d;">
                             <div class="wallet-logo-container me-4">
                                 <i class="cf cf-eth coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
@@ -656,7 +607,7 @@
 
                 <!-- T.Margin -->
                 <div class="t.margin-box me-2 px-3 py-2 balance-lg" style="text-align: left;">
-                    <p class="mb-0 text-left header-p">T.Margin</p>
+                    <p class="mb-0 text-left header-p">P/L</p>
                     <p class="text-left header-p">$<span class="t.margin-amount">0.00</span></p>
                 </div>
 
@@ -677,17 +628,17 @@
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item mb-0" href="#">
-                            <div class="p/l-box me-2 px-3 d-flex" style="text-align: left;">
+                        <a class="dropdown-item" href="#">
+                            <div class="p/l-box me-2 px-3 py-2 d-flex" style="text-align: left;">
                                 <p class="mb-0 text-left header-p me-2">P/L</p>
                                 <p class="text-left header-p mb-0">$<span class="p/l-amount">0.00</span></p>
                             </div>
                         </a>
                     </li>
                       <li>
-                        <a class="dropdown-item mb-0" href="#">
-                            <div class="t.margin-box me-2 px-3 d-flex" style="text-align: left;">
-                                <p class="mb-0 text-left header-p">T.Margin</p>
+                        <a class="dropdown-item" href="#">
+                            <div class="t.margin-box me-2 px-3 py-2 d-flex" style="text-align: left;">
+                                <p class="mb-0 text-left header-p">P/L</p>
                                 <p class="text-left header-p mb-0">$<span class="t.margin-amount">0.00</span></p>
                             </div>
                         </a>
@@ -716,31 +667,31 @@
                         <ul class="dropdown-menu flag-menu closable">
                             <li class="d-flex">
                                 <a class="dropdown-item" href="#">
-                                    <img src="{{ url_for('static', filename='img/us.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    <img src="../static/img/us.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
                                     English
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="#">
-                                    <img src="{{ url_for('static', filename='img/es.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    <img src="../static/img/es.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
                                     Spanish
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="#">
-                                    <img src="{{ url_for('static', filename='img/de.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    <img src="../static/img/de.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
                                     German
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="#">
-                                    <img src="{{ url_for('static', filename='img/it.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    <img src="../static/img/it.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
                                     Italian
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="#">
-                                    <img src="{{ url_for('static', filename='img/ru.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    <img src="../static/img/ru.png" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
                                     Russian
                                 </a>
                             </li>
@@ -749,7 +700,7 @@
                 </div>
 
                  <!-- Profile Dropdown -->
-                <div class="profile-box px-3 d-flex align-items-center border border-secondary-subtle border-top-0 border-bottom-0" style="background-color: #fbfaff;">
+                 <div class="profile-box px-3 d-flex align-items-center border border-secondary-subtle border-top-0 border-bottom-0" style="background-color: #fbfaff;">
                     <i class="bi bi-person-circle profile-icon fs-3 me-3"></i>
                     <p class="profile-name position-relative me-3 fs-6">JOHN DOE</p>
                     <i class="bi bi-chevron-down text-black dropdown-toggler" id="profile-dropdown-toggler"></i>
@@ -810,13 +761,13 @@
                                 <i class="bi bi-toggle-on me-1"></i>
                                 Switch : Demo
                             </a>
-                            <a href="{{ url_for('app_views.logout') }}" class="dropdown-item profile-item">
+                            <a href="#" class="dropdown-item profile-item">
                                 <i class="bi bi-door-closed-fill me-1"></i>
                                 Logout
                             </a>
                         </div>
                     </div>
-                </div>        
+                </div>   
             </div>
         </div>
         <!-- ======================================== HEADER ENDS HERE =========================================== -->
@@ -837,7 +788,7 @@
                 <div class="icon-dropdown">
                     <p class="drop-header px-3 py-2">Positions</p>
                     <div class="w-100">
-                        <a href="closed_positions.html" class="text-decoration-none text-black"><p class="drop-list">Open Positons</p></a>
+                        <a href="opened_positions.html" class="text-decoration-none text-black"><p class="drop-list">Opened Positons</p></a> 
                         <a href="closed_positions.html" class="text-decoration-none text-black"><p class="drop-list">Closed Positons</p></a> 
                         <a href="earnings.html" class="text-decoration-none text-black"><p class="drop-list">Earnings</p></a> 
                     </div>
@@ -848,7 +799,7 @@
                 <div class="icon-dropdown">
                     <p class="drop-header px-3 py-2">Manage Funds</p>
                     <div class="w-100">
-                       <a href="wallets.html" class="text-decoration-none text-black"><p class="drop-list">Wallets</p></a> 
+                    <a href="wallet.html" class="text-decoration-none text-black"><p class="drop-list">Wallet</p></a> 
                         <a href="swap_assets.html" class="text-decoration-none text-black"><p class="drop-list">Swap assets</p></a>
                         <a href="swap_history.html" class="text-decoration-none text-black"><p class="drop-list">Swap history</p></a>
                         <a href="deposit_log.html" class="text-decoration-none text-black"><p class="drop-list">Deposit log</p></a>
@@ -880,134 +831,370 @@
             </div>
         </div>
 
-        <!-- ========================================== PAGE MAIN SECTION ( PROFILE ) ====================================-->
-        <div class="user-profile-box mt-5 d-flex">
-            <input type="hidden" id="A_USER_ID" name="user_id" value="{{ user_id }}">
-                <div class="card me-4 shadow-sm rounded-0" style="width: 18rem; height: fit-content;">
-                    {% if profile_path %}
-                        <script>
-                            console.log("I SHOULD WORK IN PROFILE PATH CHECK")
-                        </script>
-                        <img src="{{ url_for('static', filename='' + profile_path) }}" class="card-img-top profile-img rounded-0" id="profile-img" alt="...">
-                    {% else %}
-                        <script>
-                            console.log("I SHOULDnt SHOW")
-                        </script>
-                        <img src="{{ url_for('static', filename='img/user-default.png') }}" class="card-img-top profile-img rounded-0" id="profile-img" alt="...">
-                    {% endif %}
-                    <div class="card-body">
-                        {% if first_name and last_name and email %}
-                            <h5 class="card-title">{{ first_name }} {{ last_name }}</h5>
-                            <p class="card-text">{{ email }}</p>
-                        {% else %}
-                            <h5 class="card-title">JOHN DOE</h5>
-                            <p class="card-text">johndoe@gmail.com</p>
-                        {% endif %}
-                        <form id="profile-picture-form" method="post" action="/api/v1/users/profile_picture/upload" enctype="multipart/form-data">
-                            <input type="hidden" name="user_id" value="{{ user_id }}">
-                            <label for="profile-picture-input" class="btn btn-primary profile-photo-btn">
-                              <i class="bi bi-cloud-arrow-up-fill"></i>
-                              Change profile image
-                            </label>
-                            <input type="file" id="profile-picture-input" name="file1" style="display: none;">
-                        </form>
+        <!-- ========================================== PAGE MAIN SECTION ( WALLETS ) ====================================-->
+        <div class="swap-assets-box">
+            <div class="swap-assets-banner">
+                <h1 class="fs-5 mb-1">Assets Exchange</h1>
+                <p class="mt-0" style="color: #6d6d6d;">Transfer funds seamlessly across your wallets</p>
+            </div>
+            <div class="swap-box border border-secondary-subtle w-100 p-3">
+                <div class="from-to row mb-3">
+                    <div class="col-lg-6 mb-3">
+                        <label for="coin-from" class="mb-2">Transfer From</label>
+                        <select class="form-select" id="coin-from">
+                            <option value="BTC" selected>Bitcoin</option>
+                            <option value="ETH">Ethereum</option>
+                            <option value="XLM">Stellar</option>
+                            <option value="USDT">Tether USD</option>
+                            <option value="XRP">Ripple</option>
+                            <option value="DOGE">Doge coin</option>
+                            <option value="ETC">Ethereum classic</option>
+                            <option value="SOL">Solana</option>
+                            <option value="DOT">Polkadot</option>
+                            <option value="ADA">Cardano</option>
+                            <option value="LINK">Chainlink</option>
+                        </select>
                     </div>
-                </div>
-        <form id=profileform method="post" action="/api/v1/users/update_profile/" enctype="multipart/form-data">
-            <div  class="profile-form border border-secondary-subtle p-4 rounded-0 shadow-sm">
-                <div class="profile-form-header">
-                </div>
-                <div class="fName-lName row double-inputs">
-                    <div class="col-lg-5 first-name d-flex flex-column me-5 inputs-container">
-                        <label for="firstName">First Name</label>
-                        {% if first_name %}
-                        <input type="text" id="firstName" class="firstname-box profile-input" placeholder="{{ first_name }}">
-                        {% else %}
-                        <input type="text" id="firstName" class="firstname-box profile-input" placeholder="JOHN">
-                        {% endif %}
-                    </div>
-                    <div class="col-lg-5 last-name d-flex flex-column inputs-container">
-                        <label for="lastName mb-5">Last Name</label>
-                        {% if last_name %}
-                        <input type="text" id="lastName" class="lastName-box profile-input" placeholder="{{ last_name }}">
-                        {% else %}
-                        <input type="text" id="lastName" class="lastName-box profile-input" placeholder="DOE">
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="email-phone row double-inputs">
-                    <div class="col-lg-5 phone d-flex flex-column me-5 inputs-container single-container">
-                        <label for="userPhone">Phone Number</label>
-                        {% if PhoneNumber %}
-                        <input type="number" id="userPhone" class="firstname-box profile-input" placeholder="{{ PhoneNumber }}">
-                        {% else %}
-                        <input type="number" id="userPhone" class="firstname-box profile-input" placeholder="19202388992">
-                        {% endif %}
-                    </div>
-                    <div class="col-lg-5 last-name d-flex flex-column inputs-container">
-                        <label for="userEmail mb-5">Email Address</label>
-                        {% if email %}
-                        <input type="email" id="userEmail" class="lastName-box profile-input" placeholder="{{ email }}">
-                        {% else %}
-                        <input type="email" id="userEmail" class="lastName-box profile-input" placeholder="Johndoe@gmail.com">
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="gender-dob d-flex mb-3 row double-inputs">
-                    <div class="gender d-flex flex-column inputs-container col-lg-5">
-                        <label for="gender mb-5">Gender</label>
-                        <select class="form-select gender-input" aria-label="Default select example">
-                            <option selected>Male</option>
-                            <option value="2">Female</option>
-                            <option value="3">Others</option>
+                    <div class="col-lg-6">
+                        <label for="coin-To" class="mb-2">Transfer To</label>
+                        <select class="form-select" id="coin-to">
+                            <option value="BTC" selected>Ethereum</option>
+                            <option value="ETH">Bitcoin</option>
+                            <option value="XLM">Stellar</option>
+                            <option value="USDT">Tether USD</option>
+                            <option value="XRP">Ripple</option>
+                            <option value="DOGE">Doge coin</option>
+                            <option value="ETC">Ethereum classic</option>
+                            <option value="SOL">Solana</option>
+                            <option value="DOT">Polkadot</option>
+                            <option value="ADA">Cardano</option>
+                            <option value="LINK">Chainlink</option>
                         </select>
                     </div>
                 </div>
-                <div class="form-floating address mb-3">
-                    <textarea class="form-control" placeholder="Enter your Address" id="floatingTextarea2" style="height: 100px"></textarea>
-                    <label for="floatingTextarea2">Enter Your Address</label>
-                </div>
-                <div class="exact-location row mb-5">
-                    <div class="mb-3 inputs-container col-lg-4">
-                        <label for="userCity" class="form-label">City</label>
-                        {% if city %}
-                        <input type="text" class="form-control" id="userCity" placeholder="{{ city }}">
-                        {% else %}
-                        <input type="text" class="form-control" id="userCity" placeholder="City">
-                        {% endif %}
-                    </div>
-                    <div class="mb-3 inputs-container col-lg-4">
-                        <label for="userState" class="form-label">State</label>
-                        {% if state %}
-                        <input type="text" class="form-control" id="userState" placeholder="{{ state }}">
-                        {% else %}
-                        <input type="text" class="form-control" id="userState" placeholder="State">
-                        {% endif %}
-                    </div>
-                    <div class="mb-3 inputs-container col-lg-4">
-                        <label for="userZipCode" class="form-label">Zipcode</label>
-                        {% if zipcode %}
-                        <input type="number" class="form-control" id="userZipCode" placeholder="{{ zipcode }}">
-                        {% else %}
-                        <input type="number" class="form-control" id="userZipCode" placeholder="Zipcode">
-                        {% endif %}
+                <div class="input-group mb-4">
+                    <label for="asset">Enter Amount</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <span class="input-group-text token-from">Default</span>
                     </div>
                 </div>
-                <div class="profile-form-btn">
-                    <div class="profile-country mb-4 d-flex border-0 align-items-center bg-dark text-white btn py-0 shadow-lg fw-medium" style="width: 150px;">
-                        <img src="{{ url_for('static', filename='img/au.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
-                        <p style="position: relative; top: 6px;">Australia</p>
-                    </div>
-                    <a href="" class="text-decoration-none text-white update-btn" onclick="submitForm()">
-                        <i class="bi bi-cloud-arrow-up-fill"></i>
-                        Update profile
-                    </a>
+                <div class="amount">
+                    <p class="fw-medium">You Get</p>
+                    <p><span class="transfer-amount">0</span> <span class="token-to">BTC</span></p>
+                </div>
+                <div class="transfer-btn text-white px-3 py-2 fs-6 rounded" style="background-color: #5156be; width: 130px; box-shadow: 0px 3px 6px #5156be4a; cursor: pointer;">
+                    <i class="bi bi-arrow-left-right me-2"></i>
+                    Transfer
                 </div>
             </div>
-        </form>
-        </div>
-        <!-- ========================================== FORM ENDS HERE ===================================== -->
 
+            <!-- wallets container-->
+            <div class="wallets-container mt-5 row">
+                <div class="col-lg-3 mb-3">
+                    <!-- CARD -->
+                    <div class="card card-h-50 " style="background-color: #f7931a;">
+                        <!-- CARD BODY -->
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-5">
+                                    <div class="d-flex align-items-start">
+                                        <div class="flex-shrink-0 me-3 rounded-circle">
+                                            <i class="cc cf-btc fs-1 text-white-50"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <span class="mb-1 lh-1 d-block text-truncate text-white">
+                                                Bitcoin
+                                            </span>
+                                            <h4 class="mb-2 text-white amount convert">$0.00</h4>
+                                            <p class="text-white h6">0 BTC</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 mb-3">
+                    <!-- CARD -->
+                    <div class="card card-h-50 bg-secondary">
+                        <!-- CARD BODY -->
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-5">
+                                    <div class="d-flex align-items-start">
+                                        <div class="flex-shrink-0 me-3 rounded-circle">
+                                            <i class="cc cf-eth fs-1 text-white-50"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <span class="mb-1 lh-1 d-block text-truncate text-white">
+                                                Ethereum
+                                            </span>
+                                            <h4 class="mb-2 text-white amount convert">$0.00</h4>
+                                            <p class="text-white h6">0 ETH</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 mb-3">
+                    <!-- CARD -->
+                    <div class="card card-h-50 bg-primary">
+                        <!-- CARD BODY -->
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-5">
+                                    <div class="d-flex align-items-start">
+                                        <div class="flex-shrink-0 me-3 rounded-circle">
+                                            <i class="cc cf-btc fs-1 text-white-50"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <span class="mb-1 lh-1 d-block text-truncate text-white">
+                                                Stellar
+                                            </span>
+                                            <h4 class="mb-2 text-white amount convert">$0.00</h4>
+                                            <p class="text-white h6">0 XLM</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 mb-3">
+                    <!-- CARD -->
+                    <div class="card card-h-50 bg-info">
+                        <!-- CARD BODY -->
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-5">
+                                    <div class="d-flex align-items-start">
+                                        <div class="flex-shrink-0 me-3 rounded-circle">
+                                            <i class="cc cf-bch fs-1 text-white-50"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <span class="mb-1 lh-1 d-block text-truncate text-white">
+                                                Bitcoin cash
+                                            </span>
+                                            <h4 class="mb-2 text-white amount convert">$0.00</h4>
+                                            <p class="text-white h6">0 BCH</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 mb-3">
+                    <!-- CARD -->
+                    <div class="card card-h-50 bg-success">
+                        <!-- CARD BODY -->
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-5">
+                                    <div class="d-flex align-items-start">
+                                        <div class="flex-shrink-0 me-3 rounded-circle">
+                                            <i class="cc cf-usdt fs-1 text-white-50"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <span class="mb-1 lh-1 d-block text-truncate text-white">
+                                                Tether USD
+                                            </span>
+                                            <h4 class="mb-2 text-white amount convert">$0.00</h4>
+                                            <p class="text-white h6">0 USDT</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 mb-3">
+                    <!-- CARD -->
+                    <div class="card card-h-50 bg-danger">
+                        <!-- CARD BODY -->
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-5">
+                                    <div class="d-flex align-items-start">
+                                        <div class="flex-shrink-0 me-3 rounded-circle">
+                                            <i class="cc cf-xrp fs-1 text-white-50"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <span class="mb-1 lh-1 d-block text-truncate text-white">
+                                                Ripple
+                                            </span>
+                                            <h4 class="mb-2 text-white amount convert">$0.00</h4>
+                                            <p class="text-white h6">0 XRP</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 mb-3">
+                    <!-- CARD -->
+                    <div class="card card-h-50 bg-warning">
+                        <!-- CARD BODY -->
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-5">
+                                    <div class="d-flex align-items-start">
+                                        <div class="flex-shrink-0 me-3 rounded-circle">
+                                            <i class="cc cf-doge fs-1 text-white-50"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <span class="mb-1 lh-1 d-block text-truncate text-white">
+                                                Doge coin
+                                            </span>
+                                            <h4 class="mb-2 text-white amount convert">$0.00</h4>
+                                            <p class="text-white h6">0 DOGE</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 mb-3">
+                    <!-- CARD -->
+                    <div class="card card-h-50 bg-info">
+                        <!-- CARD BODY -->
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-5">
+                                    <div class="d-flex align-items-start">
+                                        <div class="flex-shrink-0 me-3 rounded-circle">
+                                            <i class="cc cf-etc fs-1 text-white-50"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <span class="mb-1 lh-1 d-block text-truncate text-white">
+                                                Ethereum classic
+                                            </span>
+                                            <h4 class="mb-2 text-white amount convert">$0.00</h4>
+                                            <p class="text-white h6">0 ETC</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 mb-3">
+                    <!-- CARD -->
+                    <div class="card card-h-50 bg-dark">
+                        <!-- CARD BODY -->
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-5">
+                                    <div class="d-flex align-items-start">
+                                        <div class="flex-shrink-0 me-3 rounded-circle">
+                                            <i class="cc cf-sol fs-1 text-white-50"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <span class="mb-1 lh-1 d-block text-truncate text-white">
+                                                Solana
+                                            </span>
+                                            <h4 class="mb-2 text-white amount convert">$0.00</h4>
+                                            <p class="text-white h6">0 SOL</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 mb-3">
+                    <!-- CARD -->
+                    <div class="card card-h-50 bg-primary">
+                        <!-- CARD BODY -->
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-5">
+                                    <div class="d-flex align-items-start">
+                                        <div class="flex-shrink-0 me-3 rounded-circle">
+                                            <i class="cc cf-dot fs-1 text-white-50"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <span class="mb-1 lh-1 d-block text-truncate text-white">
+                                                Polkadot
+                                            </span>
+                                            <h4 class="mb-2 text-white amount convert">$0.00</h4>
+                                            <p class="text-white h6">0 DOT</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 mb-3">
+                    <!-- CARD -->
+                    <div class="card card-h-50 bg-secondary">
+                        <!-- CARD BODY -->
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-5">
+                                    <div class="d-flex align-items-start">
+                                        <div class="flex-shrink-0 me-3 rounded-circle">
+                                            <i class="cc cf-ada fs-1 text-white-50"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <span class="mb-1 lh-1 d-block text-truncate text-white">
+                                                Cardano
+                                            </span>
+                                            <h4 class="mb-2 text-white amount convert">$0.00</h4>
+                                            <p class="text-white h6">0 ADA</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 mb-3">
+                    <!-- CARD -->
+                    <div class="card card-h-50 bg-warning">
+                        <!-- CARD BODY -->
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-5">
+                                    <div class="d-flex align-items-start">
+                                        <div class="flex-shrink-0 me-3 rounded-circle">
+                                            <i class="cc cf-link fs-1 text-white-50"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <span class="mb-1 lh-1 d-block text-truncate text-white">
+                                                Chainlink
+                                            </span>
+                                            <h4 class="mb-2 text-white amount convert">$0.00</h4>
+                                            <p class="text-white h6">0 LINK</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+    </div>
     <!-- =========================================== MAIN ENDS HERE====================================== -->
 
 
@@ -1031,7 +1218,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-
 // wallet dropdown 
 const walletDropDown = document.querySelector('.wallet-dropdown');
 const walletDropDownToggler = document.querySelector('.wallet-dropdown-toggler');
@@ -1061,11 +1247,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-
-
-
-
-
 // profile dropdown
 const profileBox = document.querySelector('.profile-box');
 const profileDropdown = document.querySelector('.profile-dropdown');
@@ -1094,82 +1275,45 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-$(document).ready(function() {
-    $('#profile-picture-form').submit(false); // Prevent default form submission
-  
-    $('#profile-picture-input').on('change', function() {
-      var formData = new FormData();
-      formData.append('user_id', $('input[name="user_id"]').val()); // Include user_id
-      formData.append('file1', $(this).prop('files')[0]);
-      console.log('User id is ', $('input[name="user_id"]').val())
-  
-      $.ajax({
-        url: '/api/v1/users/profile_picture/upload',
-        type: 'POST',
-        data: formData,
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function(response) {
-          if (response) {
-            document.getElementById("profile-img").src = "/static/" + response.profile_path;;  // Update image source
-          }
-        },
-        error: function(error) {
-          console.error('Error uploading profile picture:', error);
-          // Handle upload errors gracefully (e.g., display error message to user)
-        }
-      });
-    });
-  });
-    </script>
-    <script>
-        function extractUserInput() {
-          
-            const userData = {
-                first_name: document.getElementById('firstName').value,
-                last_name: document.getElementById('lastName').value,
-                userEmail: document.getElementById('userEmail').value, // Assuming email ID is in the 'userEmail' field
-                PhoneNumber: document.getElementById('userPhone').value,
-                address: document.getElementById('floatingTextarea2').value,
-                city: document.getElementById('userCity').value,
-                state: document.getElementById('userState').value,
-                zipcode: document.getElementById('userZipCode').value,
-                id: $('input[name="user_id"]').val()
-              };
 
-            return userData;
-          }
-          
-          
-          async function submitForm() {
-            event.preventDefault(); // Prevent default form submission behavior
-          
-            const userData = extractUserInput();
-          
-            try {
-              const response = await fetch('/api/v1/users/update_profile/', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json' // Set content type for JSON data
-                },
-                body: JSON.stringify(userData) // Convert data to JSON string
-              });
-          
-              const responseData = await response.json();
-          
-              if (response.ok) { // Handle successful response
-                console.log('User data updated successfully');
-                // Optionally display a success message to the user
-              } else {
-                console.error('Error updating user data:', responseData);
-                // Optionally display an error message to the user
-              }
-            } catch (error) {
-              console.error('Error submitting form:', error);
-              // Handle any errors that may occur during the process
-            }
-          }
+
+// handle inner dropdown inside the profile
+const innerDropDownToggler = Array.from( document.querySelectorAll('.inner-dropdown-toggler'))
+
+innerDropDownToggler.forEach( toggler => {
+    toggler.addEventListener('click', () => {
+        let target = toggler.nextElementSibling;
+        target.classList.toggle('active')
+    })
+});
+
+
+// handle coin transfer inputs 
+document.addEventListener('DOMContentLoaded', function() {
+    const coinFrom = document.getElementById('coin-from');
+    const coinTo = document.getElementById('coin-to');
+    const tokenFrom = document.querySelector('.token-from');
+    const tokenTo = document.querySelector('.token-to');
+
+    function updateTokens() {
+        tokenFrom.textContent = coinFrom.value;
+        tokenTo.textContent = coinTo.value;
+    }
+
+    function ensureDifferentSelection() {
+        if (coinFrom.value === coinTo.value) {
+            alert('Transfer From and Transfer To values cannot be the same.');
+            coinTo.value = [...coinTo.options].find(option => option.value !== coinFrom.value).value;
+        }
+        updateTokens();
+    }
+
+    coinFrom.addEventListener('change', ensureDifferentSelection);
+    coinTo.addEventListener('change', ensureDifferentSelection);
+
+    // Initial update
+    updateTokens();
+});
     </script>
 </body>
 </html>
