@@ -40,7 +40,7 @@
     }
 
     .header{
-        z-index: 102 !important;
+        z-index: 2 !important;
     }
 
     .fixed-top{
@@ -49,7 +49,7 @@
 
     .logo-box{
         background-color: #fbfaff;
-        z-index: 102 !important;
+        z-index: 2 !important;
     }
 
     .logo{
@@ -291,10 +291,10 @@
 
     .fixed-side-nav{
         height: 100%;
-        top: 40px !important;
+        top: 70px !important;
         width: 79px !important;
-        padding-top: 50px;
-        z-index: 100;
+        padding-top: 35px;
+        z-index: 3 !important;
     }
 
     .trade-box {
@@ -745,11 +745,11 @@
                                 </a>
                             </li>
                         </ul>
-                      </div>
+                    </div>
                 </div>
 
                  <!-- Profile Dropdown -->
-                 <div class="profile-box px-3 d-flex align-items-center border border-secondary-subtle border-top-0 border-bottom-0" style="background-color: #fbfaff;">
+                <div class="profile-box px-3 d-flex align-items-center border border-secondary-subtle border-top-0 border-bottom-0" style="background-color: #fbfaff;">
                     <i class="bi bi-person-circle profile-icon fs-3 me-3"></i>
                     <p class="profile-name position-relative me-3 fs-6">JOHN DOE</p>
                     <i class="bi bi-chevron-down text-black dropdown-toggler" id="profile-dropdown-toggler"></i>
@@ -761,8 +761,8 @@
                                     Profile
                                 </div>
                                 <div class="inner-dropdown">
-                                    <a href="edit-profile.html" class="inner-dropdown-item">Edit profile</a>
-                                    <a href="user-id.html" class="inner-dropdown-item">Verify ID</a>
+                                    <a href="edit_profile.html" class="inner-dropdown-item">Edit profile</a>
+                                    <a href="user_id.html" class="inner-dropdown-item">Verify ID</a>
                                 </div>
                             </div>
                             <a href="wallets.html" class="dropdown-item profile-item ">
@@ -829,7 +829,7 @@
             <div class="trade-box sidenav-icon-box mb-5">
                 <i class="bi bi-bar-chart fs-4"></i>
                 <div class="icon-dropdown">
-                    <a href="trade.html" class="text-decoration-none text-black"><p class="drop-header px-3 py-2">Trade</p></a>
+                    <a href="trade.html" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Trade</p></a>
                 </div>
             </div>
             <div class="trade-box sidenav-icon-box mb-5">
@@ -848,9 +848,9 @@
                 <div class="icon-dropdown">
                     <p class="drop-header px-3 py-2">Manage Funds</p>
                     <div class="w-100">
-                       <a href="wallet.html" class="text-decoration-none text-black"><p class="drop-list">Wallet</p></a> 
-                        <a href="swap_wallet.html" class="text-decoration-none text-black"><p class="drop-list">Swap wallet</p></a>
-                        <a href="swap_history" class="text-decoration-none text-black"><p class="drop-list">Swap history</p></a>
+                       <a href="wallets.html" class="text-decoration-none text-black"><p class="drop-list">Wallets</p></a> 
+                        <a href="swap_assets.html" class="text-decoration-none text-black"><p class="drop-list">Swap assets</p></a>
+                        <a href="swap_history.html" class="text-decoration-none text-black"><p class="drop-list">Swap history</p></a>
                         <a href="deposit_log.html" class="text-decoration-none text-black"><p class="drop-list">Deposit log</p></a>
                         <a href="withdrawal_log.html" class="text-decoration-none text-black"><p class="drop-list">Withdrowal log</p></a>
                     </div>
@@ -859,13 +859,13 @@
             <div class="trade-box sidenav-icon-box mb-5">
                 <i class="bi bi-graph-up-arrow fs-4"></i>
                 <div class="icon-dropdown">
-                    <a href="auto-trade.html" class="text-decoration-none text-black"><p class="drop-header px-3 py-2">Auto Trader</p></a>
+                    <a href="auto-trade.html" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Auto Trader</p></a>
                 </div>
             </div>
             <div class="trade-box sidenav-icon-box mb-5">
                 <i class="bi bi-safe2 fs-4"></i>
                 <div class="icon-dropdown">
-                    <a href="acoount-types.html" class="text-decoration-none text-black"><p class="drop-header px-3 py-2">Account Types</p></a>
+                    <a href="acoount-types.html" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Account Types</p></a>
                 </div>
             </div>
             <div class="trade-box sidenav-icon-box mb-5">
@@ -1010,6 +1010,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+
+
+
+
+
 // profile dropdown
 const profileBox = document.querySelector('.profile-box');
 const profileDropdown = document.querySelector('.profile-dropdown');
@@ -1036,6 +1041,18 @@ document.addEventListener('DOMContentLoaded', function() {
         event.stopPropagation();
     });
 });
+
+
+// handle inner dropdown inside the profile
+const innerDropDownToggler = Array.from( document.querySelectorAll('.inner-dropdown-toggler'))
+
+innerDropDownToggler.forEach( toggler => {
+    toggler.addEventListener('click', () => {
+        let target = toggler.nextElementSibling;
+        target.classList.toggle('active')
+    })
+});
+
 
 
 

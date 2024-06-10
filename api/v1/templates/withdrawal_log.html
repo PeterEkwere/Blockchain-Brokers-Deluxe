@@ -361,73 +361,33 @@
 
 
     /* ================== PAGE FORM STYLES ================= */
-    .page-form{
+    .history-container{
         margin-left: 100px;
-        margin-right: 50px;
-        margin-top: 20px !important;
-        border-radius: 10px;
-        box-shadow: 0px 3px 6px #33333326;
+        width: 92% !important;
+        margin-top: 40px !important;
     }
 
-
-    .form-header, h1{
-        font-family:"Plus Jakarta Sans", sans-serif;
-        font-weight: 500;
-        font-size: 20px;
-        margin-top: 10px;
+    .card{
+        border-radius: 0px !important;
     }
 
-    .form-guide{
-        border-radius: 10px;
-        background-color: #b7dbf9;
-        color: #3574a7;
+    .card-body{
+        padding: 10px !important;
     }
 
-    .guide-p{
-        font-size: 20px;
-    }
-
-    .form-select{
-        transition: 0.5s all;
-    }
-
-    .form-select:focus {
-        outline: none !important;
-        box-shadow: none !important;
-    }
-
-    .form-btn{
-        border: none;
-    }
-
-    .upload-btn{
-        font-size: 16px;
-        padding: 10px 10px;
-        background-color: #5156be;
-        border-radius: 5px !important;
-        color: #fff;
-        box-shadow: 0px 6px 12px #5156be54;
-        font-family:"Plus Jakarta Sans", sans-serif;
-        transition: 0.5s;
-    }
-
-    .form-btn:hover{
-        box-shadow: none;
-    }
-
-    .skip-btn{
-        padding: 10px 25px;
-        border: 1px solid #5156be;
-        border-radius: 5px;
-        background-color: #fff;
-        color: #5156be;
-        box-shadow: 0px 6px 12px #5156be4a;
-        transition: 0.5s;
-    }
 
     @media (max-width: 991.98px){
-        .page-form{
-            margin: 20px 20px 100px 20px !important;
+        .history-container{
+            margin-left: 0px !important;
+            width: 100% !important;
+        }
+
+        .alert-box{
+            column-span: 3 !important;
+        }
+
+        th{
+            min-width: 200px !important;
         }
     }
 
@@ -436,8 +396,8 @@
     /* ================== FOOTER STYLES ================= */
 
     footer{
-
-        display: flex !important;
+        position: absolute;
+        width: 94%;
         bottom: 0 !important;
     }
 
@@ -455,7 +415,7 @@
 
     @media (max-width: 767.98px){
         footer{
-            position: relative;
+            position: absolute;
             height: 50px;
         }
     }
@@ -834,7 +794,7 @@
                     <div class="w-100">
                         <a href="wallets.html" class="text-decoration-none text-black"><p class="drop-list">Wallets</p></a> 
                         <a href="swap_assets.html" class="text-decoration-none text-black"><p class="drop-list">Swap assets</p></a>
-                        <a href="swap_history" class="text-decoration-none text-black"><p class="drop-list">Swap history</p></a>
+                        <a href="swap_history.html" class="text-decoration-none text-black"><p class="drop-list">Swap history</p></a>
                         <a href="deposit_log.html" class="text-decoration-none text-black"><p class="drop-list">Deposit log</p></a>
                         <a href="withdrawal_log.html" class="text-decoration-none text-black"><p class="drop-list">Withdrowal log</p></a>
                     </div>
@@ -864,66 +824,49 @@
             </div>
         </div>
 
-        <!-- ========================================== PAGE MAIN SECTION ( FORM ) ====================================-->
-        <div class="page-form border border-secondary-subtle p-3 mb-5">
-            <div class="form-header border-bottom border-secondary-subtle pb-4 mb-4">
-                <h1>Verify Your Identity</h1>
-            </div>
-
-            <!-- Form guid -->
-            <div id="guideDiv" class="form-guide p-3 mb-4">
-                {% if message %}
-                    <script>
-                        document.getElementById('guideDiv').style.backgroundColor = '#E6F4EA';
-                    </script>
-                    <p class="mb-0 guide-p"> {{ message }}</p>
-                {% elif error_message %}
-                    <p class="mb-0 guide-p">{{ error_message}}</p>
-                {% else %}
-                    <p class="mb-0 guide-p">
-                        Use the form below to submit a scanned/photographed copy of your valid document or ID
-                    </p>
-                    <p class="guide-p">
-                        Scan the front and back page of your valid identification and upload for verification   
-                    </p>
-                {% endif %}
-            </div>
-
-            <!-- Form -->
-            <form method="post" action="http://127.0.0.1:5000/api/v1/KYC/" enctype="multipart/form-data">
-                <div class="form">
-                    <div class="mb-3">
-                        <label for="verification-mode">
-                            Method of verification
-                        </label>
-                        <select class="form-select" id="verification-mode" name="verification_mode" aria-label="Default select example">
-                            <option selected value="drivers_license">Drivers License</option>
-                            <option value="international_passport">International Passport</option>
-                            <option value="national_id">National ID</option>
-                            <option value="others">Others</option>
-                        </select>
-                </div>
-                    <div class="mb-3 id-input">
-                        <label for="formFile" class="form-label">Upload Front Page</label>
-                        <input class="form-control" type="file" name="file1" id="formFile">
-                    </div>
-                    <div class="mb-3 id-input" id="back-id-input">
-                        <label for="formFile" class="form-label">Back of ID or Drivers License</label>
-                        <input class="form-control" type="file" name="file2" id="formFile">
-                    </div>
-                    <div class="form-btns">
-                        <input type="hidden" name="user_id" value="{{ user_id }}">
-                        <button class="upload-btn form-btn me-3">
-                            <i class="bi bi-cloud-arrow-up-fill"></i>
-                            Upload verification
-                        </button>
-                        <button class="skip-btn form-btn">Skip</button>
+        <!-- ========================================== PAGE MAIN SECTION ( SWAP HISTORY ) ====================================-->
+        <div class="history-container container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-12 col-sm-12">
+                    <div class="card p-2">
+                        <div class="card-header bg-white pb-3">
+                            <h4 class="fs-4">Latest Deposits</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col" class="fw-normal">S/N</th>
+                                        <th scope="col" class="fw-normal">Transactions</th>
+                                        <th scope="col" class="fw-normal">Wallets</th>
+                                        <th scope="col" class="fw-normal">Amount Deposited</th>
+                                        <th scope="col" class="fw-normal">Value when deposited</th>
+                                        <th scope="col" class="fw-normal">Current value</th>
+                                        <th scope="col" class="fw-normal">Deposit status</th>
+                                        <th scope="col" class="fw-normal">Date</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="pt-3 alert-box" id="colspan-cell">
+                                                <div class="alert alert-info alert-outline border-0 fade show px-4 mb-0 text-center bg-white" role="alert">
+                                                    <i class="bi bi-exclamation-triangle d-block display-4 mt-2 mb-3 text-info"></i>
+                                                    <h5 class="text-info fs-6">You dont have any deposit history</h5>
+                                                    <p class="text-info" style="font-size: 14px;">Your deposit history on your account will be displayed here.</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
-        <!-- ========================================== FORM ENDS HERE ===================================== -->
-    </div>
+        
+        <!-- ========================================== PAGE MAIN SECTION ENDS HERE ( SWAP HISTROY ) ====================================-->
     <!-- =========================================== MAIN ENDS HERE====================================== -->
 
 
@@ -947,6 +890,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
+
+
 // wallet dropdown 
 const walletDropDown = document.querySelector('.wallet-dropdown');
 const walletDropDownToggler = document.querySelector('.wallet-dropdown-toggler');
@@ -1015,24 +960,24 @@ innerDropDownToggler.forEach( toggler => {
         target.classList.toggle('active')
     })
 });
+
+
+// hanlde colspan of alert box
+function adjustColspan() {
+    const colspanCell = document.querySelector('.alert-box');
+    if (window.matchMedia("(max-width: 600px)").matches) {
+        // Screen width is 600px or less
+        colspanCell.setAttribute('colspan', '2');
+    } else {
+        // Screen width is more than 600px
+        colspanCell.setAttribute('colspan', '8');
+    }
+}
+
+adjustColspan();
+
+// Adjust on window resize
+window.addEventListener('resize', adjustColspan);
     </script>
-    <script>
-        // Get the verification mode select element
-        const verificationMode = document.getElementById('verification-mode');
-      
-        // Get the back ID input element
-        const backIdInput = document.getElementById('back-id-input');
-      
-        // Update visibility of back ID input based on selected option
-        verificationMode.addEventListener('change', function() {
-          const selectedValue = this.value;
-          backIdInput.style.display = selectedValue === 'drivers_license' || selectedValue === 'national_id' ? 'block' : 'none';
-        });
-      
-        // Initial display based on selected option (optional)
-        window.onload = function() {
-          verificationMode.dispatchEvent(new Event('change'));
-        };
-      </script>
 </body>
 </html>
