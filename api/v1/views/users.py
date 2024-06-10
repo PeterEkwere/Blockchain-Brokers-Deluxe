@@ -120,7 +120,7 @@ def profile():
         main_filename = value[len(prefix_to_strip):]
         main_filename = main_filename.replace("\\", "/")
         if user.first_name and user.last_name and user.address and user.email and user.PhoneNumber and user.state and user.city:
-            return render_template('edit_profile.html', user_id=user_id, profile_path=main_filename, email=user.email, first_name=user.first_name, last_name=user.last_name, address=user.address, PhoneNumber=user.PhoneNumber, state=user.state, city=user.city)
+            return render_template('edit_profile.html', zipcode=user.zipcode, user_id=user_id, profile_path=main_filename, email=user.email, first_name=user.first_name, last_name=user.last_name, address=user.address, PhoneNumber=user.PhoneNumber, state=user.state, city=user.city)
         return render_template('edit_profile.html', user_id=user_id, profile_path=main_filename)
     return render_template('edit_profile.html', user_id=user_id)
 

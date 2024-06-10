@@ -920,21 +920,37 @@
                 <div class="fName-lName row double-inputs">
                     <div class="col-lg-5 first-name d-flex flex-column me-5 inputs-container">
                         <label for="firstName">First Name</label>
+                        {% if first_name %}
+                        <input type="text" id="firstName" class="firstname-box profile-input" placeholder="{{ first_name }}">
+                        {% else %}
                         <input type="text" id="firstName" class="firstname-box profile-input" placeholder="JOHN">
+                        {% endif %}
                     </div>
                     <div class="col-lg-5 last-name d-flex flex-column inputs-container">
                         <label for="lastName mb-5">Last Name</label>
+                        {% if last_name %}
+                        <input type="text" id="lastName" class="lastName-box profile-input" placeholder="{{ last_name }}">
+                        {% else %}
                         <input type="text" id="lastName" class="lastName-box profile-input" placeholder="DOE">
+                        {% endif %}
                     </div>
                 </div>
                 <div class="email-phone row double-inputs">
                     <div class="col-lg-5 phone d-flex flex-column me-5 inputs-container single-container">
                         <label for="userPhone">Phone Number</label>
+                        {% if PhoneNumber %}
+                        <input type="number" id="userPhone" class="firstname-box profile-input" placeholder="{{ PhoneNumber }}">
+                        {% else %}
                         <input type="number" id="userPhone" class="firstname-box profile-input" placeholder="19202388992">
+                        {% endif %}
                     </div>
                     <div class="col-lg-5 last-name d-flex flex-column inputs-container">
                         <label for="userEmail mb-5">Email Address</label>
+                        {% if email %}
+                        <input type="email" id="userEmail" class="lastName-box profile-input" placeholder="{{ email }}">
+                        {% else %}
                         <input type="email" id="userEmail" class="lastName-box profile-input" placeholder="Johndoe@gmail.com">
+                        {% endif %}
                     </div>
                 </div>
                 <div class="gender-dob d-flex mb-3 row double-inputs">
@@ -954,15 +970,27 @@
                 <div class="exact-location row mb-5">
                     <div class="mb-3 inputs-container col-lg-4">
                         <label for="userCity" class="form-label">City</label>
-                        <input type="text" class="form-control" id="userCity" placeholder="Rigntor">
+                        {% if city %}
+                        <input type="text" class="form-control" id="userCity" placeholder="{{ city }}">
+                        {% else %}
+                        <input type="text" class="form-control" id="userCity" placeholder="City">
+                        {% endif %}
                     </div>
                     <div class="mb-3 inputs-container col-lg-4">
                         <label for="userState" class="form-label">State</label>
-                        <input type="text" class="form-control" id="userState" placeholder="Bangladesh">
+                        {% if state %}
+                        <input type="text" class="form-control" id="userState" placeholder="{{ state }}">
+                        {% else %}
+                        <input type="text" class="form-control" id="userState" placeholder="State">
+                        {% endif %}
                     </div>
                     <div class="mb-3 inputs-container col-lg-4">
                         <label for="userZipCode" class="form-label">Zipcode</label>
+                        {% if zipcode %}
+                        <input type="number" class="form-control" id="userZipCode" placeholder="{{ zipcode }}">
+                        {% else %}
                         <input type="number" class="form-control" id="userZipCode" placeholder="Zipcode">
+                        {% endif %}
                     </div>
                 </div>
                 <div class="profile-form-btn">
