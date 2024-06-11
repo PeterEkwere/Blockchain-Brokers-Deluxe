@@ -79,6 +79,7 @@ def register():
 @app_views.route('/users/login/', methods=['GET', 'POST'], strict_slashes=False, endpoint='login')
 def login():
     form = LoginForm(request.form)
+    print(f"CURRENT user .id is {current_user.id}")
     if request.method == 'POST':
         #form = LoginForm(request.POST)
         if form.validate():
