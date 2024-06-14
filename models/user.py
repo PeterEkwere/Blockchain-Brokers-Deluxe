@@ -30,10 +30,11 @@ class User(Base, UserMixin, BaseModel):
     reset_token = Column(String(250), nullable=True)
     is_active = Column(Boolean, default=True)
     is_verified = Column(Boolean, default=False)
-    demo_balance = Column(Float, nullable=False, default=0.0)
+    demo_balance = Column(Float, nullable=False, default=2000.0)
     live_balance = Column(Float, nullable=False, default=0.0)
+    usd_value = Column(Float, nullable=False, default=0.0)
     eth_balance = Column(Float, nullable=False, default=0.0)
-    usdt_balance = Column(Float, nullable=False, default=0.0)
+    usdt_balance = Column(Float, nullable=False, default=1000.0)
     btc_balance = Column(Float, nullable=False, default=0.0)
     sol_balance = Column(Float, nullable=False, default=0.0)
     Bitcoin_Cash = Column(Float, nullable=False, default=0.0)
@@ -42,7 +43,9 @@ class User(Base, UserMixin, BaseModel):
     Ripple = Column(Float, nullable=False, default=0.0)
     Polkadot = Column(Float, nullable=False, default=0.0)
     Cardano = Column(Float, nullable=False, default=0.0)
-    Chainlink = Column(Float, nullable=False, default=0.0)
+    xlm_balance = Column(Float, nullable=False, default=0.0)
+    stellar_balance = Column(Float, nullable=False, default=0.0)
+    chainlink = Column(Float, nullable=False, default=0.0)
     open_positions = Column(JSON, nullable=True)  # Store open positions as a JSON list
     closed_positions = Column(JSON, nullable=True)  # Store closed positions as a JSON list
     # 2 - KYC verification data

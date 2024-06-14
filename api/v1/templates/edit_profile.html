@@ -599,9 +599,9 @@
                                 <i class="cf cf-dot coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
                             </div>
                             <div class="wallet-name-balance-holding me-4">
-                                <p class="coin-name mb-2 fs-6"">Polkadot</p>
+                                <p class="coin-name mb-2 fs-6">Polkadot</p>
                                 <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> DOT</p>
+                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> DOT</p>
                             </div>
                             <div class="default-swap-btn">
                                 <button type="button" class="wallet-btn">Make default</button>
@@ -612,9 +612,9 @@
                                 <i class="cf cf-bch coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
                             </div>
                             <div class="wallet-name-balance-holding me-4">
-                                <p class="coin-name mb-2 fs-6"">Bitcoin</p>
+                                <p class="coin-name mb-2 fs-6">Bitcoin</p>
                                 <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> BCH</p>
+                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> BCH</p>
                             </div>
                             <div class="default-swap-btn">
                                 <button type="button" class="wallet-btn">Make default</button>
@@ -625,9 +625,9 @@
                                 <i class="cf cf-btc coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
                             </div>
                             <div class="wallet-name-balance-holding me-4">
-                                <p class="coin-name mb-2 fs-6"">Bitcoin</p>
+                                <p class="coin-name mb-2 fs-6">Bitcoin</p>
                                 <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> BTC</p>
+                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> BTC</p>
                             </div>
                             <div class="default-swap-btn">
                                 <button type="button" class="wallet-btn">Make default</button>
@@ -751,7 +751,11 @@
                  <!-- Profile Dropdown -->
                 <div class="profile-box px-3 d-flex align-items-center border border-secondary-subtle border-top-0 border-bottom-0" style="background-color: #fbfaff;">
                     <i class="bi bi-person-circle profile-icon fs-3 me-3"></i>
+                    {% if current_user.first_name and current_user.last_name %}
+                    <p class="profile-name position-relative me-3 fs-6">{{ current_user.first_name }} {{ current_user.last_name }}</p>
+                    {% else %}
                     <p class="profile-name position-relative me-3 fs-6">JOHN DOE</p>
+                    {% endif %}
                     <i class="bi bi-chevron-down text-black dropdown-toggler" id="profile-dropdown-toggler"></i>
                     <div class="profile-dropdown list-unstyled drop-down">
                         <div class="border-bottom mb-3 pb-2 nav-sm">
@@ -761,11 +765,11 @@
                                     Profile
                                 </div>
                                 <div class="inner-dropdown">
-                                    <a href="edit_profile.html" class="inner-dropdown-item">Edit profile</a>
-                                    <a href="user_id.html" class="inner-dropdown-item">Verify ID</a>
+                                    <a href="{{ url_for('app_views.profile') }}" class="inner-dropdown-item">Edit profile</a>
+                                    <a href="{{ url_for('app_views.onboard') }}" class="inner-dropdown-item">Verify ID</a>
                                 </div>
                             </div>
-                            <a href="wallets.html" class="dropdown-item profile-item ">
+                            <a href="{{ url_for('app_views.wallets') }}" class="dropdown-item profile-item ">
                                 <i class="bi bi-wallet-fill me-1"></i>
                                 Wallet
                             </a>
@@ -790,10 +794,10 @@
                                     Manage funds 
                                 </div> 
                                 <div class="inner-dropdown">
-                                    <a href="swap_assets.html" class="inner-dropdown-item">Swap assets</a>
-                                    <a href="swap_history.html" class="inner-dropdown-item">Swap History</a>
-                                    <a href="deposit_log.html" class="inner-dropdown-item">Deposit log</a>
-                                    <a href="withdraw_log.html" class="inner-dropdown-item">Withdraw log</a>
+                                    <a href="{{ url_for('app_views.swap_assets') }}" class="inner-dropdown-item">Swap assets</a>
+                                    <a href="{{ url_for('app_views.swap_history') }}" class="inner-dropdown-item">Swap History</a>
+                                    <a href="{{ url_for('app_views.deposit_logs') }}" class="inner-dropdown-item">Deposit log</a>
+                                    <a href="{{ url_for('app_views.withdrawal_logs') }}" class="inner-dropdown-item">Withdraw log</a>
                                 </div>
                             </div>
                             <a href="auto_trade.html" class="dropdown-item profile-item ">
@@ -848,11 +852,11 @@
                 <div class="icon-dropdown">
                     <p class="drop-header px-3 py-2">Manage Funds</p>
                     <div class="w-100">
-                       <a href="wallets.html" class="text-decoration-none text-black"><p class="drop-list">Wallets</p></a> 
-                        <a href="swap_assets.html" class="text-decoration-none text-black"><p class="drop-list">Swap assets</p></a>
-                        <a href="swap_history.html" class="text-decoration-none text-black"><p class="drop-list">Swap history</p></a>
-                        <a href="deposit_log.html" class="text-decoration-none text-black"><p class="drop-list">Deposit log</p></a>
-                        <a href="withdrawal_log.html" class="text-decoration-none text-black"><p class="drop-list">Withdrowal log</p></a>
+                       <a href="{{ url_for('app_views.wallets') }}" class="text-decoration-none text-black"><p class="drop-list">Wallets</p></a> 
+                        <a href="{{ url_for('app_views.swap_assets') }}" class="text-decoration-none text-black"><p class="drop-list">Swap assets</p></a>
+                        <a href="{{ url_for('app_views.swap_history') }}" class="text-decoration-none text-black"><p class="drop-list">Swap history</p></a>
+                        <a href="{{ url_for('app_views.deposit_logs') }}" class="text-decoration-none text-black"><p class="drop-list">Deposit log</p></a>
+                        <a href="{{ url_for('app_views.withdrawal_logs') }}" class="text-decoration-none text-black"><p class="drop-list">Withdrowal log</p></a>
                     </div>
                 </div>
             </div>
@@ -873,8 +877,8 @@
                 <div class="icon-dropdown">
                     <p class="drop-header px-3 py-2">Profile</p>
                     <div class="w-100">
-                        <a href="edit_profile.html" class="text-decoration-none text-black"><p class="drop-list">Edit Profile</p></a>
-                        <a href="user_id.html" class="text-decoration-none text-black"><p class="drop-list">Verify Id</p> </a>
+                        <a href="{{ url_for('app_views.profile') }}" class="text-decoration-none text-black"><p class="drop-list">Edit Profile</p></a>
+                        <a href="{{ url_for('app_views.onboard') }}" class="text-decoration-none text-black"><p class="drop-list">Verify Id</p> </a>
                     </div>
                 </div>
             </div>
@@ -1061,11 +1065,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-
-
-
-
-
 // profile dropdown
 const profileBox = document.querySelector('.profile-box');
 const profileDropdown = document.querySelector('.profile-dropdown');
@@ -1091,6 +1090,47 @@ document.addEventListener('DOMContentLoaded', function() {
     dropdown.addEventListener('click', function(event) {
         event.stopPropagation();
     });
+});
+
+
+
+
+// handle inner dropdown inside the profile
+const innerDropDownToggler = Array.from( document.querySelectorAll('.inner-dropdown-toggler'))
+
+innerDropDownToggler.forEach( toggler => {
+    toggler.addEventListener('click', () => {
+        let target = toggler.nextElementSibling;
+        target.classList.toggle('active')
+    })
+});
+
+
+// handle coin transfer inputs 
+document.addEventListener('DOMContentLoaded', function() {
+    const coinFrom = document.getElementById('coin-from');
+    const coinTo = document.getElementById('coin-to');
+    const tokenFrom = document.querySelector('.token-from');
+    const tokenTo = document.querySelector('.token-to');
+
+    function updateTokens() {
+        tokenFrom.textContent = coinFrom.value;
+        tokenTo.textContent = coinTo.value;
+    }
+
+    function ensureDifferentSelection() {
+        if (coinFrom.value === coinTo.value) {
+            alert('Transfer From and Transfer To values cannot be the same.');
+            coinTo.value = [...coinTo.options].find(option => option.value !== coinFrom.value).value;
+        }
+        updateTokens();
+    }
+
+    coinFrom.addEventListener('change', ensureDifferentSelection);
+    coinTo.addEventListener('change', ensureDifferentSelection);
+
+    // Initial update
+    updateTokens();
 });
 
 
