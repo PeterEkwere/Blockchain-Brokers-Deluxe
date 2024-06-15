@@ -344,7 +344,6 @@
         vertical-align: middle;
         display: flex;
         align-items: center;
-        cursor: pointer;
     }
 
     .drop-list:hover{
@@ -361,31 +360,33 @@
 
 
 
-/* ==================   WALLETS PAGE STYLES ================= */
-    
-    .wallets{
-        margin: 30px 15px 50px 100px;
-    }
-
-    .col-xl-4 {
-        opacity: 0.9 !important;
-    }
-
-    .card{
-        border: 1px solid transparent !important;
+    /* ==================  AUTO TRADE BOX ================= */
+    .auto-trade-box{
+        margin-left: 100px;
+        width: 92% !important;
+        margin-top: 50px !important;
     }
 
     input:focus{
         box-shadow: none !important;
+        outline: 1px solid transparent !important;
     }
 
+    .modal-btn{
+        border-radius: 2px !important;
+        font-size: 14px !important;
+    }
+
+
     @media (max-width: 991.98px){
-        .wallets{
-            margin: 30px 15px 50px 15px;
+        .auto-trade-box{
+            margin-left: 0px !important;
+            margin-top: 30px !important;
+            width: 100% !important;
         }
 
-        .wallets-banner{
-            margin-bottom: 50px !important;
+        .card-body{
+            padding: 10px !important;
         }
     }
 
@@ -394,8 +395,8 @@
     /* ================== FOOTER STYLES ================= */
 
     footer{
-
-        display: flex !important;
+        position: absolute;
+        width: 94%;
         bottom: 0 !important;
     }
 
@@ -406,14 +407,14 @@
     @media (max-width: 991.98px){
         footer{
             margin: 0 !important;
-            position: relative;
+            position: absolute;
             width: 100%;
         }
     }
 
     @media (max-width: 767.98px){
         footer{
-            position: relative;
+            position: absolute;
             height: 50px;
         }
     }
@@ -554,7 +555,7 @@
                                 <i class="cf cf-bch coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
                             </div>
                             <div class="wallet-name-balance-holding me-4">
-                                <p class="coin-name mb-2 fs-6"">Bitcoin</p>
+                                <p class="coin-name mb-2 fs-6">Bitcoin Cash</p>
                                 <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                 <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> BCH</p>
                             </div>
@@ -567,7 +568,7 @@
                                 <i class="cf cf-btc coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
                             </div>
                             <div class="wallet-name-balance-holding me-4">
-                                <p class="coin-name mb-2 fs-6"">Bitcoin</p>
+                                <p class="coin-name mb-2 fs-6">Bitcoin</p>
                                 <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                 <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> BTC</p>
                             </div>
@@ -709,7 +710,7 @@
                             </div>
                             <a href="wallets.html" class="dropdown-item profile-item ">
                                 <i class="bi bi-wallet-fill me-1"></i>
-                                Wallet
+                                Wallets
                             </a>
                             <a href="trade.html" class="dropdown-item profile-item ">
                                 <i class="bi bi-bar-chart me-1"></i>
@@ -742,7 +743,7 @@
                                 <i class="bi bi-graph-up-arrow me-1"></i>
                                 Auto trader
                             </a>
-                            <a href="account_types.html" class="dropdown-item profile-item">
+                            <a href="account_types.html">
                                 <i class="bi bi-safe2"></i>
                                 Account Types
                             </a>
@@ -794,7 +795,7 @@
                 <div class="icon-dropdown">
                     <p class="drop-header px-3 py-2">Manage Funds</p>
                     <div class="w-100">
-                    <a href="wallets.html" class="text-decoration-none text-black"><p class="drop-list">Wallet</p></a> 
+                        <a href="wallets.html" class="text-decoration-none text-black"><p class="drop-list">Wallets</p></a> 
                         <a href="swap_assets.html" class="text-decoration-none text-black"><p class="drop-list">Swap assets</p></a>
                         <a href="swap_history.html" class="text-decoration-none text-black"><p class="drop-list">Swap history</p></a>
                         <a href="deposit_log.html" class="text-decoration-none text-black"><p class="drop-list">Deposit log</p></a>
@@ -826,580 +827,63 @@
             </div>
         </div>
 
-        <!-- ========================================== WALLETS ( WALLETS ) ====================================-->
-        <div class="wallets">
-            <div class="wallets-banner">
-                <h1 class="fs-5 mb-0">Manage Wallets</h1>
-                <p style="color: #6d6d6d;">Deposit, withdraw and swap your wallet portfolio</p>
-            </div>
-            <div class="wallets-container row">
-
-                <div class="col-xl-4 col-md-6 mb-3">
-                    <!-- CARD -->
-                    <div class="card card-h-50 bg-success">
-                        <!-- CARD BODY -->
+        <!-- ========================================== PAGE MAIN SECTION ( AUTO TRADER ) ====================================-->
+        <div class="container-fluid auto-trade-box">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-10 col-lg-8">
+                    <div class="card">
+                        <div class="card-header bg-white p-2">
+                            <h4 class="fs-5">Trading Account Auto Trader</h4>
+                        </div>
                         <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-5">
-                                    <div class="d-flex align-items-start">
-                                        <div class="flex-shrink-0 me-3 rounded-circle">
-                                            <i class="cc cf-usdt fs-1 text-white-50"></i>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <span class="mb-1 lh-1 d-block text-truncate text-white">
-                                               Tether USD
-                                            </span>
-                                            <h4 class="mb-2 text-white amount convert">$0.00</h4>
-                                            <p class="text-white h6">0 USDT</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 mt-2 text-start">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn border-white text-white fs-6" data-bs-toggle="modal" data-bs-target="#usdt-deposit-box">
-                                            <i class="bi bi-box-arrow-in-down"></i>
-                                            Deposit
-                                        </button>
-                                        <button type="button" class="btn border-white text-white" data-bs-toggle="modal" data-bs-target="#usdt-withdrawal-box">
-                                            <i class="bi bi-bank"></i>
-                                            Withdraw
-                                        </button>
-                                    </div>
+                            <div class="col-12 p-1">
+                                <div class="alert alert-primary" role="alert">
+                                    <h4 class="fs-5">No Autotrader is connected to your account.</h4>
+                                    You have not added an auto-trader to your account.
+                                     If you have a license key of a third-pary auto-trader,
+                                      use the button below to set it up.
+                                    <br>
+                                    <button class="connect-btn mt-2 border-0 py-1 px-3 pb-2" style="background-color: #5156be; color: #fff; font-size: 14px; border-radius: 2px; align-items: center; box-shadow: 0px 3px 6px #5156be56;" data-bs-toggle="modal" data-bs-target="#autoTradeModal">
+                                        connect
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- CARD END -->
-                </div>
-
-
-                <div class="col-xl-4 col-md-6 mb-3">
-                    <!-- CARD -->
-                    <div class="card card-h-50 " style="background-color: #f7931a;">
-                        <!-- CARD BODY -->
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-5">
-                                    <div class="d-flex align-items-start">
-                                        <div class="flex-shrink-0 me-3 rounded-circle">
-                                            <i class="cc cf-btc fs-1 text-white-50"></i>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <span class="mb-1 lh-1 d-block text-truncate text-white">
-                                                Bitcoin
-                                            </span>
-                                            <h4 class="mb-2 text-white amount convert">$0.00</h4>
-                                            <p class="text-white h6">0 BTC</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 mt-2 text-start">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn border-white text-white fs-6">
-                                            <i class="bi bi-box-arrow-in-down"></i>
-                                            Deposit
-                                        </button>
-                                        <button type="button" class="btn border-white text-white">
-                                            <i class="bi bi-bank"></i>
-                                            Withdraw
-                                        </button>
-                                        <button type="button" class="btn border-white text-white">
-                                            Make default
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- CARD END -->
-                </div>
-                <div class="col-xl-4 col-md-6 mb-3">
-                    <!-- CARD -->
-                    <div class="card card-h-50 bg-secondary">
-                        <!-- CARD BODY -->
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-5">
-                                    <div class="d-flex align-items-start">
-                                        <div class="flex-shrink-0 me-3 rounded-circle">
-                                            <i class="cc cf-eth fs-1 text-white-50"></i>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <span class="mb-1 lh-1 d-block text-truncate text-white">
-                                                Ethereum
-                                            </span>
-                                            <h4 class="mb-2 text-white amount convert">$0.00</h4>
-                                            <p class="text-white h6">0 ETH</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 mt-2 text-start">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn border-white text-white fs-6">
-                                            <i class="bi bi-box-arrow-in-down"></i>
-                                            Deposit
-                                        </button>
-                                        <button type="button" class="btn border-white text-white">
-                                            <i class="bi bi-bank"></i>
-                                            Withdraw
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- CARD END -->
-                </div>
-                <div class="col-xl-4 col-md-6 mb-3">
-                    <!-- CARD -->
-                    <div class="card card-h-50 bg-primary">
-                        <!-- CARD BODY -->
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-5">
-                                    <div class="d-flex align-items-start">
-                                        <div class="flex-shrink-0 me-3 rounded-circle">
-                                            <i class="cc cf-xlm fs-1 text-white-50"></i>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <span class="mb-1 lh-1 d-block text-truncate text-white">
-                                                Stellar
-                                            </span>
-                                            <h4 class="mb-2 text-white amount convert">$0.00</h4>
-                                            <p class="text-white h6">0 XLM</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 mt-2 text-start">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn border-white text-white fs-6">
-                                            <i class="bi bi-box-arrow-in-down"></i>
-                                            Deposit
-                                        </button>
-                                        <button type="button" class="btn border-white text-white">
-                                            <i class="bi bi-bank"></i>
-                                            Withdraw
-                                        </button>
-                                        <button type="button" class="btn border-white text-white">
-                                            Make default
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- CARD END -->
-                </div>
-                <div class="col-xl-4 col-md-6 mb-3">
-                    <!-- CARD -->
-                    <div class="card card-h-50 bg-info">
-                        <!-- CARD BODY -->
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-5">
-                                    <div class="d-flex align-items-start">
-                                        <div class="flex-shrink-0 me-3 rounded-circle">
-                                            <i class="cc cf-bch fs-1 text-white-50"></i>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <span class="mb-1 lh-1 d-block text-truncate text-white">
-                                                Bitcoin cash
-                                            </span>
-                                            <h4 class="mb-2 text-white amount convert">$0.00</h4>
-                                            <p class="text-white h6">0 BCH</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 mt-2 text-start">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn border-white text-white fs-6">
-                                            <i class="bi bi-box-arrow-in-down"></i>
-                                            Deposit
-                                        </button>
-                                        <button type="button" class="btn border-white text-white">
-                                            <i class="bi bi-bank"></i>
-                                            Withdraw
-                                        </button>
-                                        <button type="button" class="btn border-white text-white">
-                                            Make default
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- CARD END -->
-                </div>
-            
-                <div class="col-xl-4 col-md-6 mb-3">
-                    <!-- CARD -->
-                    <div class="card card-h-50 bg-danger">
-                        <!-- CARD BODY -->
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-5">
-                                    <div class="d-flex align-items-start">
-                                        <div class="flex-shrink-0 me-3 rounded-circle">
-                                            <i class="cc cf-xrp fs-1 text-white-50"></i>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <span class="mb-1 lh-1 d-block text-truncate text-white">
-                                                Ripple
-                                            </span>
-                                            <h4 class="mb-2 text-white amount convert">$0.00</h4>
-                                            <p class="text-white h6">0 XRP</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 mt-2 text-start">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn border-white text-white fs-6">
-                                            <i class="bi bi-box-arrow-in-down"></i>
-                                            Deposit
-                                        </button>
-                                        <button type="button" class="btn border-white text-white">
-                                            <i class="bi bi-bank"></i>
-                                            Withdraw
-                                        </button>
-                                        <button type="button" class="btn border-white text-white">
-                                            Make default
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- CARD END -->
-                </div>
-                <div class="col-xl-4 col-md-6 mb-3">
-                    <!-- CARD -->
-                    <div class="card card-h-50 bg-warning">
-                        <!-- CARD BODY -->
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-5">
-                                    <div class="d-flex align-items-start">
-                                        <div class="flex-shrink-0 me-3 rounded-circle">
-                                            <i class="cc cf-doge fs-1 text-white-50"></i>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <span class="mb-1 lh-1 d-block text-truncate text-white">
-                                                Doge coin
-                                            </span>
-                                            <h4 class="mb-2 text-white amount convert">$0.00</h4>
-                                            <p class="text-white h6">0 DOGE</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 mt-2 text-start">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn border-white text-white fs-6">
-                                            <i class="bi bi-box-arrow-in-down"></i>
-                                            Deposit
-                                        </button>
-                                        <button type="button" class="btn border-white text-white">
-                                            <i class="bi bi-bank"></i>
-                                            Withdraw
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- CARD END -->
-                </div>
-                <div class="col-xl-4 col-md-6 mb-3">
-                    <!-- CARD -->
-                    <div class="card card-h-50 bg-info">
-                        <!-- CARD BODY -->
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-5">
-                                    <div class="d-flex align-items-start">
-                                        <div class="flex-shrink-0 me-3 rounded-circle">
-                                            <i class="cc cf-eth fs-1 text-white-50"></i>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <span class="mb-1 lh-1 d-block text-truncate text-white">
-                                                Ethereum CLassic
-                                            </span>
-                                            <h4 class="mb-2 text-white amount convert">$0.00</h4>
-                                            <p class="text-white h6">0 ETC</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 mt-2 text-start">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn border-white text-white fs-6">
-                                            <i class="bi bi-box-arrow-in-down"></i>
-                                            Deposit
-                                        </button>
-                                        <button type="button" class="btn border-white text-white">
-                                            <i class="bi bi-bank"></i>
-                                            Withdraw
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- CARD END -->
-                </div>
-                <div class="col-xl-4 col-md-6 mb-3">
-                    <!-- CARD -->
-                    <div class="card card-h-50 bg-dark">
-                        <!-- CARD BODY -->
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-5">
-                                    <div class="d-flex align-items-start">
-                                        <div class="flex-shrink-0 me-3 rounded-circle">
-                                            <i class="cc cf-sol fs-1 text-white-50"></i>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <span class="mb-1 lh-1 d-block text-truncate text-white">
-                                                Solana
-                                            </span>
-                                            <h4 class="mb-2 text-white amount convert">$0.00</h4>
-                                            <p class="text-white h6">0 SOL</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 mt-2 text-start">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn border-white text-white fs-6">
-                                            <i class="bi bi-box-arrow-in-down"></i>
-                                            Deposit
-                                        </button>
-                                        <button type="button" class="btn border-white text-white">
-                                            <i class="bi bi-bank"></i>
-                                            Withdraw
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- CARD END -->
-                </div>
-                <div class="col-xl-4 col-md-6 mb-3">
-                    <!-- CARD -->
-                    <div class="card card-h-50 bg-primary">
-                        <!-- CARD BODY -->
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-5">
-                                    <div class="d-flex align-items-start">
-                                        <div class="flex-shrink-0 me-3 rounded-circle">
-                                            <i class="cc cf-dot fs-1 text-white-50"></i>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <span class="mb-1 lh-1 d-block text-truncate text-white">
-                                                Polkadot
-                                            </span>
-                                            <h4 class="mb-2 text-white amount convert">$0.00</h4>
-                                            <p class="text-white h6">0 DOT</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 mt-2 text-start">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn border-white text-white fs-6">
-                                            <i class="bi bi-box-arrow-in-down"></i>
-                                            Deposit
-                                        </button>
-                                        <button type="button" class="btn border-white text-white">
-                                            <i class="bi bi-bank"></i>
-                                            Withdraw
-                                        </button>
-                                        <button type="button" class="btn border-white text-white">
-                                            Make default
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- CARD END -->
-                </div>
-                <div class="col-xl-4 col-md-6 mb-3">
-                    <!-- CARD -->
-                    <div class="card card-h-50 bg-secondary">
-                        <!-- CARD BODY -->
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-5">
-                                    <div class="d-flex align-items-start">
-                                        <div class="flex-shrink-0 me-3 rounded-circle">
-                                            <i class="cc cf-ada fs-1 text-white-50"></i>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <span class="mb-1 lh-1 d-block text-truncate text-white">
-                                                Cardano
-                                            </span>
-                                            <h4 class="mb-2 text-white amount convert">$0.00</h4>
-                                            <p class="text-white h6">0 ADA</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 mt-2 text-start">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn border-white text-white fs-6">
-                                            <i class="bi bi-box-arrow-in-down"></i>
-                                            Deposit
-                                        </button>
-                                        <button type="button" class="btn border-white text-white">
-                                            <i class="bi bi-bank"></i>
-                                            Withdraw
-                                        </button>
-                                        <button type="button" class="btn border-white text-white">
-                                            Make default
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- CARD END -->
-                </div>
-                <div class="col-xl-4 col-md-6 mb-3">
-                    <!-- CARD -->
-                    <div class="card card-h-50 bg-warning">
-                        <!-- CARD BODY -->
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-5">
-                                    <div class="d-flex align-items-start">
-                                        <div class="flex-shrink-0 me-3 rounded-circle">
-                                            <i class="cc cf-sol fs-1 text-white-50"></i>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <span class="mb-1 lh-1 d-block text-truncate text-white">
-                                                Chainlink
-                                            </span>
-                                            <h4 class="mb-2 text-white amount convert">$0.00</h4>
-                                            <p class="text-white h6">0 LINK</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 mt-2 text-start">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn border-white text-white fs-6">
-                                            <i class="bi bi-box-arrow-in-down"></i>
-                                            Deposit
-                                        </button>
-                                        <button type="button" class="btn border-white text-white">
-                                            <i class="bi bi-bank"></i>
-                                            Withdraw
-                                        </button>
-                                        <button type="button" class="btn border-white text-white">
-                                            Make default
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- CARD END -->
                 </div>
             </div>
-        </div>
-        <!-- ========================================== WALLETS ENDS HERE ===================================== -->
-    </div>
-    <div class="token-deposit-boxes">
-        <!-- Deposit box for btc -->
-        <div class="deposit-modal modal fade" id="usdt-deposit-box" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h3 class="modal-title fs-5" id="exampleModalLabel">Deposit Using USDT</h3>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="alert alert-primary" role="alert">
-                        <h4 class="fs-5">Make Deposit</h4>
-                        Enter the deposit amount in the field below and click deposit to proceed.
-                    </div>
-                    <div class="col-md-12">
-                        <h5 class="fs-6">DEPOSIT AMOUNT</h5>
-                        <h4 class="deposit-amount fs-5">0.00</h4>
-                    </div>
-                    <div class="form-group mt-3">
-                        <div class="row">
-                            <div class="col mb-3">
-                                <button class="btn btn-dark" type="button">$2,000.00</button>   
-                            </div>
-                            <div class="col mb-3">
-                                <button class="btn btn-dark" type="button">$10,000.00</button>   
-                            </div>
-                            <div class="col">
-                                <button class="btn btn-dark" type="button">$50,000.00</button>   
-                            </div>
-                            <div class="col">
-                                <button class="btn btn-dark" type="button">$100,000.00</button>   
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-auto mt-4">
-                        <div class="form-group">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Enter Amount" aria-label="Amount" aria-describedby="basic-addon2">
-                                <span class="input-group-text" id="basic-addon2">USDT</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn text-white" style="background-color: #fd625e; box-shadow: 0px 3px 6px #fd635e92;" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn text-white" style="background-color: #2ab57d; box-shadow: 0px 3px 6px #2ab57d90;">
-                    <a href="deposit_data_insert.html" class="text-decoration-none text-white">
-                      <i class="bi bi-credit-card"></i>
-                    Deposit  
-                    </a>
-                  </button>
-                </div>
-              </div>
-            </div>
-        </div>
-
-        <!-- withdrwal box -->
-        <div class="modal fade" id="usdt-withdrawal-box" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
+            <div class="modal fade" id="autoTradeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="doument">
+                  <div class="modal-content">
                     <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Withdraw via USDT</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <h5 class="modal-title" id="exampleModalLabel" style="font-size: 18px;">Setup an Auto-trader on your Account</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <label class="col-md-12 modal-message-heading mb-2">
-                            <h4 class="fs-6">Requested Withdraw Amount</h4>
-                            <h4 class="withdraw_converted_value">0.00</h4>
-                        </label>
-                        <div class="form-group">
-                            <label class="mb-2">Enter Amount</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" aria-label="Amount" aria-describedby="basic-addon2">
-                                <span class="input-group-text coin-currency" id="basic-addon2">Btc</span>
+                        <p class="alert alert-primary" style="font-size: 14px;" role="alert">
+                            Enter the Product Code and License number of the Autotrader in the form below
+                        </p>
+                        <form id="searchAutoTrader">
+                            <div class="prod-code form-group mb-2">
+                                <label class="fw-medium mb-2" style="font-size: 14px;">Product Code</label>
+                                <input type="text" name="product_code" class="form-control">
                             </div>
-                            <button class="btn mt-3 text-white rounded-0" style="background-color: #5156be; box-shadow: 0px 3px 6px #5156be6e; border-radius: 2px !important;">Continue</button>
-                        </div>
+                            <div class="license_num form-group">
+                                <label class="fw-medium mb-2" style="font-size: 14px;">License Number</label>
+                                <input type="text" name="license_num" class="form-control">
+                            </div>
+                            <div class="errow-code"></div>
+                        </form>
                     </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary modal-btn" style="box-shadow: 0px 3px 6px #74788d42;" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary modal-btn border-0" style="background-color: #4ba6ef; box-shadow: 0px 3px 6px #4ba5ef55;">Connect</button>
+                    </div>
+                  </div>
                 </div>
             </div>
         </div>
-    </div>
+        <!-- ========================================== PAGE MAIN SECTION ENDS HERE ( AUTO TRADER ) ====================================-->
     <!-- =========================================== MAIN ENDS HERE====================================== -->
 
 
@@ -1423,6 +907,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
+
+
 // wallet dropdown 
 const walletDropDown = document.querySelector('.wallet-dropdown');
 const walletDropDownToggler = document.querySelector('.wallet-dropdown-toggler');
@@ -1491,6 +977,16 @@ innerDropDownToggler.forEach( toggler => {
         target.classList.toggle('active')
     })
 });
+
+
+// handle modal
+const myModal = document.getElementById('myModal')
+const myInput = document.getElementById('myInput')
+
+myModal.addEventListener('shown.bs.modal', () => {
+  myInput.focus()
+})
+
     </script>
 </body>
 </html>

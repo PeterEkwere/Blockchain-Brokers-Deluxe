@@ -361,7 +361,7 @@
 
 
 
-/* ==================   WALLETS PAGE STYLES ================= */
+/* ==================   SWAP ASSETS STYLES ================= */
     
     .swap-assets-box{
         display: block !important;
@@ -751,6 +751,10 @@
                                 <i class="bi bi-graph-up-arrow me-1"></i>
                                 Auto trader
                             </a>
+                            <a href="account_types.html" class="dropdown-item profile-item">
+                                <i class="bi bi-safe2"></i>
+                                Account Types
+                            </a>
                             <a href="reset_password.html" class="dropdown-item profile-item ">
                                 <i class="bi bi-key-fill me-1"></i>
                                 Change Password
@@ -799,7 +803,7 @@
                 <div class="icon-dropdown">
                     <p class="drop-header px-3 py-2">Manage Funds</p>
                     <div class="w-100">
-                    <a href="wallet.html" class="text-decoration-none text-black"><p class="drop-list">Wallet</p></a> 
+                        <a href="wallets.html" class="text-decoration-none text-black"><p class="drop-list">Wallet</p></a> 
                         <a href="swap_assets.html" class="text-decoration-none text-black"><p class="drop-list">Swap assets</p></a>
                         <a href="swap_history.html" class="text-decoration-none text-black"><p class="drop-list">Swap history</p></a>
                         <a href="deposit_log.html" class="text-decoration-none text-black"><p class="drop-list">Deposit log</p></a>
@@ -810,13 +814,13 @@
             <div class="trade-box sidenav-icon-box mb-5">
                 <i class="bi bi-graph-up-arrow fs-4"></i>
                 <div class="icon-dropdown">
-                    <a href="auto-trade.html" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Auto Trader</p></a>
+                    <a href="auto_trade.html" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Auto Trader</p></a>
                 </div>
             </div>
             <div class="trade-box sidenav-icon-box mb-5">
                 <i class="bi bi-safe2 fs-4"></i>
                 <div class="icon-dropdown">
-                    <a href="acoount-types.html" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Account Types</p></a>
+                    <a href="account_types.html" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Account Types</p></a>
                 </div>
             </div>
             <div class="trade-box sidenav-icon-box mb-5">
@@ -831,7 +835,7 @@
             </div>
         </div>
 
-        <!-- ========================================== PAGE MAIN SECTION ( WALLETS ) ====================================-->
+        <!-- ========================================== PAGE MAIN SECTION ( SWAP ASSETS ) ====================================-->
         <div class="swap-assets-box">
             <div class="swap-assets-banner">
                 <h1 class="fs-5 mb-1">Assets Exchange</h1>
@@ -858,8 +862,8 @@
                     <div class="col-lg-6">
                         <label for="coin-To" class="mb-2">Transfer To</label>
                         <select class="form-select" id="coin-to">
-                            <option value="BTC" selected>Ethereum</option>
-                            <option value="ETH">Bitcoin</option>
+                            <option value="ETH" selected>Ethereum</option>
+                            <option value="BTC">Bitcoin</option>
                             <option value="XLM">Stellar</option>
                             <option value="USDT">Tether USD</option>
                             <option value="XRP">Ripple</option>
@@ -881,7 +885,7 @@
                 </div>
                 <div class="amount">
                     <p class="fw-medium">You Get</p>
-                    <p><span class="transfer-amount">0</span> <span class="token-to">BTC</span></p>
+                    <p><span class="transfer-amount">0</span> <span class="token-to">ETH</span></p>
                 </div>
                 <div class="transfer-btn text-white px-3 py-2 fs-6 rounded" style="background-color: #5156be; width: 130px; box-shadow: 0px 3px 6px #5156be4a; cursor: pointer;">
                     <i class="bi bi-arrow-left-right me-2"></i>
@@ -1189,9 +1193,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-                
+                </div> 
             </div>
         </div>
     </div>

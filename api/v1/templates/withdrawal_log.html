@@ -360,7 +360,7 @@
 
 
 
-    /* ================== PAGE FORM STYLES ================= */
+    /* ================== WITHDRAWAL LOGS STYLES ================= */
     .history-container{
         margin-left: 100px;
         width: 92% !important;
@@ -740,9 +740,13 @@
                                     <a href="withdraw_log.html" class="inner-dropdown-item">Withdraw log</a>
                                 </div>
                             </div>
-                            <a href="auto_trade.html" class="dropdown-item profile-item ">
+                            <a href="auto_trade.html" class="dropdown-item profile-item">
                                 <i class="bi bi-graph-up-arrow me-1"></i>
                                 Auto trader
+                            </a>
+                            <a href="account_types.html" class="dropdown-item profile-item">
+                                <i class="bi bi-safe2"></i>
+                                Account Types
                             </a>
                             <a href="reset_password.html" class="dropdown-item profile-item ">
                                 <i class="bi bi-key-fill me-1"></i>
@@ -803,13 +807,13 @@
             <div class="trade-box sidenav-icon-box mb-5">
                 <i class="bi bi-graph-up-arrow fs-4"></i>
                 <div class="icon-dropdown">
-                    <a href="auto-trade.html" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Auto Trader</p></a>
+                    <a href="auto_trade.html" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Auto Trader</p></a>
                 </div>
             </div>
             <div class="trade-box sidenav-icon-box mb-5">
                 <i class="bi bi-safe2 fs-4"></i>
                 <div class="icon-dropdown">
-                    <a href="acoount-types.html" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Account Types</p></a>
+                    <a href="account_types.html" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Account Types</p></a>
                 </div>
             </div>
             <div class="trade-box sidenav-icon-box mb-5">
@@ -830,7 +834,7 @@
                 <div class="col-12 col-md-12 col-sm-12">
                     <div class="card p-2">
                         <div class="card-header bg-white pb-3">
-                            <h4 class="fs-4">Latest Deposits</h4>
+                            <h4 class="fs-4">Withdrawal History</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -840,10 +844,10 @@
                                         <th scope="col" class="fw-normal">S/N</th>
                                         <th scope="col" class="fw-normal">Transactions</th>
                                         <th scope="col" class="fw-normal">Wallets</th>
-                                        <th scope="col" class="fw-normal">Amount Deposited</th>
-                                        <th scope="col" class="fw-normal">Value when deposited</th>
+                                        <th scope="col" class="fw-normal">Withdrawal amount</th>
+                                        <th scope="col" class="fw-normal">Value when withdrwan</th>
                                         <th scope="col" class="fw-normal">Current value</th>
-                                        <th scope="col" class="fw-normal">Deposit status</th>
+                                        <th scope="col" class="fw-normal">Withdrawal status</th>
                                         <th scope="col" class="fw-normal">Date</th>
                                       </tr>
                                     </thead>
@@ -852,8 +856,8 @@
                                             <td class="pt-3 alert-box" id="colspan-cell">
                                                 <div class="alert alert-info alert-outline border-0 fade show px-4 mb-0 text-center bg-white" role="alert">
                                                     <i class="bi bi-exclamation-triangle d-block display-4 mt-2 mb-3 text-info"></i>
-                                                    <h5 class="text-info fs-6">You dont have any deposit history</h5>
-                                                    <p class="text-info" style="font-size: 14px;">Your deposit history on your account will be displayed here.</p>
+                                                    <h5 class="text-info fs-6">You havent made any Withdrawals</h5>
+                                                    <p class="text-info" style="font-size: 14px;">Your withdrawal history on your account will be displayed here.</p>
                                                 </div>
                                             </td>
                                         </tr>
