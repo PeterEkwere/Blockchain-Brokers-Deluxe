@@ -461,21 +461,13 @@
                                 </div>
                                 <div class="wallet-name-balance-holding me-4">
                                     <p class="coin-name mb-2 fs-6">Ethereum</p>
+                                    {% if current_user.eth_balance %}
                                     <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> ETH</p>
-                                </div>
-                                <div class="default-swap-btn">
-                                    <button type="button" class="wallet-btn">Make default</button>
-                                </div>
-                            </div>
-                            <div class="wallet d-flex flex-row align-items-center bg-warning text-white p-4 h-auto rounded mb-3">
-                                <div class="wallet-logo-container me-4">
-                                    <i class="cf cf-steem coin-logo fs-2 position-relative" style=" bottom: 30px;"></i>
-                                </div>
-                                <div class="wallet-name-balance-holding me-4">
-                                    <p class="coin-name mb-2 fs-6">Steem</p>
+                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.eth_balance }}</span> ETH</p>
+                                    {% else %}
                                     <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> SBD</p>
+                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0.0</span> ETH</p>
+                                    {% endif %}
                                 </div>
                                 <div class="default-swap-btn">
                                     <button type="button" class="wallet-btn">Make default</button>
@@ -487,8 +479,13 @@
                                 </div>
                                 <div class="wallet-name-balance-holding me-4">
                                     <p class="coin-name mb-2 fs-6">Tether USD</p>
-                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> USDT</p>
+                                    {% if current_user.Tether_USD %}
+                                        <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                        <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Tether_USD }}</span> USDT</p>
+                                    {% else %}
+                                        <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                        <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> USDT</p>
+                                    {% endif %}
                                 </div>
                                 <div class="default-swap-btn">
                                     <button type="button" class="wallet-btn">Make default</button>
@@ -500,8 +497,13 @@
                                 </div>
                                 <div class="wallet-name-balance-holding me-4">
                                     <p class="coin-name mb-2 fs-6">Ripple</p>
+                                    {% if current_user.Ripple %}
+                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance"> {{ current_user.Ripple }}</span> XRP</p>
+                                    {% else %}
                                     <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                     <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> XRP</p>
+                                    {% endif %}
                                 </div>
                                 <div class="default-swap-btn">
                                     <button type="button" class="wallet-btn">Make default</button>
@@ -513,21 +515,13 @@
                                 </div>
                                 <div class="wallet-name-balance-holding me-4">
                                     <p class="coin-name mb-2 fs-6">Dogecoin</p>
+                                    {% if current_user.Dogecoin %}
+                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Dogecoin }}</span> DOGE</p>
+                                    {% else %}
                                     <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                     <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> DOGE</p>
-                                </div>
-                                <div class="default-swap-btn">
-                                    <button type="button" class="wallet-btn">Make default</button>
-                                </div>
-                            </div>
-                            <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #4ba6ef;">
-                                <div class="wallet-logo-container me-4">
-                                    <i class="cf cf-eth coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
-                                </div>
-                                <div class="wallet-name-balance-holding me-4">
-                                    <p class="coin-name mb-2 fs-6">Ethereum classic</p>
-                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> ETC</p>
+                                    {% endif %}
                                 </div>
                                 <div class="default-swap-btn">
                                     <button type="button" class="wallet-btn">Make default</button>
@@ -539,8 +533,13 @@
                                 </div>
                                 <div class="wallet-name-balance-holding me-4">
                                     <p class="coin-name mb-2 fs-6">Solana</p>
+                                    {% if current_user.sol_balance %}
+                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.sol_balance }}</span> SOL</p>
+                                    {% else %}
                                     <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                     <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> SOL</p>
+                                    {% endif %}
                                 </div>
                                 <div class="default-swap-btn">
                                     <button type="button" class="wallet-btn">Make default</button>
@@ -552,8 +551,13 @@
                                 </div>
                                 <div class="wallet-name-balance-holding me-4">
                                     <p class="coin-name mb-2 fs-6">Polkadot</p>
+                                    {% if current_user.Polkadot %}
+                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Polkadot }}</span> DOT</p>
+                                    {% else %}
                                     <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                     <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> DOT</p>
+                                    {% endif %}
                                 </div>
                                 <div class="default-swap-btn">
                                     <button type="button" class="wallet-btn">Make default</button>
@@ -564,9 +568,14 @@
                                     <i class="cf cf-bch coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
                                 </div>
                                 <div class="wallet-name-balance-holding me-4">
-                                    <p class="coin-name mb-2 fs-6">Bitcoin</p>
+                                    <p class="coin-name mb-2 fs-6">Bitcoin Cash</p>
+                                    {% if current_user.Bitcoin_Cash %}
+                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Bitcoin_Cash }}</span> BCH</p>
+                                    {% else %}
                                     <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                     <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> BCH</p>
+                                    {% endif %}
                                 </div>
                                 <div class="default-swap-btn">
                                     <button type="button" class="wallet-btn">Make default</button>
@@ -578,8 +587,13 @@
                                 </div>
                                 <div class="wallet-name-balance-holding me-4">
                                     <p class="coin-name mb-2 fs-6">Bitcoin</p>
+                                    {% if current_user.btc_balance %}
+                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.btc_balance }}</span> BTC</p>
+                                    {% else %}
                                     <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                     <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> BTC</p>
+                                    {% endif %}
                                 </div>
                                 <div class="default-swap-btn">
                                     <button type="button" class="wallet-btn">Make default</button>
@@ -591,7 +605,11 @@
                     <!-- Balance -->
                     <div class="balance-box me-2 px-3 py-2 balance-lg" style="text-align: left;">
                         <p class="mb-0 text-left header-p">Balance</p>
-                        <p class="text-left header-p">$<span class="balance-amount">0.00</span></p>
+                        {% if current_user.demo_balance %}
+                            <p class="text-left header-p">$<span class="balance-amount">{{ current_user.demo_balance }}</span></p>
+                        {% else %}
+                            <p class="text-left header-p">$<span class="balance-amount">0.0</span></p>
+                        {% endif %}
                     </div>
     
                     <!-- Total Equity -->
@@ -617,7 +635,11 @@
                     <div class="dropdown balance-sm bg-none d-none">
                         <button class="border-0 bg-white dropdown-toggle d-flex align-items-center position-relative text-black" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <h3 class="mb-0 fs-6 pe-3 me-0 text-black">Total Balance</h3>
+                            {% if current_user.demo_balance %}
+                            <h3 class="fs-6 total-balance-digits position-relative ms-0 text-black">$<span class="total-balance-amount">{{ current_user.demo_balance }}</span></h3>
+                            {% else %}
                             <h3 class="fs-6 total-balance-digits position-relative ms-0 text-black">$<span class="total-balance-amount">0</span></h3>
+                            {% endif %}
                         </button>
                         <ul class="dropdown-menu balance-dropdown-sm">
                         <li style="height: fit-content;">
@@ -656,7 +678,11 @@
                     <!-- Total balance -->
                     <div class="total-balance px-3 py-1  d-flex align-items-center balance-lg">
                         <h3 class="mb-0 fs-6 pe-3 text-black">Total Balance</h3>
+                        {% if current_user.demo_balance %}
+                        <h3 class="fs-6 total-balance-digits position-relative text-black">$<span class="total-balance-amount">{{ current_user.demo_balance }}</span></h3>
+                        {% else %}
                         <h3 class="fs-6 total-balance-digits position-relative text-black">$<span class="total-balance-amount">0</span></h3>
+                        {% endif %}
                     </div>
     
                     <!-- Translations -->
@@ -834,7 +860,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>    
     
 
         <!-- ========================================== PAGE MAIN SECTION ( WALLETS ) ====================================-->
@@ -849,6 +875,7 @@
                         <label for="coin-from" class="mb-2">Transfer From</label>
                         <select class="form-select" id="coin-from">
                             <option value="BTC" selected>Bitcoin</option>
+                            <option value="BCH" >Bitcoin Cash</option>
                             <option value="ETH">Ethereum</option>
                             <option value="XLM">Stellar</option>
                             <option value="USDT">Tether USD</option>
@@ -864,8 +891,9 @@
                     <div class="col-lg-6">
                         <label for="coin-To" class="mb-2">Transfer To</label>
                         <select class="form-select" id="coin-to">
-                            <option value="BTC" selected>Ethereum</option>
-                            <option value="ETH">Bitcoin</option>
+                            <option value="ETH" selected>Ethereum</option>
+                            <option value="BTC">Bitcoin</option>
+                            <option value="BCH">Bitcoin Cash</option>
                             <option value="XLM">Stellar</option>
                             <option value="USDT">Tether USD</option>
                             <option value="XRP">Ripple</option>
@@ -881,13 +909,13 @@
                 <div class="input-group mb-4">
                     <label for="asset">Enter Amount</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <input type="text" id="AmountInput" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         <span class="input-group-text token-from">Default</span>
                     </div>
                 </div>
                 <div class="amount">
                     <p class="fw-medium">You Get</p>
-                    <p><span class="transfer-amount">0</span> <span class="token-to">BTC</span></p>
+                    <p><span class="transfer-amount" id="returnAmount">0</span> <span class="token-to">BTC</span></p>
                 </div>
                 <div class="transfer-btn text-white px-3 py-2 fs-6 rounded" style="background-color: #5156be; width: 130px; box-shadow: 0px 3px 6px #5156be4a; cursor: pointer;">
                     <i class="bi bi-arrow-left-right me-2"></i>
@@ -1293,6 +1321,29 @@ innerDropDownToggler.forEach( toggler => {
     })
 });
 
+async function calculateConversion() {
+    const coinFrom = document.getElementById('coin-from');
+    const coinTo = document.getElementById('coin-to');
+    const tokenFrom = document.querySelector('.token-from');
+    const tokenTo = document.querySelector('.token-to');
+    const amount = document.getElementById("AmountInput").value
+
+    console.log('coin from is ' + coinFrom.value + ' coin to ' + coinTo.value )
+
+    const apiKey = '89a1720ae940429bd985f4fa4cbce5ee7f0a2ee111cae5ddf5c7cd05ba788a94'; // Replace with your actual API key
+    const url = `https://min-api.cryptocompare.com/data/price?fsym=${coinFrom.value}&tsyms=${coinTo.value}&api_key=${apiKey}`;
+  
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log('CryptoCompare API Response:', data);
+        return data;
+      } catch (error) {
+        console.error('Error fetching CryptoCompare data:', error);
+        return undefined; // Or handle error differently
+      }
+}
+
 
 // handle coin transfer inputs 
 document.addEventListener('DOMContentLoaded', function() {
@@ -1300,10 +1351,28 @@ document.addEventListener('DOMContentLoaded', function() {
     const coinTo = document.getElementById('coin-to');
     const tokenFrom = document.querySelector('.token-from');
     const tokenTo = document.querySelector('.token-to');
+    const amount = document.getElementById("AmountInput").value
+    const Youget = document.getElementById("returnAmount")
 
+
+    
     function updateTokens() {
         tokenFrom.textContent = coinFrom.value;
         tokenTo.textContent = coinTo.value;
+        // Call calculateConversion and handle the Promise
+        return calculateConversion()
+        .then(data => {
+            if (data) {
+            const exchangeRate = data[coinTo.value]; // Access conversion rate for selected currency
+            console.log('Exchange rate is ', exchangeRate);
+            return exchangeRate
+            // Use the exchangeRate for further calculations or UI updates
+            } else {
+            console.error('Error fetching conversion rate');
+            // Handle error if data is undefined
+            return error
+            }
+        });
     }
 
     function ensureDifferentSelection() {
@@ -1318,7 +1387,27 @@ document.addEventListener('DOMContentLoaded', function() {
     coinTo.addEventListener('change', ensureDifferentSelection);
 
     // Initial update
-    updateTokens();
+    const amountInput = document.getElementById("AmountInput");
+    amountInput.addEventListener('input', async function() {
+        try {
+            const exchangeRate = await updateTokens(); // Call the function to update tokens and exchange rate
+            Youget.textContent = exchangeRate * amountInput.value
+            
+          } catch (error) {
+            console.error("Error updating tokens and exchange rate:", error);
+          }        
+      });
+
+    const transferBtn = document.querySelector('.transfer-btn');
+
+    transferBtn.addEventListener('click', sendConversionRequest);
+      
+    function sendConversionRequest() {
+        const fromCurrency = coinFrom.value;
+        const toCurrency = coinTo.value;
+        const subamount = parseFloat(amountInput.value);
+    }
+      
 });
     </script>
 </body>
