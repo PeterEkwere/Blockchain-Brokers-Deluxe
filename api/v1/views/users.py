@@ -153,6 +153,21 @@ def deposit_logs():
     return render_template('wallets.html')
 
 
+@app_views.route('/users/auto_trade/', strict_slashes=False, endpoint='auto_trade')
+@login_required
+def auto_trade():
+    return render_template('auto_trade.html')
+
+
+@app_views.route('/users/deposit_data_insert/', strict_slashes=False, endpoint='deposit_data_insert')
+@login_required
+def deposit_data_insert():
+    return render_template('deposit_data_insert.html')
+
+@app_views.route('/users/account_types/', strict_slashes=False, endpoint='account_types')
+@login_required
+def account_types():
+    return render_template('account_types.html')
 
 
 @app_views.route('/users/onboard/', strict_slashes=False, endpoint='onboard')

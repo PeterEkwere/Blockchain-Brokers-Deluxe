@@ -35,16 +35,11 @@
     }
 
     .main{
-        padding-top: 50px;
-        padding-right: 20px;
+        padding-top: 70px;
     }
 
     .header{
         z-index: 2 !important;
-    }
-
-    .fixed-top{
-        padding-right: 20px !important;
     }
 
     .logo-box{
@@ -65,16 +60,26 @@
 
     .wallet-dropdown{
         position: absolute;
-        width: 350px;
-        height: 0;
         visibility: hidden;
-        opacity: 1;
-        top: 40px !important;
-        padding: 0px !important;
+        height: 0;
+        opacity: 0;
+        top: 60px;
+        transition: 0.3s;
         overflow-y: auto;
         overflow-y: scroll;
         scrollbar-width: thin;
         background-color: #fff;
+    }
+
+    .wallet-dropdown.active{
+        position: absolute;
+        top: 80px;
+        width: 350px;
+        visibility: visible;
+        opacity: 1;
+        padding: 0px !important;
+        margin: 0px;
+        height: 300px;
         vertical-align: middle;
         display: flex;
         flex-direction: column;
@@ -83,15 +88,17 @@
         box-shadow: 0px 3px 6px #3333333f;
         overflow-y: scroll;
         scrollbar-width: thin;
-        transition: 0.2s;
     }
 
-    .wallet-dropdown.active{
-        top: 80px !important;
-        height: 300px;
-        visibility: visible;
+    .wallet-dropdown::-webkit-scrollbar {
+        width: 8px; /* Adjust width as desired */
+        background-color: #f5f5f5; /* Set track background color */
     }
 
+    .wallet-dropdown::-webkit-scrollbar-thumb {
+        background-color: #ccc; /* Set thumb color */
+        border-radius: 6px; /* Add rounded corners */
+    }
 
     .wallet{
         width: 100%;
@@ -182,7 +189,7 @@
         font-weight: 500;
     }
 
-    .profile-dropdown{
+    .profile-dropdown {
         visibility: hidden;
         position: absolute;
         top: 50px;
@@ -195,25 +202,24 @@
         border-radius: 0px !important;
     }
 
-    .profile-dropdown.active{
+    .profile-dropdown.active {
         visibility: visible;
         opacity: 1;
         position: absolute;
-        border:1px solid #ccc !important;
+        border: 1px solid #ccc !important;
         box-shadow: 0px 3px 6px #33333322;
         padding: 5px 10px;
         top: 80px;
         right: 8px;
     }
 
-    .nav-sm{
-        display: none;
-    }
-
     .profile-item{
         margin: 5px 0 !important;
     }
 
+    .nav-sm{
+        display: none;
+    }
 
     .inner-dropdown{
         display: none;
@@ -287,6 +293,7 @@
         }
     }
 
+
     /* ================== FIXED SIDE NAV STYLES ================= */ 
 
     .fixed-side-nav{
@@ -321,14 +328,12 @@
         width: 150px;
         opacity: 0;
         transition: 0.2s all;
-        z-index: 100 !important;
     }
 
     .trade-box:hover .icon-dropdown {
         opacity: 1;
         visibility: visible;
         left: 60px;
-        z-index: 100 !important;
     }
 
     .drop-list{
@@ -345,106 +350,32 @@
         background-color: #fbfaff;
     }
 
-
     @media (max-width: 991.98px){
         
         .translations{
             display: none !important;
         }
 
-        .nav-lg{
-            display: none !important;
-        }
     }
 
 
-    /* ================== PAGE PROFILE STYLES ================= */
 
-    .user-profile-box{
-        margin-left: 120px;
-        margin-bottom: 40px;
-        position: relative;
-        z-index: 0;
-    }
-
-    .profile-form{
-        border-radius: 0px !important;
-        width: 100% !important;
-    }
-
-    .profile-input{
-        height: 40px;
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px !important;
-    }
-
-    .inputs-container{
-        margin-bottom: 10px !important;
-    }
-
-    label{
-        font-size: 14px;
-        font-family:"Plus Jakarta Sans", sans-serif;
-        margin-bottom: 5px;
+    /* ================== DEOPOSIT LOGS STYLES ================= */
+    .deposit-details{
+        margin-left: 100px;
+        width: 92% !important;
+        margin-top: 40px !important;
+        margin-bottom: 50px;
     }
 
 
-    .update-btn{
-        font-size: 16px;
-        padding: 10px 10px;
-        background-color: #5156be;
-        border-radius: 5px !important;
-        color: #fff;
-        box-shadow: 0px 6px 12px #5156be54;
-        font-family:"Plus Jakarta Sans", sans-serif;
-        transition: 0.5s;
-    }
-    
-    .profile-photo-btn{
-        font-size: 16px;
-        padding: 10px 10px;
-        background-color: #5156be;
-        border-radius: 5px !important;
-        border: none !important;
-        color: #fff;
-        box-shadow: 0px 6px 12px #5156be54;
-        font-family:"Plus Jakarta Sans", sans-serif;
-        transition: 0.5s;
-    }
 
     @media (max-width: 991.98px){
-        .user-profile-box{
-            margin: 20px 20px 100px 20px !important;
-        }
-    }
-
-    @media (max-width: 767.98px){
-
-        .fixed-top{
-            padding-right: 0 !important;
-        }
-
-        .main{
-            padding-right: 0 !important;
-        }
-
-        .user-profile-box{
-            flex-direction: column !important;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .card{
-            width: 100% !important;
-            margin-bottom: 50px !important;
-            margin-right: 0 !important;
-        }
-
-        .profile-form{
+        .deposit-details{
+            margin-left: 0px !important;
             width: 100% !important;
         }
+
     }
 
 
@@ -452,8 +383,8 @@
     /* ================== FOOTER STYLES ================= */
 
     footer{
-
-        display: flex !important;
+        position: relative;
+        width: 94%;
         bottom: 0 !important;
     }
 
@@ -464,14 +395,12 @@
     @media (max-width: 991.98px){
         footer{
             margin: 0 !important;
-            position: relative;
             width: 100%;
         }
     }
 
     @media (max-width: 767.98px){
         footer{
-            position: relative;
             height: 50px;
         }
     }
@@ -485,6 +414,8 @@
 
             <!-- ============================== HEADER LEFT ========================================  -->
 
+
+            <!-- Logo and balance container -->
             <div class="logo-balance d-flex">
     
                 <!-- Logo -->
@@ -907,136 +838,46 @@
                     </div>
                 </div>
             </div>
-        </div>  
+        </div>
 
-        <!-- ========================================== PAGE MAIN SECTION ( PROFILE ) ====================================-->
-        <div class="user-profile-box mt-5 d-flex">
-            <input type="hidden" id="A_USER_ID" name="user_id" value="{{ user_id }}">
-                <div class="card me-4 shadow-sm rounded-0" style="width: 18rem; height: fit-content;">
-                    {% if profile_path %}
-                        <script>
-                            console.log("I SHOULD WORK IN PROFILE PATH CHECK")
-                        </script>
-                        <img src="{{ url_for('static', filename='' + profile_path) }}" class="card-img-top profile-img rounded-0" id="profile-img" alt="...">
-                    {% else %}
-                        <script>
-                            console.log("I SHOULDnt SHOW")
-                        </script>
-                        <img src="{{ url_for('static', filename='img/user-default.png') }}" class="card-img-top profile-img rounded-0" id="profile-img" alt="...">
-                    {% endif %}
-                    <div class="card-body">
-                        {% if first_name and last_name and email %}
-                            <h5 class="card-title">{{ first_name }} {{ last_name }}</h5>
-                            <p class="card-text">{{ email }}</p>
-                        {% else %}
-                            <h5 class="card-title">JOHN DOE</h5>
-                            <p class="card-text">johndoe@gmail.com</p>
-                        {% endif %}
-                        <form id="profile-picture-form" method="post" action="/api/v1/users/profile_picture/upload" enctype="multipart/form-data">
-                            <input type="hidden" name="user_id" value="{{ user_id }}">
-                            <label for="profile-picture-input" class="btn btn-primary profile-photo-btn">
-                              <i class="bi bi-cloud-arrow-up-fill"></i>
-                              Change profile image
-                            </label>
-                            <input type="file" id="profile-picture-input" name="file1" style="display: none;">
-                        </form>
+        <!-- ========================================== PAGE MAIN SECTION ( DEPOSIT DETAILS ) ====================================-->
+        <div class="container-fluid deposit-details">
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="card card-primary rounded-0">
+                        <div class="card-header d-block bg-white p-3">
+                            <h5 class="text-center fs-5">
+                                PLEASE SEND EXACTLY 
+                                <span class=" fs-5 coin-amount">
+                                    0.02347374837283728372 BTC
+                                </span>
+                                TO
+                            </h5>
+                            <h5 class="text-center">
+                                <span class="fw-medium wallet-address">
+                                    1MaxECLDjZXnnoiVZ4X6h6qjNwZwUhmWem
+                                </span>
+                            </h5>
+                        </div>
+                        <div class="card-body text-center">
+                            <div style="background: #fff; padding: 18px; width: 320px; margin: 0 auto;">
+                                <div class="qrcodeholder">
+                                    <canvas width="280" height="280">
+                                </div>
+                            </div>
+                            <h4 class="fw-medium fs-5 pt-1">SCAN TO SEND</h4>
+                            <p class="text-success">
+                                Rated
+                                <img src="../static/img/rating.png" alt="" style="height: 20px;">
+                                by 1650+ trusted users
+                            </p>
+                            <button class="border-0 py-2 px-4 rounded" style="background-color: #5156be; color: #fff;">Submit Proof Of Payment</button>
+                        </div>
                     </div>
-                </div>
-        <form id=profileform method="post" action="/api/v1/users/update_profile/" enctype="multipart/form-data">
-            <div  class="profile-form border border-secondary-subtle p-4 rounded-0 shadow-sm">
-                <div class="profile-form-header">
-                </div>
-                <div class="fName-lName row double-inputs">
-                    <div class="col-lg-5 first-name d-flex flex-column me-5 inputs-container">
-                        <label for="firstName">First Name</label>
-                        {% if first_name %}
-                        <input type="text" id="firstName" class="firstname-box profile-input" placeholder="{{ first_name }}">
-                        {% else %}
-                        <input type="text" id="firstName" class="firstname-box profile-input" placeholder="JOHN">
-                        {% endif %}
-                    </div>
-                    <div class="col-lg-5 last-name d-flex flex-column inputs-container">
-                        <label for="lastName mb-5">Last Name</label>
-                        {% if last_name %}
-                        <input type="text" id="lastName" class="lastName-box profile-input" placeholder="{{ last_name }}">
-                        {% else %}
-                        <input type="text" id="lastName" class="lastName-box profile-input" placeholder="DOE">
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="email-phone row double-inputs">
-                    <div class="col-lg-5 phone d-flex flex-column me-5 inputs-container single-container">
-                        <label for="userPhone">Phone Number</label>
-                        {% if PhoneNumber %}
-                        <input type="number" id="userPhone" class="firstname-box profile-input" placeholder="{{ PhoneNumber }}">
-                        {% else %}
-                        <input type="number" id="userPhone" class="firstname-box profile-input" placeholder="19202388992">
-                        {% endif %}
-                    </div>
-                    <div class="col-lg-5 last-name d-flex flex-column inputs-container">
-                        <label for="userEmail mb-5">Email Address</label>
-                        {% if email %}
-                        <input type="email" id="userEmail" class="lastName-box profile-input" placeholder="{{ email }}">
-                        {% else %}
-                        <input type="email" id="userEmail" class="lastName-box profile-input" placeholder="Johndoe@gmail.com">
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="gender-dob d-flex mb-3 row double-inputs">
-                    <div class="gender d-flex flex-column inputs-container col-lg-5">
-                        <label for="gender mb-5">Gender</label>
-                        <select class="form-select gender-input" aria-label="Default select example">
-                            <option selected>Male</option>
-                            <option value="2">Female</option>
-                            <option value="3">Others</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-floating address mb-3">
-                    <textarea class="form-control" placeholder="Enter your Address" id="floatingTextarea2" style="height: 100px"></textarea>
-                    <label for="floatingTextarea2">Enter Your Address</label>
-                </div>
-                <div class="exact-location row mb-5">
-                    <div class="mb-3 inputs-container col-lg-4">
-                        <label for="userCity" class="form-label">City</label>
-                        {% if city %}
-                        <input type="text" class="form-control" id="userCity" placeholder="{{ city }}">
-                        {% else %}
-                        <input type="text" class="form-control" id="userCity" placeholder="City">
-                        {% endif %}
-                    </div>
-                    <div class="mb-3 inputs-container col-lg-4">
-                        <label for="userState" class="form-label">State</label>
-                        {% if state %}
-                        <input type="text" class="form-control" id="userState" placeholder="{{ state }}">
-                        {% else %}
-                        <input type="text" class="form-control" id="userState" placeholder="State">
-                        {% endif %}
-                    </div>
-                    <div class="mb-3 inputs-container col-lg-4">
-                        <label for="userZipCode" class="form-label">Zipcode</label>
-                        {% if zipcode %}
-                        <input type="number" class="form-control" id="userZipCode" placeholder="{{ zipcode }}">
-                        {% else %}
-                        <input type="number" class="form-control" id="userZipCode" placeholder="Zipcode">
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="profile-form-btn">
-                    <div class="profile-country mb-4 d-flex border-0 align-items-center bg-dark text-white btn py-0 shadow-lg fw-medium" style="width: 150px;">
-                        <img src="{{ url_for('static', filename='img/au.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
-                        <p style="position: relative; top: 6px;">Australia</p>
-                    </div>
-                    <a href="" class="text-decoration-none text-white update-btn" onclick="submitForm()">
-                        <i class="bi bi-cloud-arrow-up-fill"></i>
-                        Update profile
-                    </a>
                 </div>
             </div>
-        </form>
         </div>
-        <!-- ========================================== FORM ENDS HERE ===================================== -->
-
+        <!-- ========================================== PAGE MAIN SECTION ENDS HERE ( DEPOSIT LOGS ) ====================================-->
     <!-- =========================================== MAIN ENDS HERE====================================== -->
 
 
@@ -1060,6 +901,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
+
 
 // wallet dropdown 
 const walletDropDown = document.querySelector('.wallet-dropdown');
@@ -1131,110 +973,6 @@ innerDropDownToggler.forEach( toggler => {
 });
 
 
-// handle coin transfer inputs 
-document.addEventListener('DOMContentLoaded', function() {
-    const coinFrom = document.getElementById('coin-from');
-    const coinTo = document.getElementById('coin-to');
-    const tokenFrom = document.querySelector('.token-from');
-    const tokenTo = document.querySelector('.token-to');
-
-    function updateTokens() {
-        tokenFrom.textContent = coinFrom.value;
-        tokenTo.textContent = coinTo.value;
-    }
-
-    function ensureDifferentSelection() {
-        if (coinFrom.value === coinTo.value) {
-            alert('Transfer From and Transfer To values cannot be the same.');
-            coinTo.value = [...coinTo.options].find(option => option.value !== coinFrom.value).value;
-        }
-        updateTokens();
-    }
-
-    coinFrom.addEventListener('change', ensureDifferentSelection);
-    coinTo.addEventListener('change', ensureDifferentSelection);
-
-    // Initial update
-    updateTokens();
-});
-
-
-$(document).ready(function() {
-    $('#profile-picture-form').submit(false); // Prevent default form submission
-  
-    $('#profile-picture-input').on('change', function() {
-      var formData = new FormData();
-      formData.append('user_id', $('input[name="user_id"]').val()); // Include user_id
-      formData.append('file1', $(this).prop('files')[0]);
-      console.log('User id is ', $('input[name="user_id"]').val())
-  
-      $.ajax({
-        url: '/api/v1/users/profile_picture/upload',
-        type: 'POST',
-        data: formData,
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function(response) {
-          if (response) {
-            document.getElementById("profile-img").src = "/static/" + response.profile_path;;  // Update image source
-          }
-        },
-        error: function(error) {
-          console.error('Error uploading profile picture:', error);
-          // Handle upload errors gracefully (e.g., display error message to user)
-        }
-      });
-    });
-  });
-    </script>
-    <script>
-        function extractUserInput() {
-          
-            const userData = {
-                first_name: document.getElementById('firstName').value,
-                last_name: document.getElementById('lastName').value,
-                userEmail: document.getElementById('userEmail').value, // Assuming email ID is in the 'userEmail' field
-                PhoneNumber: document.getElementById('userPhone').value,
-                address: document.getElementById('floatingTextarea2').value,
-                city: document.getElementById('userCity').value,
-                state: document.getElementById('userState').value,
-                zipcode: document.getElementById('userZipCode').value,
-                id: $('input[name="user_id"]').val()
-              };
-
-            return userData;
-          }
-          
-          
-          async function submitForm() {
-            event.preventDefault(); // Prevent default form submission behavior
-          
-            const userData = extractUserInput();
-          
-            try {
-              const response = await fetch('/api/v1/users/update_profile/', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json' // Set content type for JSON data
-                },
-                body: JSON.stringify(userData) // Convert data to JSON string
-              });
-          
-              const responseData = await response.json();
-          
-              if (response.ok) { // Handle successful response
-                console.log('User data updated successfully');
-                // Optionally display a success message to the user
-              } else {
-                console.error('Error updating user data:', responseData);
-                // Optionally display an error message to the user
-              }
-            } catch (error) {
-              console.error('Error submitting form:', error);
-              // Handle any errors that may occur during the process
-            }
-          }
     </script>
 </body>
 </html>
