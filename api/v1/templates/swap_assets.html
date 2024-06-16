@@ -1388,13 +1388,16 @@ document.addEventListener('DOMContentLoaded', function() {
     amountInput.addEventListener('input', async function() {
         try {
             const exchangeRate = await updateTokens(); // Call the function to update tokens and exchange rate
+            console.log('Exchange rate is ', exchangeRate)
             Youget.textContent = exchangeRate * amountInput.value
             
           } catch (error) {
             console.error("Error updating tokens and exchange rate:", error);
           }        
       });
-
+});
+    </script>
+    <script>
     const transferBtn = document.querySelector('.transfer-btn');
 
     transferBtn.addEventListener('click', sendConversionRequest);
@@ -1403,9 +1406,33 @@ document.addEventListener('DOMContentLoaded', function() {
         const fromCurrency = coinFrom.value;
         const toCurrency = coinTo.value;
         const subamount = parseFloat(amountInput.value);
+        const AddToCurrency = exchangeRate * amountInput.value
+        
+
+        const data = {
+            user_id: userId,
+            from_currency: fromCurrency,
+            to_currency: toCurrency,
+            amount: subamount,
+            addtocurrency : AddToCurrency
+        };
+        console.log('data is ', data)
+
+        fetch('/users/convert', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+            console.log(`Conversion successful! You got ${data.addtocurrency} ${data.toCurrency}`);
+            } else {
+            console.error(`Conversion failed: ${data.reason}`);
+            }
+        })
+        .catch(error => console.error('Error sending conversion request:', error));
     }
-      
-});
     </script>
 </body>
 </html>

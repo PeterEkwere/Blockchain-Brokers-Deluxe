@@ -169,6 +169,16 @@ def deposit_data_insert():
 def account_types():
     return render_template('account_types.html')
 
+@app_views.route('/users/convert/', strict_slashes=False, endpoint='convert')
+@login_required
+def convert():
+    jsondata = request.get_json()
+    data =  request.args
+    
+    print(f"jsondata is {jsondata} and the other data is {data}")
+    
+    return 200
+
 
 @app_views.route('/users/onboard/', strict_slashes=False, endpoint='onboard')
 @login_required

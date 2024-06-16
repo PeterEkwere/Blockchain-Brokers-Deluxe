@@ -874,8 +874,13 @@
                                             <span class="mb-1 lh-1 d-block text-truncate text-white">
                                                Tether USD
                                             </span>
-                                            <h4 class="mb-2 text-white amount convert">$0.00</h4>
-                                            <p class="text-white h6">0 USDT</p>
+                                            {% if current_user.Tether_USD %}
+                                                <h4 class="mb-2 text-white amount convert">$0.00</h4>
+                                                <p class="text-white h6">{{ current_user.btc_balance }} USDT</p>
+                                            {% else %}
+                                                <h4 class="mb-2 text-white amount convert">$0.00</h4>
+                                                <p class="text-white h6">0.0 USDT</p>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
@@ -1093,14 +1098,14 @@
                                         </div>
                                         <div class="flex-grow-1">
                                             <span class="mb-1 lh-1 d-block text-truncate text-white">
-                                                Tether USD
+                                                Stellar
                                             </span>
                                             {% if current_user.stellar_balance  %}
                                                 <h4 class="mb-2 text-white amount convert">$0.00</h4>
-                                                <p class="text-white h6">{{ current_user.stellar_balance }} USDT</p>
+                                                <p class="text-white h6">{{ current_user.stellar_balance }} XLM</p>
                                             {% else %}
                                                 <h4 class="mb-2 text-white amount convert">$0.00</h4>
-                                                <p class="text-white h6">0 USDT</p>
+                                                <p class="text-white h6">0 XLM</p>
                                             {% endif %}
                                         </div>
                                     </div>
@@ -1446,7 +1451,7 @@
                   <button type="button" class="btn text-white" style="background-color: #2ab57d; box-shadow: 0px 3px 6px #2ab57d90;">
                     <a href="{{ url_for('app_views.deposit_data_insert') }}" class="text-decoration-none text-white">
                       <i class="bi bi-credit-card"></i>
-                    Deposit  
+                    Deposit 
                     </a>
                   </button>
                 </div>
