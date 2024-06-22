@@ -192,9 +192,9 @@
     .profile-dropdown {
         visibility: hidden;
         position: absolute;
-        top: 50px;
-        right: 10px;
-        width: 200px;
+        top: 40px;
+        right: 0;
+        width: 192px;
         padding: 5px 10px;
         opacity: 0;
         transition: 0.2s;
@@ -209,8 +209,7 @@
         border: 1px solid #ccc !important;
         box-shadow: 0px 3px 6px #33333322;
         padding: 5px 10px;
-        top: 80px;
-        right: 8px;
+        top: 72px;
     }
 
     .profile-item{
@@ -238,8 +237,45 @@
         transition: 0.3s all;
     }
 
+    
+    .switch-modal-overlay{
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        overflow: hidden;
+        background-color: #00000054;
+        z-index: 100000000;
+        visibility: hidden;
+    }
+
+    
+    .switch-modal-overlay.active{
+        visibility: visible;
+    }
+
+    
+    .switch-modal{
+        padding: 20px 30px;
+        background-color: #fff;
+        border-radius: 5px;
+        margin-top: 20px;
+        margin: 0 20px;
+        box-shadow: 0px 12px 24px #00000022;
+    }
 
 
+    .modal-icon{
+        font-size: 80px !important;
+        opacity: 0.4;
+    }
+
+    
     @media (max-width: 991.98px) { 
         .balance-lg{
             display: none !important;
@@ -263,7 +299,7 @@
 
         .profile-dropdown{
             top: 50px !important;
-            right: 20px;
+            right: 10px;
             width: 95%;
         }
 
@@ -387,6 +423,36 @@
         border: 1px solid transparent !important;
     }
 
+    .update-balance-overlay{
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        overflow: hidden;
+        background-color: #00000054;
+        z-index: 100000000;
+        visibility: hidden;
+    }
+
+    .ub-modal{
+        padding: 20px 30px;
+        background-color: #fff;
+        border-radius: 5px;
+        margin-top: 20px;
+        margin: 0 20px;
+        box-shadow: 0px 12px 24px #00000022;
+    }
+
+    .modal-icon{
+        font-size: 80px !important;
+        opacity: 0.4;
+    }
+
     @media (max-width: 991.98px){
         .swap-assets-box{
             margin: 30px auto !important;
@@ -426,9 +492,60 @@
             height: 50px;
         }
     }
-   
+
+    #loading-container {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 999999999;
+    }
+
+    .check-animation-container{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        visibility: hidden;
+        justify-content: center;
+        align-items: center;
+        z-index: 999999999;
+        overflow: hidden !important;
+        transition: 0.3s all;
+    }
+
+    .check-animation-container.active{
+        visibility: visible;
+    }
+
+    .check-animation-box{
+        width: 350px;
+        height: 300px;
+        background-color: #fff;
+        border-radius: 5px;
+        top: 0;
+        opacity: 0;
+        margin-top: 20px;
+        transition: 0.3s;
+    }
+
+    .check-animation-box.active{
+        opacity: 1;
+        margin-top: 0;
+    }
+    
 </style>
 <body>
+    <!-- loading animation -->
+    <div id="loading-container">
+        <div id="lottie-container" style="width: 200px; height: 200px;"></div>
+     </div>
     <!-- ====================================== MAIN PAGE ============================== -->
     <div class="main">
         <!-- ================================== HEADER STARTS HERE ====================================== -->
@@ -452,140 +569,140 @@
                         <i class="bi bi-chevron-down text-black ms-2 wallet-dropdown-toggler"></i>
                     </h3>
 
-                    <!--    wallet dropdown -->
-                    <div class="wallet-dropdown">
-                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #74788d;">
-                            <div class="wallet-logo-container me-4">
-                                <i class="cf cf-eth coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
-                            </div>
-                            <div class="wallet-name-balance-holding me-4">
-                                <p class="coin-name mb-2 fs-6"">Ethereum</p>
-                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> ETH</p>
-                            </div>
-                            <div class="default-swap-btn">
-                                <button type="button" class="wallet-btn">Make default</button>
-                            </div>
+                <!--    wallet dropdown -->
+                <div class="wallet-dropdown drop-down dropdown-menu">
+                    <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #74788d;">
+                        <div class="wallet-logo-container me-4">
+                            <i class="cf cf-eth coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
                         </div>
-                        <div class="wallet d-flex flex-row align-items-center bg-warning text-white p-4 h-auto rounded mb-3">
-                            <div class="wallet-logo-container me-4">
-                                <i class="cf cf-steem coin-logo fs-2 position-relative" style=" bottom: 30px;"></i>
-                            </div>
-                            <div class="wallet-name-balance-holding me-4">
-                                <p class="coin-name mb-2 fs-6">Steem</p>
-                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> SBD</p>
-                            </div>
-                            <div class="default-swap-btn">
-                                <button type="button" class="wallet-btn">Make default</button>
-                            </div>
+                        <div class="wallet-name-balance-holding me-4">
+                            <p class="coin-name mb-2 fs-6"">Ethereum</p>
+                            <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                            <p class="coin-balance fw-bold fs-6 mb-1"><span class="coin-balance">0</span> ETH</p>
                         </div>
-                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #2ab57d;">
-                            <div class="wallet-logo-container me-4">
-                                <i class="cf cf-usdt coin-logo fs-2 position-relative" style=" bottom: 30px;"></i>
-                            </div>
-                            <div class="wallet-name-balance-holding me-4">
-                                <p class="coin-name mb-2 fs-6">Tether USD</p>
-                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> USDT</p>
-                            </div>
-                            <div class="default-swap-btn">
-                                <button type="button" class="wallet-btn">Make default</button>
-                            </div>
+                        <div class="default-swap-btn">
+                            <button type="button" class="wallet-btn">Make default</button>
                         </div>
-                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #fd625e;">
-                            <div class="wallet-logo-container me-4">
-                                <i class="cf cf-xrp coin-logo fs-2 position-relative" style=" bottom: 30px;"></i>
-                            </div>
-                            <div class="wallet-name-balance-holding me-4">
-                                <p class="coin-name mb-2 fs-6">Ripple</p>
-                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> XRP</p>
-                            </div>
-                            <div class="default-swap-btn">
-                                <button type="button" class="wallet-btn">Make default</button>
-                            </div>
+                    </div>
+                    <div class="wallet d-flex flex-row align-items-center bg-warning text-white p-4 h-auto rounded mb-3">
+                        <div class="wallet-logo-container me-4">
+                            <i class="cf cf-steem coin-logo fs-2 position-relative" style=" bottom: 30px;"></i>
                         </div>
-                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #ffbf53;">
-                            <div class="wallet-logo-container me-4">
-                                <i class="cf cf-doge coin-logo fs-2 position-relative" style=" bottom: 30px;"></i>
-                            </div>
-                            <div class="wallet-name-balance-holding me-4">
-                                <p class="coin-name mb-2 fs-6">Dogecoin</p>
-                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> DOGE</p>
-                            </div>
-                            <div class="default-swap-btn">
-                                <button type="button" class="wallet-btn">Make default</button>
-                            </div>
+                        <div class="wallet-name-balance-holding me-4">
+                            <p class="coin-name mb-2 fs-6">Steem</p>
+                            <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                            <p class="coin-balance fw-bold fs-6 mb-1"><span class="coin-balance">0</span> SBD</p>
                         </div>
-                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #4ba6ef;">
-                            <div class="wallet-logo-container me-4">
-                                <i class="cf cf-eth coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
-                            </div>
-                            <div class="wallet-name-balance-holding me-4">
-                                <p class="coin-name mb-2 fs-6"">Ethereum classic</p>
-                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> ETC</p>
-                            </div>
-                            <div class="default-swap-btn">
-                                <button type="button" class="wallet-btn">Make default</button>
-                            </div>
+                        <div class="default-swap-btn">
+                            <button type="button" class="wallet-btn">Make default</button>
                         </div>
-                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #343a40;">
-                            <div class="wallet-logo-container me-4">
-                                <i class="cf cf-sol coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
-                            </div>
-                            <div class="wallet-name-balance-holding me-4">
-                                <p class="coin-name mb-2 fs-6"">Solana</p>
-                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> SOL</p>
-                            </div>
-                            <div class="default-swap-btn">
-                                <button type="button" class="wallet-btn">Make default</button>
-                            </div>
+                    </div>
+                    <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #2ab57d;">
+                        <div class="wallet-logo-container me-4">
+                            <i class="cf cf-usdt coin-logo fs-2 position-relative" style=" bottom: 30px;"></i>
                         </div>
-                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #5156be;">
-                            <div class="wallet-logo-container me-4">
-                                <i class="cf cf-dot coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
-                            </div>
-                            <div class="wallet-name-balance-holding me-4">
-                                <p class="coin-name mb-2 fs-6"">Polkadot</p>
-                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> DOT</p>
-                            </div>
-                            <div class="default-swap-btn">
-                                <button type="button" class="wallet-btn">Make default</button>
-                            </div>
+                        <div class="wallet-name-balance-holding me-4">
+                            <p class="coin-name mb-2 fs-6">Tether USD</p>
+                            <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                            <p class="coin-balance fw-bold fs-6 mb-1"><span class="coin-balance">0</span> USDT</p>
                         </div>
-                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #4ba6ef;">
-                            <div class="wallet-logo-container me-4">
-                                <i class="cf cf-bch coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
-                            </div>
-                            <div class="wallet-name-balance-holding me-4">
-                                <p class="coin-name mb-2 fs-6"">Bitcoin</p>
-                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> BCH</p>
-                            </div>
-                            <div class="default-swap-btn">
-                                <button type="button" class="wallet-btn">Make default</button>
-                            </div>
+                        <div class="default-swap-btn">
+                            <button type="button" class="wallet-btn">Make default</button>
                         </div>
-                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #f7931a;">
-                            <div class="wallet-logo-container me-4">
-                                <i class="cf cf-btc coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
-                            </div>
-                            <div class="wallet-name-balance-holding me-4">
-                                <p class="coin-name mb-2 fs-6"">Bitcoin</p>
-                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                <p class="coin-balance fw-bold fs-6 mb-1><span class="coin-balance">0</span> BTC</p>
-                            </div>
-                            <div class="default-swap-btn">
-                                <button type="button" class="wallet-btn">Make default</button>
-                            </div>
+                    </div>
+                    <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #fd625e;">
+                        <div class="wallet-logo-container me-4">
+                            <i class="cf cf-xrp coin-logo fs-2 position-relative" style=" bottom: 30px;"></i>
+                        </div>
+                        <div class="wallet-name-balance-holding me-4">
+                            <p class="coin-name mb-2 fs-6">Ripple</p>
+                            <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                            <p class="coin-balance fw-bold fs-6 mb-1"><span class="coin-balance">0</span> XRP</p>
+                        </div>
+                        <div class="default-swap-btn">
+                            <button type="button" class="wallet-btn">Make default</button>
+                        </div>
+                    </div>
+                    <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #ffbf53;">
+                        <div class="wallet-logo-container me-4">
+                            <i class="cf cf-doge coin-logo fs-2 position-relative" style=" bottom: 30px;"></i>
+                        </div>
+                        <div class="wallet-name-balance-holding me-4">
+                            <p class="coin-name mb-2 fs-6">Dogecoin</p>
+                            <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                            <p class="coin-balance fw-bold fs-6 mb-1"><span class="coin-balance">0</span> DOGE</p>
+                        </div>
+                        <div class="default-swap-btn">
+                            <button type="button" class="wallet-btn">Make default</button>
+                        </div>
+                    </div>
+                    <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #4ba6ef;">
+                        <div class="wallet-logo-container me-4">
+                            <i class="cf cf-eth coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
+                        </div>
+                        <div class="wallet-name-balance-holding me-4">
+                            <p class="coin-name mb-2 fs-6"">Ethereum classic</p>
+                            <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                            <p class="coin-balance fw-bold fs-6 mb-1"><span class="coin-balance">0</span> ETC</p>
+                        </div>
+                        <div class="default-swap-btn">
+                            <button type="button" class="wallet-btn">Make default</button>
+                        </div>
+                    </div>
+                    <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #343a40;">
+                        <div class="wallet-logo-container me-4">
+                            <i class="cf cf-sol coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
+                        </div>
+                        <div class="wallet-name-balance-holding me-4">
+                            <p class="coin-name mb-2 fs-6"">Solana</p>
+                            <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                            <p class="coin-balance fw-bold fs-6 mb-1"><span class="coin-balance">0</span> SOL</p>
+                        </div>
+                        <div class="default-swap-btn">
+                            <button type="button" class="wallet-btn">Make default</button>
+                        </div>
+                    </div>
+                    <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #5156be;">
+                        <div class="wallet-logo-container me-4">
+                            <i class="cf cf-dot coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
+                        </div>
+                        <div class="wallet-name-balance-holding me-4">
+                            <p class="coin-name mb-2 fs-6"">Polkadot</p>
+                            <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                            <p class="coin-balance fw-bold fs-6 mb-1"><span class="coin-balance">0</span> DOT</p>
+                        </div>
+                        <div class="default-swap-btn">
+                            <button type="button" class="wallet-btn">Make default</button>
+                        </div>
+                    </div>
+                    <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #4ba6ef;">
+                        <div class="wallet-logo-container me-4">
+                            <i class="cf cf-bch coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
+                        </div>
+                        <div class="wallet-name-balance-holding me-4">
+                            <p class="coin-name mb-2 fs-6">Bitcoin Cash</p>
+                            <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                            <p class="coin-balance fw-bold fs-6 mb-1"><span class="coin-balance">0</span> BCH</p>
+                        </div>
+                        <div class="default-swap-btn">
+                            <button type="button" class="wallet-btn">Make default</button>
+                        </div>
+                    </div>
+                    <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #f7931a;">
+                        <div class="wallet-logo-container me-4">
+                            <i class="cf cf-btc coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
+                        </div>
+                        <div class="wallet-name-balance-holding me-4">
+                            <p class="coin-name mb-2 fs-6">Bitcoin</p>
+                            <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                            <p class="coin-balance fw-bold fs-6 mb-1"><span class="coin-balance">0</span> BTC</p>
+                        </div>
+                        <div class="default-swap-btn">
+                            <button type="button" class="wallet-btn">Make default</button>
                         </div>
                     </div>
                 </div>
+            </div>  
 
                 <!-- Balance -->
                 <div class="balance-box me-2 px-3 py-2 balance-lg" style="text-align: left;">
@@ -761,9 +878,10 @@
                             </a>
                         </div>
                         <div>
-                            <a href="#" class="dropdown-item profile-item switch-demo">
+                            <a href="#" class="dropdown-item profile-item switch-demo-live">
                                 <i class="bi bi-toggle-on me-1"></i>
-                                Switch : Demo
+                                <i class="bi bi-toggle-off me-1 d-none"></i>
+                                Switch : <span class="demo-live">Demo</span>
                             </a>
                             <a href="#" class="dropdown-item profile-item">
                                 <i class="bi bi-door-closed-fill me-1"></i>
@@ -1195,6 +1313,55 @@
                     </div>
                 </div> 
             </div>
+
+            <!-- switch demo and live modal -->
+            <div class="switch-modal-overlay">
+                <div class="switch-modal text-center" style="width: 500px;">
+                    <div class="modal-header mb-4">
+                        <i class="bi bi-exclamation-triangle mx-auto modal-icon"></i>
+                    </div>
+                    <div class="pricing-modal-body mb-4">
+                        <div class="modal-title fw-medium fs-5 mb-2">Info !</div>
+                        <div>
+                            <p class="switch-modal-text"></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer pt-2">
+                        <button class="btn border-0 bg-info text-white px-4 py-2 close-switch-modal" style="border-radius: 2px;">close</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Update balance modal -->
+            <div class="update-balance-overlay">
+                <div class="ub-modal text-center" style="width: 500px;">
+                    <div class="modal-header mb-4">
+                        <i class="bi bi-exclamation-triangle mx-auto modal-icon"></i>
+                    </div>
+                    <div class="ub-modal-body mb-4">
+                        <div class="modal-title fw-medium fs-5 mb-2">Not Enough Balance</div>
+                        <div>
+                            <p class="modal-text">
+                                Amount cannot be more than your <span class="ub-token">Bitcoin</span> balance!
+                            </p>
+                        </div>
+                    </div>
+                    <div class="modal-footer pt-2">
+                        <button class="btn border-0 bg-info text-white px-4 py-2" style="border-radius: 2px;"><a href="wallets.html" class="text-decoration-none text-white">Deposit Now</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- check animation -->
+    <div class="check-animation-container">
+        <div class="check-animation-box py-3 border-secondary-subtle shadow-sm">
+            <div class="check-container d-flex justify-content-center flex-column align-items-center">
+                <div id="check-animation" style="width: 180px; height: 180px;" class="mb-4"></div>
+                <p class="fs-3" style="color: #3ecb42;">Done</p>
+            </div>
         </div>
     </div>
     <!-- =========================================== MAIN ENDS HERE====================================== -->
@@ -1219,7 +1386,70 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
     <script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM fully loaded and parsed');
+    // Load the animation JSON
+    const animationData = '../static/animations/Animation - 1718757531211.json';
+
+    // Initialize Lottie
+    const animation = lottie.loadAnimation({
+        container: document.getElementById('lottie-container'), // the DOM element
+        renderer: 'svg', // renderer type
+        loop: true, // whether to loop the animation
+        autoplay: true, // whether to start the animation automatically
+        path: animationData // the path to the animation JSON
+    });
+
+    animation.addEventListener('DOMLoaded', function() {
+        console.log('Lottie animation loaded');
+    });
+
+    animation.addEventListener('data_failed', function(event) {
+        console.error('Lottie animation data failed to load:', event);
+    });
+
+    // Function to hide the loading animation
+    function hideLoadingAnimation() {
+        console.log('Page fully loaded');
+        const loadingContainer = document.getElementById('loading-container');
+        if (loadingContainer) {
+            loadingContainer.style.display = 'none';
+        }
+    }
+
+    // Hide the loading animation once the page has fully loaded
+    window.onload = function() {
+        setTimeout(hideLoadingAnimation, 2000); // 2000 milliseconds = 2 seconds
+    };
+});
+
+
+function showCheckBox() {
+    let checkContainer = document.querySelector('.check-animation-container')
+    let animationBox = document.querySelector('.check-animation-box')
+
+    checkContainer.classList.toggle('active')
+    animationBox.classList.toggle('active')
+
+    let animationPath = '../static/animations/Animation - 1719074008630.json'
+    const checkAnimation  = lottie.loadAnimation({
+        container: document.getElementById('check-animation'),
+        renderer: 'svg', 
+        loop: false,
+        autoplay: true,
+        path: animationPath
+    })
+
+    checkAnimation.addEventListener('complete', () => {
+        checkContainer.classList.toggle('active')
+        animationBox.classList.toggle('active')
+    })
+}
+
+
+
 // wallet dropdown 
 const walletDropDown = document.querySelector('.wallet-dropdown');
 const walletDropDownToggler = document.querySelector('.wallet-dropdown-toggler');
@@ -1290,12 +1520,49 @@ innerDropDownToggler.forEach( toggler => {
 });
 
 
+
+// handle switch from demo to live
+let switchBtn = document.querySelector('.switch-demo-live')
+let toggleOn = document.querySelector('.bi-toggle-on')
+let toggleOff = document.querySelector('.bi-toggle-off')
+let switchText = document.querySelector('.demo-live')
+let switchModalOverlay = document.querySelector('.switch-modal-overlay')
+let switchModal = document.querySelector('.switch-modal')
+let switchModalText = document.querySelector('.switch-modal-text')
+let closeSwitchModal = document.querySelector('.close-switch-modal')
+
+switchBtn.addEventListener('click', () => {
+    switchModalOverlay.classList.toggle('active')
+    switchModal.classList.toggle('active')
+    document.body.style.overflowY = 'hidden';
+
+    if (!toggleOn.classList.contains('d-none')) {
+        toggleOff.classList.remove('d-none')
+        toggleOn.classList.add('d-none')
+        switchText.innerText = 'Live'
+        switchModalText.textContent = 'Live session has started'
+    } else{
+        toggleOn.classList.remove('d-none')
+        toggleOff.classList.add('d-none')
+        switchText.innerText = 'Demo'
+        switchModalText.textContent = 'Demo session has started'
+    }
+})
+
+closeSwitchModal.addEventListener('click', () => {
+    switchModalOverlay.classList.remove('active');
+    switchModal.classList.remove('active');
+    document.body.style.overflowY = 'auto';
+});
+
+
 // handle coin transfer inputs 
 document.addEventListener('DOMContentLoaded', function() {
     const coinFrom = document.getElementById('coin-from');
     const coinTo = document.getElementById('coin-to');
     const tokenFrom = document.querySelector('.token-from');
     const tokenTo = document.querySelector('.token-to');
+    const transferBtn = document.querySelector('.transferBtn');
 
     function updateTokens() {
         tokenFrom.textContent = coinFrom.value;
@@ -1316,6 +1583,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initial update
     updateTokens();
 });
+
     </script>
 </body>
 </html>
