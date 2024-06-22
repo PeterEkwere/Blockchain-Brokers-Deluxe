@@ -556,10 +556,10 @@
                 </a>
 
                 <!-- SIGN UP & LOGIN ICONS FOR MOBILE-->
-                <a href="">
+                <a href="{{ url_for('app_views.register') }}">
                     <i class="bi-box-arrow-in-right text-white fs-3 mobile-nav-icon1 mobile-icon d-none"></i>
                 </a>
-                <a href="">
+                <a href="{{ url_for('app_views.login') }}">
                     <i class="bi-person-fill text-white fs-3 mobile-nav-icon2 mobile-icon d-none"></i>
                 </a>
 
@@ -606,10 +606,10 @@
 
                         <!-- SIGN-UP & LOGIN ICONS FOR LARGE WIDTH DEVICES -->
                         <li class="nav-item mx-3 lg-nav-icons">
-                            <a class="nav-link" href=""><i class="bi bi-person-fill nav-icon nav-icon1"></i></a>
+                            <a class="nav-link" href="{{ url_for('app_views.register') }}"><i class="bi bi-person-fill nav-icon nav-icon1"></i></a>
                         </li>
                         <li class="nav-item lg-nav-icons">
-                            <a class="nav-link d-flex" href=""><i class="bi bi-box-arrow-in-right nav-icon nav-icon2 me-2"></i>
+                            <a class="nav-link d-flex" href="{{ url_for('app_views.login') }}"><i class="bi bi-box-arrow-in-right nav-icon nav-icon2 me-2"></i>
                             <p class="login-p">LOGIN</p></a>
                         </li>
                     </ul>
@@ -693,14 +693,14 @@
                         <input type="checkbox" class="form-check-input position-relative" id="exampleCheck1">
                         <label class="form-check-label fw-normal" for="exampleCheck1">I accept the terms of services</label>
                     </div>
-                    <a href="" class="text-decoration-none"><p class=" text-black">Forgot password ?</p></a>
+                    <a href="{{ url_for('app_views.reset_password') }}" class="text-decoration-none"><p class=" text-black">Forgot password ?</p></a>
                 </div>
 
                 <!-- FORM BUTTON -->
                 <div>
                     <!-- <button type="submit" class="submit-btn w-100 mb-3">Create Account</button> -->
                     {{ register_form.submit(class="submit-btn w-100 mb-3") }}
-                    <p class="fs-6">Already have an account ? <a href="Login.html" class="text-info text-decoration-none">Login</a></p>
+                    <p class="fs-6">Already have an account ? <a href="{{ url_for('app_views.register') }}" class="text-info text-decoration-none">Login</a></p>
                 </div>
             </form>
         </div>

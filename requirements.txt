@@ -60,3 +60,4 @@ google-recaptcha
 websockets
 alpaca-py
 ccxt
+Pillow

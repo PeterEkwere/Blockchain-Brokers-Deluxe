@@ -7,7 +7,7 @@ from models.user import User
 from api.v1.auth.user_auth import RegistrationForm, LoginForm, ResetForm, UpdatePasswordForm, VerifyEmailForm
 from api.v1.views import app_views
 from flask_login import login_user, current_user, logout_user, login_required
-from flask import abort, jsonify, make_response, request, session
+from flask import abort, jsonify, make_response, request, session, send_from_directory
 from flask import redirect, url_for, flash, render_template
 from functools import wraps
 from flasgger.utils import swag_from
@@ -17,6 +17,9 @@ from api.v1.extensions import admin_required, strong_password, auth, login_manag
 import urllib.request
 import os
 from werkzeug.utils import secure_filename
+from sqlalchemy.exc import NoResultFound
+
+
 
 recaptcha = ReCaptcha(
     app_views,
@@ -24,8 +27,10 @@ recaptcha = ReCaptcha(
     version=2
 )
 
-UPLOAD_FOLDER = 'api/v1/static/uploads/kyc'
 
+UPLOAD_FOLDER = 'api/v1/static/uploads/kyc'
+PROFILE_FOLDER =  'api/v1/static/uploads/profiles'
+RECEIPT_FOLDER = 'api/v1/static/uploads/receipts'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'JPG'])
  
 def allowed_file(filename):
@@ -88,7 +93,7 @@ def login():
                     return response
                 elif user.is_verified is True:
                     check = login_user(user)
-                    response = redirect(url_for('app_views.dashboard', user_id = user.id))
+                    response = redirect(url_for('app_views.profile'))
                     response.cache_control.no_cache = True
                     return response
                 else:
@@ -99,6 +104,147 @@ def login():
     # Render the login page with the form
     return render_template('login.html', Login_form=form)
 
+@app_views.route('/users/profile/', strict_slashes=False, endpoint='profile')
+@login_required
+def profile():
+    user_id = current_user.id
+    try:
+        user = auth.get_user_by_id(user_id)
+    except NoResultFound:
+        print("User was not found")
+        
+    if user.profile_photo:
+        prefix_to_strip = "api/v1/static/"
+        value = user.profile_photo['front']
+        main_filename = value[len(prefix_to_strip):]
+        main_filename = main_filename.replace("\\", "/")
+        if user.first_name and user.last_name and user.address and user.email and user.PhoneNumber and user.state and user.city:
+            return render_template('edit_profile.html', zipcode=user.zipcode, user_id=user_id, profile_path=main_filename, email=user.email, first_name=user.first_name, last_name=user.last_name, address=user.address, PhoneNumber=user.PhoneNumber, state=user.state, city=user.city)
+        return render_template('edit_profile.html', user_id=user_id, profile_path=main_filename)
+    return render_template('edit_profile.html', user_id=user_id)
+
+
+@app_views.route('/users/deposit_logs/', strict_slashes=False, endpoint='deposit_logs')
+@login_required
+def deposit_logs():
+    return render_template('deposit_log.html')
+
+
+@app_views.route('/users/withdrawal_logs/', strict_slashes=False, endpoint='withdrawal_logs')
+@login_required
+def deposit_logs():
+    return render_template('withdrawal_log.html')
+
+
+@app_views.route('/users/swap_assets/', strict_slashes=False, endpoint='swap_assets')
+@login_required
+def deposit_logs():
+    return render_template('swap_assets.html')
+
+
+@app_views.route('/users/swap_history/', strict_slashes=False, endpoint='swap_history')
+@login_required
+def deposit_logs():
+    return render_template('swap_history.html')
+
+
+@app_views.route('/users/wallets/', strict_slashes=False, endpoint='wallets')
+@login_required
+def deposit_logs():
+    return render_template('wallets.html')
+
+
+@app_views.route('/users/auto_trade/', strict_slashes=False, endpoint='auto_trade')
+@login_required
+def auto_trade():
+    return render_template('auto_trade.html')
+
+
+@app_views.route('/users/deposit_data_insert/', strict_slashes=False, endpoint='deposit_data_insert')
+@login_required
+def deposit_data_insert():
+    #amount = request.get_json()
+    amount2 = request.args.get("amount")
+    return render_template('deposit_data_insert.html', amount=amount2)
+
+@app_views.route('/users/account_types/', strict_slashes=False, endpoint='account_types')
+@login_required
+def account_types():
+    return render_template('account_types.html')
+
+@app_views.route('/users/convert/', methods=['POST'], strict_slashes=False, endpoint='convert')
+@login_required
+def convert():
+    data = request.get_json()
+    try:
+        user = auth.get_user_by_id(current_user.id)
+    except NoResultFound:
+        return jsonify({"error": "User was not found"}), 500
+        
+    from_currency = data["from_currency"]
+    to_currency = data["to_currency"]
+    amount = data["amount"]
+    addtocurrency = data["addtocurrency"]
+    user_balance = {
+            "BUSD": user.demo_balance,
+            "USD": user.live_balance,
+            "ETH": user.eth_balance,
+            "BTC": user.btc_balance,
+            "SOL": user.sol_balance,
+            "BCH": user.Bitcoin_Cash,
+            "USDT": user.Tether_USD,
+            "DOGE": user.Dogecoin,
+            "XRP": user.Ripple,
+            "DOT": user.Polkadot,
+            "ADA": user.Cardano,
+            "XLM": user.stellar_balance,
+            "LINK": user.chainlink,
+    }
+    
+    attr = {
+            "BUSD": "demo_balance",
+            "USD": "live_balance",
+            "ETH": "eth_balance",
+            "BTC": "btc_balance",
+            "SOL": "sol_balance",
+            "BCH": "Bitcoin_Cash",
+            "USDT": "Tether_USD",
+            "DOGE": "Dogecoin",
+            "XRP": "Ripple",
+            "DOT": "Polkadot",
+            "ADA": "Cardano",
+            "XLM": "stellar_balance",
+            "LINK": "chainlink",
+    }
+    
+    if user_balance[from_currency] < amount:
+        return({"error": "insufficient balance"})
+    
+    try:
+        sub_currency = user_balance[from_currency] - amount
+        add_currency = user_balance[to_currency] + addtocurrency
+        setattr(user, attr[from_currency], sub_currency)
+        setattr(user, attr[to_currency], add_currency)
+        auth._db.save()
+    except Exception as e:
+        return jsonify({"error": "ATTRIBUTE ERROR"}), 500
+    #auth._db.update_user(user.id,  kyc_data={"front": file1_path, "back": file2_path})
+    
+    if user.switch_check == 'demo':
+        return jsonify({"success": user.demo_balance}), 200
+    elif user.switch_check == 'live':
+        return jsonify({"success": user.live_balance}), 200
+
+    return jsonify({"success": "You have successfully updated "}), 200
+
+
+@app_views.route('/users/onboard/', strict_slashes=False, endpoint='onboard')
+@login_required
+def onboard():
+    user_id = current_user.id
+    return render_template('user_id.html', user_id=user_id)
+
+
 @app_views.route('/admin/', strict_slashes=False, endpoint='admin')
 @login_required
 @admin_required
@@ -107,10 +253,8 @@ def admin():
 
 @app_views.route('/dashboard/', strict_slashes=False, endpoint='dashboard')
 @cache.cached(timeout=50)
-def profile():
-    user_id = request.args.get("user_id")
-    print(f"IN PROFILE USER ID IS {user_id}")
-    return render_template('user-id.html', user_id=user_id)
+def dashboard():
+    return render_template('user_dashboard')
 
 
 @app_views.route('/users/logout/', strict_slashes=False, endpoint='logout')
@@ -118,6 +262,7 @@ def profile():
 def logout():
     logout_user()
     return redirect(url_for('app_views.login'))
+
 
 @app_views.route('/users/verify_email', methods=['GET', 'POST'], strict_slashes=False, endpoint='verify_email')
 def verify_email():
@@ -195,13 +340,13 @@ def reset_password():
             return render_template('reset_password.html', Reset_form=form, error_message=error_message)
     return render_template('reset_password.html', Reset_form=form)
 
+
 @app_views.route('/users/update_password', methods=['GET', 'POST'], strict_slashes=False, endpoint='update_password')
 def update_password():
     """ This endpoint updates a password
     """
     form = UpdatePasswordForm(request.form)
     user_email = request.args.get("email")
-    print(f"WE ARE IN UPDATE PASSWORD AND USER EMAIL IS {user_email}")
     if form.validate():
         print("FORM HAS BEEN VALIDATED")
         email = form.email.data
@@ -218,26 +363,83 @@ def update_password():
             return render_template('update_password.html', update_form=form, error_message=error_message)
     return render_template('update_password.html', update_form=form)
  
-
  
+@app_views.route('users/profile_picture/upload', methods=['GET', 'POST'], endpoint="upload_profile_image")
+@login_required
+def upload_profile_image():
+    """ THis Endpoint handles the retrieval and update of the user's profile photo
+
+    Returns:
+        _type_: _description_
+    """
+    #user_id = request.form['user_id']
+    user_id = current_user.id
+    try:
+        user = auth.get_user_by_id(user_id)
+    except NoResultFound:
+        print("User was not found")
+    if request.method == 'POST':
+        if 'file1' not in request.files:
+            error_message = "File 1 input missing"
+            return render_template('edit_profile.html', error_message=error_message, user_id=user_id)
+        file1 = request.files['file1']
+        if file1.filename == '':
+            error_message = 'Oops! It looks like you forgot to select a Valid Image, Please Choose one'
+            print(error_message)
+            return render_template('edit_profile.html', error_message=error_message, user_id=user_id)
+        if file1 and allowed_file(file1.filename):
+            file1name = secure_filename(file1.filename)
+            file1_path = os.path.join(PROFILE_FOLDER, file1name)
+            file1.save(file1_path)
+            auth._db.update_user(user.id,  profile_photo={"front": file1_path})
+            prefix_to_strip = "api/v1/static/"
+            value = user.profile_photo['front']
+            main_filename = value[len(prefix_to_strip):]
+            main_filename = main_filename.replace("\\", "/")
+            message = "Your Profile Image Has Been Uploaded."
+            print(message)
+            return jsonify({"user_id": user_id, "profile_path": main_filename}), 200
+    else:
+        return render_template('edit_profile.html', user_id=user_id)
+    return render_template('edit_profile.html', user_id=user_id)
+        
+        
+        
+@app_views.route('users/update_profile/', methods=['POST'], endpoint="update_profile")
+@login_required
+def update_profile():
+    user_data = request.get_json()  # Use request.get_json() if data is JSON in request body
+    #print(f"user_data is {user_data}")
+    # Update user profile in your database
+    try:
+        user = auth.get_user_by_id(user_data['id'])
+        auth._db.update_user(user.id,  **user_data)
+    except NoResultFound:
+        print("User was not found")
+    
+    
+    return jsonify({"message": "success"})
+        
 @app_views.route('/KYC/', methods=['GET', 'POST'])
+@login_required
 def upload_image():
     if request.method == 'POST':
-        user_id = request.form['user_id']
+        #user_id = request.form['user_id']
+        user_id = current_user.id
         user = auth.get_user_by_id(user_id)
         verification_mode = request.form.get('verification_mode')
         if verification_mode in ['drivers_license', 'national_id']:
             if 'file1' not in request.files or 'file2' not in request.files:
                 error_message = "file 1 and 2 missing"
-                return render_template('user-id.html', error_message=error_message, user_id=user_id)
+                return render_template('user_id.html', error_message=error_message, user_id=user_id)
             file1 = request.files['file1']
             file2 = request.files['file2']
             if file1.filename == '':
                 error_message = 'Oops! It looks like you forgot to select a document for file 1. Please choose one before continuing'
-                return render_template('user-id.html', error_message=error_message, user_id=user_id)
+                return render_template('user_id.html', error_message=error_message, user_id=user_id)
             if file2.filename == '':
                 error_message = 'Oops! It looks like you forgot to select a document for file 2. Please choose one before continuing'
-                return render_template('user-id.html', error_message=error_message, user_id=user_id)
+                return render_template('user_id.html', error_message=error_message, user_id=user_id)
             if file1 and allowed_file(file1.filename) and file2 and allowed_file(file2.filename):
                 file1name = secure_filename(file1.filename)
                 file2name = secure_filename(file2.filename)
@@ -247,24 +449,55 @@ def upload_image():
                 file2.save(file2_path)
                 auth._db.update_user(user.id,  kyc_data={"front": file1_path, "back": file2_path})
                 message = "Your KYC information has been submitted for verification."
-                return render_template('user-id.html', message=message, user_id=user_id)
+                return render_template('user_id.html', message=message, user_id=user_id)
         else:
             if 'file1' not in request.files:
                 error_message = "File 1 input missing"
-                return render_template('user-id.html', error_message=error_message, user_id=user_id)
+                return render_template('user_id.html', error_message=error_message, user_id=user_id)
             file1 = request.files['file1']
             if file1.filename == '':
                 error_message = 'Oops! It looks like you forgot to select a document for file 1. Please choose one before continuing'
-                return render_template('user-id.html', error_message=error_message, user_id=user_id)
+                return render_template('user_id.html', error_message=error_message, user_id=user_id)
             if file1 and allowed_file(file1.filename):
                 file1name = secure_filename(file1.filename)
                 file1_path = os.path.join(UPLOAD_FOLDER, file1name)
                 file1.save(file1_path)
                 auth._db.update_user(user.id,  kyc_data={"front": file1_path})
                 message = "Your KYC information has been submitted for verification."
-                return render_template('user-id.html', message=message, user_id=user_id)
+                return render_template('user_id.html', message=message, user_id=user_id)
     else:
             error_message = 'Please upload a document in one of the following formats: PNG, JPG, JPEG, or GIF.'
-            return render_template('user-id.html', error_message=error_message, user_id=user_id)
-    return render_template('user-id.html')
+            return render_template('user_id.html', error_message=error_message, user_id=user_id)
+    return render_template('user_id.html')
  
+ 
+@app_views.route('users/payment_proof/', methods=['POST'], endpoint="payment_proof")
+@login_required
+def payment_proof():
+    """ THis Endpoint handles the retrieval and update of the user's profile photo
+
+    Returns:
+        _type_: _description_
+    """
+    #user_id = request.form['user_id']
+    user_id = current_user.id
+    try:
+        user = auth.get_user_by_id(user_id)
+    except NoResultFound:
+        print("User was not found")
+    if request.method == 'POST':
+        if 'file1' not in request.files:
+            error_message = "File 1 input missing"
+            print(error_message)
+        file1 = request.files['file1']
+        if file1.filename == '':
+            error_message = 'Oops! It looks like you forgot to select a Valid Image, Please Choose one'
+            print(error_message)
+        if file1 and allowed_file(file1.filename):
+            file1name = secure_filename(file1.filename)
+            file1_path = os.path.join(RECEIPT_FOLDER, file1name)
+            file1.save(file1_path)
+            auth._db.update_user(user.id,  payment_proof={"receipt": file1_path})
+            message = "Your reciept Has Been Uploaded."
+            print(message)
+            return jsonify({"success": message}), 200

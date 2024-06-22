@@ -468,10 +468,10 @@
                 </a>
 
                 <!-- SIGN UP & LOGIN ICON FOR MOBILE VIEW -->
-                <a href="">
+                <a href="{{ url_for('app_views.register') }}">
                     <i class="bi-box-arrow-in-right text-white fs-3 mobile-nav-icon1 mobile-icon d-none"></i>
                 </a>
-                <a href="">
+                <a href="{{ url_for('app_views.login') }}">
                     <i class="bi-person-fill text-white fs-3 mobile-nav-icon2 mobile-icon d-none"></i>
                 </a>
 
@@ -484,7 +484,7 @@
                 <div class="collapse navbar-collapse main-menu" id="navbarNavDropdown">
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
                         <li class="nav-item">
-                            <a class="nav-link active text-white aria-current="page" href="#">HOME</a>
+                            <a class="nav-link active text-white aria-current="page href="#">HOME</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
