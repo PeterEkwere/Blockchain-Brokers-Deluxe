@@ -971,7 +971,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-<<<<<<< HEAD
     document.addEventListener("DOMContentLoaded", function() {
         const walletAddressElement = document.querySelector(".wallet-address");
         const canvasElement = document.querySelector(".qrcodeholder canvas");
@@ -979,6 +978,41 @@
         
         var qrcode = new QRCode(document.getElementById("qrcode"), address);
     })
+    </script>
+    <script>
+        // handle switch from demo to live
+        let switchBtn = document.querySelector('.switch-demo-live')
+        let toggleOn = document.querySelector('.bi-toggle-on')
+        let toggleOff = document.querySelector('.bi-toggle-off')
+        let switchText = document.querySelector('.demo-live')
+        let switchModalOverlay = document.querySelector('.switch-modal-overlay')
+        let switchModal = document.querySelector('.switch-modal')
+        let switchModalText = document.querySelector('.switch-modal-text')
+        let closeSwitchModal = document.querySelector('.close-switch-modal')
+
+        switchBtn.addEventListener('click', () => {
+            switchModalOverlay.classList.toggle('active')
+            switchModal.classList.toggle('active')
+            document.body.style.overflowY = 'hidden';
+
+            if (!toggleOn.classList.contains('d-none')) {
+                toggleOff.classList.remove('d-none')
+                toggleOn.classList.add('d-none')
+                switchText.innerText = 'Live'
+                switchModalText.textContent = 'Live session has started'
+            } else{
+                toggleOn.classList.remove('d-none')
+                toggleOff.classList.add('d-none')
+                switchText.innerText = 'Demo'
+                switchModalText.textContent = 'Demo session has started'
+            }
+        })
+
+        closeSwitchModal.addEventListener('click', () => {
+            switchModalOverlay.classList.remove('active');
+            switchModal.classList.remove('active');
+            document.body.style.overflowY = 'auto';
+        });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
     <script>
@@ -1018,13 +1052,6 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(hideLoadingAnimation, 2000); // 2000 milliseconds = 2 seconds
     };
 });
-    </script>
-
-
-=======
-
-
->>>>>>> parent of 3559aa2 (updated wallets.html | deposit.html | and added endpoints for both)
 // wallet dropdown 
 const walletDropDown = document.querySelector('.wallet-dropdown');
 const walletDropDownToggler = document.querySelector('.wallet-dropdown-toggler');
@@ -1094,10 +1121,6 @@ innerDropDownToggler.forEach( toggler => {
     })
 });
 
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-
 $(document).ready(function() {
     $('#proof-of-payment-input').submit(false); // Prevent default form submission
   
@@ -1126,44 +1149,6 @@ $(document).ready(function() {
     });
   });
 
-// handle switch from demo to live
-let switchBtn = document.querySelector('.switch-demo-live')
-let toggleOn = document.querySelector('.bi-toggle-on')
-let toggleOff = document.querySelector('.bi-toggle-off')
-let switchText = document.querySelector('.demo-live')
-let switchModalOverlay = document.querySelector('.switch-modal-overlay')
-let switchModal = document.querySelector('.switch-modal')
-let switchModalText = document.querySelector('.switch-modal-text')
-let closeSwitchModal = document.querySelector('.close-switch-modal')
-
-switchBtn.addEventListener('click', () => {
-    switchModalOverlay.classList.toggle('active')
-    switchModal.classList.toggle('active')
-    document.body.style.overflowY = 'hidden';
-
-    if (!toggleOn.classList.contains('d-none')) {
-        toggleOff.classList.remove('d-none')
-        toggleOn.classList.add('d-none')
-        switchText.innerText = 'Live'
-        switchModalText.textContent = 'Live session has started'
-    } else{
-        toggleOn.classList.remove('d-none')
-        toggleOff.classList.add('d-none')
-        switchText.innerText = 'Demo'
-        switchModalText.textContent = 'Demo session has started'
-    }
-})
-
-closeSwitchModal.addEventListener('click', () => {
-    switchModalOverlay.classList.remove('active');
-    switchModal.classList.remove('active');
-    document.body.style.overflowY = 'auto';
-});
-
-=======
->>>>>>> parent of 3559aa2 (updated wallets.html | deposit.html | and added endpoints for both)
-=======
->>>>>>> parent of 3559aa2 (updated wallets.html | deposit.html | and added endpoints for both)
     </script>
 </body>
 </html>
