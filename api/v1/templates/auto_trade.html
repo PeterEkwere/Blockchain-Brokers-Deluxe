@@ -460,7 +460,7 @@
         position: fixed;
         width: 100%;
         height: 100%;
-        background: rgba(255, 255, 255, 0.9);
+        background: white;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -469,10 +469,11 @@
    
 </style>
 <body>
+   
     <!-- loading animation -->
     <div id="loading-container">
         <div id="lottie-container" style="width: 200px; height: 200px;"></div>
-     </div>
+    </div>
     <!-- ====================================== MAIN PAGE ============================== -->
     <div class="main">
         <!-- ================================== HEADER STARTS HERE ====================================== -->
@@ -522,10 +523,10 @@
                             <div class="wallet-name-balance-holding me-4">
                                 <p class="coin-name mb-2 fs-6">Tether USD</p>
                                 {% if current_user.Tether_USD %}
-                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Tether_USD }}</span> USDT</p>
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Tether_USD }}</span> USDT</p>
                                 {% else %}
-                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                     <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> USDT</p>
                                 {% endif %}
                             </div>
@@ -558,10 +559,10 @@
                             <div class="wallet-name-balance-holding me-4">
                                 <p class="coin-name mb-2 fs-6">Dogecoin</p>
                                 {% if current_user.Dogecoin %}
-                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Dogecoin }}</span> DOGE</p>
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>  
+                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Dogecoin }}</span> DOGE</p>
                                 {% else %}
-                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                     <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> DOGE</p>
                                 {% endif %}
                             </div>
@@ -647,8 +648,10 @@
                 <!-- Balance -->
                 <div class="balance-box me-2 px-3 py-2 balance-lg" style="text-align: left;">
                     <p class="mb-0 text-left header-p">Balance</p>
-                    {% if current_user.demo_balance %}
+                    {% if current_user.switch_check == 'demo' %}
                         <p class="text-left header-p">$<span class="balance-amount">{{ current_user.demo_balance }}</span></p>
+                    {% elif current_user.switch_check == 'live' %}
+                        <p class="text-left header-p">$<span class="balance-amount">{{ current_user.live_balance }}</span></p>
                     {% else %}
                         <p class="text-left header-p">$<span class="balance-amount">0.0</span></p>
                     {% endif %}
@@ -676,11 +679,15 @@
                 <!-- Mobile balance -->
                 <div class="dropdown balance-sm bg-none d-none">
                     <button class="border-0 bg-white dropdown-toggle d-flex align-items-center position-relative text-black" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <h3 class="mb-0 fs-6 pe-3 me-0 text-black">Total Balance</h3>
-                        {% if current_user.demo_balance %}
-                        <h3 class="fs-6 total-balance-digits position-relative ms-0 text-black">$<span class="total-balance-amount">{{ current_user.demo_balance }}</span></h3>
-                        {% else %}
-                        <h3 class="fs-6 total-balance-digits position-relative ms-0 text-black">$<span class="total-balance-amount">0</span></h3>
+                        {% if current_user.switch_check == 'demo' %}
+                            <h3 class="mb-0 fs-6 pe-3 me-0 text-black">Demo Balance</h3>
+                            <h3 class="fs-6 total-balance-digits position-relative ms-0 text-black">$<span class="total-balance-amount">{{ current_user.demo_balance }}</span></h3>
+                        {% elif  current_user.switch_check == 'live' %}
+                            <h3 class="mb-0 fs-6 pe-3 me-0 text-black">Live Balance</h3>
+                            <h3 class="fs-6 total-balance-digits position-relative ms-0 text-black">$<span class="total-balance-amount">{{ current_user.live_balance }}</span></h3>
+                        {% else %}    
+                            <h3 class="mb-0 fs-6 pe-3 me-0 text-black">Balance</h3>
+                            <h3 class="fs-6 total-balance-digits position-relative ms-0 text-black">$<span class="total-balance-amount">0</span></h3>
                         {% endif %}
                     </button>
                     <ul class="dropdown-menu balance-dropdown-sm">
@@ -719,11 +726,15 @@
 
                 <!-- Total balance -->
                 <div class="total-balance px-3 py-1  d-flex align-items-center balance-lg">
-                    <h3 class="mb-0 fs-6 pe-3 text-black">Total Balance</h3>
-                    {% if current_user.demo_balance %}
-                    <h3 class="fs-6 total-balance-digits position-relative text-black">$<span class="total-balance-amount">{{ current_user.demo_balance }}</span></h3>
+                    {% if current_user.switch_check == 'demo' %}
+                        <h3 class="mb-0 fs-6 pe-3 text-black">Demo Balance</h3>
+                        <h3 class="fs-6 total-balance-digits position-relative text-black">$<span class="total-balance-amount">{{ current_user.demo_balance }}</span></h3>
+                    {% elif current_user.switch_check == 'live' %}
+                        <h3 class="mb-0 fs-6 pe-3 text-black">Live Balance</h3>
+                        <h3 class="fs-6 total-balance-digits position-relative text-black">$<span class="total-balance-amount">{{ current_user.live_balance }}</span></h3>
                     {% else %}
-                    <h3 class="fs-6 total-balance-digits position-relative text-black">$<span class="total-balance-amount">0</span></h3>
+                        <h3 class="mb-0 fs-6 pe-3 text-black">Balance</h3>
+                        <h3 class="fs-6 total-balance-digits position-relative text-black">$<span class="total-balance-amount">0</span></h3>
                     {% endif %}
                 </div>
 
@@ -771,8 +782,8 @@
                  <!-- Profile Dropdown -->
                 <div class="profile-box px-3 d-flex align-items-center border border-secondary-subtle border-top-0 border-bottom-0" style="background-color: #fbfaff;">
                     <i class="bi bi-person-circle profile-icon fs-3 me-3"></i>
-                    {% if current_user.first_name and current_user.last_name %}
-                    <p class="profile-name position-relative me-3 fs-6">{{ current_user.first_name }} {{ current_user.last_name }}</p>
+                    {% if current_user.username %}
+                    <p class="profile-name position-relative me-3 fs-6">{{ current_user.username }}</p>
                     {% else %}
                     <p class="profile-name position-relative me-3 fs-6">JOHN DOE</p>
                     {% endif %}
@@ -877,7 +888,7 @@
                         <a href="{{ url_for('app_views.swap_assets') }}" class="text-decoration-none text-black"><p class="drop-list">Swap assets</p></a>
                         <a href="{{ url_for('app_views.swap_history') }}" class="text-decoration-none text-black"><p class="drop-list">Swap history</p></a>
                         <a href="{{ url_for('app_views.deposit_logs') }}" class="text-decoration-none text-black"><p class="drop-list">Deposit log</p></a>
-                        <a href="{{ url_for('app_views.withdrawal_logs') }}" class="text-decoration-none text-black"><p class="drop-list">Withdrowal log</p></a>
+                        <a href="{{ url_for('app_views.withdrawal_logs') }}" class="text-decoration-none text-black"><p class="drop-list">Withdrawal log</p></a>
                     </div>
                 </div>
             </div>
@@ -1007,7 +1018,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM fully loaded and parsed');
     // Load the animation JSON
-    const animationData = '../static/animations/Animation - 1718757531211.json';
+    const animationData = "{{ url_for('static', filename='animations/Animation - 1718757531211.json') }}";
 
     // Initialize Lottie
     const animation = lottie.loadAnimation({
@@ -1037,7 +1048,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Hide the loading animation once the page has fully loaded
     window.onload = function() {
-        setTimeout(hideLoadingAnimation, 2000); // 2000 milliseconds = 2 seconds
+        setTimeout(hideLoadingAnimation, 3000); // 2000 milliseconds = 2 seconds
     };
 });
 

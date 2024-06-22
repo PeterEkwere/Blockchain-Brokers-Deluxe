@@ -445,19 +445,54 @@
         position: fixed;
         width: 100%;
         height: 100%;
-        background: rgba(255, 255, 255, 0.9);
+        background: white;
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 999999999;
     }
-   
+    .check-animation-container{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        visibility: hidden;
+        justify-content: center;
+        align-items: center;
+        z-index: 999999999;
+        overflow: hidden !important;
+        transition: 0.3s all;
+    }
+
+    .check-animation-container.active{
+        visibility: visible;
+    }
+
+    .check-animation-box{
+        width: 350px;
+        height: 300px;
+        background-color: #fff;
+        border-radius: 5px;
+        top: 0;
+        opacity: 0;
+        margin-top: 20px;
+        transition: 0.3s;
+    }
+
+    .check-animation-box.active{
+        opacity: 1;
+        margin-top: 0;
+    }
 </style>
 <body>
+   
     <!-- loading animation -->
     <div id="loading-container">
         <div id="lottie-container" style="width: 200px; height: 200px;"></div>
-     </div>
+    </div>
     <!-- ====================================== MAIN PAGE ============================== -->
     <div class="main">
         <!-- ================================== HEADER STARTS HERE ====================================== -->
@@ -465,8 +500,6 @@
 
             <!-- ============================== HEADER LEFT ========================================  -->
 
-
-            <!-- Logo and balance container -->
             <div class="logo-balance d-flex">
     
                 <!-- Logo -->
@@ -509,10 +542,10 @@
                             <div class="wallet-name-balance-holding me-4">
                                 <p class="coin-name mb-2 fs-6">Tether USD</p>
                                 {% if current_user.Tether_USD %}
-                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Tether_USD }}</span> USDT</p>
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Tether_USD }}</span> USDT</p>
                                 {% else %}
-                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                     <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> USDT</p>
                                 {% endif %}
                             </div>
@@ -545,10 +578,10 @@
                             <div class="wallet-name-balance-holding me-4">
                                 <p class="coin-name mb-2 fs-6">Dogecoin</p>
                                 {% if current_user.Dogecoin %}
-                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Dogecoin }}</span> DOGE</p>
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>  
+                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Dogecoin }}</span> DOGE</p>
                                 {% else %}
-                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                     <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> DOGE</p>
                                 {% endif %}
                             </div>
@@ -634,8 +667,10 @@
                 <!-- Balance -->
                 <div class="balance-box me-2 px-3 py-2 balance-lg" style="text-align: left;">
                     <p class="mb-0 text-left header-p">Balance</p>
-                    {% if current_user.demo_balance %}
+                    {% if current_user.switch_check == 'demo' %}
                         <p class="text-left header-p">$<span class="balance-amount">{{ current_user.demo_balance }}</span></p>
+                    {% elif current_user.switch_check == 'live' %}
+                        <p class="text-left header-p">$<span class="balance-amount">{{ current_user.live_balance }}</span></p>
                     {% else %}
                         <p class="text-left header-p">$<span class="balance-amount">0.0</span></p>
                     {% endif %}
@@ -663,11 +698,15 @@
                 <!-- Mobile balance -->
                 <div class="dropdown balance-sm bg-none d-none">
                     <button class="border-0 bg-white dropdown-toggle d-flex align-items-center position-relative text-black" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <h3 class="mb-0 fs-6 pe-3 me-0 text-black">Total Balance</h3>
-                        {% if current_user.demo_balance %}
-                        <h3 class="fs-6 total-balance-digits position-relative ms-0 text-black">$<span class="total-balance-amount">{{ current_user.demo_balance }}</span></h3>
-                        {% else %}
-                        <h3 class="fs-6 total-balance-digits position-relative ms-0 text-black">$<span class="total-balance-amount">0</span></h3>
+                        {% if current_user.switch_check == 'demo' %}
+                            <h3 class="mb-0 fs-6 pe-3 me-0 text-black">Demo Balance</h3>
+                            <h3 class="fs-6 total-balance-digits position-relative ms-0 text-black">$<span class="total-balance-amount">{{ current_user.demo_balance }}</span></h3>
+                        {% elif  current_user.switch_check == 'live' %}
+                            <h3 class="mb-0 fs-6 pe-3 me-0 text-black">Live Balance</h3>
+                            <h3 class="fs-6 total-balance-digits position-relative ms-0 text-black">$<span class="total-balance-amount">{{ current_user.live_balance }}</span></h3>
+                        {% else %}    
+                            <h3 class="mb-0 fs-6 pe-3 me-0 text-black">Balance</h3>
+                            <h3 class="fs-6 total-balance-digits position-relative ms-0 text-black">$<span class="total-balance-amount">0</span></h3>
                         {% endif %}
                     </button>
                     <ul class="dropdown-menu balance-dropdown-sm">
@@ -706,11 +745,15 @@
 
                 <!-- Total balance -->
                 <div class="total-balance px-3 py-1  d-flex align-items-center balance-lg">
-                    <h3 class="mb-0 fs-6 pe-3 text-black">Total Balance</h3>
-                    {% if current_user.demo_balance %}
-                    <h3 class="fs-6 total-balance-digits position-relative text-black">$<span class="total-balance-amount">{{ current_user.demo_balance }}</span></h3>
+                    {% if current_user.switch_check == 'demo' %}
+                        <h3 class="mb-0 fs-6 pe-3 text-black">Demo Balance</h3>
+                        <h3 class="fs-6 total-balance-digits position-relative text-black">$<span class="total-balance-amount">{{ current_user.demo_balance }}</span></h3>
+                    {% elif current_user.switch_check == 'live' %}
+                        <h3 class="mb-0 fs-6 pe-3 text-black">Live Balance</h3>
+                        <h3 class="fs-6 total-balance-digits position-relative text-black">$<span class="total-balance-amount">{{ current_user.live_balance }}</span></h3>
                     {% else %}
-                    <h3 class="fs-6 total-balance-digits position-relative text-black">$<span class="total-balance-amount">0</span></h3>
+                        <h3 class="mb-0 fs-6 pe-3 text-black">Balance</h3>
+                        <h3 class="fs-6 total-balance-digits position-relative text-black">$<span class="total-balance-amount">0</span></h3>
                     {% endif %}
                 </div>
 
@@ -758,8 +801,8 @@
                  <!-- Profile Dropdown -->
                 <div class="profile-box px-3 d-flex align-items-center border border-secondary-subtle border-top-0 border-bottom-0" style="background-color: #fbfaff;">
                     <i class="bi bi-person-circle profile-icon fs-3 me-3"></i>
-                    {% if current_user.first_name and current_user.last_name %}
-                    <p class="profile-name position-relative me-3 fs-6">{{ current_user.first_name }} {{ current_user.last_name }}</p>
+                    {% if current_user.username %}
+                    <p class="profile-name position-relative me-3 fs-6">{{ current_user.username }}</p>
                     {% else %}
                     <p class="profile-name position-relative me-3 fs-6">JOHN DOE</p>
                     {% endif %}
@@ -864,7 +907,7 @@
                         <a href="{{ url_for('app_views.swap_assets') }}" class="text-decoration-none text-black"><p class="drop-list">Swap assets</p></a>
                         <a href="{{ url_for('app_views.swap_history') }}" class="text-decoration-none text-black"><p class="drop-list">Swap history</p></a>
                         <a href="{{ url_for('app_views.deposit_logs') }}" class="text-decoration-none text-black"><p class="drop-list">Deposit log</p></a>
-                        <a href="{{ url_for('app_views.withdrawal_logs') }}" class="text-decoration-none text-black"><p class="drop-list">Withdrowal log</p></a>
+                        <a href="{{ url_for('app_views.withdrawal_logs') }}" class="text-decoration-none text-black"><p class="drop-list">Withdrawal log</p></a>
                     </div>
                 </div>
             </div>
@@ -956,7 +999,18 @@
             </div>
         </div>
         <!-- ========================================== PAGE MAIN SECTION ENDS HERE ( DEPOSIT LOGS ) ====================================-->
-    <!-- =========================================== MAIN ENDS HERE====================================== -->
+    
+    
+        <!-- check animation -->
+        <div class="check-animation-container">
+            <div class="check-animation-box py-3 border-secondary-subtle shadow-sm">
+                <div class="check-container d-flex justify-content-center flex-column align-items-center">
+                    <div id="check-animation" style="width: 180px; height: 180px;" class="mb-4"></div>
+                    <p class="fs-3" style="color: #3ecb42;">Done</p>
+                </div>
+            </div>
+        </div>
+        <!-- =========================================== MAIN ENDS HERE====================================== -->
 
 
 
@@ -993,6 +1047,43 @@
 
 // close profile dropdowns when the document gets clicked
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM fully loaded and parsed');
+    // Load the animation JSON
+    const animationData = "{{ url_for('static', filename='animations/Animation - 1718757531211.json') }}";
+
+    // Initialize Lottie
+    const animation = lottie.loadAnimation({
+        container: document.getElementById('lottie-container'), // the DOM element
+        renderer: 'svg', // renderer type
+        loop: true, // whether to loop the animation
+        autoplay: true, // whether to start the animation automatically
+        path: animationData // the path to the animation JSON
+    });
+
+    animation.addEventListener('DOMLoaded', function() {
+        console.log('Lottie animation loaded');
+    });
+
+    animation.addEventListener('data_failed', function(event) {
+        console.error('Lottie animation data failed to load:', event);
+    });
+
+    // Function to hide the loading animation
+    function hideLoadingAnimation() {
+        console.log('Page fully loaded');
+        const loadingContainer = document.getElementById('loading-container');
+        if (loadingContainer) {
+            loadingContainer.style.display = 'none';
+        }
+    }
+
+    // Hide the loading animation once the page has fully loaded
+    window.onload = function() {
+        setTimeout(hideLoadingAnimation, 3000); // 2000 milliseconds = 2 seconds
+    };
+
+
+
     const walletDropDownToggler = document.querySelector('.wallet-dropdown-toggler');
     const walletDropdown = document.querySelector('.wallet-dropdown');
 
@@ -1036,6 +1127,29 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+function showCheckBox() {
+    let checkContainer = document.querySelector('.check-animation-container')
+    let animationBox = document.querySelector('.check-animation-box')
+
+    checkContainer.classList.toggle('active')
+    animationBox.classList.toggle('active')
+
+    let animationPath = "{{ url_for('static', filename='animations/Animation - 1719074008630.json') }}"
+    const checkAnimation  = lottie.loadAnimation({
+        container: document.getElementById('check-animation'),
+        renderer: 'svg', 
+        loop: false,
+        autoplay: true,
+        path: animationPath
+    })
+
+    checkAnimation.addEventListener('complete', () => {
+        checkContainer.classList.toggle('active')
+        animationBox.classList.toggle('active')
+    })
+}
+
+
 
 
 
@@ -1064,8 +1178,7 @@ $(document).ready(function() {
         processData: false,
         success: function(response) {
           if (response) {
-            console.log("Response is ", response)
-            location.reload();
+            showCheckBox();
           }
         },
         error: function(error) {
@@ -1075,6 +1188,42 @@ $(document).ready(function() {
       });
     });
   });
+    </script>
+    <script>
+        // handle switch from demo to live
+let switchBtn = document.querySelector('.switch-demo-live')
+let toggleOn = document.querySelector('.bi-toggle-on')
+let toggleOff = document.querySelector('.bi-toggle-off')
+let switchText = document.querySelector('.demo-live')
+let switchModalOverlay = document.querySelector('.switch-modal-overlay')
+let switchModal = document.querySelector('.switch-modal')
+let switchModalText = document.querySelector('.switch-modal-text')
+let closeSwitchModal = document.querySelector('.close-switch-modal')
+
+switchBtn.addEventListener('click', () => {
+    switchModalOverlay.classList.toggle('active')
+    switchModal.classList.toggle('active')
+    document.body.style.overflowY = 'hidden';
+
+    if (!toggleOn.classList.contains('d-none')) {
+        toggleOff.classList.remove('d-none')
+        toggleOn.classList.add('d-none')
+        switchText.innerText = 'Live'
+        switchModalText.textContent = 'Live session has started'
+    } else{
+        toggleOn.classList.remove('d-none')
+        toggleOff.classList.add('d-none')
+        switchText.innerText = 'Demo'
+        switchModalText.textContent = 'Demo session has started'
+    }
+})
+
+closeSwitchModal.addEventListener('click', () => {
+    switchModalOverlay.classList.remove('active');
+    switchModal.classList.remove('active');
+    document.body.style.overflowY = 'auto';
+});
+
     </script>
 </body>
 </html>

@@ -497,7 +497,7 @@
         position: fixed;
         width: 100%;
         height: 100%;
-        background: rgba(255, 255, 255, 0.9);
+        background: white;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -542,17 +542,17 @@
     
 </style>
 <body>
+   
     <!-- loading animation -->
     <div id="loading-container">
         <div id="lottie-container" style="width: 200px; height: 200px;"></div>
-     </div>
+    </div>
     <!-- ====================================== MAIN PAGE ============================== -->
     <div class="main">
         <!-- ================================== HEADER STARTS HERE ====================================== -->
         <div class="header container-fluid p-0 mx-0 border-bottom d-flex justify-content-between fixed-top bg-white">
 
             <!-- ============================== HEADER LEFT ========================================  -->
-
 
             <div class="logo-balance d-flex">
     
@@ -569,7 +569,6 @@
                         <i class="bi bi-chevron-down text-black ms-2 wallet-dropdown-toggler"></i>
                     </h3>
 
-<<<<<<< HEAD
                     <!--    wallet dropdown -->
                     <div class="wallet-dropdown drop-down dropdown-menu">
                         <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #74788d;">
@@ -579,10 +578,10 @@
                             <div class="wallet-name-balance-holding me-4">
                                 <p class="coin-name mb-2 fs-6">Ethereum</p>
                                 {% if current_user.eth_balance %}
-                                
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                 <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.eth_balance }}</span> ETH</p>
                                 {% else %}
-                                
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                 <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0.0</span> ETH</p>
                                 {% endif %}
                             </div>
@@ -597,10 +596,10 @@
                             <div class="wallet-name-balance-holding me-4">
                                 <p class="coin-name mb-2 fs-6">Tether USD</p>
                                 {% if current_user.Tether_USD %}
-                                    
-                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Tether_USD }}</span> USDT</p>
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Tether_USD }}</span> USDT</p>
                                 {% else %}
-                                    
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                     <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> USDT</p>
                                 {% endif %}
                             </div>
@@ -615,10 +614,10 @@
                             <div class="wallet-name-balance-holding me-4">
                                 <p class="coin-name mb-2 fs-6">Ripple</p>
                                 {% if current_user.Ripple %}
-                                
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                 <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance"> {{ current_user.Ripple }}</span> XRP</p>
                                 {% else %}
-                                
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                 <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> XRP</p>
                                 {% endif %}
                             </div>
@@ -633,10 +632,10 @@
                             <div class="wallet-name-balance-holding me-4">
                                 <p class="coin-name mb-2 fs-6">Dogecoin</p>
                                 {% if current_user.Dogecoin %}
-                                    
-                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Dogecoin }}</span> DOGE</p>
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>  
+                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Dogecoin }}</span> DOGE</p>
                                 {% else %}
-                                    
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                     <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> DOGE</p>
                                 {% endif %}
                             </div>
@@ -651,10 +650,10 @@
                             <div class="wallet-name-balance-holding me-4">
                                 <p class="coin-name mb-2 fs-6">Solana</p>
                                 {% if current_user.sol_balance %}
-                                
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                 <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.sol_balance }}</span> SOL</p>
                                 {% else %}
-                                
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                 <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> SOL</p>
                                 {% endif %}
                             </div>
@@ -669,10 +668,10 @@
                             <div class="wallet-name-balance-holding me-4">
                                 <p class="coin-name mb-2 fs-6">Polkadot</p>
                                 {% if current_user.Polkadot %}
-                                
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                 <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Polkadot }}</span> DOT</p>
                                 {% else %}
-                                
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                 <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> DOT</p>
                                 {% endif %}
                             </div>
@@ -687,10 +686,10 @@
                             <div class="wallet-name-balance-holding me-4">
                                 <p class="coin-name mb-2 fs-6">Bitcoin Cash</p>
                                 {% if current_user.Bitcoin_Cash %}
-                                
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                 <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Bitcoin_Cash }}</span> BCH</p>
                                 {% else %}
-                                
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                 <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> BCH</p>
                                 {% endif %}
                             </div>
@@ -705,10 +704,10 @@
                             <div class="wallet-name-balance-holding me-4">
                                 <p class="coin-name mb-2 fs-6">Bitcoin</p>
                                 {% if current_user.btc_balance %}
-                                
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                 <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.btc_balance }}</span> BTC</p>
                                 {% else %}
-                                
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
                                 <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> BTC</p>
                                 {% endif %}
                             </div>
@@ -718,7 +717,6 @@
                         </div>
                     </div>
                 </div>
-            </div>  
 
                 <!-- Balance -->
                 <div class="balance-box me-2 px-3 py-2 balance-lg" style="text-align: left;">
@@ -990,7 +988,7 @@
                 </div>
             </div>
         </div>
-    
+        
 
         <!-- ========================================== PAGE MAIN SECTION ( SWAP ASSETS ) ====================================-->
         <div class="swap-assets-box">
@@ -1435,7 +1433,7 @@
                         <div class="modal-title fw-medium fs-5 mb-2">Not Enough Balance</div>
                         <div>
                             <p class="modal-text">
-                                Amount cannot be more than your <span class="ub-token">Bitcoin</span> balance!
+                                Amount cannot be more than your <span class="ub-token">Current</span> balance!
                             </p>
                         </div>
                     </div>
@@ -1484,7 +1482,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM fully loaded and parsed');
     // Load the animation JSON
-    const animationData = '../static/animations/Animation - 1718757531211.json';
+    const animationData = "{{ url_for('static', filename='animations/Animation - 1718757531211.json') }}"; //'../static/animations/Animation - 1718757531211.json';
 
     // Initialize Lottie
     const animation = lottie.loadAnimation({
@@ -1514,7 +1512,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Hide the loading animation once the page has fully loaded
     window.onload = function() {
-        setTimeout(hideLoadingAnimation, 2000); // 2000 milliseconds = 2 seconds
+        setTimeout(hideLoadingAnimation, 3000); // 2000 milliseconds = 2 seconds
     };
 });
 
@@ -1526,7 +1524,7 @@ function showCheckBox() {
     checkContainer.classList.toggle('active')
     animationBox.classList.toggle('active')
 
-    let animationPath = '../static/animations/Animation - 1719074008630.json'
+    let animationPath = "{{ url_for('static', filename='animations/Animation - 1719074008630.json') }}"
     const checkAnimation  = lottie.loadAnimation({
         container: document.getElementById('check-animation'),
         renderer: 'svg', 
@@ -1759,10 +1757,15 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                console.log(`Conversion successful! message = ${data.success}`);
-                location.reload();
+                showCheckBox();
+                setTimeout(function() {
+                  location.reload();
+                }, 2000);
+                //location.reload();
             } else {
             console.error(`Conversion failed: ${data.error}`);
+            error_modal = document.querySelector('.update-balance-overlay')
+            error_modal.style.visibility = "visible"
             }
         })
         .catch(error => console.error('Error sending conversion request:', error));

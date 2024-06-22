@@ -461,7 +461,7 @@
         position: fixed;
         width: 100%;
         height: 100%;
-        background: rgba(255, 255, 255, 0.9);
+        background: white;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -470,10 +470,11 @@
    
 </style>
 <body>
-    <!--full page loading animation -->
+   
+    <!-- loading animation -->
     <div id="loading-container">
         <div id="lottie-container" style="width: 200px; height: 200px;"></div>
-     </div>
+    </div>
     <!-- ====================================== MAIN PAGE ============================== -->
     <div class="main">
         <!-- ================================== HEADER STARTS HERE ====================================== -->
@@ -481,428 +482,440 @@
 
             <!-- ============================== HEADER LEFT ========================================  -->
 
+            <div class="logo-balance d-flex">
+    
+                <!-- Logo -->
+                <div class="logo-box me-2 border-bottom-0 px-3 py-2 border border-end">
+                    <img src="{{ url_for('static', filename='img/favicon.png') }}" alt="" class="logo">
+                </div>
 
-                <!-- Logo and balance container -->
-                <div class="logo-balance d-flex">
-    
-                    <!-- Logo -->
-                    <div class="logo-box me-2 border-bottom-0 px-3 py-2 border border-end">
-                        <img src="{{ url_for('static', filename='img/favicon.png') }}" alt="" class="logo">
-                    </div>
-    
-                    <!-- Currency-->
-                    <div class="currency-box d-flex align-items-center me-2 px-3 py-2">
-                        <i class="cf cf-btc fs-3 currency-coin position-relative me-2" style="color: #f7931a;"></i>
-                        <h3 class="currency-name fs-6 position-relative">
-                            Bitcoin Cash 
-                            <i class="bi bi-chevron-down text-black ms-2 wallet-dropdown-toggler"></i>
-                        </h3>
-    
-                        <!--    wallet dropdown -->
-                        <div class="wallet-dropdown drop-down dropdown-menu">
-                            <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #74788d;">
-                                <div class="wallet-logo-container me-4">
-                                    <i class="cf cf-eth coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
-                                </div>
-                                <div class="wallet-name-balance-holding me-4">
-                                    <p class="coin-name mb-2 fs-6">Ethereum</p>
-                                    {% if current_user.eth_balance %}
-                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.eth_balance }}</span> ETH</p>
-                                    {% else %}
-                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0.0</span> ETH</p>
-                                    {% endif %}
-                                </div>
-                                <div class="default-swap-btn">
-                                    <button type="button" class="wallet-btn">Make default</button>
-                                </div>
+                <!-- Currency-->
+                <div class="currency-box d-flex align-items-center me-2 px-3 py-2">
+                    <i class="cf cf-btc fs-3 currency-coin position-relative me-2" style="color: #f7931a;"></i>
+                    <h3 class="currency-name fs-6 position-relative">
+                        Bitcoin Cash 
+                        <i class="bi bi-chevron-down text-black ms-2 wallet-dropdown-toggler"></i>
+                    </h3>
+
+                    <!--    wallet dropdown -->
+                    <div class="wallet-dropdown drop-down dropdown-menu">
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #74788d;">
+                            <div class="wallet-logo-container me-4">
+                                <i class="cf cf-eth coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
                             </div>
-                            <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #2ab57d;">
-                                <div class="wallet-logo-container me-4">
-                                    <i class="cf cf-usdt coin-logo fs-2 position-relative" style=" bottom: 30px;"></i>
-                                </div>
-                                <div class="wallet-name-balance-holding me-4">
-                                    <p class="coin-name mb-2 fs-6">Tether USD</p>
-                                    {% if current_user.Tether_USD %}
-                                        <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                        <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Tether_USD }}</span> USDT</p>
-                                    {% else %}
-                                        <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                        <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> USDT</p>
-                                    {% endif %}
-                                </div>
-                                <div class="default-swap-btn">
-                                    <button type="button" class="wallet-btn">Make default</button>
-                                </div>
+                            <div class="wallet-name-balance-holding me-4">
+                                <p class="coin-name mb-2 fs-6">Ethereum</p>
+                                {% if current_user.eth_balance %}
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.eth_balance }}</span> ETH</p>
+                                {% else %}
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0.0</span> ETH</p>
+                                {% endif %}
                             </div>
-                            <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #fd625e;">
-                                <div class="wallet-logo-container me-4">
-                                    <i class="cf cf-xrp coin-logo fs-2 position-relative" style=" bottom: 30px;"></i>
-                                </div>
-                                <div class="wallet-name-balance-holding me-4">
-                                    <p class="coin-name mb-2 fs-6">Ripple</p>
-                                    {% if current_user.Ripple %}
-                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance"> {{ current_user.Ripple }}</span> XRP</p>
-                                    {% else %}
-                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> XRP</p>
-                                    {% endif %}
-                                </div>
-                                <div class="default-swap-btn">
-                                    <button type="button" class="wallet-btn">Make default</button>
-                                </div>
+                            <div class="default-swap-btn">
+                                <button type="button" class="wallet-btn">Make default</button>
                             </div>
-                            <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #ffbf53;">
-                                <div class="wallet-logo-container me-4">
-                                    <i class="cf cf-doge coin-logo fs-2 position-relative" style=" bottom: 30px;"></i>
-                                </div>
-                                <div class="wallet-name-balance-holding me-4">
-                                    <p class="coin-name mb-2 fs-6">Dogecoin</p>
-                                    {% if current_user.Dogecoin %}
-                                        <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                        <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Dogecoin }}</span> DOGE</p>
-                                    {% else %}
-                                        <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                        <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> DOGE</p>
-                                    {% endif %}
-                                </div>
-                                <div class="default-swap-btn">
-                                    <button type="button" class="wallet-btn">Make default</button>
-                                </div>
+                        </div>
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #2ab57d;">
+                            <div class="wallet-logo-container me-4">
+                                <i class="cf cf-usdt coin-logo fs-2 position-relative" style=" bottom: 30px;"></i>
                             </div>
-                            <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #343a40;">
-                                <div class="wallet-logo-container me-4">
-                                    <i class="cf cf-sol coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
-                                </div>
-                                <div class="wallet-name-balance-holding me-4">
-                                    <p class="coin-name mb-2 fs-6">Solana</p>
-                                    {% if current_user.sol_balance %}
-                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.sol_balance }}</span> SOL</p>
-                                    {% else %}
-                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> SOL</p>
-                                    {% endif %}
-                                </div>
-                                <div class="default-swap-btn">
-                                    <button type="button" class="wallet-btn">Make default</button>
-                                </div>
+                            <div class="wallet-name-balance-holding me-4">
+                                <p class="coin-name mb-2 fs-6">Tether USD</p>
+                                {% if current_user.Tether_USD %}
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Tether_USD }}</span> USDT</p>
+                                {% else %}
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> USDT</p>
+                                {% endif %}
                             </div>
-                            <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #5156be;">
-                                <div class="wallet-logo-container me-4">
-                                    <i class="cf cf-dot coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
-                                </div>
-                                <div class="wallet-name-balance-holding me-4">
-                                    <p class="coin-name mb-2 fs-6">Polkadot</p>
-                                    {% if current_user.Polkadot %}
-                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Polkadot }}</span> DOT</p>
-                                    {% else %}
-                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> DOT</p>
-                                    {% endif %}
-                                </div>
-                                <div class="default-swap-btn">
-                                    <button type="button" class="wallet-btn">Make default</button>
-                                </div>
+                            <div class="default-swap-btn">
+                                <button type="button" class="wallet-btn">Make default</button>
                             </div>
-                            <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #4ba6ef;">
-                                <div class="wallet-logo-container me-4">
-                                    <i class="cf cf-bch coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
-                                </div>
-                                <div class="wallet-name-balance-holding me-4">
-                                    <p class="coin-name mb-2 fs-6">Bitcoin Cash</p>
-                                    {% if current_user.Bitcoin_Cash %}
-                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Bitcoin_Cash }}</span> BCH</p>
-                                    {% else %}
-                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> BCH</p>
-                                    {% endif %}
-                                </div>
-                                <div class="default-swap-btn">
-                                    <button type="button" class="wallet-btn">Make default</button>
-                                </div>
+                        </div>
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #fd625e;">
+                            <div class="wallet-logo-container me-4">
+                                <i class="cf cf-xrp coin-logo fs-2 position-relative" style=" bottom: 30px;"></i>
                             </div>
-                            <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #f7931a;">
-                                <div class="wallet-logo-container me-4">
-                                    <i class="cf cf-btc coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
-                                </div>
-                                <div class="wallet-name-balance-holding me-4">
-                                    <p class="coin-name mb-2 fs-6">Bitcoin</p>
-                                    {% if current_user.btc_balance %}
-                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.btc_balance }}</span> BTC</p>
-                                    {% else %}
-                                    <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> BTC</p>
-                                    {% endif %}
-                                </div>
-                                <div class="default-swap-btn">
-                                    <button type="button" class="wallet-btn">Make default</button>
-                                </div>
+                            <div class="wallet-name-balance-holding me-4">
+                                <p class="coin-name mb-2 fs-6">Ripple</p>
+                                {% if current_user.Ripple %}
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance"> {{ current_user.Ripple }}</span> XRP</p>
+                                {% else %}
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> XRP</p>
+                                {% endif %}
+                            </div>
+                            <div class="default-swap-btn">
+                                <button type="button" class="wallet-btn">Make default</button>
+                            </div>
+                        </div>
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #ffbf53;">
+                            <div class="wallet-logo-container me-4">
+                                <i class="cf cf-doge coin-logo fs-2 position-relative" style=" bottom: 30px;"></i>
+                            </div>
+                            <div class="wallet-name-balance-holding me-4">
+                                <p class="coin-name mb-2 fs-6">Dogecoin</p>
+                                {% if current_user.Dogecoin %}
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>  
+                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Dogecoin }}</span> DOGE</p>
+                                {% else %}
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> DOGE</p>
+                                {% endif %}
+                            </div>
+                            <div class="default-swap-btn">
+                                <button type="button" class="wallet-btn">Make default</button>
+                            </div>
+                        </div>
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #343a40;">
+                            <div class="wallet-logo-container me-4">
+                                <i class="cf cf-sol coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
+                            </div>
+                            <div class="wallet-name-balance-holding me-4">
+                                <p class="coin-name mb-2 fs-6">Solana</p>
+                                {% if current_user.sol_balance %}
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.sol_balance }}</span> SOL</p>
+                                {% else %}
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> SOL</p>
+                                {% endif %}
+                            </div>
+                            <div class="default-swap-btn">
+                                <button type="button" class="wallet-btn">Make default</button>
+                            </div>
+                        </div>
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #5156be;">
+                            <div class="wallet-logo-container me-4">
+                                <i class="cf cf-dot coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
+                            </div>
+                            <div class="wallet-name-balance-holding me-4">
+                                <p class="coin-name mb-2 fs-6">Polkadot</p>
+                                {% if current_user.Polkadot %}
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Polkadot }}</span> DOT</p>
+                                {% else %}
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> DOT</p>
+                                {% endif %}
+                            </div>
+                            <div class="default-swap-btn">
+                                <button type="button" class="wallet-btn">Make default</button>
+                            </div>
+                        </div>
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #4ba6ef;">
+                            <div class="wallet-logo-container me-4">
+                                <i class="cf cf-bch coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
+                            </div>
+                            <div class="wallet-name-balance-holding me-4">
+                                <p class="coin-name mb-2 fs-6">Bitcoin Cash</p>
+                                {% if current_user.Bitcoin_Cash %}
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Bitcoin_Cash }}</span> BCH</p>
+                                {% else %}
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> BCH</p>
+                                {% endif %}
+                            </div>
+                            <div class="default-swap-btn">
+                                <button type="button" class="wallet-btn">Make default</button>
+                            </div>
+                        </div>
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #f7931a;">
+                            <div class="wallet-logo-container me-4">
+                                <i class="cf cf-btc coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
+                            </div>
+                            <div class="wallet-name-balance-holding me-4">
+                                <p class="coin-name mb-2 fs-6">Bitcoin</p>
+                                {% if current_user.btc_balance %}
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.btc_balance }}</span> BTC</p>
+                                {% else %}
+                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
+                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> BTC</p>
+                                {% endif %}
+                            </div>
+                            <div class="default-swap-btn">
+                                <button type="button" class="wallet-btn">Make default</button>
                             </div>
                         </div>
                     </div>
-    
-                    <!-- Balance -->
-                    <div class="balance-box me-2 px-3 py-2 balance-lg" style="text-align: left;">
-                        <p class="mb-0 text-left header-p">Balance</p>
-                        {% if current_user.demo_balance %}
-                            <p class="text-left header-p">$<span class="balance-amount">{{ current_user.demo_balance }}</span></p>
-                        {% else %}
-                            <p class="text-left header-p">$<span class="balance-amount">0.0</span></p>
-                        {% endif %}
-                    </div>
-    
-                    <!-- Total Equity -->
-                    <div class="equity-box me-2 px-3 py-2 balance-lg" style="text-align: left;">
-                        <p class="mb-0 text-left header-p">T.Equity</p>
-                        <p class="text-left header-p">$<span class="equity-amount">0.00</span></p>
-                    </div>
-    
-                    <!-- P/L -->
-                    <div class="p/l-box me-2 px-3 py-2 balance-lg" style="text-align: left;">
-                        <p class="mb-0 text-left header-p">P/L</p>
-                        <p class="text-left header-p">$<span class="p/l-amount">0.00</span></p>
-                    </div>
-    
-                    <!-- T.Margin -->
-                    <div class="t.margin-box me-2 px-3 py-2 balance-lg" style="text-align: left;">
-                        <p class="mb-0 text-left header-p">T.Margin</p>
-                        <p class="text-left header-p">$<span class="t.margin-amount">0.00</span></p>
-                    </div>
-    
-    
-                    <!-- Mobile balance -->
-                    <div class="dropdown balance-sm bg-none d-none">
-                        <button class="border-0 bg-white dropdown-toggle d-flex align-items-center position-relative text-black" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <h3 class="mb-0 fs-6 pe-3 me-0 text-black">Total Balance</h3>
-                            {% if current_user.demo_balance %}
+                </div>
+
+                <!-- Balance -->
+                <div class="balance-box me-2 px-3 py-2 balance-lg" style="text-align: left;">
+                    <p class="mb-0 text-left header-p">Balance</p>
+                    {% if current_user.switch_check == 'demo' %}
+                        <p class="text-left header-p">$<span class="balance-amount">{{ current_user.demo_balance }}</span></p>
+                    {% elif current_user.switch_check == 'live' %}
+                        <p class="text-left header-p">$<span class="balance-amount">{{ current_user.live_balance }}</span></p>
+                    {% else %}
+                        <p class="text-left header-p">$<span class="balance-amount">0.0</span></p>
+                    {% endif %}
+                </div>
+
+                <!-- Total Equity -->
+                <div class="equity-box me-2 px-3 py-2 balance-lg" style="text-align: left;">
+                    <p class="mb-0 text-left header-p">T.Equity</p>
+                    <p class="text-left header-p">$<span class="equity-amount">0.00</span></p>
+                </div>
+
+                <!-- P/L -->
+                <div class="p/l-box me-2 px-3 py-2 balance-lg" style="text-align: left;">
+                    <p class="mb-0 text-left header-p">P/L</p>
+                    <p class="text-left header-p">$<span class="p/l-amount">0.00</span></p>
+                </div>
+
+                <!-- T.Margin -->
+                <div class="t.margin-box me-2 px-3 py-2 balance-lg" style="text-align: left;">
+                    <p class="mb-0 text-left header-p">T.Margin</p>
+                    <p class="text-left header-p">$<span class="t.margin-amount">0.00</span></p>
+                </div>
+
+
+                <!-- Mobile balance -->
+                <div class="dropdown balance-sm bg-none d-none">
+                    <button class="border-0 bg-white dropdown-toggle d-flex align-items-center position-relative text-black" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {% if current_user.switch_check == 'demo' %}
+                            <h3 class="mb-0 fs-6 pe-3 me-0 text-black">Demo Balance</h3>
                             <h3 class="fs-6 total-balance-digits position-relative ms-0 text-black">$<span class="total-balance-amount">{{ current_user.demo_balance }}</span></h3>
-                            {% else %}
+                        {% elif  current_user.switch_check == 'live' %}
+                            <h3 class="mb-0 fs-6 pe-3 me-0 text-black">Live Balance</h3>
+                            <h3 class="fs-6 total-balance-digits position-relative ms-0 text-black">$<span class="total-balance-amount">{{ current_user.live_balance }}</span></h3>
+                        {% else %}    
+                            <h3 class="mb-0 fs-6 pe-3 me-0 text-black">Balance</h3>
                             <h3 class="fs-6 total-balance-digits position-relative ms-0 text-black">$<span class="total-balance-amount">0</span></h3>
-                            {% endif %}
+                        {% endif %}
+                    </button>
+                    <ul class="dropdown-menu balance-dropdown-sm">
+                    <li style="height: fit-content;">
+                        <a class="dropdown-item mb-0" href="#">
+                            <div class="equity-box me-2 px-3 d-flex" style="text-align: left;">
+                                <p class="mb-0 text-left header-p me-2">T.Equity</p>
+                                <p class="text-left header-p mb-0">$<span class="equity-amount">0.00</span></p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item mb-0" href="#">
+                            <div class="p/l-box me-2 px-3 d-flex" style="text-align: left;">
+                                <p class="mb-0 text-left header-p me-2">P/L</p>
+                                <p class="text-left header-p mb-0">$<span class="p/l-amount">0.00</span></p>
+                            </div>
+                        </a>
+                    </li>
+                      <li>
+                        <a class="dropdown-item mb-0" href="#">
+                            <div class="t.margin-box me-2 px-3 d-flex" style="text-align: left;">
+                                <p class="mb-0 text-left header-p">T.Margin</p>
+                                <p class="text-left header-p mb-0">$<span class="t.margin-amount">0.00</span></p>
+                            </div>
+                        </a>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+
+
+
+            <!-- ================================ HEADER RIGHT =============================== -->
+            <div class="header-right-side d-flex">
+
+                <!-- Total balance -->
+                <div class="total-balance px-3 py-1  d-flex align-items-center balance-lg">
+                    {% if current_user.switch_check == 'demo' %}
+                        <h3 class="mb-0 fs-6 pe-3 text-black">Demo Balance</h3>
+                        <h3 class="fs-6 total-balance-digits position-relative text-black">$<span class="total-balance-amount">{{ current_user.demo_balance }}</span></h3>
+                    {% elif current_user.switch_check == 'live' %}
+                        <h3 class="mb-0 fs-6 pe-3 text-black">Live Balance</h3>
+                        <h3 class="fs-6 total-balance-digits position-relative text-black">$<span class="total-balance-amount">{{ current_user.live_balance }}</span></h3>
+                    {% else %}
+                        <h3 class="mb-0 fs-6 pe-3 text-black">Balance</h3>
+                        <h3 class="fs-6 total-balance-digits position-relative text-black">$<span class="total-balance-amount">0</span></h3>
+                    {% endif %}
+                </div>
+
+                <!-- Translations -->
+                <div class="translations px-3">
+                    <div class="dropdown drop-down">
+                        <button class="border-0 bg-white position-relative flags-dropdown-btn dropdown-toggler" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://flagcdn.com/w40/es.png" srcset="https://flagcdn.com/w80/es.png 2x" width="30" alt="Spain" class="flag-btn">
                         </button>
-                        <ul class="dropdown-menu balance-dropdown-sm">
-                        <li style="height: fit-content;">
-                            <a class="dropdown-item mb-0" href="#">
-                                <div class="equity-box me-2 px-3 d-flex" style="text-align: left;">
-                                    <p class="mb-0 text-left header-p me-2">T.Equity</p>
-                                    <p class="text-left header-p mb-0">$<span class="equity-amount">0.00</span></p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item mb-0" href="#">
-                                <div class="p/l-box me-2 px-3 d-flex" style="text-align: left;">
-                                    <p class="mb-0 text-left header-p me-2">P/L</p>
-                                    <p class="text-left header-p mb-0">$<span class="p/l-amount">0.00</span></p>
-                                </div>
-                            </a>
-                        </li>
-                          <li>
-                            <a class="dropdown-item mb-0" href="#">
-                                <div class="t.margin-box me-2 px-3 d-flex" style="text-align: left;">
-                                    <p class="mb-0 text-left header-p">T.Margin</p>
-                                    <p class="text-left header-p mb-0">$<span class="t.margin-amount">0.00</span></p>
-                                </div>
-                            </a>
-                        </li>
+                        <ul class="dropdown-menu flag-menu closable">
+                            <li class="d-flex">
+                                <a class="dropdown-item" href="#">
+                                    <img src="{{ url_for('static', filename='img/us.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <img src="{{ url_for('static', filename='img/es.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    Spanish
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <img src="{{ url_for('static', filename='img/de.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    German
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <img src="{{ url_for('static', filename='img/it.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    Italian
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <img src="{{ url_for('static', filename='img/ru.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    Russian
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
-                <!-- ================================ HEADER RIGHT =============================== -->
-                <div class="header-right-side d-flex">
-    
-                    <!-- Total balance -->
-                    <div class="total-balance px-3 py-1  d-flex align-items-center balance-lg">
-                        <h3 class="mb-0 fs-6 pe-3 text-black">Total Balance</h3>
-                        {% if current_user.demo_balance %}
-                        <h3 class="fs-6 total-balance-digits position-relative text-black">$<span class="total-balance-amount">{{ current_user.demo_balance }}</span></h3>
-                        {% else %}
-                        <h3 class="fs-6 total-balance-digits position-relative text-black">$<span class="total-balance-amount">0</span></h3>
-                        {% endif %}
-                    </div>
-    
-                    <!-- Translations -->
-                    <div class="translations px-3">
-                        <div class="dropdown drop-down">
-                            <button class="border-0 bg-white position-relative flags-dropdown-btn dropdown-toggler" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="https://flagcdn.com/w40/es.png" srcset="https://flagcdn.com/w80/es.png 2x" width="30" alt="Spain" class="flag-btn">
-                            </button>
-                            <ul class="dropdown-menu flag-menu closable">
-                                <li class="d-flex">
-                                    <a class="dropdown-item" href="#">
-                                        <img src="{{ url_for('static', filename='img/us.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
-                                        English
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <img src="{{ url_for('static', filename='img/es.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
-                                        Spanish
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <img src="{{ url_for('static', filename='img/de.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
-                                        German
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <img src="{{ url_for('static', filename='img/it.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
-                                        Italian
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <img src="{{ url_for('static', filename='img/ru.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
-                                        Russian
-                                    </a>
-                                </li>
-                            </ul>
+
+                 <!-- Profile Dropdown -->
+                <div class="profile-box px-3 d-flex align-items-center border border-secondary-subtle border-top-0 border-bottom-0" style="background-color: #fbfaff;">
+                    <i class="bi bi-person-circle profile-icon fs-3 me-3"></i>
+                    {% if current_user.username %}
+                    <p class="profile-name position-relative me-3 fs-6">{{ current_user.username }}</p>
+                    {% else %}
+                    <p class="profile-name position-relative me-3 fs-6">JOHN DOE</p>
+                    {% endif %}
+                    <i class="bi bi-chevron-down text-black dropdown-toggler" id="profile-dropdown-toggler"></i>
+                    <div class="profile-dropdown list-unstyled drop-down">
+                        <div class="border-bottom mb-3 pb-2 nav-sm">
+                            <div class="dropdown-item profile-item " data-toggle="inner-dropdown">
+                                <div class="inner-dropdown-toggler">
+                                    <i class="bi bi-person-circle me-1 profile-item"></i>
+                                    Profile
+                                </div>
+                                <div class="inner-dropdown">
+                                    <a href="{{ url_for('app_views.profile') }}" class="inner-dropdown-item">Edit profile</a>
+                                    <a href="{{ url_for('app_views.onboard') }}" class="inner-dropdown-item">Verify ID</a>
+                                </div>
+                            </div>
+                            <a href="{{ url_for('app_views.wallets') }}" class="dropdown-item profile-item ">
+                                <i class="bi bi-wallet-fill me-1"></i>
+                                Wallet
+                            </a>
+                            <a href="trade.html" class="dropdown-item profile-item ">
+                                <i class="bi bi-bar-chart me-1"></i>
+                                Trade
+                            </a>
+                            <div class="dropdown-item profile-item " data-toggle="inner-dropdown" id="inner-dropdown-toggler">
+                                <div class="inner-dropdown-toggler">
+                                    <i class="bi bi-radar"></i>
+                                    Positions 
+                                </div>
+                                <div class="inner-dropdown">
+                                    <a href="open_postions.html" class="inner-dropdown-item">Open positions</a>
+                                    <a href="closed_positions.html" class="inner-dropdown-item">Closed positions</a>
+                                    <a href="earnings.html" class="inner-dropdown-item">Earnings</a>
+                                </div>
+                            </div>
+                            <div class="dropdown-item profile-item " data-toggle="inner-dropdown">
+                                <div class="inner-dropdown-toggler">
+                                   <i class="bi bi-wallet2 me-1"></i>
+                                    Manage funds 
+                                </div> 
+                                <div class="inner-dropdown">
+                                    <a href="{{ url_for('app_views.swap_assets') }}" class="inner-dropdown-item">Swap assets</a>
+                                    <a href="{{ url_for('app_views.swap_history') }}" class="inner-dropdown-item">Swap History</a>
+                                    <a href="{{ url_for('app_views.deposit_logs') }}" class="inner-dropdown-item">Deposit log</a>
+                                    <a href="{{ url_for('app_views.withdrawal_logs') }}" class="inner-dropdown-item">Withdraw log</a>
+                                </div>
+                            </div>
+                            <a href="{{ url_for('app_views.auto_trade') }}" class="dropdown-item profile-item ">
+                                <i class="bi bi-graph-up-arrow me-1"></i>
+                                Auto trader
+                            </a>
+                            <a href="reset_password.html" class="dropdown-item profile-item ">
+                                <i class="bi bi-key-fill me-1"></i>
+                                Change Password
+                            </a>
+                        </div>
+                        <div>
+                            <a href="#" class="dropdown-item profile-item switch-demo-live">
+                                <i class="bi bi-toggle-on me-1"></i>
+                                <i class="bi bi-toggle-off me-1 d-none"></i>
+                                Switch : <span class="demo-live">Demo</span>
+                            </a>
+                            <a href="{{ url_for('app_views.logout') }}" class="dropdown-item profile-item">
+                                <i class="bi bi-door-closed-fill me-1"></i>
+                                Logout
+                            </a>
                         </div>
                     </div>
-    
-                     <!-- Profile Dropdown -->
-                    <div class="profile-box px-3 d-flex align-items-center border border-secondary-subtle border-top-0 border-bottom-0" style="background-color: #fbfaff;">
-                        <i class="bi bi-person-circle profile-icon fs-3 me-3"></i>
-                        {% if current_user.first_name and current_user.last_name %}
-                        <p class="profile-name position-relative me-3 fs-6">{{ current_user.first_name }} {{ current_user.last_name }}</p>
-                        {% else %}
-                        <p class="profile-name position-relative me-3 fs-6">JOHN DOE</p>
-                        {% endif %}
-                        <i class="bi bi-chevron-down text-black dropdown-toggler" id="profile-dropdown-toggler"></i>
-                        <div class="profile-dropdown list-unstyled drop-down">
-                            <div class="border-bottom mb-3 pb-2 nav-sm">
-                                <div class="dropdown-item profile-item " data-toggle="inner-dropdown">
-                                    <div class="inner-dropdown-toggler">
-                                        <i class="bi bi-person-circle me-1 profile-item"></i>
-                                        Profile
-                                    </div>
-                                    <div class="inner-dropdown">
-                                        <a href="{{ url_for('app_views.profile') }}" class="inner-dropdown-item">Edit profile</a>
-                                        <a href="{{ url_for('app_views.onboard') }}" class="inner-dropdown-item">Verify ID</a>
-                                    </div>
-                                </div>
-                                <a href="{{ url_for('app_views.wallets') }}" class="dropdown-item profile-item ">
-                                    <i class="bi bi-wallet-fill me-1"></i>
-                                    Wallet
-                                </a>
-                                <a href="trade.html" class="dropdown-item profile-item ">
-                                    <i class="bi bi-bar-chart me-1"></i>
-                                    Trade
-                                </a>
-                                <div class="dropdown-item profile-item " data-toggle="inner-dropdown" id="inner-dropdown-toggler">
-                                    <div class="inner-dropdown-toggler">
-                                        <i class="bi bi-radar"></i>
-                                        Positions 
-                                    </div>
-                                    <div class="inner-dropdown">
-                                        <a href="open_postions.html" class="inner-dropdown-item">Open positions</a>
-                                        <a href="closed_positions.html" class="inner-dropdown-item">Closed positions</a>
-                                        <a href="earnings.html" class="inner-dropdown-item">Earnings</a>
-                                    </div>
-                                </div>
-                                <div class="dropdown-item profile-item " data-toggle="inner-dropdown">
-                                    <div class="inner-dropdown-toggler">
-                                       <i class="bi bi-wallet2 me-1"></i>
-                                        Manage funds 
-                                    </div> 
-                                    <div class="inner-dropdown">
-                                        <a href="{{ url_for('app_views.swap_assets') }}" class="inner-dropdown-item">Swap assets</a>
-                                        <a href="{{ url_for('app_views.swap_history') }}" class="inner-dropdown-item">Swap History</a>
-                                        <a href="{{ url_for('app_views.deposit_logs') }}" class="inner-dropdown-item">Deposit log</a>
-                                        <a href="{{ url_for('app_views.withdrawal_logs') }}" class="inner-dropdown-item">Withdraw log</a>
-                                    </div>
-                                </div>
-                                <a href="{{ url_for('app_views.auto_trade') }}" class="dropdown-item profile-item ">
-                                    <i class="bi bi-graph-up-arrow me-1"></i>
-                                    Auto trader
-                                </a>
-                                <a href="reset_password.html" class="dropdown-item profile-item ">
-                                    <i class="bi bi-key-fill me-1"></i>
-                                    Change Password
-                                </a>
-                            </div>
-                            <div>
-                                <a href="#" class="dropdown-item profile-item switch-demo">
-                                    <i class="bi bi-toggle-on me-1"></i>
-                                    Switch : Demo
-                                </a>
-                                <a href="{{ url_for('app_views.logout') }}" class="dropdown-item profile-item">
-                                    <i class="bi bi-door-closed-fill me-1"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </div>
-                    </div>        
+                </div>        
+            </div>
+        </div>
+        <!-- ======================================== HEADER ENDS HERE =========================================== -->
+
+
+
+
+        <!-- ======================================== FIXED-SIDE-NAV STARTS HERE ===================================== -->
+        <div class="fixed-side-nav position-fixed top-0 start-0 border-end d-flex align-items-center flex-column nav-lg" style="background-color: #fbfaff;">
+            <div class="trade-box sidenav-icon-box mb-5">
+                <i class="bi bi-bar-chart fs-4"></i>
+                <div class="icon-dropdown">
+                    <a href="trade.html" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Trade</p></a>
                 </div>
             </div>
-            <!-- ======================================== HEADER ENDS HERE =========================================== -->
-    
-    
-    
-    
-            <!-- ======================================== FIXED-SIDE-NAV STARTS HERE ===================================== -->
-            <div class="fixed-side-nav position-fixed top-0 start-0 border-end d-flex align-items-center flex-column nav-lg" style="background-color: #fbfaff;">
-                <div class="trade-box sidenav-icon-box mb-5">
-                    <i class="bi bi-bar-chart fs-4"></i>
-                    <div class="icon-dropdown">
-                        <a href="trade.html" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Trade</p></a>
-                    </div>
-                </div>
-                <div class="trade-box sidenav-icon-box mb-5">
-                    <i class="bi bi-radar fs-4"></i>
-                    <div class="icon-dropdown">
-                        <p class="drop-header px-3 py-2">Positions</p>
-                        <div class="w-100">
-                            <a href="closed_positions.html" class="text-decoration-none text-black"><p class="drop-list">Open Positons</p></a>
-                            <a href="closed_positions.html" class="text-decoration-none text-black"><p class="drop-list">Closed Positons</p></a> 
-                            <a href="earnings.html" class="text-decoration-none text-black"><p class="drop-list">Earnings</p></a> 
-                        </div>
-                    </div>
-                </div>
-                <div class="trade-box sidenav-icon-box mb-5">
-                    <i class="bi bi-wallet2 fs-4"></i>
-                    <div class="icon-dropdown">
-                        <p class="drop-header px-3 py-2">Manage Funds</p>
-                        <div class="w-100">
-                           <a href="{{ url_for('app_views.wallets') }}" class="text-decoration-none text-black"><p class="drop-list">Wallets</p></a> 
-                            <a href="{{ url_for('app_views.swap_assets') }}" class="text-decoration-none text-black"><p class="drop-list">Swap assets</p></a>
-                            <a href="{{ url_for('app_views.swap_history') }}" class="text-decoration-none text-black"><p class="drop-list">Swap history</p></a>
-                            <a href="{{ url_for('app_views.deposit_logs') }}" class="text-decoration-none text-black"><p class="drop-list">Deposit log</p></a>
-                            <a href="{{ url_for('app_views.withdrawal_logs') }}" class="text-decoration-none text-black"><p class="drop-list">Withdrawal log</p></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="trade-box sidenav-icon-box mb-5">
-                    <i class="bi bi-graph-up-arrow fs-4"></i>
-                    <div class="icon-dropdown">
-                        <a href="{{ url_for('app_views.auto_trade') }}" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Auto Trader</p></a>
-                    </div>
-                </div>
-                <div class="trade-box sidenav-icon-box mb-5">
-                    <i class="bi bi-safe2 fs-4"></i>
-                    <div class="icon-dropdown">
-                        <a href="{{ url_for('app_views.account_types') }}" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Account Types</p></a>
-                    </div>
-                </div>
-                <div class="trade-box sidenav-icon-box mb-5">
-                    <i class="bi bi-person fs-4"></i>
-                    <div class="icon-dropdown">
-                        <p class="drop-header px-3 py-2">Profile</p>
-                        <div class="w-100">
-                            <a href="{{ url_for('app_views.profile') }}" class="text-decoration-none text-black"><p class="drop-list">Edit Profile</p></a>
-                            <a href="{{ url_for('app_views.onboard') }}" class="text-decoration-none text-black"><p class="drop-list">Verify Id</p> </a>
-                        </div>
+            <div class="trade-box sidenav-icon-box mb-5">
+                <i class="bi bi-radar fs-4"></i>
+                <div class="icon-dropdown">
+                    <p class="drop-header px-3 py-2">Positions</p>
+                    <div class="w-100">
+                        <a href="closed_positions.html" class="text-decoration-none text-black"><p class="drop-list">Open Positons</p></a>
+                        <a href="closed_positions.html" class="text-decoration-none text-black"><p class="drop-list">Closed Positons</p></a> 
+                        <a href="earnings.html" class="text-decoration-none text-black"><p class="drop-list">Earnings</p></a> 
                     </div>
                 </div>
             </div>
+            <div class="trade-box sidenav-icon-box mb-5">
+                <i class="bi bi-wallet2 fs-4"></i>
+                <div class="icon-dropdown">
+                    <p class="drop-header px-3 py-2">Manage Funds</p>
+                    <div class="w-100">
+                       <a href="{{ url_for('app_views.wallets') }}" class="text-decoration-none text-black"><p class="drop-list">Wallets</p></a> 
+                        <a href="{{ url_for('app_views.swap_assets') }}" class="text-decoration-none text-black"><p class="drop-list">Swap assets</p></a>
+                        <a href="{{ url_for('app_views.swap_history') }}" class="text-decoration-none text-black"><p class="drop-list">Swap history</p></a>
+                        <a href="{{ url_for('app_views.deposit_logs') }}" class="text-decoration-none text-black"><p class="drop-list">Deposit log</p></a>
+                        <a href="{{ url_for('app_views.withdrawal_logs') }}" class="text-decoration-none text-black"><p class="drop-list">Withdrawal log</p></a>
+                    </div>
+                </div>
+            </div>
+            <div class="trade-box sidenav-icon-box mb-5">
+                <i class="bi bi-graph-up-arrow fs-4"></i>
+                <div class="icon-dropdown">
+                    <a href="{{ url_for('app_views.auto_trade') }}" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Auto Trader</p></a>
+                </div>
+            </div>
+            <div class="trade-box sidenav-icon-box mb-5">
+                <i class="bi bi-safe2 fs-4"></i>
+                <div class="icon-dropdown">
+                    <a href="{{ url_for('app_views.account_types') }}" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Account Types</p></a>
+                </div>
+            </div>
+            <div class="trade-box sidenav-icon-box mb-5">
+                <i class="bi bi-person fs-4"></i>
+                <div class="icon-dropdown">
+                    <p class="drop-header px-3 py-2">Profile</p>
+                    <div class="w-100">
+                        <a href="{{ url_for('app_views.profile') }}" class="text-decoration-none text-black"><p class="drop-list">Edit Profile</p></a>
+                        <a href="{{ url_for('app_views.onboard') }}" class="text-decoration-none text-black"><p class="drop-list">Verify Id</p> </a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- ========================================== PAGE MAIN SECTION ( SWAP HISTORY ) ====================================-->
         <div class="history-container container-fluid">
@@ -990,7 +1003,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM fully loaded and parsed');
     // Load the animation JSON
-    const animationData = '../static/animations/Animation - 1718757531211.json';
+    const animationData = "{{ url_for('static', filename='animations/Animation - 1718757531211.json') }}";;
 
     // Initialize Lottie
     const animation = lottie.loadAnimation({
@@ -1020,7 +1033,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Hide the loading animation once the page has fully loaded
     window.onload = function() {
-        setTimeout(hideLoadingAnimation, 2000); // 2000 milliseconds = 2 seconds
+        setTimeout(hideLoadingAnimation, 3000); // 3000 milliseconds = 2 seconds
     };
 });
 
