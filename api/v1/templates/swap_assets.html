@@ -503,7 +503,43 @@
         justify-content: center;
         z-index: 999999999;
     }
-   
+
+    .check-animation-container{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        visibility: hidden;
+        justify-content: center;
+        align-items: center;
+        z-index: 999999999;
+        overflow: hidden !important;
+        transition: 0.3s all;
+    }
+
+    .check-animation-container.active{
+        visibility: visible;
+    }
+
+    .check-animation-box{
+        width: 350px;
+        height: 300px;
+        background-color: #fff;
+        border-radius: 5px;
+        top: 0;
+        opacity: 0;
+        margin-top: 20px;
+        transition: 0.3s;
+    }
+
+    .check-animation-box.active{
+        opacity: 1;
+        margin-top: 0;
+    }
+    
 </style>
 <body>
     <!-- loading animation -->
@@ -1317,6 +1353,17 @@
             </div>
         </div>
     </div>
+
+
+    <!-- check animation -->
+    <div class="check-animation-container">
+        <div class="check-animation-box py-3 border-secondary-subtle shadow-sm">
+            <div class="check-container d-flex justify-content-center flex-column align-items-center">
+                <div id="check-animation" style="width: 180px; height: 180px;" class="mb-4"></div>
+                <p class="fs-3" style="color: #3ecb42;">Done</p>
+            </div>
+        </div>
+    </div>
     <!-- =========================================== MAIN ENDS HERE====================================== -->
 
 
@@ -1377,6 +1424,29 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(hideLoadingAnimation, 2000); // 2000 milliseconds = 2 seconds
     };
 });
+
+
+function showCheckBox() {
+    let checkContainer = document.querySelector('.check-animation-container')
+    let animationBox = document.querySelector('.check-animation-box')
+
+    checkContainer.classList.toggle('active')
+    animationBox.classList.toggle('active')
+
+    let animationPath = '../static/animations/Animation - 1719074008630.json'
+    const checkAnimation  = lottie.loadAnimation({
+        container: document.getElementById('check-animation'),
+        renderer: 'svg', 
+        loop: false,
+        autoplay: true,
+        path: animationPath
+    })
+
+    checkAnimation.addEventListener('complete', () => {
+        checkContainer.classList.toggle('active')
+        animationBox.classList.toggle('active')
+    })
+}
 
 
 
