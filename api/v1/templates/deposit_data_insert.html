@@ -979,89 +979,8 @@
         var qrcode = new QRCode(document.getElementById("qrcode"), address);
     })
     </script>
-    <script>
-        // handle switch from demo to live
-        let switchBtn = document.querySelector('.switch-demo-live')
-        let toggleOn = document.querySelector('.bi-toggle-on')
-        let toggleOff = document.querySelector('.bi-toggle-off')
-        let switchText = document.querySelector('.demo-live')
-        let switchModalOverlay = document.querySelector('.switch-modal-overlay')
-        let switchModal = document.querySelector('.switch-modal')
-        let switchModalText = document.querySelector('.switch-modal-text')
-        let closeSwitchModal = document.querySelector('.close-switch-modal')
-
-        switchBtn.addEventListener('click', () => {
-            switchModalOverlay.classList.toggle('active')
-            switchModal.classList.toggle('active')
-            document.body.style.overflowY = 'hidden';
-
-            if (!toggleOn.classList.contains('d-none')) {
-                toggleOff.classList.remove('d-none')
-                toggleOn.classList.add('d-none')
-                switchText.innerText = 'Live'
-                switchModalText.textContent = 'Live session has started'
-            } else{
-                toggleOn.classList.remove('d-none')
-                toggleOff.classList.add('d-none')
-                switchText.innerText = 'Demo'
-                switchModalText.textContent = 'Demo session has started'
-            }
-        })
-
-        closeSwitchModal.addEventListener('click', () => {
-            switchModalOverlay.classList.remove('active');
-            switchModal.classList.remove('active');
-            document.body.style.overflowY = 'auto';
-        });
-    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
     <script>
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM fully loaded and parsed');
-    // Load the animation JSON
-    const animationData = '../static/animations/Animation - 1718757531211.json';
-
-    // Initialize Lottie
-    const animation = lottie.loadAnimation({
-        container: document.getElementById('lottie-container'), // the DOM element
-        renderer: 'svg', // renderer type
-        loop: true, // whether to loop the animation
-        autoplay: true, // whether to start the animation automatically
-        path: animationData // the path to the animation JSON
-    });
-
-    animation.addEventListener('DOMLoaded', function() {
-        console.log('Lottie animation loaded');
-    });
-
-    animation.addEventListener('data_failed', function(event) {
-        console.error('Lottie animation data failed to load:', event);
-    });
-
-    // Function to hide the loading animation
-    function hideLoadingAnimation() {
-        console.log('Page fully loaded');
-        const loadingContainer = document.getElementById('loading-container');
-        if (loadingContainer) {
-            loadingContainer.style.display = 'none';
-        }
-    }
-
-    // Hide the loading animation once the page has fully loaded
-    window.onload = function() {
-        setTimeout(hideLoadingAnimation, 2000); // 2000 milliseconds = 2 seconds
-    };
-});
-// wallet dropdown 
-const walletDropDown = document.querySelector('.wallet-dropdown');
-const walletDropDownToggler = document.querySelector('.wallet-dropdown-toggler');
-
-walletDropDownToggler.addEventListener('click', () => {
-  walletDropDown.classList.toggle('active'); // Toggle visibility on click
-});
-
-
-
 
 // close profile dropdowns when the document gets clicked
 document.addEventListener('DOMContentLoaded', function() {
@@ -1120,7 +1039,6 @@ innerDropDownToggler.forEach( toggler => {
         target.classList.toggle('active')
     })
 });
-
 $(document).ready(function() {
     $('#proof-of-payment-input').submit(false); // Prevent default form submission
   
@@ -1148,7 +1066,6 @@ $(document).ready(function() {
       });
     });
   });
-
     </script>
 </body>
 </html>

@@ -1687,7 +1687,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // handle inner dropdown inside the profile
     const innerDropDownToggler = Array.from( document.querySelectorAll('.inner-dropdown-toggler'))
-
     innerDropDownToggler.forEach( toggler => {
         toggler.addEventListener('click', () => {
             let target = toggler.nextElementSibling;
@@ -1711,53 +1710,5 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = url.href;
         });
 </script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // handle switch from demo to live
-        let switchBtn = document.querySelector('.switch-demo-live')
-        let toggleOn = document.querySelector('.bi-toggle-on')
-        let toggleOff = document.querySelector('.bi-toggle-off')
-        let switchText = document.querySelector('.demo-live')
-        let switchModalOverlay = document.querySelector('.switch-modal-overlay')
-        let switchModal = document.querySelector('.switch-modal')
-        let switchModalText = document.querySelector('.switch-modal-text')
-        let closeSwitchModal = document.querySelector('.close-switch-modal')
-
-        switchBtn.addEventListener('click', () => {
-            switchModalOverlay.classList.toggle('active')
-            switchModal.classList.toggle('active')
-            document.body.style.overflowY = 'hidden';
-
-            if (!toggleOn.classList.contains('d-none')) {
-                toggleOff.classList.remove('d-none')
-                toggleOn.classList.add('d-none')
-                switchText.innerText = 'Live'
-                switchModalText.textContent = 'Live session has started'
-            } else{
-                toggleOn.classList.remove('d-none')
-                toggleOff.classList.add('d-none')
-                switchText.innerText = 'Demo'
-                switchModalText.textContent = 'Demo session has started'
-            }
-        })
-
-        closeSwitchModal.addEventListener('click', () => {
-            switchModalOverlay.classList.remove('active');
-            switchModal.classList.remove('active');
-            document.body.style.overflowY = 'auto';
-        });
-    });
-</script>
-=======
-=======
->>>>>>> parent of 3559aa2 (updated wallets.html | deposit.html | and added endpoints for both)
-innerDropDownToggler.forEach( toggler => {
-    toggler.addEventListener('click', () => {
-        let target = toggler.nextElementSibling;
-        target.classList.toggle('active')
-    })
-});
-    </script>
->>>>>>> parent of 3559aa2 (updated wallets.html | deposit.html | and added endpoints for both)
 </body>
 </html>
