@@ -192,9 +192,9 @@
     .profile-dropdown {
         visibility: hidden;
         position: absolute;
-        top: 50px;
-        right: 10px;
-        width: 200px;
+        top: 40px;
+        right: 0;
+        width: 192px;
         padding: 5px 10px;
         opacity: 0;
         transition: 0.2s;
@@ -209,8 +209,7 @@
         border: 1px solid #ccc !important;
         box-shadow: 0px 3px 6px #33333322;
         padding: 5px 10px;
-        top: 80px;
-        right: 8px;
+        top: 72px;
     }
 
     .profile-item{
@@ -238,7 +237,43 @@
         transition: 0.3s all;
     }
 
+    
+    .switch-modal-overlay{
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        overflow: hidden;
+        background-color: #00000054;
+        z-index: 100000000;
+        visibility: hidden;
+    }
 
+    
+    .switch-modal-overlay.active{
+        visibility: visible;
+    }
+
+    
+    .switch-modal{
+        padding: 20px 30px;
+        background-color: #fff;
+        border-radius: 5px;
+        margin-top: 20px;
+        margin: 0 20px;
+        box-shadow: 0px 12px 24px #00000022;
+    }
+
+
+    .modal-icon{
+        font-size: 80px !important;
+        opacity: 0.4;
+    }
 
     @media (max-width: 991.98px) { 
         .balance-lg{
@@ -263,7 +298,7 @@
 
         .profile-dropdown{
             top: 50px !important;
-            right: 20px;
+            right: 10px;
             width: 95%;
         }
 
@@ -419,9 +454,24 @@
             height: 50px;
         }
     }
+
+    #loading-container {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 999999999;
+    }
    
 </style>
 <body>
+    <!-- loading animation -->
+    <div id="loading-container">
+        <div id="lottie-container" style="width: 200px; height: 200px;"></div>
+     </div>
     <!-- ====================================== MAIN PAGE ============================== -->
     <div class="main">
         <!-- ================================== HEADER STARTS HERE ====================================== -->
@@ -866,6 +916,24 @@
                 </div>
             </div>
         </div>
+
+        <!-- switch demo and live modal -->
+        <div class="switch-modal-overlay">
+            <div class="switch-modal text-center" style="width: 500px;">
+                <div class="modal-header mb-4">
+                    <i class="bi bi-exclamation-triangle mx-auto modal-icon"></i>
+                </div>
+                <div class="pricing-modal-body mb-4">
+                    <div class="modal-title fw-medium fs-5 mb-2">Info !</div>
+                    <div>
+                        <p class="switch-modal-text"></p>
+                    </div>
+                </div>
+                <div class="modal-footer pt-2">
+                    <button class="btn border-0 bg-info text-white px-4 py-2 close-switch-modal" style="border-radius: 2px;">close</button>
+                </div>
+            </div>
+        </div>
         
         <!-- ========================================== PAGE MAIN SECTION ENDS HERE ( DEPOSIT LOGS ) ====================================-->
     
@@ -893,7 +961,44 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
     <script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM fully loaded and parsed');
+    // Load the animation JSON
+    const animationData = '../static/animations/Animation - 1718757531211.json';
+
+    // Initialize Lottie
+    const animation = lottie.loadAnimation({
+        container: document.getElementById('lottie-container'), // the DOM element
+        renderer: 'svg', // renderer type
+        loop: true, // whether to loop the animation
+        autoplay: true, // whether to start the animation automatically
+        path: animationData // the path to the animation JSON
+    });
+
+    animation.addEventListener('DOMLoaded', function() {
+        console.log('Lottie animation loaded');
+    });
+
+    animation.addEventListener('data_failed', function(event) {
+        console.error('Lottie animation data failed to load:', event);
+    });
+
+    // Function to hide the loading animation
+    function hideLoadingAnimation() {
+        console.log('Page fully loaded');
+        const loadingContainer = document.getElementById('loading-container');
+        if (loadingContainer) {
+            loadingContainer.style.display = 'none';
+        }
+    }
+
+    // Hide the loading animation once the page has fully loaded
+    window.onload = function() {
+        setTimeout(hideLoadingAnimation, 2000); // 2000 milliseconds = 2 seconds
+    };
+});
 
 
 // wallet dropdown 
@@ -964,6 +1069,49 @@ innerDropDownToggler.forEach( toggler => {
         target.classList.toggle('active')
     })
 });
+
+
+
+
+// handle switch from demo to live
+let switchBtn = document.querySelector('.switch-demo-live')
+let toggleOn = document.querySelector('.bi-toggle-on')
+let toggleOff = document.querySelector('.bi-toggle-off')
+let switchText = document.querySelector('.demo-live')
+let switchModalOverlay = document.querySelector('.switch-modal-overlay')
+let switchModal = document.querySelector('.switch-modal')
+let switchModalText = document.querySelector('.switch-modal-text')
+let closeSwitchModal = document.querySelector('.close-switch-modal')
+
+switchBtn.addEventListener('click', () => {
+    switchModalOverlay.classList.toggle('active')
+    switchModal.classList.toggle('active')
+    document.body.style.overflowY = 'hidden';
+
+    if (!toggleOn.classList.contains('d-none')) {
+        toggleOff.classList.remove('d-none')
+        toggleOn.classList.add('d-none')
+        switchText.innerText = 'Live'
+        switchModalText.textContent = 'Live session has started'
+    } else{
+        toggleOn.classList.remove('d-none')
+        toggleOff.classList.add('d-none')
+        switchText.innerText = 'Demo'
+        switchModalText.textContent = 'Demo session has started'
+    }
+})
+
+closeSwitchModal.addEventListener('click', () => {
+    switchModalOverlay.classList.remove('active');
+    switchModal.classList.remove('active');
+    document.body.style.overflowY = 'auto';
+});
+
+
+
+
+
+
 
 
 // hanlde colspan of alert box
