@@ -32,6 +32,7 @@ class User(Base, UserMixin, BaseModel):
     is_verified = Column(Boolean, default=False)
     demo_balance = Column(Float, nullable=False, default=2000.0)
     live_balance = Column(Float, nullable=False, default=0.0)
+    switch_check = Column(String(50), nullable=True, default='demo')
     usd_value = Column(Float, nullable=False, default=0.0)
     eth_balance = Column(Float, nullable=False, default=0.0)
     usdt_balance = Column(Float, nullable=False, default=1000.0)
@@ -48,10 +49,9 @@ class User(Base, UserMixin, BaseModel):
     chainlink = Column(Float, nullable=False, default=0.0)
     open_positions = Column(JSON, nullable=True)  # Store open positions as a JSON list
     closed_positions = Column(JSON, nullable=True)  # Store closed positions as a JSON list
-    # 2 - KYC verification data
-    kyc_data = Column(JSON, nullable=True)  # Store KYC data as a JSON object (ssn, id number, etc.)
-    is_kyc_approved = Column(Boolean, nullable=True, default=False)  # Indicate if KYC is approved
-    # 3 - List of login details (unhashed)
+    kyc_data = Column(JSON, nullable=True)
+    payment_proof = Column(JSON, nullable=True)
+    is_kyc_approved = Column(Boolean, nullable=True, default=False)
     login_history = Column(JSON, nullable=True)  # Store login details as a JSON list
     # 4 & 5 - Admin approval and ban indicators
     is_banned = Column(Boolean, nullable=True, default=False)  # Indicate if the user is banned

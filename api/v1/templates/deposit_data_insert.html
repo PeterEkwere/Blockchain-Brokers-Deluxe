@@ -901,7 +901,7 @@
                             <h5 class="text-center fs-5">
                                 PLEASE SEND EXACTLY 
                                 <span class=" fs-5 coin-amount">
-                                    0.02347374837283728372 BTC
+                                    {{ amount }} USDT
                                 </span>
                                 TO
                             </h5>
@@ -913,17 +913,25 @@
                         </div>
                         <div class="card-body text-center">
                             <div style="background: #fff; padding: 18px; width: 320px; margin: 0 auto;">
-                                <div class="qrcodeholder">
-                                    <canvas width="280" height="280">
+                                <div class="qrcodeholder" id="qrcode">
+                                    <!-- <qr-code  width="280" height="280" contents="THYmz75uHVVbuJGGy2dv6BVy1W2iA8rqfm"></qr-code> -->
+                                    <!-- <canvas width="280" height="280"> -->
                                 </div>
                             </div>
                             <h4 class="fw-medium fs-5 pt-1">SCAN TO SEND</h4>
                             <p class="text-success">
                                 Rated
-                                <img src="../static/img/rating.png" alt="" style="height: 20px;">
+                                <img src="{{ url_for('static', filename='img/rating.png') }}" alt="" style="height: 20px;">
                                 by 1650+ trusted users
                             </p>
-                            <button class="border-0 py-2 px-4 rounded" style="background-color: #5156be; color: #fff;">Submit Proof Of Payment</button>
+                            <form id="submit_proof" method="post" action="/api/v1/users/profile_picture/upload" enctype="multipart/form-data">
+                                <label for="proof-of-payment-input" class="btn btn-primary profile-photo-btn">
+                                    <i class="bi bi-cloud-arrow-up-fill"></i>
+                                    Submit Proof Of Payment
+                                </label>
+                                <input type="file" id="proof-of-payment-input" name="file1" style="display: none;">
+                                <!-- <button class="border-0 py-2 px-4 rounded" style="background-color: #5156be; color: #fff;"> Another Button</button> -->
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -970,6 +978,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <script>
     document.addEventListener("DOMContentLoaded", function() {
         const walletAddressElement = document.querySelector(".wallet-address");

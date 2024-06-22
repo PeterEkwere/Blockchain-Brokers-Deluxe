@@ -30,6 +30,7 @@ recaptcha = ReCaptcha(
 
 UPLOAD_FOLDER = 'api/v1/static/uploads/kyc'
 PROFILE_FOLDER =  'api/v1/static/uploads/profiles'
+RECEIPT_FOLDER = 'api/v1/static/uploads/receipts'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'JPG'])
  
 def allowed_file(filename):
@@ -162,22 +163,79 @@ def auto_trade():
 @app_views.route('/users/deposit_data_insert/', strict_slashes=False, endpoint='deposit_data_insert')
 @login_required
 def deposit_data_insert():
-    return render_template('deposit_data_insert.html')
+    #amount = request.get_json()
+    amount2 = request.args.get("amount")
+    return render_template('deposit_data_insert.html', amount=amount2)
 
 @app_views.route('/users/account_types/', strict_slashes=False, endpoint='account_types')
 @login_required
 def account_types():
     return render_template('account_types.html')
 
-@app_views.route('/users/convert/', strict_slashes=False, endpoint='convert')
+@app_views.route('/users/convert/', methods=['POST'], strict_slashes=False, endpoint='convert')
 @login_required
 def convert():
-    jsondata = request.get_json()
-    data =  request.args
+    data = request.get_json()
+    try:
+        user = auth.get_user_by_id(current_user.id)
+    except NoResultFound:
+        return jsonify({"error": "User was not found"}), 500
+        
+    from_currency = data["from_currency"]
+    to_currency = data["to_currency"]
+    amount = data["amount"]
+    addtocurrency = data["addtocurrency"]
+    user_balance = {
+            "BUSD": user.demo_balance,
+            "USD": user.live_balance,
+            "ETH": user.eth_balance,
+            "BTC": user.btc_balance,
+            "SOL": user.sol_balance,
+            "BCH": user.Bitcoin_Cash,
+            "USDT": user.Tether_USD,
+            "DOGE": user.Dogecoin,
+            "XRP": user.Ripple,
+            "DOT": user.Polkadot,
+            "ADA": user.Cardano,
+            "XLM": user.stellar_balance,
+            "LINK": user.chainlink,
+    }
     
-    print(f"jsondata is {jsondata} and the other data is {data}")
+    attr = {
+            "BUSD": "demo_balance",
+            "USD": "live_balance",
+            "ETH": "eth_balance",
+            "BTC": "btc_balance",
+            "SOL": "sol_balance",
+            "BCH": "Bitcoin_Cash",
+            "USDT": "Tether_USD",
+            "DOGE": "Dogecoin",
+            "XRP": "Ripple",
+            "DOT": "Polkadot",
+            "ADA": "Cardano",
+            "XLM": "stellar_balance",
+            "LINK": "chainlink",
+    }
     
-    return 200
+    if user_balance[from_currency] < amount:
+        return({"error": "insufficient balance"})
+    
+    try:
+        sub_currency = user_balance[from_currency] - amount
+        add_currency = user_balance[to_currency] + addtocurrency
+        setattr(user, attr[from_currency], sub_currency)
+        setattr(user, attr[to_currency], add_currency)
+        auth._db.save()
+    except Exception as e:
+        return jsonify({"error": "ATTRIBUTE ERROR"}), 500
+    #auth._db.update_user(user.id,  kyc_data={"front": file1_path, "back": file2_path})
+    
+    if user.switch_check == 'demo':
+        return jsonify({"success": user.demo_balance}), 200
+    elif user.switch_check == 'live':
+        return jsonify({"success": user.live_balance}), 200
+
+    return jsonify({"success": "You have successfully updated "}), 200
 
 
 @app_views.route('/users/onboard/', strict_slashes=False, endpoint='onboard')
@@ -326,8 +384,8 @@ def upload_profile_image():
             return render_template('edit_profile.html', error_message=error_message, user_id=user_id)
         file1 = request.files['file1']
         if file1.filename == '':
-            print(error_message)
             error_message = 'Oops! It looks like you forgot to select a Valid Image, Please Choose one'
+            print(error_message)
             return render_template('edit_profile.html', error_message=error_message, user_id=user_id)
         if file1 and allowed_file(file1.filename):
             file1name = secure_filename(file1.filename)
@@ -412,3 +470,34 @@ def upload_image():
             return render_template('user_id.html', error_message=error_message, user_id=user_id)
     return render_template('user_id.html')
  
+ 
+@app_views.route('users/payment_proof/', methods=['POST'], endpoint="payment_proof")
+@login_required
+def payment_proof():
+    """ THis Endpoint handles the retrieval and update of the user's profile photo
+
+    Returns:
+        _type_: _description_
+    """
+    #user_id = request.form['user_id']
+    user_id = current_user.id
+    try:
+        user = auth.get_user_by_id(user_id)
+    except NoResultFound:
+        print("User was not found")
+    if request.method == 'POST':
+        if 'file1' not in request.files:
+            error_message = "File 1 input missing"
+            print(error_message)
+        file1 = request.files['file1']
+        if file1.filename == '':
+            error_message = 'Oops! It looks like you forgot to select a Valid Image, Please Choose one'
+            print(error_message)
+        if file1 and allowed_file(file1.filename):
+            file1name = secure_filename(file1.filename)
+            file1_path = os.path.join(RECEIPT_FOLDER, file1name)
+            file1.save(file1_path)
+            auth._db.update_user(user.id,  payment_proof={"receipt": file1_path})
+            message = "Your reciept Has Been Uploaded."
+            print(message)
+            return jsonify({"success": message}), 200
