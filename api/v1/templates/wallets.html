@@ -1687,6 +1687,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // handle inner dropdown inside the profile
     const innerDropDownToggler = Array.from( document.querySelectorAll('.inner-dropdown-toggler'))
+
     innerDropDownToggler.forEach( toggler => {
         toggler.addEventListener('click', () => {
             let target = toggler.nextElementSibling;
