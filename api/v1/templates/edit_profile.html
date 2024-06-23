@@ -1391,6 +1391,7 @@ $(document).ready(function() {
         processData: false,
         success: function(response) {
           if (response) {
+            console.log("SERVER ReSPONDED WITH THE IMAGE I GUESS")
             document.getElementById("profile-img").src = "/static/" + response.profile_path;;  // Update image source
           }
         },
@@ -1438,6 +1439,7 @@ $(document).ready(function() {
               const responseData = await response.json();
           
               if (response.ok) { // Handle successful response
+                console.log("RESPONSE IS OK FOR EDITINT PROFILE")
                 showCheckBox();
                 // Optionally display a success message to the user
               } else {
