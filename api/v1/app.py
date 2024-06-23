@@ -41,13 +41,13 @@ app.config['SWAGGER'] = {
 app.config["SESSION_COOKIE_HTTPONLY"] = True
 app.config["REMEMBER_COOKIE_SAMESITE"] = "strict"
 app.config["REMEMBER_COOKIE_SECURE"] = True
-app.config['MAIL_SERVER'] = 'smtp-relay.brevo.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USERNAME'] = '759a9d001@smtp-brevo.com'
-app.config['MAIL_DEFAULT_SENDER'] = 'WagerBrain@gmail.com'
-app.config['MAIL_PASSWORD'] = 'jm7hEWcJRB4IgkHv'
+app.config['MAIL_SERVER'] = 'smtp.zoho.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'digitalox6@zohomail.com'
+app.config['MAIL_DEFAULT_SENDER'] = 'digitalox6@zohomail.com'
+app.config['MAIL_PASSWORD'] = 'Peter201$'
 app.config['MAIL_USE_TLS'] = False
-#app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_USE_SSL'] = True
 config = {
     "DEBUG": True,          # some Flask specific configs
     "CACHE_TYPE": "SimpleCache",  # Flask-Caching related configs
