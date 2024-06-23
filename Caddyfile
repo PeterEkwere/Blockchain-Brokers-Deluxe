@@ -1,0 +1,3 @@
+http://178.32.229.77 {
+    reverse_proxy localhost:8000
+}
