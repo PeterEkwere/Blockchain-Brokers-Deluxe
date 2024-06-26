@@ -185,9 +185,9 @@ def convert():
     to_currency = data["to_currency"]
     amount = data["amount"]
     addtocurrency = data["addtocurrency"]
-    user_balance = {
+    switch_check = current_user.switch_check
+    demo_user_balance = {
             "BUSD": user.demo_balance,
-            "USD": user.live_balance,
             "ETH": user.eth_balance,
             "BTC": user.btc_balance,
             "SOL": user.sol_balance,
@@ -201,9 +201,8 @@ def convert():
             "LINK": user.chainlink,
     }
     
-    attr = {
+    demo_attr = {
             "BUSD": "demo_balance",
-            "USD": "live_balance",
             "ETH": "eth_balance",
             "BTC": "btc_balance",
             "SOL": "sol_balance",
@@ -217,22 +216,63 @@ def convert():
             "LINK": "chainlink",
     }
     
-    if user_balance[from_currency] < amount:
-        return({"error": "insufficient balance"})
+    live_user_balance = {
+            "USD": user.live_balance,
+            "ETH": user.live_eth_balance,
+            "BTC": user.live_btc_balance,
+            "SOL": user.live_sol_balance,
+            "BCH": user.live_Bitcoin_Cash,
+            "USDT": user.live_Tether_USD,
+            "DOGE": user.live_Dogecoin,
+            "XRP": user.live_Ripple,
+            "DOT": user.live_Polkadot,
+            "ADA": user.live_Cardano,
+            "XLM": user.live_stellar_balance,
+            "LINK": user.live_chainlink,
+    }
+    
+    live_attr = {
+            "USD": "live_balance",
+            "ETH": "live_eth_balance",
+            "BTC": "live_btc_balance",
+            "SOL": "live_sol_balance",
+            "BCH": "live_Bitcoin_Cash",
+            "USDT": "live_Tether_USD",
+            "DOGE": "live_Dogecoin",
+            "XRP": "live_Ripple",
+            "DOT": "live_Polkadot",
+            "ADA": "live_Cardano",
+            "XLM": "live_stellar_balance",
+            "LINK": "live_chainlink",
+    }
+    
+    if switch_check == 'demo':
+        if demo_user_balance[from_currency] < amount:
+            return({"error": "insufficient balance"})
+    elif switch_check == 'live':
+        if live_user_balance[from_currency] < amount:
+            #print(f"in the check balance condition switch is live and from currency is {from_currency} and amount is {amount} and to currency is {to_currency} and from currency balance is {live_user_balance[from_currency]}")
+            return({"error": "insufficient balance"})
     
     try:
-        sub_currency = user_balance[from_currency] - amount
-        add_currency = user_balance[to_currency] + addtocurrency
-        setattr(user, attr[from_currency], sub_currency)
-        setattr(user, attr[to_currency], add_currency)
-        auth._db.save()
+        if switch_check == 'demo':
+            sub_currency = demo_user_balance[from_currency] - amount
+            add_currency = demo_user_balance[to_currency] + addtocurrency
+            setattr(user, demo_attr[from_currency], sub_currency)
+            setattr(user, demo_attr[to_currency], add_currency)
+            auth._db.save()
+        elif switch_check == 'live':
+            sub_currency = live_user_balance[from_currency] - amount
+            add_currency = live_user_balance[to_currency] + addtocurrency
+            setattr(user, live_attr[from_currency], sub_currency)
+            setattr(user, live_attr[to_currency], add_currency)
+            auth._db.save()
     except Exception as e:
         return jsonify({"error": "ATTRIBUTE ERROR"}), 500
-    #auth._db.update_user(user.id,  kyc_data={"front": file1_path, "back": file2_path})
     
-    if user.switch_check == 'demo':
+    if switch_check == 'demo':
         return jsonify({"success": user.demo_balance}), 200
-    elif user.switch_check == 'live':
+    elif switch_check == 'live':
         return jsonify({"success": user.live_balance}), 200
 
     return jsonify({"success": "You have successfully updated "}), 200
@@ -501,3 +541,22 @@ def payment_proof():
             message = "Your reciept Has Been Uploaded."
             print(message)
             return jsonify({"success": message}), 200
+        
+        
+@app_views.route('users/switch', methods=['POST'], endpoint="switch")
+@login_required
+def switch():
+    """ This endpoint updates the switch
+    """
+    switch = request.get_json().get('switch')
+    
+    try:
+        user = auth.get_user_by_id(current_user.id)
+    except NoResultFound:
+        print("User was not found")
+        
+    auth._db.update_user(user.id,  switch_check=switch)
+    
+    
+    return jsonify({"ok": "Switch Updated successfully"}), 200
+    
