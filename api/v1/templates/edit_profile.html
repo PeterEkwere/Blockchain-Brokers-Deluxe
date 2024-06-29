@@ -570,7 +570,7 @@
             <!-- ============================== HEADER LEFT ========================================  -->
 
             <div class="logo-balance d-flex">
-    
+
                 <!-- Logo -->
                 <div class="logo-box me-2 border-bottom-0 px-3 py-2 border border-end">
                     <img src="{{ url_for('static', filename='img/favicon.png') }}" alt="" class="logo">
@@ -592,12 +592,18 @@
                             </div>
                             <div class="wallet-name-balance-holding me-4">
                                 <p class="coin-name mb-2 fs-6">Ethereum</p>
-                                {% if current_user.eth_balance %}
-                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.eth_balance }}</span> ETH</p>
+                                {% if current_user.switch_check == 'demo' %}
+                                    {% if current_user.eth_balance %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.eth_balance }}</span> ETH</p>
+                                    {% else %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0.0</span> ETH</p>
+                                    {% endif %}
                                 {% else %}
-                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0.0</span> ETH</p>
+                                    {% if current_user.live_eth_balance %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.live_eth_balance }}</span> ETH</p>
+                                    {% else %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0.0</span> ETH</p>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                             <div class="default-swap-btn">
@@ -610,12 +616,18 @@
                             </div>
                             <div class="wallet-name-balance-holding me-4">
                                 <p class="coin-name mb-2 fs-6">Tether USD</p>
-                                {% if current_user.Tether_USD %}
-                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Tether_USD }}</span> USDT</p>
+                                {% if current_user.switch_check == 'demo' %}
+                                    {% if current_user.Tether_USD %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.Tether_USD }}</span> USDT</p>
+                                    {% else %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> USDT</p>
+                                    {% endif %}
                                 {% else %}
-                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> USDT</p>
+                                    {% if current_user.live_Tether_USD %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.live_Tether_USD }}</span> USDT</p>
+                                    {% else %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> USDT</p>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                             <div class="default-swap-btn">
@@ -628,12 +640,18 @@
                             </div>
                             <div class="wallet-name-balance-holding me-4">
                                 <p class="coin-name mb-2 fs-6">Ripple</p>
-                                {% if current_user.Ripple %}
-                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance"> {{ current_user.Ripple }}</span> XRP</p>
+                                {% if current_user.switch_check == 'demo' %}
+                                    {% if current_user.Ripple %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance"> {{ current_user.Ripple }}</span> XRP</p>
+                                    {% else %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> XRP</p>
+                                    {% endif %}
                                 {% else %}
-                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> XRP</p>
+                                    {% if current_user.live_Ripple %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance"> {{ current_user.live_Ripple }}</span> XRP</p>
+                                    {% else %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> XRP</p>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                             <div class="default-swap-btn">
@@ -646,30 +664,42 @@
                             </div>
                             <div class="wallet-name-balance-holding me-4">
                                 <p class="coin-name mb-2 fs-6">Dogecoin</p>
-                                {% if current_user.Dogecoin %}
-                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>  
-                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Dogecoin }}</span> DOGE</p>
+                                {% if current_user.switch_check == 'demo' %}
+                                    {% if current_user.Dogecoin %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.Dogecoin }}</span> DOGE</p>
+                                    {% else %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> DOGE</p>
+                                    {% endif %}
                                 {% else %}
-                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                    <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> DOGE</p>
+                                    {% if current_user.live_Dogecoin %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.live_Dogecoin }}</span> DOGE</p>
+                                    {% else %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> DOGE</p>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                             <div class="default-swap-btn">
                                 <button type="button" class="wallet-btn">Make default</button>
                             </div>
                         </div>
-                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #343a40;">
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #54549c;">
                             <div class="wallet-logo-container me-4">
                                 <i class="cf cf-sol coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
                             </div>
                             <div class="wallet-name-balance-holding me-4">
                                 <p class="coin-name mb-2 fs-6">Solana</p>
-                                {% if current_user.sol_balance %}
-                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.sol_balance }}</span> SOL</p>
+                                {% if current_user.switch_check == 'demo' %}
+                                    {% if current_user.sol_balance %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.sol_balance }}</span> SOL</p>
+                                    {% else %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> SOL</p>
+                                    {% endif %}
                                 {% else %}
-                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> SOL</p>
+                                    {% if current_user.live_sol_balance %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.live_sol_balance }}</span> SOL</p>
+                                    {% else %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> SOL</p>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                             <div class="default-swap-btn">
@@ -682,30 +712,42 @@
                             </div>
                             <div class="wallet-name-balance-holding me-4">
                                 <p class="coin-name mb-2 fs-6">Polkadot</p>
-                                {% if current_user.Polkadot %}
-                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Polkadot }}</span> DOT</p>
+                                {% if current_user.switch_check == 'demo' %}
+                                    {% if current_user.Polkadot %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.Polkadot }}</span> DOT</p>
+                                    {% else %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> DOT</p>
+                                    {% endif %}
                                 {% else %}
-                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> DOT</p>
+                                    {% if current_user.live_Polkadot %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.live_Polkadot }}</span> DOT</p>
+                                    {% else %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> DOT</p>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                             <div class="default-swap-btn">
                                 <button type="button" class="wallet-btn">Make default</button>
                             </div>
                         </div>
-                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #4ba6ef;">
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #0AC18E;">
                             <div class="wallet-logo-container me-4">
                                 <i class="cf cf-bch coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
                             </div>
                             <div class="wallet-name-balance-holding me-4">
                                 <p class="coin-name mb-2 fs-6">Bitcoin Cash</p>
-                                {% if current_user.Bitcoin_Cash %}
-                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.Bitcoin_Cash }}</span> BCH</p>
+                                {% if current_user.switch_check == 'demo' %}
+                                    {% if current_user.Bitcoin_Cash %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.Bitcoin_Cash }}</span> BCH</p>
+                                    {% else %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> BCH</p>
+                                    {% endif %}
                                 {% else %}
-                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> BCH</p>
+                                    {% if current_user.live_Bitcoin_Cash %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.live_Bitcoin_Cash }}</span> BCH</p>
+                                    {% else %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> BCH</p>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                             <div class="default-swap-btn">
@@ -718,12 +760,18 @@
                             </div>
                             <div class="wallet-name-balance-holding me-4">
                                 <p class="coin-name mb-2 fs-6">Bitcoin</p>
-                                {% if current_user.btc_balance %}
-                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">{{ current_user.btc_balance }}</span> BTC</p>
+                                {% if current_user.switch_check == 'demo' %}
+                                    {% if current_user.btc_balance %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.btc_balance }}</span> BTC</p>
+                                    {% else %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> BTC</p>
+                                    {% endif %}
                                 {% else %}
-                                <h3>$ <span class="wallet-holdings fs-4">0.00</span></h3>
-                                <p class="coin-balance fw-bold fs-6 mb-1" class="coin-balance">0</span> BTC</p>
+                                    {% if current_user.live_btc_balance %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.live_btc_balance }}</span> BTC</p>
+                                    {% else %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> BTC</p>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                             <div class="default-swap-btn">
@@ -929,11 +977,19 @@
                             </a>
                         </div>
                         <div>
-                            <a href="#" class="dropdown-item profile-item switch-demo-live">
-                                <i class="bi bi-toggle-on me-1"></i>
-                                <i class="bi bi-toggle-off me-1 d-none"></i>
-                                Switch : <span class="demo-live">Demo</span>
-                            </a>
+                            {% if current_user.switch_check == 'demo' %}
+                                <a href="#" class="dropdown-item profile-item switch-demo-live">
+                                    <i class="bi bi-toggle-on me-1"></i>
+                                    <i class="bi bi-toggle-off me-1 d-none"></i>
+                                    Switch : <span class="demo-live">Demo</span>
+                                </a>
+                            {% else %}
+                                <a href="#" class="dropdown-item profile-item switch-demo-live">
+                                    <i class="bi bi-toggle-on me-1 d-none"></i>
+                                    <i class="bi bi-toggle-off me-1"></i>
+                                    Switch : <span class="demo-live">Live</span>
+                                </a>
+                            {% endif %}
                             <a href="{{ url_for('app_views.logout') }}" class="dropdown-item profile-item">
                                 <i class="bi bi-door-closed-fill me-1"></i>
                                 Logout
@@ -1291,16 +1347,38 @@ innerDropDownToggler.forEach( toggler => {
 
 // handle coin transfer inputs 
 document.addEventListener('DOMContentLoaded', function() {
-    let switchBtn = document.querySelector('.switch-demo-live')
-    let toggleOn = document.querySelector('.bi-toggle-on')
-    let toggleOff = document.querySelector('.bi-toggle-off')
-    let switchText = document.querySelector('.demo-live')
-    let switchModalOverlay = document.querySelector('.switch-modal-overlay')
-    let switchModal = document.querySelector('.switch-modal')
-    let switchModalText = document.querySelector('.switch-modal-text')
-    let closeSwitchModal = document.querySelector('.close-switch-modal')
+    // handle switch from demo to live
+let switchBtn = document.querySelector('.switch-demo-live')
+let toggleOn = document.querySelector('.bi-toggle-on')
+let toggleOff = document.querySelector('.bi-toggle-off')
+let switchText = document.querySelector('.demo-live')
+let switchModalOverlay = document.querySelector('.switch-modal-overlay')
+let switchModal = document.querySelector('.switch-modal')
+let switchModalText = document.querySelector('.switch-modal-text')
+let closeSwitchModal = document.querySelector('.close-switch-modal')
 
-    switchBtn.addEventListener('click', () => {
+switchBtn.addEventListener('click', async () => {
+
+    let currentSwitch = switchText.innerText.toLowerCase(); // Get current switch state (lowercase for clarity)
+    let newSwitch = currentSwitch === 'demo' ? 'live' : 'demo';
+
+    // Fetch request with async/await for better handling
+    try {
+        const response = await fetch('/api/v1/users/switch', {
+        method: 'POST',
+        headers: {
+                'Content-Type': 'application/json', // Specify JSON body
+            },
+            body: JSON.stringify({ switch: newSwitch }), // Send new switch state in body
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`); // Handle non-2xx responses
+        }
+    } catch (error) {
+        console.error('Error sending switch request:', error);
+        // Handle errors (e.g., display error message to user)
+    } finally {
         switchModalOverlay.classList.toggle('active')
         switchModal.classList.toggle('active')
         document.body.style.overflowY = 'hidden';
@@ -1310,19 +1388,27 @@ document.addEventListener('DOMContentLoaded', function() {
             toggleOn.classList.add('d-none')
             switchText.innerText = 'Live'
             switchModalText.textContent = 'Live session has started'
+            setTimeout(function() {
+              location.reload();
+            }, 2000);
         } else{
             toggleOn.classList.remove('d-none')
             toggleOff.classList.add('d-none')
             switchText.innerText = 'Demo'
             switchModalText.textContent = 'Demo session has started'
+            setTimeout(function() {
+              location.reload();
+            }, 2000);
         }
-    })
+    }
+});
 
-    closeSwitchModal.addEventListener('click', () => {
-        switchModalOverlay.classList.remove('active');
-        switchModal.classList.remove('active');
-        document.body.style.overflowY = 'auto';
-    });
+closeSwitchModal.addEventListener('click', () => {
+    switchModalOverlay.classList.remove('active');
+    switchModal.classList.remove('active');
+    document.body.style.overflowY = 'auto';
+});
+
 
 
     const coinFrom = document.getElementById('coin-from');
@@ -1452,5 +1538,34 @@ $(document).ready(function() {
             }
           }
     </script>
+    <script>
+
+        const makeDefaultButtons = document.querySelectorAll('.wallet-btn');
+    
+        makeDefaultButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            // Get the parent element (wallet section) of the clicked button
+            const clickedCurrency = event.target.closest('.wallet');
+    
+            // Extract new currency information
+            const newCurrencyName = clickedCurrency.querySelector('.coin-name').textContent;
+            const newCurrencyLogo = clickedCurrency.querySelector('.coin-logo');  // Get the element itself
+            // Update default currency display
+            const defaultCurrencyName = document.querySelector('.currency-name');
+            const defaultCurrencyLogo = document.querySelector('.currency-coin');
+            const currencyCodeMatch = newCurrencyLogo.className.match(/cf-([\w]+)/);
+            const currencyCode = currencyCodeMatch[1].toLowerCase(); // Extract and lowercase the code
+    
+    
+            const backgroundColor = clickedCurrency.style.backgroundColor;
+    
+            defaultCurrencyName.style.color = backgroundColor; // Update text color based on contrast
+            defaultCurrencyLogo.style.color = backgroundColor;
+            defaultCurrencyName.textContent = newCurrencyName;
+            defaultCurrencyLogo.className =  defaultCurrencyLogo.className.replace(/cf-[\w]+/, `cf-${currencyCode}`);
+            
+        });
+    });
+        </script>
 </body>
 </html>
