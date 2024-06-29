@@ -14,7 +14,7 @@ click
 dnspython
 email_validator
 flasgger
-Flask
+Flask==3.0.0
 Flask-Bcrypt
 Flask-Cors
 Flask-Executor
@@ -53,10 +53,11 @@ WTForms
 yarl
 redis
 mysql
-gunicorn
+gunicorn==20.1.0
 psycopg2-binary
 Flask-Caching
 google-recaptcha
 websockets
 alpaca-py
 ccxt
+Pillow

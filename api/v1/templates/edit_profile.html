@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/monzanifabio/cryptofont/cryptofont.css">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <title>Verify ID - delux4.com</title>
+</head>
+<style>
+    /* `sm` applies to x-small devices (portrait phones, less than 576px)
+    @media (max-width: 575.98px) { ... }
+
+    `md` applies to small devices (landscape phones, less than 768px)
+    @media (max-width: 767.98px) { ... }
+
+    `lg` applies to medium devices (tablets, less than 992px)
+    @media (max-width: 991.98px) { ... }
+
+    `xl` applies to large devices (desktops, less than 1200px)
+    @media (max-width: 1199.98px) { ... }
+
+    `xxl` applies to x-large devices (large desktops, less than 1400px)
+    @media (max-width: 1399.98px) { ... } */
+
+    body{
+        padding: 0;
+        margin: 0;
+    }
+
+    .main{
+        padding-top: 50px;
+        padding-right: 20px;
+    }
+
+    .header{
+        z-index: 2 !important;
+    }
+
+
+    .logo-box{
+        background-color: #fbfaff;
+        z-index: 2 !important;
+    }
+
+    .logo{
+        width: 45px;
+    }
+
+    .currency-box {
+        display: flex; /* Ensure flexbox is enabled */
+        flex-wrap: nowrap; /* Prevent wrapping */
+        align-items: center; /* Maintain vertical alignment */
+        cursor: pointer;
+    }
+
+    .wallet-dropdown{
+        position: absolute;
+        width: 350px;
+        height: 0;
+        visibility: hidden;
+        opacity: 1;
+        top: 40px !important;
+        padding: 0px !important;
+        overflow-y: auto;
+        overflow-y: scroll;
+        scrollbar-width: thin;
+        background-color: #fff;
+        vertical-align: middle;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: start;
+        box-shadow: 0px 3px 6px #3333333f;
+        overflow-y: scroll;
+        scrollbar-width: thin;
+        transition: 0.2s;
+    }
+
+    .wallet-dropdown.active{
+        top: 80px !important;
+        height: 300px;
+        visibility: visible;
+    }
+
+
+    .wallet{
+        width: 100%;
+        border-radius: 0px !important;
+        height: 140px !important;
+        font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    .currency-coin{
+        bottom: 5px;
+    }
+
+    .currency-name{
+        color: #f7931a;
+    }
+
+    .coin-name{
+        opacity: 0.5 !important;
+        font-size: 14px !important;
+    }
+
+    .coin-logo{
+        opacity: 0.5 !important;
+    }
+
+    .wallet-btn{
+        border: 1px solid #fff;
+        padding: 5px 10px;
+        font-size: 14px;
+        background: none !important;
+        color: #fff;
+        position: relative;
+        top: 30px;
+    }
+
+    .header-p{
+        font-family:"Plus Jakarta Sans", sans-serif;
+        font-size: 13px !important;
+    }
+
+
+    @media (max-width: 767.98px) { 
+        .currency-box{
+            display: none !important;
+        }
+
+        .logo{
+            width: 30px;
+            top: 50px;
+        }
+    }
+
+    /* ================== HEADER RIGHT STYLES================== */
+
+
+    .total-balance-digits{
+        top: 5px;
+    }
+
+    .flags-dropdown-btn{
+        top: 20px !important;
+    }
+
+    .flag-menu{
+        top: 100% !important;
+        left: -100% !important;
+        border-radius: 0px !important;
+        box-shadow: 0px 3px 6px #3333331f;
+        transition: 0.3s;
+    }
+
+    .flag-btn{
+        width: 30px !important;
+    }
+
+    .profile-box{
+        cursor: pointer;
+    }
+
+    .profile-icon{
+        color: #333;
+    }
+
+    .profile-name{
+        top: 9px;
+        color: #333;
+        font-family:"Plus Jakarta Sans", sans-serif;
+        font-weight: 500;
+    }
+
+    .profile-dropdown {
+        visibility: hidden;
+        position: absolute;
+        top: 40px;
+        right: 0;
+        width: 192px;
+        padding: 5px 10px;
+        opacity: 0;
+        transition: 0.2s;
+        background-color: #fff;
+        border-radius: 0px !important;
+    }
+
+    .profile-dropdown.active {
+        visibility: visible;
+        opacity: 1;
+        position: absolute;
+        border: 1px solid #ccc !important;
+        box-shadow: 0px 3px 6px #33333322;
+        padding: 5px 10px;
+        top: 72px;
+    }
+
+    .profile-item{
+        margin: 5px 0 !important;
+    }
+
+    .nav-sm{
+        display: none;
+    }
+
+    .inner-dropdown{
+        display: none;
+        flex-direction: column;
+        border-left: 1px solid #000;
+        padding-left: 30px;
+        margin-left: 0px;
+        transition: 0.3s all;
+    }
+
+    .inner-dropdown-item{
+        color: #000;
+        text-decoration: none;
+        margin: 5px 0;
+        opacity: 0;
+        transition: 0.3s all;
+    }
+
+    
+    .switch-modal-overlay{
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        overflow: hidden;
+        background-color: #00000054;
+        z-index: 100000000;
+        visibility: hidden;
+    }
+
+    
+    .switch-modal-overlay.active{
+        visibility: visible;
+    }
+
+    
+    .switch-modal{
+        padding: 20px 30px;
+        background-color: #fff;
+        border-radius: 5px;
+        margin-top: 20px;
+        margin: 0 20px;
+        box-shadow: 0px 12px 24px #00000022;
+    }
+
+
+    .modal-icon{
+        font-size: 80px !important;
+        opacity: 0.4;
+    }
+
+
+    @media (max-width: 991.98px) { 
+        .balance-lg{
+            display: none !important;
+        }
+
+        .total-balance{
+            display: none;
+        }
+
+        .balance-sm{
+            display: block !important; 
+            top: 10px;
+        }
+
+        .balance-dropdown-sm.show{
+            top: 10px !important;
+            border-radius: 0px !important;
+            box-shadow: 0px 3px 6px #33333324;
+            transition: 0.3s all;
+        }
+
+        .profile-dropdown{
+            top: 50px !important;
+            right: 10px;
+            width: 95%;
+        }
+
+        .nav-sm{
+            display: block;
+        }
+
+        .profile-item{
+            margin-bottom: 20px !important;
+        }
+
+        .profile-name{
+            display: none !important;
+        }
+
+        .nav-lg{
+            display: none !important;
+        }
+
+        .inner-dropdown.active{
+            display: flex;
+            margin-left: 8px;
+        }   
+
+        .inner-dropdown-item{
+            opacity: 1;
+        }
+    }
+
+    /* ================== FIXED SIDE NAV STYLES ================= */ 
+
+    .fixed-side-nav{
+        height: 100%;
+        top: 70px !important;
+        width: 79px !important;
+        padding-top: 35px;
+        z-index: 3 !important;
+    }
+
+    .trade-box {
+        position: relative; 
+        cursor: pointer;
+    }
+
+    .drop-header{
+        background-color: #fbfaff;
+        width: 100%;
+        margin-bottom: 0;
+        cursor: default;
+    }
+
+    .trade-box .icon-dropdown {
+        visibility: hidden;
+        position: absolute;
+        top: -50%;
+        left: 30px;
+        background-color: #fff; 
+        box-shadow: 0px 3px 6px #33333338;
+        border-radius: 5px;
+        padding: 0;
+        width: 150px;
+        opacity: 0;
+        transition: 0.2s all;
+        z-index: 100 !important;
+    }
+
+    .trade-box:hover .icon-dropdown {
+        opacity: 1;
+        visibility: visible;
+        left: 60px;
+        z-index: 100 !important;
+    }
+
+    .drop-list{
+        width: 100%;
+        padding: 0px 10px;
+        margin: 0px;
+        height: 40px;
+        vertical-align: middle;
+        display: flex;
+        align-items: center;
+    }
+
+    .drop-list:hover{
+        background-color: #fbfaff;
+    }
+
+
+    @media (max-width: 991.98px){
+        
+        .translations{
+            display: none !important;
+        }
+
+        .nav-lg{
+            display: none !important;
+        }
+    }
+
+
+    /* ================== PAGE PROFILE STYLES ================= */
+
+    .user-profile-box{
+        margin-left: 120px;
+        margin-bottom: 40px;
+        position: relative;
+        z-index: 0;
+    }
+
+    .profile-form{
+        border-radius: 0px !important;
+        width: 100% !important;
+    }
+
+    .profile-input{
+        height: 40px;
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px !important;
+    }
+
+    .inputs-container{
+        margin-bottom: 10px !important;
+    }
+
+    label{
+        font-size: 14px;
+        font-family:"Plus Jakarta Sans", sans-serif;
+        margin-bottom: 5px;
+    }
+
+
+    .update-btn{
+        font-size: 16px;
+        padding: 10px 10px;
+        background-color: #5156be;
+        border-radius: 5px !important;
+        color: #fff;
+        box-shadow: 0px 6px 12px #5156be54;
+        font-family:"Plus Jakarta Sans", sans-serif;
+        transition: 0.5s;
+    }
+    
+    .profile-photo-btn{
+        font-size: 16px;
+        padding: 10px 10px;
+        background-color: #5156be;
+        border-radius: 5px !important;
+        border: none !important;
+        color: #fff;
+        box-shadow: 0px 6px 12px #5156be54;
+        font-family:"Plus Jakarta Sans", sans-serif;
+        transition: 0.5s;
+    }
+
+    @media (max-width: 991.98px){
+        .user-profile-box{
+            margin: 20px 20px 100px 20px !important;
+        }
+    }
+
+    @media (max-width: 767.98px){
+
+        .fixed-top{
+            padding-right: 0 !important;
+        }
+
+        .main{
+            padding-right: 0 !important;
+        }
+
+        .user-profile-box{
+            flex-direction: column !important;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card{
+            width: 100% !important;
+            margin-bottom: 50px !important;
+            margin-right: 0 !important;
+        }
+
+        .profile-form{
+            width: 100% !important;
+        }
+    }
+
+
+
+    /* ================== FOOTER STYLES ================= */
+
+    footer{
+
+        display: flex !important;
+        bottom: 0 !important;
+    }
+
+    footer p{
+        opacity: 0.8;
+    }
+
+    @media (max-width: 991.98px){
+        footer{
+            margin: 0 !important;
+            position: relative;
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 767.98px){
+        footer{
+            position: relative;
+            height: 50px;
+        }
+    }
+
+    #loading-container {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 999999999;
+    }
+
+    .check-animation-container{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        visibility: hidden;
+        justify-content: center;
+        align-items: center;
+        z-index: 999999999;
+        overflow: hidden !important;
+        transition: 0.3s all;
+    }
+
+    .check-animation-container.active{
+        visibility: visible;
+    }
+
+    .check-animation-box{
+        width: 350px;
+        height: 300px;
+        background-color: #fff;
+        border-radius: 5px;
+        top: 0;
+        opacity: 0;
+        margin-top: 20px;
+        transition: 0.3s;
+    }
+
+    .check-animation-box.active{
+        opacity: 1;
+        margin-top: 0;
+    }
+   
+</style>
+<body>
+   
+    <!-- loading animation -->
+    <div id="loading-container">
+        <div id="lottie-container" style="width: 200px; height: 200px;"></div>
+    </div>
+    <!-- ====================================== MAIN PAGE ============================== -->
+    <div class="main">
+        <!-- ================================== HEADER STARTS HERE ====================================== -->
+        <div class="header container-fluid p-0 mx-0 border-bottom d-flex justify-content-between fixed-top bg-white">
+
+            <!-- ============================== HEADER LEFT ========================================  -->
+
+            <div class="logo-balance d-flex">
+
+                <!-- Logo -->
+                <div class="logo-box me-2 border-bottom-0 px-3 py-2 border border-end">
+                    <img src="{{ url_for('static', filename='img/favicon.png') }}" alt="" class="logo">
+                </div>
+
+                <!-- Currency-->
+                <div class="currency-box d-flex align-items-center me-2 px-3 py-2">
+                    <i class="cf cf-btc fs-3 currency-coin position-relative me-2" style="color: #f7931a;"></i>
+                    <h3 class="currency-name fs-6 position-relative">
+                        Bitcoin Cash 
+                        <i class="bi bi-chevron-down text-black ms-2 wallet-dropdown-toggler"></i>
+                    </h3>
+
+                    <!--    wallet dropdown -->
+                    <div class="wallet-dropdown drop-down dropdown-menu">
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #74788d;">
+                            <div class="wallet-logo-container me-4">
+                                <i class="cf cf-eth coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
+                            </div>
+                            <div class="wallet-name-balance-holding me-4">
+                                <p class="coin-name mb-2 fs-6">Ethereum</p>
+                                {% if current_user.switch_check == 'demo' %}
+                                    {% if current_user.eth_balance %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.eth_balance }}</span> ETH</p>
+                                    {% else %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0.0</span> ETH</p>
+                                    {% endif %}
+                                {% else %}
+                                    {% if current_user.live_eth_balance %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.live_eth_balance }}</span> ETH</p>
+                                    {% else %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0.0</span> ETH</p>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            <div class="default-swap-btn">
+                                <button type="button" class="wallet-btn">Make default</button>
+                            </div>
+                        </div>
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #2ab57d;">
+                            <div class="wallet-logo-container me-4">
+                                <i class="cf cf-usdt coin-logo fs-2 position-relative" style=" bottom: 30px;"></i>
+                            </div>
+                            <div class="wallet-name-balance-holding me-4">
+                                <p class="coin-name mb-2 fs-6">Tether USD</p>
+                                {% if current_user.switch_check == 'demo' %}
+                                    {% if current_user.Tether_USD %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.Tether_USD }}</span> USDT</p>
+                                    {% else %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> USDT</p>
+                                    {% endif %}
+                                {% else %}
+                                    {% if current_user.live_Tether_USD %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.live_Tether_USD }}</span> USDT</p>
+                                    {% else %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> USDT</p>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            <div class="default-swap-btn">
+                                <button type="button" class="wallet-btn">Make default</button>
+                            </div>
+                        </div>
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #fd625e;">
+                            <div class="wallet-logo-container me-4">
+                                <i class="cf cf-xrp coin-logo fs-2 position-relative" style=" bottom: 30px;"></i>
+                            </div>
+                            <div class="wallet-name-balance-holding me-4">
+                                <p class="coin-name mb-2 fs-6">Ripple</p>
+                                {% if current_user.switch_check == 'demo' %}
+                                    {% if current_user.Ripple %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance"> {{ current_user.Ripple }}</span> XRP</p>
+                                    {% else %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> XRP</p>
+                                    {% endif %}
+                                {% else %}
+                                    {% if current_user.live_Ripple %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance"> {{ current_user.live_Ripple }}</span> XRP</p>
+                                    {% else %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> XRP</p>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            <div class="default-swap-btn">
+                                <button type="button" class="wallet-btn">Make default</button>
+                            </div>
+                        </div>
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #ffbf53;">
+                            <div class="wallet-logo-container me-4">
+                                <i class="cf cf-doge coin-logo fs-2 position-relative" style=" bottom: 30px;"></i>
+                            </div>
+                            <div class="wallet-name-balance-holding me-4">
+                                <p class="coin-name mb-2 fs-6">Dogecoin</p>
+                                {% if current_user.switch_check == 'demo' %}
+                                    {% if current_user.Dogecoin %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.Dogecoin }}</span> DOGE</p>
+                                    {% else %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> DOGE</p>
+                                    {% endif %}
+                                {% else %}
+                                    {% if current_user.live_Dogecoin %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.live_Dogecoin }}</span> DOGE</p>
+                                    {% else %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> DOGE</p>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            <div class="default-swap-btn">
+                                <button type="button" class="wallet-btn">Make default</button>
+                            </div>
+                        </div>
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #54549c;">
+                            <div class="wallet-logo-container me-4">
+                                <i class="cf cf-sol coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
+                            </div>
+                            <div class="wallet-name-balance-holding me-4">
+                                <p class="coin-name mb-2 fs-6">Solana</p>
+                                {% if current_user.switch_check == 'demo' %}
+                                    {% if current_user.sol_balance %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.sol_balance }}</span> SOL</p>
+                                    {% else %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> SOL</p>
+                                    {% endif %}
+                                {% else %}
+                                    {% if current_user.live_sol_balance %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.live_sol_balance }}</span> SOL</p>
+                                    {% else %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> SOL</p>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            <div class="default-swap-btn">
+                                <button type="button" class="wallet-btn">Make default</button>
+                            </div>
+                        </div>
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #5156be;">
+                            <div class="wallet-logo-container me-4">
+                                <i class="cf cf-dot coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
+                            </div>
+                            <div class="wallet-name-balance-holding me-4">
+                                <p class="coin-name mb-2 fs-6">Polkadot</p>
+                                {% if current_user.switch_check == 'demo' %}
+                                    {% if current_user.Polkadot %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.Polkadot }}</span> DOT</p>
+                                    {% else %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> DOT</p>
+                                    {% endif %}
+                                {% else %}
+                                    {% if current_user.live_Polkadot %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.live_Polkadot }}</span> DOT</p>
+                                    {% else %}
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> DOT</p>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            <div class="default-swap-btn">
+                                <button type="button" class="wallet-btn">Make default</button>
+                            </div>
+                        </div>
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #0AC18E;">
+                            <div class="wallet-logo-container me-4">
+                                <i class="cf cf-bch coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
+                            </div>
+                            <div class="wallet-name-balance-holding me-4">
+                                <p class="coin-name mb-2 fs-6">Bitcoin Cash</p>
+                                {% if current_user.switch_check == 'demo' %}
+                                    {% if current_user.Bitcoin_Cash %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.Bitcoin_Cash }}</span> BCH</p>
+                                    {% else %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> BCH</p>
+                                    {% endif %}
+                                {% else %}
+                                    {% if current_user.live_Bitcoin_Cash %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.live_Bitcoin_Cash }}</span> BCH</p>
+                                    {% else %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> BCH</p>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            <div class="default-swap-btn">
+                                <button type="button" class="wallet-btn">Make default</button>
+                            </div>
+                        </div>
+                        <div class="wallet d-flex flex-row align-items-center text-white p-4 h-auto rounded mb-3" style="background-color: #f7931a;">
+                            <div class="wallet-logo-container me-4">
+                                <i class="cf cf-btc coin-logo fs-2 position-relative" style="bottom: 30px;"></i>
+                            </div>
+                            <div class="wallet-name-balance-holding me-4">
+                                <p class="coin-name mb-2 fs-6">Bitcoin</p>
+                                {% if current_user.switch_check == 'demo' %}
+                                    {% if current_user.btc_balance %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.btc_balance }}</span> BTC</p>
+                                    {% else %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> BTC</p>
+                                    {% endif %}
+                                {% else %}
+                                    {% if current_user.live_btc_balance %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.live_btc_balance }}</span> BTC</p>
+                                    {% else %}
+                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> BTC</p>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            <div class="default-swap-btn">
+                                <button type="button" class="wallet-btn">Make default</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Balance -->
+                <div class="balance-box me-2 px-3 py-2 balance-lg" style="text-align: left;">
+                    <p class="mb-0 text-left header-p">Balance</p>
+                    {% if current_user.switch_check == 'demo' %}
+                        <p class="text-left header-p">$<span class="balance-amount">{{ current_user.demo_balance }}</span></p>
+                    {% elif current_user.switch_check == 'live' %}
+                        <p class="text-left header-p">$<span class="balance-amount">{{ current_user.live_balance }}</span></p>
+                    {% else %}
+                        <p class="text-left header-p">$<span class="balance-amount">0.0</span></p>
+                    {% endif %}
+                </div>
+
+                <!-- Total Equity -->
+                <div class="equity-box me-2 px-3 py-2 balance-lg" style="text-align: left;">
+                    <p class="mb-0 text-left header-p">T.Equity</p>
+                    <p class="text-left header-p">$<span class="equity-amount">0.00</span></p>
+                </div>
+
+                <!-- P/L -->
+                <div class="p/l-box me-2 px-3 py-2 balance-lg" style="text-align: left;">
+                    <p class="mb-0 text-left header-p">P/L</p>
+                    <p class="text-left header-p">$<span class="p/l-amount">0.00</span></p>
+                </div>
+
+                <!-- T.Margin -->
+                <div class="t.margin-box me-2 px-3 py-2 balance-lg" style="text-align: left;">
+                    <p class="mb-0 text-left header-p">T.Margin</p>
+                    <p class="text-left header-p">$<span class="t.margin-amount">0.00</span></p>
+                </div>
+
+
+                <!-- Mobile balance -->
+                <div class="dropdown balance-sm bg-none d-none">
+                    <button class="border-0 bg-white dropdown-toggle d-flex align-items-center position-relative text-black" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {% if current_user.switch_check == 'demo' %}
+                            <h3 class="mb-0 fs-6 pe-3 me-0 text-black">Demo Balance</h3>
+                            <h3 class="fs-6 total-balance-digits position-relative ms-0 text-black">$<span class="total-balance-amount">{{ current_user.demo_balance }}</span></h3>
+                        {% elif  current_user.switch_check == 'live' %}
+                            <h3 class="mb-0 fs-6 pe-3 me-0 text-black">Live Balance</h3>
+                            <h3 class="fs-6 total-balance-digits position-relative ms-0 text-black">$<span class="total-balance-amount">{{ current_user.live_balance }}</span></h3>
+                        {% else %}    
+                            <h3 class="mb-0 fs-6 pe-3 me-0 text-black">Balance</h3>
+                            <h3 class="fs-6 total-balance-digits position-relative ms-0 text-black">$<span class="total-balance-amount">0</span></h3>
+                        {% endif %}
+                    </button>
+                    <ul class="dropdown-menu balance-dropdown-sm">
+                    <li style="height: fit-content;">
+                        <a class="dropdown-item mb-0" href="#">
+                            <div class="equity-box me-2 px-3 d-flex" style="text-align: left;">
+                                <p class="mb-0 text-left header-p me-2">T.Equity</p>
+                                <p class="text-left header-p mb-0">$<span class="equity-amount">0.00</span></p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item mb-0" href="#">
+                            <div class="p/l-box me-2 px-3 d-flex" style="text-align: left;">
+                                <p class="mb-0 text-left header-p me-2">P/L</p>
+                                <p class="text-left header-p mb-0">$<span class="p/l-amount">0.00</span></p>
+                            </div>
+                        </a>
+                    </li>
+                      <li>
+                        <a class="dropdown-item mb-0" href="#">
+                            <div class="t.margin-box me-2 px-3 d-flex" style="text-align: left;">
+                                <p class="mb-0 text-left header-p">T.Margin</p>
+                                <p class="text-left header-p mb-0">$<span class="t.margin-amount">0.00</span></p>
+                            </div>
+                        </a>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+
+
+
+            <!-- ================================ HEADER RIGHT =============================== -->
+            <div class="header-right-side d-flex">
+
+                <!-- Total balance -->
+                <div class="total-balance px-3 py-1  d-flex align-items-center balance-lg">
+                    {% if current_user.switch_check == 'demo' %}
+                        <h3 class="mb-0 fs-6 pe-3 text-black">Demo Balance</h3>
+                        <h3 class="fs-6 total-balance-digits position-relative text-black">$<span class="total-balance-amount">{{ current_user.demo_balance }}</span></h3>
+                    {% elif current_user.switch_check == 'live' %}
+                        <h3 class="mb-0 fs-6 pe-3 text-black">Live Balance</h3>
+                        <h3 class="fs-6 total-balance-digits position-relative text-black">$<span class="total-balance-amount">{{ current_user.live_balance }}</span></h3>
+                    {% else %}
+                        <h3 class="mb-0 fs-6 pe-3 text-black">Balance</h3>
+                        <h3 class="fs-6 total-balance-digits position-relative text-black">$<span class="total-balance-amount">0</span></h3>
+                    {% endif %}
+                </div>
+
+                <!-- Translations -->
+                <div class="translations px-3">
+                    <div class="dropdown drop-down">
+                        <button class="border-0 bg-white position-relative flags-dropdown-btn dropdown-toggler" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://flagcdn.com/w40/es.png" srcset="https://flagcdn.com/w80/es.png 2x" width="30" alt="Spain" class="flag-btn">
+                        </button>
+                        <ul class="dropdown-menu flag-menu closable">
+                            <li class="d-flex">
+                                <a class="dropdown-item" href="#">
+                                    <img src="{{ url_for('static', filename='img/us.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <img src="{{ url_for('static', filename='img/es.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    Spanish
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <img src="{{ url_for('static', filename='img/de.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    German
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <img src="{{ url_for('static', filename='img/it.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    Italian
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <img src="{{ url_for('static', filename='img/ru.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                                    Russian
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                 <!-- Profile Dropdown -->
+                <div class="profile-box px-3 d-flex align-items-center border border-secondary-subtle border-top-0 border-bottom-0" style="background-color: #fbfaff;">
+                    <i class="bi bi-person-circle profile-icon fs-3 me-3"></i>
+                    {% if current_user.username %}
+                    <p class="profile-name position-relative me-3 fs-6">{{ current_user.username }}</p>
+                    {% else %}
+                    <p class="profile-name position-relative me-3 fs-6">JOHN DOE</p>
+                    {% endif %}
+                    <i class="bi bi-chevron-down text-black dropdown-toggler" id="profile-dropdown-toggler"></i>
+                    <div class="profile-dropdown list-unstyled drop-down">
+                        <div class="border-bottom mb-3 pb-2 nav-sm">
+                            <div class="dropdown-item profile-item " data-toggle="inner-dropdown">
+                                <div class="inner-dropdown-toggler">
+                                    <i class="bi bi-person-circle me-1 profile-item"></i>
+                                    Profile
+                                </div>
+                                <div class="inner-dropdown">
+                                    <a href="{{ url_for('app_views.profile') }}" class="inner-dropdown-item">Edit profile</a>
+                                    <a href="{{ url_for('app_views.onboard') }}" class="inner-dropdown-item">Verify ID</a>
+                                </div>
+                            </div>
+                            <a href="{{ url_for('app_views.wallets') }}" class="dropdown-item profile-item ">
+                                <i class="bi bi-wallet-fill me-1"></i>
+                                Wallet
+                            </a>
+                            <a href="trade.html" class="dropdown-item profile-item ">
+                                <i class="bi bi-bar-chart me-1"></i>
+                                Trade
+                            </a>
+                            <div class="dropdown-item profile-item " data-toggle="inner-dropdown" id="inner-dropdown-toggler">
+                                <div class="inner-dropdown-toggler">
+                                    <i class="bi bi-radar"></i>
+                                    Positions 
+                                </div>
+                                <div class="inner-dropdown">
+                                    <a href="open_postions.html" class="inner-dropdown-item">Open positions</a>
+                                    <a href="closed_positions.html" class="inner-dropdown-item">Closed positions</a>
+                                    <a href="earnings.html" class="inner-dropdown-item">Earnings</a>
+                                </div>
+                            </div>
+                            <div class="dropdown-item profile-item " data-toggle="inner-dropdown">
+                                <div class="inner-dropdown-toggler">
+                                   <i class="bi bi-wallet2 me-1"></i>
+                                    Manage funds 
+                                </div> 
+                                <div class="inner-dropdown">
+                                    <a href="{{ url_for('app_views.swap_assets') }}" class="inner-dropdown-item">Swap assets</a>
+                                    <a href="{{ url_for('app_views.swap_history') }}" class="inner-dropdown-item">Swap History</a>
+                                    <a href="{{ url_for('app_views.deposit_logs') }}" class="inner-dropdown-item">Deposit log</a>
+                                    <a href="{{ url_for('app_views.withdrawal_logs') }}" class="inner-dropdown-item">Withdraw log</a>
+                                </div>
+                            </div>
+                            <a href="{{ url_for('app_views.auto_trade') }}" class="dropdown-item profile-item ">
+                                <i class="bi bi-graph-up-arrow me-1"></i>
+                                Auto trader
+                            </a>
+                            <a href="reset_password.html" class="dropdown-item profile-item ">
+                                <i class="bi bi-key-fill me-1"></i>
+                                Change Password
+                            </a>
+                        </div>
+                        <div>
+                            {% if current_user.switch_check == 'demo' %}
+                                <a href="#" class="dropdown-item profile-item switch-demo-live">
+                                    <i class="bi bi-toggle-on me-1"></i>
+                                    <i class="bi bi-toggle-off me-1 d-none"></i>
+                                    Switch : <span class="demo-live">Demo</span>
+                                </a>
+                            {% else %}
+                                <a href="#" class="dropdown-item profile-item switch-demo-live">
+                                    <i class="bi bi-toggle-on me-1 d-none"></i>
+                                    <i class="bi bi-toggle-off me-1"></i>
+                                    Switch : <span class="demo-live">Live</span>
+                                </a>
+                            {% endif %}
+                            <a href="{{ url_for('app_views.logout') }}" class="dropdown-item profile-item">
+                                <i class="bi bi-door-closed-fill me-1"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>        
+            </div>
+        </div>
+        <!-- ======================================== HEADER ENDS HERE =========================================== -->
+
+
+
+
+        <!-- ======================================== FIXED-SIDE-NAV STARTS HERE ===================================== -->
+        <div class="fixed-side-nav position-fixed top-0 start-0 border-end d-flex align-items-center flex-column nav-lg" style="background-color: #fbfaff;">
+            <div class="trade-box sidenav-icon-box mb-5">
+                <i class="bi bi-bar-chart fs-4"></i>
+                <div class="icon-dropdown">
+                    <a href="trade.html" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Trade</p></a>
+                </div>
+            </div>
+            <div class="trade-box sidenav-icon-box mb-5">
+                <i class="bi bi-radar fs-4"></i>
+                <div class="icon-dropdown">
+                    <p class="drop-header px-3 py-2">Positions</p>
+                    <div class="w-100">
+                        <a href="closed_positions.html" class="text-decoration-none text-black"><p class="drop-list">Open Positons</p></a>
+                        <a href="closed_positions.html" class="text-decoration-none text-black"><p class="drop-list">Closed Positons</p></a> 
+                        <a href="earnings.html" class="text-decoration-none text-black"><p class="drop-list">Earnings</p></a> 
+                    </div>
+                </div>
+            </div>
+            <div class="trade-box sidenav-icon-box mb-5">
+                <i class="bi bi-wallet2 fs-4"></i>
+                <div class="icon-dropdown">
+                    <p class="drop-header px-3 py-2">Manage Funds</p>
+                    <div class="w-100">
+                       <a href="{{ url_for('app_views.wallets') }}" class="text-decoration-none text-black"><p class="drop-list">Wallets</p></a> 
+                        <a href="{{ url_for('app_views.swap_assets') }}" class="text-decoration-none text-black"><p class="drop-list">Swap assets</p></a>
+                        <a href="{{ url_for('app_views.swap_history') }}" class="text-decoration-none text-black"><p class="drop-list">Swap history</p></a>
+                        <a href="{{ url_for('app_views.deposit_logs') }}" class="text-decoration-none text-black"><p class="drop-list">Deposit log</p></a>
+                        <a href="{{ url_for('app_views.withdrawal_logs') }}" class="text-decoration-none text-black"><p class="drop-list">Withdrawal log</p></a>
+                    </div>
+                </div>
+            </div>
+            <div class="trade-box sidenav-icon-box mb-5">
+                <i class="bi bi-graph-up-arrow fs-4"></i>
+                <div class="icon-dropdown">
+                    <a href="{{ url_for('app_views.auto_trade') }}" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Auto Trader</p></a>
+                </div>
+            </div>
+            <div class="trade-box sidenav-icon-box mb-5">
+                <i class="bi bi-safe2 fs-4"></i>
+                <div class="icon-dropdown">
+                    <a href="{{ url_for('app_views.account_types') }}" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Account Types</p></a>
+                </div>
+            </div>
+            <div class="trade-box sidenav-icon-box mb-5">
+                <i class="bi bi-person fs-4"></i>
+                <div class="icon-dropdown">
+                    <p class="drop-header px-3 py-2">Profile</p>
+                    <div class="w-100">
+                        <a href="{{ url_for('app_views.profile') }}" class="text-decoration-none text-black"><p class="drop-list">Edit Profile</p></a>
+                        <a href="{{ url_for('app_views.onboard') }}" class="text-decoration-none text-black"><p class="drop-list">Verify Id</p> </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ========================================== PAGE MAIN SECTION ( PROFILE ) ====================================-->
+        <div class="user-profile-box mt-5 d-flex">
+            <input type="hidden" id="A_USER_ID" name="user_id" value="{{ user_id }}">
+                <div class="card me-4 shadow-sm rounded-0" style="width: 18rem; height: fit-content;">
+                    {% if profile_path %}
+                        <script>
+                            console.log("I SHOULD WORK IN PROFILE PATH CHECK")
+                        </script>
+                        <img src="{{ url_for('static', filename='' + profile_path) }}" class="card-img-top profile-img rounded-0" id="profile-img" alt="...">
+                    {% else %}
+                        <script>
+                            console.log("I SHOULDnt SHOW")
+                        </script>
+                        <img src="{{ url_for('static', filename='img/user-default.png') }}" class="card-img-top profile-img rounded-0" id="profile-img" alt="...">
+                    {% endif %}
+                    <div class="card-body">
+                        {% if first_name and last_name and email %}
+                            <h5 class="card-title">{{ first_name }} {{ last_name }}</h5>
+                            <p class="card-text">{{ email }}</p>
+                        {% else %}
+                            <h5 class="card-title">JOHN DOE</h5>
+                            <p class="card-text">johndoe@gmail.com</p>
+                        {% endif %}
+                        <form id="profile-picture-form" method="post" action="/api/v1/users/profile_picture/upload" enctype="multipart/form-data">
+                            <input type="hidden" name="user_id" value="{{ user_id }}">
+                            <label for="profile-picture-input" class="btn btn-primary profile-photo-btn">
+                              <i class="bi bi-cloud-arrow-up-fill"></i>
+                              Change profile image
+                            </label>
+                            <input type="file" id="profile-picture-input" name="file1" style="display: none;">
+                        </form>
+                    </div>
+                </div>
+        <form id=profileform method="post" action="/api/v1/users/update_profile/" enctype="multipart/form-data">
+            <div  class="profile-form border border-secondary-subtle p-4 rounded-0 shadow-sm">
+                <div class="profile-form-header">
+                </div>
+                <div class="fName-lName row double-inputs">
+                    <div class="col-lg-5 first-name d-flex flex-column me-5 inputs-container">
+                        <label for="firstName">First Name</label>
+                        {% if first_name %}
+                        <input type="text" id="firstName" class="firstname-box profile-input" placeholder="{{ first_name }}">
+                        {% else %}
+                        <input type="text" id="firstName" class="firstname-box profile-input" placeholder="JOHN">
+                        {% endif %}
+                    </div>
+                    <div class="col-lg-5 last-name d-flex flex-column inputs-container">
+                        <label for="lastName mb-5">Last Name</label>
+                        {% if last_name %}
+                        <input type="text" id="lastName" class="lastName-box profile-input" placeholder="{{ last_name }}">
+                        {% else %}
+                        <input type="text" id="lastName" class="lastName-box profile-input" placeholder="DOE">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="email-phone row double-inputs">
+                    <div class="col-lg-5 phone d-flex flex-column me-5 inputs-container single-container">
+                        <label for="userPhone">Phone Number</label>
+                        {% if PhoneNumber %}
+                        <input type="number" id="userPhone" class="firstname-box profile-input" placeholder="{{ PhoneNumber }}">
+                        {% else %}
+                        <input type="number" id="userPhone" class="firstname-box profile-input" placeholder="19202388992">
+                        {% endif %}
+                    </div>
+                    <div class="col-lg-5 last-name d-flex flex-column inputs-container">
+                        <label for="userEmail mb-5">Email Address</label>
+                        {% if email %}
+                        <input type="email" id="userEmail" class="lastName-box profile-input" placeholder="{{ email }}">
+                        {% else %}
+                        <input type="email" id="userEmail" class="lastName-box profile-input" placeholder="Johndoe@gmail.com">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="gender-dob d-flex mb-3 row double-inputs">
+                    <div class="gender d-flex flex-column inputs-container col-lg-5">
+                        <label for="gender mb-5">Gender</label>
+                        <select class="form-select gender-input" aria-label="Default select example">
+                            <option selected>Male</option>
+                            <option value="2">Female</option>
+                            <option value="3">Others</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-floating address mb-3">
+                    <textarea class="form-control" placeholder="Enter your Address" id="floatingTextarea2" style="height: 100px"></textarea>
+                    <label for="floatingTextarea2">Enter Your Address</label>
+                </div>
+                <div class="exact-location row mb-5">
+                    <div class="mb-3 inputs-container col-lg-4">
+                        <label for="userCity" class="form-label">City</label>
+                        {% if city %}
+                        <input type="text" class="form-control" id="userCity" placeholder="{{ city }}">
+                        {% else %}
+                        <input type="text" class="form-control" id="userCity" placeholder="City">
+                        {% endif %}
+                    </div>
+                    <div class="mb-3 inputs-container col-lg-4">
+                        <label for="userState" class="form-label">State</label>
+                        {% if state %}
+                        <input type="text" class="form-control" id="userState" placeholder="{{ state }}">
+                        {% else %}
+                        <input type="text" class="form-control" id="userState" placeholder="State">
+                        {% endif %}
+                    </div>
+                    <div class="mb-3 inputs-container col-lg-4">
+                        <label for="userZipCode" class="form-label">Zipcode</label>
+                        {% if zipcode %}
+                        <input type="number" class="form-control" id="userZipCode" placeholder="{{ zipcode }}">
+                        {% else %}
+                        <input type="number" class="form-control" id="userZipCode" placeholder="Zipcode">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="profile-form-btn">
+                    <div class="profile-country mb-4 d-flex border-0 align-items-center bg-dark text-white btn py-0 shadow-lg fw-medium" style="width: 150px;">
+                        <img src="{{ url_for('static', filename='img/au.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
+                        <p style="position: relative; top: 6px;">Australia</p>
+                    </div>
+                    <a href="" class="text-decoration-none text-white update-btn" onclick="submitForm()">
+                        <i class="bi bi-cloud-arrow-up-fill"></i>
+                        Update profile
+                    </a>
+                </div>
+            </div>
+        </form>
+        </div>
+        <!-- ========================================== FORM ENDS HERE ===================================== -->
+         
+        <!-- switch demo and live modal -->
+        <div class="switch-modal-overlay">
+            <div class="switch-modal text-center" style="width: 500px;">
+                <div class="modal-header mb-4">
+                    <i class="bi bi-exclamation-triangle mx-auto modal-icon"></i>
+                </div>
+                <div class="pricing-modal-body mb-4">
+                    <div class="modal-title fw-medium fs-5 mb-2">Info !</div>
+                    <div>
+                        <p class="switch-modal-text"></p>
+                    </div>
+                </div>
+                <div class="modal-footer pt-2">
+                    <button class="btn border-0 bg-info text-white px-4 py-2 close-switch-modal" style="border-radius: 2px;">close</button>
+                </div>
+            </div>
+        </div>
+        
+    <!-- =========================================== MAIN ENDS HERE====================================== -->
+    <div class="check-animation-container">
+        <div class="check-animation-box py-3 border-secondary-subtle shadow-sm">
+            <div class="check-container d-flex justify-content-center flex-column align-items-center">
+                <div id="check-animation" style="width: 180px; height: 180px;" class="mb-4"></div>
+                <p class="fs-3" style="color: #3ecb42;">Done</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========================================== FOOTER STARTS HERE ==================================== -->
+    <footer class="d-flex justify-content-between p-3" style="background-color: #fbfaff; margin-left: 80px;">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between">
+                <div class="col-sm-3">2024 Delux4</div>
+                <div class="col-sm-3">
+                    <p>All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/coinMarquee.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM fully loaded and parsed');
+    // Load the animation JSON
+    const animationData = "{{ url_for('static', filename='animations/Animation - 1718757531211.json') }}";
+
+    // Initialize Lottie
+    const animation = lottie.loadAnimation({
+        container: document.getElementById('lottie-container'), // the DOM element
+        renderer: 'svg', // renderer type
+        loop: true, // whether to loop the animation
+        autoplay: true, // whether to start the animation automatically
+        path: animationData // the path to the animation JSON
+    });
+
+    animation.addEventListener('DOMLoaded', function() {
+        console.log('Lottie animation loaded');
+    });
+
+    animation.addEventListener('data_failed', function(event) {
+        console.error('Lottie animation data failed to load:', event);
+    });
+
+    // Function to hide the loading animation
+    function hideLoadingAnimation() {
+        console.log('Page fully loaded');
+        const loadingContainer = document.getElementById('loading-container');
+        if (loadingContainer) {
+            loadingContainer.style.display = 'none';
+        }
+    }
+
+    // Hide the loading animation once the page has fully loaded
+    window.onload = function() {
+        setTimeout(hideLoadingAnimation, 3000); // 2000 milliseconds = 2 seconds
+    };
+});
+
+
+
+
+// wallet dropdown 
+const walletDropDown = document.querySelector('.wallet-dropdown');
+const walletDropDownToggler = document.querySelector('.wallet-dropdown-toggler');
+
+walletDropDownToggler.addEventListener('click', () => {
+  walletDropDown.classList.toggle('active'); // Toggle visibility on click
+});
+
+
+
+
+// close profile dropdowns when the document gets clicked
+document.addEventListener('DOMContentLoaded', function() {
+    const walletDropDownToggler = document.querySelector('.wallet-dropdown-toggler');
+    const walletDropdown = document.querySelector('.wallet-dropdown');
+
+    // Close the dropdown when clicking outside of it
+    document.body.addEventListener('click', function(event) {
+        if (!walletDropdown.contains(event.target) && !walletDropDownToggler.contains(event.target)) {
+            walletDropdown.classList.remove('active');
+        }
+    });
+
+    // Prevent the dropdown from closing when clicking inside
+    walletDropDown.addEventListener('click', function(event) {
+        event.stopPropagation();
+    });
+});
+
+// profile dropdown
+const profileBox = document.querySelector('.profile-box');
+const profileDropdown = document.querySelector('.profile-dropdown');
+
+profileBox.addEventListener('click', () => {
+  profileDropdown.classList.toggle('active'); // Toggle visibility on click
+});
+
+
+// close profile dropdowns when the document gets clicked
+document.addEventListener('DOMContentLoaded', function() {
+    const dropdownToggler = document.getElementById('profile-dropdown-toggler');
+    const dropdown = document.querySelector('.profile-dropdown');
+
+    // Close the dropdown when clicking outside of it
+    document.body.addEventListener('click', function(event) {
+        if (!dropdown.contains(event.target) && !dropdownToggler.contains(event.target)) {
+            dropdown.classList.remove('active');
+        }
+    });
+
+    // Prevent the dropdown from closing when clicking inside
+    dropdown.addEventListener('click', function(event) {
+        event.stopPropagation();
+    });
+});
+
+
+
+
+// handle inner dropdown inside the profile
+const innerDropDownToggler = Array.from( document.querySelectorAll('.inner-dropdown-toggler'))
+
+innerDropDownToggler.forEach( toggler => {
+    toggler.addEventListener('click', () => {
+        let target = toggler.nextElementSibling;
+        target.classList.toggle('active')
+    })
+});
+
+// handle coin transfer inputs 
+document.addEventListener('DOMContentLoaded', function() {
+    // handle switch from demo to live
+let switchBtn = document.querySelector('.switch-demo-live')
+let toggleOn = document.querySelector('.bi-toggle-on')
+let toggleOff = document.querySelector('.bi-toggle-off')
+let switchText = document.querySelector('.demo-live')
+let switchModalOverlay = document.querySelector('.switch-modal-overlay')
+let switchModal = document.querySelector('.switch-modal')
+let switchModalText = document.querySelector('.switch-modal-text')
+let closeSwitchModal = document.querySelector('.close-switch-modal')
+
+switchBtn.addEventListener('click', async () => {
+
+    let currentSwitch = switchText.innerText.toLowerCase(); // Get current switch state (lowercase for clarity)
+    let newSwitch = currentSwitch === 'demo' ? 'live' : 'demo';
+
+    // Fetch request with async/await for better handling
+    try {
+        const response = await fetch('/api/v1/users/switch', {
+        method: 'POST',
+        headers: {
+                'Content-Type': 'application/json', // Specify JSON body
+            },
+            body: JSON.stringify({ switch: newSwitch }), // Send new switch state in body
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`); // Handle non-2xx responses
+        }
+    } catch (error) {
+        console.error('Error sending switch request:', error);
+        // Handle errors (e.g., display error message to user)
+    } finally {
+        switchModalOverlay.classList.toggle('active')
+        switchModal.classList.toggle('active')
+        document.body.style.overflowY = 'hidden';
+
+        if (!toggleOn.classList.contains('d-none')) {
+            toggleOff.classList.remove('d-none')
+            toggleOn.classList.add('d-none')
+            switchText.innerText = 'Live'
+            switchModalText.textContent = 'Live session has started'
+            setTimeout(function() {
+              location.reload();
+            }, 2000);
+        } else{
+            toggleOn.classList.remove('d-none')
+            toggleOff.classList.add('d-none')
+            switchText.innerText = 'Demo'
+            switchModalText.textContent = 'Demo session has started'
+            setTimeout(function() {
+              location.reload();
+            }, 2000);
+        }
+    }
+});
+
+closeSwitchModal.addEventListener('click', () => {
+    switchModalOverlay.classList.remove('active');
+    switchModal.classList.remove('active');
+    document.body.style.overflowY = 'auto';
+});
+
+
+
+    const coinFrom = document.getElementById('coin-from');
+    const coinTo = document.getElementById('coin-to');
+    const tokenFrom = document.querySelector('.token-from');
+    const tokenTo = document.querySelector('.token-to');
+
+    function updateTokens() {
+        tokenFrom.textContent = coinFrom.value;
+        tokenTo.textContent = coinTo.value;
+    }
+
+    function ensureDifferentSelection() {
+        if (coinFrom.value === coinTo.value) {
+            alert('Transfer From and Transfer To values cannot be the same.');
+            coinTo.value = [...coinTo.options].find(option => option.value !== coinFrom.value).value;
+        }
+        updateTokens();
+    }
+
+    coinFrom.addEventListener('change', ensureDifferentSelection);
+    coinTo.addEventListener('change', ensureDifferentSelection);
+
+    // Initial update
+    updateTokens();
+});
+
+function showCheckBox() {
+    let checkContainer = document.querySelector('.check-animation-container')
+    let animationBox = document.querySelector('.check-animation-box')
+
+    checkContainer.classList.toggle('active')
+    animationBox.classList.toggle('active')
+
+    let animationPath = "{{ url_for('static', filename='animations/Animation - 1719074008630.json') }}"
+    const checkAnimation  = lottie.loadAnimation({
+        container: document.getElementById('check-animation'),
+        renderer: 'svg', 
+        loop: false,
+        autoplay: true,
+        path: animationPath
+    })
+
+    checkAnimation.addEventListener('complete', () => {
+        checkContainer.classList.toggle('active')
+        animationBox.classList.toggle('active')
+    })
+}
+
+
+$(document).ready(function() {
+    $('#profile-picture-form').submit(false); // Prevent default form submission
+  
+    $('#profile-picture-input').on('change', function() {
+      var formData = new FormData();
+      formData.append('user_id', $('input[name="user_id"]').val()); // Include user_id
+      formData.append('file1', $(this).prop('files')[0]);
+      console.log('User id is ', $('input[name="user_id"]').val())
+  
+      $.ajax({
+        url: '/api/v1/users/profile_picture/upload',
+        type: 'POST',
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+          if (response) {
+            console.log("SERVER ReSPONDED WITH THE IMAGE I GUESS")
+            document.getElementById("profile-img").src = "/static/" + response.profile_path;;  // Update image source
+          }
+        },
+        error: function(error) {
+          console.error('Error uploading profile picture:', error);
+          // Handle upload errors gracefully (e.g., display error message to user)
+        }
+      });
+    });
+  });
+    </script>
+    <script>
+        function extractUserInput() {
+          
+            const userData = {
+                first_name: document.getElementById('firstName').value,
+                last_name: document.getElementById('lastName').value,
+                userEmail: document.getElementById('userEmail').value, // Assuming email ID is in the 'userEmail' field
+                PhoneNumber: document.getElementById('userPhone').value,
+                address: document.getElementById('floatingTextarea2').value,
+                city: document.getElementById('userCity').value,
+                state: document.getElementById('userState').value,
+                zipcode: document.getElementById('userZipCode').value,
+                id: $('input[name="user_id"]').val()
+              };
+
+            return userData;
+          }
+          
+          
+          async function submitForm() {
+            event.preventDefault(); // Prevent default form submission behavior
+          
+            const userData = extractUserInput();
+          
+            try {
+              const response = await fetch('/api/v1/users/update_profile/', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json' // Set content type for JSON data
+                },
+                body: JSON.stringify(userData) // Convert data to JSON string
+              });
+          
+              const responseData = await response.json();
+          
+              if (response.ok) { // Handle successful response
+                console.log("RESPONSE IS OK FOR EDITINT PROFILE")
+                showCheckBox();
+                // Optionally display a success message to the user
+              } else {
+                console.error('Error updating user data:', responseData);
+                // Optionally display an error message to the user
+              }
+            } catch (error) {
+              console.error('Error submitting form:', error);
+              // Handle any errors that may occur during the process
+            }
+          }
+    </script>
+    <script>
+
+        const makeDefaultButtons = document.querySelectorAll('.wallet-btn');
+    
+        makeDefaultButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            // Get the parent element (wallet section) of the clicked button
+            const clickedCurrency = event.target.closest('.wallet');
+    
+            // Extract new currency information
+            const newCurrencyName = clickedCurrency.querySelector('.coin-name').textContent;
+            const newCurrencyLogo = clickedCurrency.querySelector('.coin-logo');  // Get the element itself
+            // Update default currency display
+            const defaultCurrencyName = document.querySelector('.currency-name');
+            const defaultCurrencyLogo = document.querySelector('.currency-coin');
+            const currencyCodeMatch = newCurrencyLogo.className.match(/cf-([\w]+)/);
+            const currencyCode = currencyCodeMatch[1].toLowerCase(); // Extract and lowercase the code
+    
+    
+            const backgroundColor = clickedCurrency.style.backgroundColor;
+    
+            defaultCurrencyName.style.color = backgroundColor; // Update text color based on contrast
+            defaultCurrencyLogo.style.color = backgroundColor;
+            defaultCurrencyName.textContent = newCurrencyName;
+            defaultCurrencyLogo.className =  defaultCurrencyLogo.className.replace(/cf-[\w]+/, `cf-${currencyCode}`);
+            
+        });
+    });
+        </script>
+</body>
+</html>
