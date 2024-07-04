@@ -33,6 +33,7 @@
     body{
         padding: 0;
         margin: 0;
+        background-color: #fbfaff !important;
     }
 
     .main{
@@ -41,6 +42,7 @@
 
     .header{
         z-index: 2 !important;
+        background-color: #fbfaff !important;
     }
 
     .logo-box{
@@ -399,6 +401,11 @@
 
 
 /* ==================   trade section styles ================= */
+
+    .form-control:focus {
+        box-shadow: none !important;
+        outline: none !important; /* Optionally, remove the default outline as well */
+    }
     
     .trade-section{
         margin: 30px 0 30px 100px;
@@ -437,6 +444,10 @@
     /* Handle on hover */
     .table-responsive::-webkit-scrollbar-thumb:hover {
     background: #7a7a7a; 
+    }
+
+    .position-table th{
+        min-width: 150px;
     }
 
     tr{
@@ -501,8 +512,16 @@
         border-radius: 3px !important;
     }
 
-    th{
+    /* th{
         min-width: 150px;
+    } */
+
+    td{
+        font-size: 15px !important;
+        opacity: 0.8;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-weight: 500 !important;
+        padding-top: 20px !important;
     }
 
     @media (max-width: 991.98px){
@@ -555,13 +574,17 @@
             position: relative;
             height: 50px;
         }
+
+        .pills-btns{
+            display: none;
+        }
     }
 
     #loading-container {
         position: fixed;
         width: 100%;
         height: 100%;
-        background: rgba(255, 255, 255, 0.9);
+        background: #fff;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -603,6 +626,27 @@
         opacity: 1;
         margin-top: 0;
     }
+
+    #assets-loading-container {
+    width: 100% !important; /* Set the width you need */
+    height: 100% !important; /* Set the height you need */
+    position: absolute; /* This makes the container absolute */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust to center */
+    z-index: 1000; /* Ensure it's on top of other elements */
+    pointer-events: none; 
+    background: #fff;
+
+    }
+
+    /* Optional: Styling for fallback message or loading container
+    #assets-loading-container.fallback {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    } */
     
 </style>
 <body>
@@ -1021,7 +1065,9 @@
         <div class="trade-section">
             <div class="row">
                 <div class="trading-assets tradingPairs col-12 col-sm-12 col-lg-4 col-md-4 col-xl-4 p-0 px-2 mt-0 mb-5">
+                    
                     <div class="card rounded-0">
+                        <div id="assets-loading-container"></div>
                         <div class="card-header d-flex justify-content-between align-items-center bg-white py-4 px-3">
                             <h5 class="card-tittle fs-6 fw-medium position-relative" style="top: 5px; min-width: 100px;">Trading Pairs</h4>
                             <div>
@@ -1036,7 +1082,7 @@
                         </div>
                         <div class="card-body py-3">
                             <div class="table-responsive" style="max-height: 100vh;">
-                                <table class="table table-borderless text-center pair-assets">
+                                <table class="table table-borderless text-center pair-assets" id="pairs-table">
                                     <thead class="table-header">
                                       <tr class="bg-secondary">
                                         <th colspan="2" scope="col" class="fw-normal" style="background-color: #e9e9ef;">Trading Assets</th>
@@ -1044,54 +1090,54 @@
                                         <th scope="col" class="fw-normal" style="background-color: #e9e9ef; min-width: 130px;">Volume (24hrs)</th>
                                       </tr>
                                     </thead>
-                                    <tbody class="table-body">
+                                    <tbody class="table-body" id="asset-list">
 
                                         <!-- bch/btc-->
                                         <tr class="BCH/BTC-pair" onclick="changeSymbol('BCHBTC')">
                                             <td class="pt-3">
                                                 <div class="text-primary">
-                                                    <i class="cf cf-bch position-relative" style="font-size: 45px; bottom: 5px;"></i>
+                                                    <i class="cf cf-bch position-relative" id="icon-BCHBTC" style="font-size: 45px; bottom: 5px;"></i>
                                                 </div>
                                             </td>
                                             <td class="pt-3 text-start ">
                                                 <div>
                                                     <h5 class="pair-name-BCH/BTC mb-1" style="font-size: 14px;">BCH/BTC</h5>
-                                                    <p class="text-secondary" style="font-size: 13px;">0.00</p>
+                                                    <p class= "rate" id="BCHBTC-rate" data-symbol="BCHBTC" style="font-size: 13px;">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-3">
                                                 <div>
-                                                    <p class="price-BCH/BTC">0.00</p>
+                                                    <p class="price-BCHBTC">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-3">
                                                 <div class="text-end">
-                                                    <p class="volume-BCH/BTC">0</p>
+                                                    <p class="volume-BCHBTC">0</p>
                                                 </div>
                                             </td>
                                         </tr>
 
-                                        <!-- bch/btc-->
+                                        <!-- bch/eur-->
                                         <tr class="BCH/EUR-pair" onclick="changeSymbol('BCHEUR')">
                                             <td class="pt-2">
                                                 <div class="text-secondary">
-                                                    <i class="cf cf-bch position-relative" style="font-size: 45px; bottom: 5px;"></i>
+                                                    <i class="cf cf-bch position-relative" id="icon-BCHEUR" style="font-size: 45px; bottom: 5px;"></i>
                                                 </div>
                                             </td>
                                             <td class="pt-2 text-start ">
                                                 <div>
                                                     <h5 class="pair-name-BCH/EUR mb-1" style="font-size: 14px;">BCH/EUR</h5>
-                                                    <p class="text-secondary" style="font-size: 13px;">0.00</p>
+                                                    <p class="text-secondary rate" id="BTCEUR-rate" data-symbol="BTCEUR" style="font-size: 13px;">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div>
-                                                    <p class="price-BCH/EUR">0.00</p>
+                                                    <p class="price-BCHEUR">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div class="text-end">
-                                                    <p class="volume-BCH/EUR">0</p>
+                                                    <p class="volume-BCHEUR">0</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -1100,23 +1146,23 @@
                                         <tr class="BCH/GBP-pair" onclick="changeSymbol('BCHGBP')">
                                             <td class="pt-2">
                                                 <div class="text-warning">
-                                                    <i class="cf cf-bch position-relative" style="font-size: 45px; bottom: 5px;"></i>
+                                                    <i class="cf cf-bch position-relative" id="icon-BCHGBP" style="font-size: 45px; bottom: 5px;"></i>
                                                 </div>
                                             </td>
                                             <td class="pt-2 text-start ">
                                                 <div>
                                                     <h5 class="pair-name-BCH/GBP mb-1" style="font-size: 14px;">BCH/GBP</h5>
-                                                    <p class="text-secondary" style="font-size: 13px;">0.00</p>
+                                                    <p class="text-secondary rate" id="BCHGBP-rate" data-symbol="BCHGBP" style="font-size: 13px;">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div>
-                                                    <p class="price-BCH/GBP">0.00</p>
+                                                    <p class="price-BCHGBP">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div class="text-end">
-                                                    <p class="volume-BCH/GBP">0</p>
+                                                    <p class="volume-BCHGBP">0</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -1125,23 +1171,23 @@
                                         <tr class="BTC/USDC-pair" onclick="changeSymbol('BTCUSDC')">
                                             <td class="pt-2">
                                                 <div>
-                                                    <i class="cf cf-btc position-relative" style="font-size: 40px; bottom: 5px;color: #f7931a;"></i>
+                                                    <i class="cf cf-btc position-relative" id="icon-BTCUSDC" style="font-size: 40px; bottom: 5px;color: #f7931a;"></i>
                                                 </div>
                                             </td>
                                             <td class="pt-2 text-start ">
                                                 <div>
                                                     <h5 class="pair-name-BTC/USDC mb-1" style="font-size: 14px;">BTC/USDC</h5>
-                                                    <p class="text-secondary" style="font-size: 13px;">0.00</p>
+                                                    <p class="text-secondary rate" id="BTCUSDC-rate" data-symbol="BTCUSDC" style="font-size: 13px;">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div>
-                                                    <p class="price-BTC/USDC">0.00</p>
+                                                    <p class="price-BTCUSDC">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div class="text-end">
-                                                    <p class="volume-BTC/USDC">0</p>
+                                                    <p class="volume-BTCUSDC">0</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -1150,23 +1196,23 @@
                                         <tr class="BTC/EUR-pair" onclick="changeSymbol('BTCEUR')">
                                             <td class="pt-2">
                                                 <div class="text-danger">
-                                                    <i class="cf cf-btc position-relative" style="font-size: 40px; bottom: 5px;"></i>
+                                                    <i class="cf cf-btc position-relative" id="icon-BTCEUR" style="font-size: 40px; bottom: 5px;"></i>
                                                 </div>
                                             </td>
                                             <td class="pt-2 text-start ">
                                                 <div>
                                                     <h5 class="pair-name-BTC/EUR mb-1" style="font-size: 14px;">BTC/EUR</h5>
-                                                    <p class="text-secondary" style="font-size: 13px;">0.00</p>
+                                                    <p class="text-secondary rate" id="BTCEUR-rate" data-symbol="BTCEUR" style="font-size: 13px;">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div>
-                                                    <p class="price-BTC/EUR">0.00</p>
+                                                    <p class="price-BTCEUR">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div class="text-end">
-                                                    <p class="volume-BTC/EUR">0</p>
+                                                    <p class="volume-BTCEUR">0</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -1175,23 +1221,23 @@
                                         <tr class="BTC/GBP-pair" onclick="changeSymbol('BTCGBP')">
                                             <td class="pt-2">
                                                 <div class="text-success">
-                                                    <i class="cf cf-btc position-relative" style="font-size: 40px; bottom: 5px;"></i>
+                                                    <i class="cf cf-btc position-relative" id="icon-BTCGBP" style="font-size: 40px; bottom: 5px;"></i>
                                                 </div>
                                             </td>
                                             <td class="pt-2 text-start ">
                                                 <div>
                                                     <h5 class="pair-name-BTC/GBP mb-1" style="font-size: 14px;">BTC/GBP</h5>
-                                                    <p class="text-secondary" style="font-size: 13px;">0.00</p>
+                                                    <p class="text-secondary rate" id="BTCGBP-rate" data-symbol="BTCGBP" style="font-size: 13px;">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div>
-                                                    <p class="price-BTC/GBP">0.00</p>
+                                                    <p class="price-BTCGBP">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div class="text-end">
-                                                    <p class="volume-BTC/GBP">0</p>
+                                                    <p class="volume-BTCGBP">0</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -1200,23 +1246,23 @@
                                         <tr class="BTC/USDC-pair" onclick="changeSymbol('BTCUSDC')">
                                             <td class="pt-2">
                                                 <div class="text-info">
-                                                    <i class="cf cf-btc position-relative" style="font-size: 40px; bottom: 5px;"></i>
+                                                    <i class="cf cf-btc position-relative" id="icon-BTCUSDC" style="font-size: 40px; bottom: 5px;"></i>
                                                 </div>
                                             </td>
                                             <td class="pt-2 text-start ">
                                                 <div>
                                                     <h5 class="pair-name-BTC/USDC mb-1" style="font-size: 14px;">BTC/USDC</h5>
-                                                    <p class="text-secondary" style="font-size: 13px;">0.00</p>
+                                                    <p class="text-secondary rate" id="BTCUSDC-rate" data-symbol="BTCUSDC" style="font-size: 13px;">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div>
-                                                    <p class="price-BTC/USDC">0.00</p>
+                                                    <p class="price-BTCUSDC">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div class="text-end">
-                                                    <p class="volume-BTC/USDC">0</p>
+                                                    <p class="volume-BTCUSDC">0</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -1225,23 +1271,23 @@
                                         <tr class="EOS/BTC-pair" onclick="changeSymbol('EOSBTC')">
                                             <td class="pt-2">
                                                 <div class="text-dark">
-                                                    <i class="cf cf-eos position-relative" style="font-size: 40px; bottom: 5px;"></i>
+                                                    <i class="cf cf-eos position-relative" id="icon-EOSBTC" style="font-size: 40px; bottom: 5px;"></i>
                                                 </div>
                                             </td>
                                             <td class="pt-2 text-start ">
                                                 <div>
                                                     <h5 class="pair-name-EOS/BTC mb-1" style="font-size: 14px;">EOS/BTC</h5>
-                                                    <p class="text-secondary" style="font-size: 13px;">0.00</p>
+                                                    <p class="text-secondary rate" id="EOSBTC-rate" data-symbol="EOSBTC" style="font-size: 13px;">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div>
-                                                    <p class="price-EOS/BTC">0.00</p>
+                                                    <p class="price-EOSBTC">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div class="text-end">
-                                                    <p class="volume-EOS/BTC">0</p>
+                                                    <p class="volume-EOSBTC">0</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -1250,23 +1296,23 @@
                                         <tr class="EOS/EUR-pair" onclick="changeSymbol('EOSEUR')">
                                             <td class="pt-2">
                                                 <div class="text-warning">
-                                                    <i class="cf cf-eos position-relative" style="font-size: 40px; bottom: 5px;"></i>
+                                                    <i class="cf cf-eos position-relative" id="icon-EOSEUR" style="font-size: 40px; bottom: 5px;"></i>
                                                 </div>
                                             </td>
                                             <td class="pt-2 text-start ">
                                                 <div>
                                                     <h5 class="pair-name-EOS/EUR mb-1" style="font-size: 14px;">EOS/EUR</h5>
-                                                    <p class="text-secondary" style="font-size: 13px;">0.00</p>
+                                                    <p class="text-secondary rate" id="EOSEUR-rate" data-symbol="EOSEUR" style="font-size: 13px;">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div>
-                                                    <p class="price-EOS/EUR">0.00</p>
+                                                    <p class="price-EOSEUR">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div class="text-end">
-                                                    <p class="volume-EOS/EUR">0</p>
+                                                    <p class="volume-EOSEUR">0</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -1275,23 +1321,23 @@
                                         <tr class="EOS/USD-pair" onclick="changeSymbol('EOSUSD')">
                                             <td class="pt-2">
                                                 <div class="text-secondary">
-                                                    <i class="cf cf-eos position-relative" style="font-size: 40px; bottom: 5px;"></i>
+                                                    <i class="cf cf-eos position-relative" id="icon-EOSUSD" style="font-size: 40px; bottom: 5px;"></i>
                                                 </div>
                                             </td>
                                             <td class="pt-2 text-start ">
                                                 <div>
                                                     <h5 class="pair-name-EOS/USD mb-1" style="font-size: 14px;">EOS/USD</h5>
-                                                    <p class="text-secondary" style="font-size: 13px;">0.00</p>
+                                                    <p class="text-secondary rate" id="EOSUSD-rate" data-symbol="EOSUSD" style="font-size: 13px;">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div>
-                                                    <p class="price-EOS/USD">0.00</p>
+                                                    <p class="price-EOSUSD">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div class="text-end">
-                                                    <p class="volume-EOS/USD">0</p>
+                                                    <p class="volume-EOSUSD">0</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -1300,23 +1346,23 @@
                                         <tr class="ETC/BTC-pair" onclick="changeSymbol('ETCBTC')">
                                             <td class="pt-2">
                                                 <div class="text-danger">
-                                                    <i class="cf cf-eth position-relative" style="font-size: 40px; bottom: 5px;"></i>
+                                                    <i class="cf cf-eth position-relative" id="icon-ETCBTC" style="font-size: 40px; bottom: 5px;"></i>
                                                 </div>
                                             </td>
                                             <td class="pt-2 text-start ">
                                                 <div>
-                                                    <h5 class="pair-name-ETC/BTC mb-1" style="font-size: 14px;">ETC/BTC</h5>
-                                                    <p class="text-secondary" style="font-size: 13px;">0.00</p>
+                                                    <h5 class="pair-name-ETCBTC mb-1" style="font-size: 14px;">ETC/BTC</h5>
+                                                    <p class="text-secondary rate" id="ETCBTC-rate" data-symbol="ETCBTC style="font-size: 13px;">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div>
-                                                    <p class="price-ETC/BTC">0.00</p>
+                                                    <p class="price-ETCBTC">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div class="text-end">
-                                                    <p class="volume-ETC/BTC">0</p>
+                                                    <p class="volume-ETCBTC">0</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -1325,23 +1371,23 @@
                                         <tr class="ETC/EUR-pair" onclick="changeSymbol('ETCEUR')">
                                             <td class="pt-2">
                                                 <div class="text-">
-                                                    <i class="cf cf-eth position-relative" style="font-size: 40px; bottom: 5px;"></i>
+                                                    <i class="cf cf-eth position-relative" id="icon-ETCEUR" style="font-size: 40px; bottom: 5px;"></i>
                                                 </div>
                                             </td>
                                             <td class="pt-2 text-start ">
                                                 <div>
                                                     <h5 class="pair-name-ETC/EUR mb-1" style="font-size: 14px;">ETC/EUR</h5>
-                                                    <p class="text-secondary" style="font-size: 13px;">0.00</p>
+                                                    <p class="text-secondary rate" id="ETCEUR-rate" data-symbol="ETCEUR" style="font-size: 13px;">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div>
-                                                    <p class="price-ETC/EUR">0.00</p>
+                                                    <p class="price-ETCEUR">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div class="text-end">
-                                                    <p class="volume-ETC/EUR">0</p>
+                                                    <p class="volume-ETCEUR">0</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -1350,23 +1396,23 @@
                                         <tr class="ETC/GBP-pair" onclick="changeSymbol('ETCGBP')">
                                             <td class="pt-2">
                                                 <div class="text-warning">
-                                                    <i class="cf cf-eth position-relative" style="font-size: 40px; bottom: 5px;"></i>
+                                                    <i class="cf cf-eth position-relative" id="icon-ETCGBP" style="font-size: 40px; bottom: 5px;"></i>
                                                 </div>
                                             </td>
                                             <td class="pt-2 text-start ">
                                                 <div>
                                                     <h5 class="pair-name-ETC/GBP mb-1" style="font-size: 14px;">ETC/GBP</h5>
-                                                    <p class="text-secondary" style="font-size: 13px;">0.00</p>
+                                                    <p class="text-secondary rate" id="ETCGBP-rate" data-symbol="ETCGBP" style="font-size: 13px;">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div>
-                                                    <p class="price-ETC/GBP">0.00</p>
+                                                    <p class="price-ETCGBP">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div class="text-end">
-                                                    <p class="volume-ETC/GBP">0</p>
+                                                    <p class="volume-ETCGBP">0</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -1375,23 +1421,23 @@
                                         <tr class="ETC/USD-pair" onclick="changeSymbol('ETCUSD')">
                                             <td class="pt-2">
                                                 <div class="text-success">
-                                                    <i class="cf cf-eth position-relative" style="font-size: 40px; bottom: 5px;"></i>
+                                                    <i class="cf cf-eth position-relative" id="icon-ETCUSD" style="font-size: 40px; bottom: 5px;"></i>
                                                 </div>
                                             </td>
                                             <td class="pt-2 text-start ">
                                                 <div>
                                                     <h5 class="pair-name-ETC/USD mb-1" style="font-size: 14px;">ETC/USD</h5>
-                                                    <p class="text-secondary" style="font-size: 13px;">0.00</p>
+                                                    <p class="text-secondary rate" id="ETCUSD-rate" data-symbol="ETCUSD" style="font-size: 13px;">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div>
-                                                    <p class="price-ETC/USD">0.00</p>
+                                                    <p class="price-ETCUSD">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div class="text-end">
-                                                    <p class="volume-ETC/USD">0</p>
+                                                    <p class="volume-ETCUSD">0</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -1400,23 +1446,23 @@
                                         <tr class="LTC/BTC-pair" onclick="changeSymbol('LTCBTC')">
                                             <td class="pt-2">
                                                 <div class="text-secondary">
-                                                    <i class="cf cf-ltc position-relative" style="font-size: 40px; bottom: 5px;"></i>
+                                                    <i class="cf cf-ltc position-relative" id="icon-LTCBTC style="font-size: 40px; bottom: 5px;"></i>
                                                 </div>
                                             </td>
                                             <td class="pt-2 text-start ">
                                                 <div>
-                                                    <h5 class="pair-name-LTC/BTC mb-1" style="font-size: 14px;">LTC/BTC</h5>
-                                                    <p class="text-secondary" style="font-size: 13px;">0.00</p>
+                                                    <h5 class="pair-name-LTCBTC mb-1" style="font-size: 14px;">LTC/BTC</h5>
+                                                    <p class="text-secondary rate" id="LTCBTC-rate" data-symbol="LTCBTC" style="font-size: 13px;">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div>
-                                                    <p class="price-LTC/BTC">0.00</p>
+                                                    <p class="price-LTCBTC">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div class="text-end">
-                                                    <p class="volume-LTC/BTC">0</p>
+                                                    <p class="volume-LTCBTC">0</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -1425,23 +1471,23 @@
                                         <tr class="LTC/EUR-pair" onclick="changeSymbol('LTCEUR')">
                                             <td class="pt-2">
                                                 <div class="text-primary">
-                                                    <i class="cf cf-ltc position-relative" style="font-size: 40px; bottom: 5px;"></i>
+                                                    <i class="cf cf-ltc position-relative" id="icon-LTCEUR" style="font-size: 40px; bottom: 5px;"></i>
                                                 </div>
                                             </td>
                                             <td class="pt-2 text-start ">
                                                 <div>
                                                     <h5 class="pair-name-LTC/EUR mb-1" style="font-size: 14px;">LTC/EUR</h5>
-                                                    <p class="text-secondary" style="font-size: 13px;">0.00</p>
+                                                    <p class="text-secondary rate" id="LTCEUR-rate" data-symbol="LTCEUR" style="font-size: 13px;">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div>
-                                                    <p class="price-LTC/EUR">0.00</p>
+                                                    <p class="price-LTCEUR">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div class="text-end">
-                                                    <p class="volume-LTC/EUR">0</p>
+                                                    <p class="volume-LTCEUR">0</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -1450,23 +1496,23 @@
                                         <tr class="LTC/GBP-pair" onclick="changeSymbol('LTCGBP')">
                                             <td class="pt-2">
                                                 <div class="text-dark">
-                                                    <i class="cf cf-ltc position-relative" style="font-size: 40px; bottom: 5px;"></i>
+                                                    <i class="cf cf-ltc position-relative" id="icon-LTCGBP style="font-size: 40px; bottom: 5px;"></i>
                                                 </div>
                                             </td>
                                             <td class="pt-2 text-start ">
                                                 <div>
                                                     <h5 class="pair-name-LTC/GBP mb-1" style="font-size: 14px;">LTC/GBP</h5>
-                                                    <p class="text-secondary" style="font-size: 13px;">0.00</p>
+                                                    <p class="text-secondary rate" id="LTCGBP-rate" data-symbol="LTCGBP" style="font-size: 13px;">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div>
-                                                    <p class="price-LTC/GBP">0.00</p>
+                                                    <p class="price-LTCGBP">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div class="text-end">
-                                                    <p class="volume-LTC/GBP">0</p>
+                                                    <p class="volume-LTCGBP">0</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -1475,23 +1521,23 @@
                                         <tr class="LTC/USD-pair" onclick="changeSymbol('LTCUSD')">
                                             <td class="pt-2">
                                                 <div class="text-warning">
-                                                    <i class="cf cf-ltc position-relative" style="font-size: 40px; bottom: 5px;"></i>
+                                                    <i class="cf cf-ltc position-relative" id="icon-LTCUSD" style="font-size: 40px; bottom: 5px;"></i>
                                                 </div>
                                             </td>
                                             <td class="pt-2 text-start ">
                                                 <div>
                                                     <h5 class="pair-name-LTC/USD mb-1" style="font-size: 14px;">LTC/USD</h5>
-                                                    <p class="text-secondary" style="font-size: 13px;">0.00</p>
+                                                    <p class="text-secondary rate" id="LTCUSD-rate" data-symbol="LTCUSD" style="font-size: 13px;">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div>
-                                                    <p class="price-LTC/USD">0.00</p>
+                                                    <p class="price-LTCUSD">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div class="text-end">
-                                                    <p class="volume-LTC/USD">0</p>
+                                                    <p class="volume-LTCUSD">0</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -1500,23 +1546,23 @@
                                         <tr class="MKR/BTC-pair" onclick="changeSymbol('MKRBTC')">
                                             <td class="pt-2">
                                                 <div class="text-success">
-                                                    <i class="cf cf-mkr position-relative" style="font-size: 40px; bottom: 5px;"></i>
+                                                    <i class="cf cf-mkr position-relative" id="icon-MKRBTC" style="font-size: 40px; bottom: 5px;"></i>
                                                 </div>
                                             </td>
                                             <td class="pt-2 text-start ">
                                                 <div>
                                                     <h5 class="pair-name-MKR/BTC mb-1" style="font-size: 14px;">MKR/BTC</h5>
-                                                    <p class="text-secondary" style="font-size: 13px;">0.00</p>
+                                                    <p class="text-secondary rate" id="MKRBTC-rate" data-symbol="MKRBTC" style="font-size: 13px;">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div>
-                                                    <p class="price-MKR/BTC">0.00</p>
+                                                    <p class="price-MKRBTC">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div class="text-end">
-                                                    <p class="volume-MKR/BTC">0</p>
+                                                    <p class="volume-MKRBTC">0</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -1525,23 +1571,23 @@
                                         <tr class="REP/BTC-pair" onclick="changeSymbol('REPBTC')">
                                             <td class="pt-2">
                                                 <div class="text-danger">
-                                                    <i class="cf cf-rep position-relative" style="font-size: 40px; bottom: 5px;"></i>
+                                                    <i class="cf cf-rep position-relative" id="icon-REPBTC" style="font-size: 40px; bottom: 5px;"></i>
                                                 </div>
                                             </td>
                                             <td class="pt-2 text-start ">
                                                 <div>
                                                     <h5 class="pair-name-REP/BTC mb-1" style="font-size: 14px;">REP/BTC</h5>
-                                                    <p class="text-secondary" style="font-size: 13px;">0.00</p>
+                                                    <p class="text-secondary rate" id="REPBTC-rate" data-symbol="REPBTC" style="font-size: 13px;">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div>
-                                                    <p class="price-REP/BTC">0.00</p>
+                                                    <p class="price-REPBTC">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div class="text-end">
-                                                    <p class="volume-REP/BTC">0</p>
+                                                    <p class="volume-REPBTC">0</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -1550,23 +1596,23 @@
                                         <tr class="REP/USD-pair" onclick="changeSymbol('REPUSD')">
                                             <td class="pt-2">
                                                 <div class="text-success">
-                                                    <i class="cf cf-rep position-relative" style="font-size: 40px; bottom: 5px;"></i>
+                                                    <i class="cf cf-rep position-relative" id="icon-REPUSD" style="font-size: 40px; bottom: 5px;"></i>
                                                 </div>
                                             </td>
                                             <td class="pt-2 text-start ">
                                                 <div>
                                                     <h5 class="pair-name-REP/USD mb-1" style="font-size: 14px;">REP/USD</h5>
-                                                    <p class="text-secondary" style="font-size: 13px;">0.00</p>
+                                                    <p class="text-secondary rate" id="REPUSD-rate" data-symbol="REPUSD" style="font-size: 13px;">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div>
-                                                    <p class="price-REP/USD">0.00</p>
+                                                    <p class="price-REPUSD">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div class="text-end">
-                                                    <p class="volume-REP/USD">0</p>
+                                                    <p class="volume-REPUSD">0</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -1575,23 +1621,23 @@
                                         <tr class="XLM/EUR-pair" onclick="changeSymbol('XLMEUR')">
                                             <td class="pt-2">
                                                 <div class="text-primary">
-                                                    <i class="cf cf-xlm position-relative" style="font-size: 40px; bottom: 5px;"></i>
+                                                    <i class="cf cf-xlm position-relative" id="icon-XLMEUR" style="font-size: 40px; bottom: 5px;"></i>
                                                 </div>
                                             </td>
                                             <td class="pt-2 text-start ">
                                                 <div>
                                                     <h5 class="pair-name-XLM/EUR mb-1" style="font-size: 14px;">XLM/EUR</h5>
-                                                    <p class="text-secondary" style="font-size: 13px;">0.00</p>
+                                                    <p class="text-secondary rate" id="XLMEUR-rate" data-symbol="XLM/EUR" style="font-size: 13px;">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div>
-                                                    <p class="price-XLM/EUR">0.00</p>
+                                                    <p class="price-XLMEUR">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div class="text-end">
-                                                    <p class="volume-XLM/EUR">0</p>
+                                                    <p class="volume-XLMEUR">0</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -1600,23 +1646,23 @@
                                         <tr class="XLM/USD-pair" onclick="changeSymbol('XLMUSD')">
                                             <td class="pt-2">
                                                 <div class="text-success">
-                                                    <i class="cf cf-xlm position-relative" style="font-size: 40px; bottom: 5px;"></i>
+                                                    <i class="cf cf-xlm position-relative" id="icon-XLMUSD" style="font-size: 40px; bottom: 5px;"></i>
                                                 </div>
                                             </td>
                                             <td class="pt-2 text-start ">
                                                 <div>
                                                     <h5 class="pair-name-XLM/USD mb-1" style="font-size: 14px;">XLM/USD</h5>
-                                                    <p class="text-secondary" style="font-size: 13px;">0.00</p>
+                                                    <p class="text-secondary rate" id="XLMUSD-rate" data-symbol="XLMUSD" style="font-size: 13px;">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div>
-                                                    <p class="price-XLM/USD">0.00</p>
+                                                    <p class="price-XLMUSD">0.00</p>
                                                 </div>
                                             </td>
                                             <td class="pt-2">
                                                 <div class="text-end">
-                                                    <p class="volume-XLM/USD">0</p>
+                                                    <p class="volume-XLMUSD">0</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -1633,9 +1679,9 @@
                         <div class="row">
                             <div class="col-auto">
                                 <strong class="selected-pair fw-medium">
-                                    BCH-EUR
+                                    BCHBTC
                                 </strong>
-                                <p class="mt-0 mb-2 selected-change fw-medium">0.00</p>
+                                <p class="mt-0 mb-2 selected-rate w-medium">0.00</p>
                             </div>
                             <div class="col-auto">
                                 <strong class="fw-medium">
@@ -1698,7 +1744,7 @@
                                 <script type="text/javascript">
                                     new TradingView.widget({
                                         autosize: true,
-                                        symbol: 'NASDAQ:AAPL',
+                                        symbol: 'BCHBTC',
                                         interval: 'D',
                                         timezone: 'Etc/UTC',
                                         theme: 'light',
@@ -1727,19 +1773,19 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="d-flex">
-                                            <i class="cf cf-bch me-2" id="trade-pair-icon" style="font-size: 45px;"></i>
+                                            <i class="cf cf-bch me-2" id="pair-icon" style="font-size: 45px; margin-right: 10px;"></i>
                                             <div class="text-start">
-                                                <p class="trade-selected-pair mb-0 fw-medium" style="font-size: 14px;">
+                                                <p class="mb-0 fw-medium" id="pair-name" style="font-size: 14px;">
                                                     BCH-BTC
                                                 </p>
-                                                <p class="selected-change mt-0 mb-2" style="font-size: 14px; color: #7a7a7a;">
+                                                <p class="mt-0 mb-2 selected-rate" style="font-size: 14px; color: #7a7a7a;">
                                                     0.00
                                                 </p>
                                             </div>  
                                         </div>
                                     </div>
                                     <div class="col-6 text-end">
-                                        <p class="selected-pair-price fw-medium mb-0" style="font-size: 14px;">
+                                        <p class="fw-medium mb-0" id="additional-price" style="font-size: 14px;">
                                             0.000.00
                                         </p>
                                         <p class="mt-0" style="font-size: 14px;">Price</p>
@@ -1759,24 +1805,26 @@
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-6">
-                                        <p class="selected-pair-value fw-medium mb-0" style="font-size: 14px;">0.0000BTC</p>
-                                        <p class="pair-value user-currency fw-medium mb-0" style="font-size: 14px;">$NaN</p>
+                                        <p class="selected-pair-value p-value fw-medium mb-0" style="font-size: 14px;">$0.00</p>
+                                        <p class="pair-value p-value user-currency fw-medium mb-0" style="font-size: 14px;">$0.00</p>
                                         <p class="fw-medium mt-0 mb-2" title="Value">Value</p>
                                     </div>
                                     <div class="col-6 text-end">
-                                        <p class="selected-pair-margin fw-medium mb-0" style="font-size: 14px;">0.0000BTC</p>
-                                        <p class="pair-margin user-currency fw-medium mb-0" style="font-size: 14px;">$NaN</p>
-                                        <p class="fw-medium mt-0 mb-2" title="Value">R.margin</p>
+                                        <p class="selected-pair-margin p-value fw-medium mb-0 margin" style="font-size: 14px;">$0.00</p>
+                                        <p class="pair-margin p-value user-currency fw-medium mb-0 margin" style="font-size: 14px;">$0.00</p>
+                                        <p class="fw-medium mt-0 mb-2" title="Value">R. margin</p>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="form-group mt-3">
                                     <input type="checkbox" id="stopLoss">
                                     <label for="stopLoss" class="form-label fw-medium" style="font-size: 14px;">Stop Loss at</label>
+                                    <input type="text" id="stopLossField" class="form-control mt-1 mb-2 d-none" name="stop_loss">
                                 </div>
                                 <div class="form-group">
                                     <input type="checkbox" id="takeProfit">
                                     <label for="takeProfit" class="form-label fw-medium" style="font-size: 14px;">Take Profit at</label>
+                                    <input type="text" id="takeProfitField" class="form-control mt-1 mb-2 d-none" name="take_profit">
                                 </div>
                                 <hr>
                                 <div class="row">
@@ -1791,13 +1839,13 @@
                                 </div>
                                 <div class="row justify-content-center">
                                     <div class="buy-btn col-12 text-center d-none">
-                                        <button class="btn text-white px-5 py-2 btn-block w-xl trade-btn m-1" style="box-shadow: 0px 3px 6px #2ab57d89; background-color: #2ab57d;">
+                                        <button class="btn text-white px-5 py-2 btn-block w-xl trade-btn m-1" style="box-shadow: 0px 3px 6px #2ab57d89; background-color: #2ab57d;" onclick="buy()">
                                                 <i class="bi bi-graph-up-arrow"></i>
                                                 BUY
                                         </button>
                                     </div>
                                     <div class="sell-btn col-12 text-center">
-                                        <button class="btn text-white px-5 py-2 btn-block w-xl trade-btn m-1" style="box-shadow: 0px 3px 6px #fd635eb5; background-color: #fd625e;">
+                                        <button class="btn text-white px-5 py-2 btn-block w-xl trade-btn m-1" style="box-shadow: 0px 3px 6px #fd635eb5; background-color: #fd625e;" onclick="sell()">
                                                 <i class="bi bi-graph-down-arrow"></i>
                                                 SELL    
                                         </button>
@@ -1815,7 +1863,7 @@
                     <div class="card bg-white">
                         <div class="card-header align-items-center d-flex bg-white" style="height: fit-content;">
                             <p class="card-tittle mb-0 flex-grow-1 fw-medium" style="font-size: 16px;">Open Positions</p>
-                            <div class="flex-shrink-0">
+                            <div class="flex-shrink-0 pills-btns">
                                 <ul class="nav nav-pills" id="pills-tab" role="tablist">
                                     <li class="nav-item" role="presentation">
                                       <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Open Positions</button>
@@ -1833,25 +1881,31 @@
                             <div class="tab-content" id="pills-tabContent">
                                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
                                     <div class="table-responsive" style="height: fit-content !important;">
-                                        <table class="table">
+                                        <table class="table position-table">
                                             <thead>
                                               <tr>
                                                 <th scope="col" class="fw-medium">Position ID</th>
                                                 <th scope="col" class="fw-medium">Action</th>
                                                 <th scope="col" class="fw-medium">Assets</th>
                                                 <th scope="col" class="fw-medium">Opening Value</th>
+                                                <th scope="col" class="fw-medium">Current Value</th>
+                                                <th scope="col" class="fw-medium">Quantity</th>
+                                                <th scope="col" class="fw-medium">Required Margin</th>
                                                 <th scope="col" class="fw-medium">Profit/Loss</th>
+                                                <th scope="col" class="fw-medium">Expire Date/Time</th>
                                               </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td colspan="5">
-                                                        <div class="alert alert-outline border-0 fade show px-4 mb-0 text-center bg-white" role="alert" style="color: #5156be !important;">
-                                                            <i class="bi bi-exclamation-triangle d-block display-4 mt-2 mb-3"></i>
-                                                            <h5 class="fs-6">No Opened Positions</h5>
-                                                            <p  style="font-size: 14px;">Your opened positions on your account will be listed here.</p>
-                                                        </div>
-                                                    </td>
+                                                    <td class="positionId">11209</td>
+                                                    <td class="action">jejiedbeubdiwi</td>
+                                                    <td class="assets">BCH/BTC</td>
+                                                    <td class="openingValue">0.2345433</td>
+                                                    <td class="currentValue">1.233321</td>
+                                                    <td class="quantity">12339898</td>
+                                                    <td class="requiredMargin">9090</td>
+                                                    <td class="profitLoss">Profit</td>
+                                                    <td class="ExpireDateTime">13:00</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -1859,7 +1913,7 @@
                                 </div>
                                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
                                     <div class="table-responsive" style="height: fit-content !important;">
-                                        <table class="table">
+                                        <table class="table position-table">
                                             <thead>
                                               <tr>
                                                 <th scope="col" class="fw-medium">Position ID</th>
@@ -1875,13 +1929,15 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td colspan="5">
-                                                        <div class="alert alert-outline border-0 fade show px-4 mb-0 text-center bg-white" role="alert" style="color: #5156be !important;">
-                                                            <i class="bi bi-exclamation-triangle d-block display-4 mt-2 mb-3"></i>
-                                                            <h5 class="fs-6">No Opened Positions</h5>
-                                                            <p  style="font-size: 14px;">Your opened positions on your account will be listed here.</p>
-                                                        </div>
-                                                    </td>
+                                                    <td class="positionId">11209</td>
+                                                    <td class="action">jejiedbeubdiwi</td>
+                                                    <td class="assets">BCH/BTC</td>
+                                                    <td class="openingValue">0.2345433</td>
+                                                    <td class="currentValue">1.233321</td>
+                                                    <td class="quantity">12339898</td>
+                                                    <td class="requiredMargin">9090</td>
+                                                    <td class="profitLoss">Profit</td>
+                                                    <td class="ExpireDateTime">13:00</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -1889,7 +1945,7 @@
                                 </div>
                                 <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
                                     <div class="table-responsive" style="height: fit-content !important;">
-                                        <table class="table">
+                                        <table class="table position-table">
                                             <thead>
                                               <tr>
                                                 <th scope="col" class="fw-medium">Transaction ID</th>
@@ -1900,13 +1956,10 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td colspan="5">
-                                                        <div class="alert alert-outline border-0 fade show px-4 mb-0 text-center bg-white" role="alert" style="color: #5156be !important;">
-                                                            <i class="bi bi-exclamation-triangle d-block display-4 mt-2 mb-3"></i>
-                                                            <h5 class="fs-6">No Recent Earnings</h5>
-                                                            <p  style="font-size: 14px;">No recent earnings from closed postions yet.</p>
-                                                        </div>
-                                                    </td>
+                                                    <td class="transactionId">11209</td>
+                                                    <td class="transactionType">BTC withdrawal</td>
+                                                    <td class="amount">3.02122</td>
+                                                    <td class="date">2/12/2024-1:00</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -1975,8 +2028,37 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
     <script>
+        // loading aniamtion for assets box
+function loadLottieAnimation(animationUrl, containerId) {
+    const container = document.getElementById('assets-loading-container');
+
+    if (!container) {
+        console.error(`Container with id ${containerId} not found.`);
+        return;
+    }
+
+    let animationInstance = null;
+    const animation = lottie.loadAnimation({
+        container: container,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: animationUrl, // Use the passed animationUrl
+    })
+
+    function hideLoadingAnimation() {
+        console.log('hiding assets loader');
+        if (container) {
+            container.style.display = 'none';
+        }
+    }
+    
+    setTimeout(hideLoadingAnimation, 5000);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM fully loaded and parsed');
+    // FIRST LOADER ANIMATION
     // Load the animation JSON
     const animationData = '../static/animations/Animation - 1718757531211.json';
 
@@ -2004,6 +2086,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (loadingContainer) {
             loadingContainer.style.display = 'none';
         }
+
+        console.log("Now initiating loader for assets")
+        loadLottieAnimation("../static/animations/Animation - 1719985786785.json", 'loading-container');
     }
 
     // Hide the loading animation once the page has fully loaded
@@ -2011,6 +2096,28 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(hideLoadingAnimation, 2000); // 2000 milliseconds = 2 seconds
     };
 });
+
+
+// search assets function
+function searchAssets(searchText) {
+  // 1. Get the table body element
+  const tableBody = document.getElementById('asset-list');
+
+  // 2. Get all table rows
+  const rows = tableBody.querySelectorAll('tr');
+
+  // 3. Filter rows based on search text
+  searchText = searchText.toLowerCase(); // Make search case-insensitive
+  for (let i = 0; i < rows.length; i++) {
+    const row = rows[i];
+    const textContent = row.textContent.toLowerCase(); // Make comparison case-insensitive
+    const match = textContent.indexOf(searchText) !== -1; // Check if search text is present in asset name
+
+    // 4. Show or hide rows based on match
+    row.style.display = match ? '' : 'none';
+  }
+}
+
 
 
 function showCheckBox() {
@@ -2143,93 +2250,368 @@ closeSwitchModal.addEventListener('click', () => {
 });
 
 
+
+// Example usage:
+
+
+
+
 // display trading currencies
-function loadTradingViewWidget(symbol) {
-    const script = document.createElement('script');
-    script.src = 'https://s3.tradingview.com/tv.js';
-    script.async = true;
-    script.onload = function() {
-        const widget = new TradingView.widget({
-            autosize: true,
-            symbol: symbol,
-            interval: 'D',
-            timezone: 'Etc/UTC',
-            theme: 'light',
-            style: '1',
-            locale: 'en',
-            hide_side_toolbar: true,
-            allow_symbol_change: true,
-            studies: ['STD;MACD'],
-            container_id: 'tradingview_ae7da',
-            overrides: {
-                "paneProperties.background": "#f5f5f5",
-                "paneProperties.vertGridProperties.color": "#E6E6E6",
-                "paneProperties.horzGridProperties.color": "#E6E6E6",
-                "symbolWatermarkProperties.transparency": 90,
-                "scalesProperties.textColor": "#AAA",
-                "mainSeriesProperties.candleStyle.wickUpColor": '#336854',
-                "mainSeriesProperties.candleStyle.borderUpColor": '#336854',
-                "mainSeriesProperties.candleStyle.wickDownColor": '#7f323f',
-                "mainSeriesProperties.candleStyle.borderDownColor": '#7f323f',
-            }
-        });
+var updates = {};
+var currentSymbol = 'BCHBTC';
+
+var priceSocket = new WebSocket("wss://stream.binance.com:9443/stream?streams=btcusd@avgPrice/bchbtc@avgPrice/bcheur@avgPrice/bchgbp@avgPrice/btceur@avgPrice/btcgbp@avgPrice/btcusdc@avgPrice/eosbtc@avgPrice/eoseur@avgPrice/eosusd@avgPrice/etcbtc@avgPrice/etceur@avgPrice/etcgbp@avgPrice/etcusd@avgPrice/ltcbtc@avgPrice/ltceur@avgPrice/ltcgbp@avgPrice/ltcusd@avgPrice/mkrbtc@avgPrice/repbtc@avgPrice/repusd@avgPrice/xlmeur@avgPrice/xlmusd@avgPrice");
+var volumeSocket = new WebSocket("wss://stream.binance.com:9443/stream?streams=btcusd@kline_1d/bchbtc@kline_1d/bcheur@kline_1d/bchgbp@kline_1d/btceur@kline_1d/btcgbp@kline_1d/btcusdc@kline_1d/eosbtc@kline_1d/eoseur@kline_1d/eosusd@kline_1d/etcbtc@kline_1d/etceur@kline_1d/etcgbp@kline_1d/etcusd@kline_1d/ltcbtc@kline_1d/ltceur@kline_1d/ltcgbp@kline_1d/ltcusd@kline_1d/mkrbtc@kline_1d/repbtc@kline_1d/repusd@kline_1d/xlmeur@kline_1d/xlmusd@kline_1d");
+
+priceSocket.onmessage = function (event) {
+    var data = JSON.parse(event.data);
+    var symbol = data.data.s;
+    var price = data.data.w;
+    if (!updates[symbol]) {
+        updates[symbol] = { price: null, volume: null };
+    }
+    updates[symbol].price = price;
+    updateTable(symbol);
+    updateSelectedPair(symbol);
+};
+
+volumeSocket.onmessage = function (event) {
+    var data = JSON.parse(event.data);
+    var symbol = data.data.s;
+    var volume = data.data.k.v;
+    if (!updates[symbol]) {
+        updates[symbol] = { price: null, volume: null };
+    }
+    updates[symbol].volume = volume;
+    updateTable(symbol);
+    updateSelectedPair(symbol);
+};
+
+function updateTable(symbol) {
+    var update = updates[symbol];
+    var priceElement = document.querySelector('.price-' + symbol);
+    var volumeElement = document.querySelector('.volume-' + symbol);
+
+    if (update.price !== null && priceElement) {
+        priceElement.textContent = update.price;
+    }
+    if (update.volume !== null && volumeElement) {
+        volumeElement.textContent = update.volume;
+    }
+}
+
+function updateSelectedPair(symbol) {
+    if (symbol === currentSymbol) {
+        var info = updates[symbol];
+        if (info) {
+            document.querySelector('.selected-price').textContent = info.price !== null ? info.price : 'N/A';
+            document.querySelector('.selected-volume').textContent = info.volume !== null ? info.volume : 'N/A';
+
+            // Update new elements
+            document.getElementById('pair-name').textContent = formatSymbol(symbol);
+            document.getElementById('pair-icon').className = 'cf cf-' + symbol.toLowerCase();
+            document.getElementById('additional-price').textContent = info.price !== null ? info.price : 'N/A';
+        }
+    }
+}
+
+async function calculateConversion(symbol) {
+    const [coinFrom, coinTo] = symbol.split('/');
+    //console.log("SYMBOL IS ", symbol)
+    console.log("coin from is " + coinFrom + ' coin to is ' + coinTo)
+
+    const apiKey = '89a1720ae940429bd985f4fa4cbce5ee7f0a2ee111cae5ddf5c7cd05ba788a94'; // Replace with your actual API key
+    const url = `https://min-api.cryptocompare.com/data/price?fsym=${coinFrom}&tsyms=${coinTo}&api_key=${apiKey}`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data[coinTo];
+    } catch (error) {
+        console.error('Error fetching CryptoCompare data:', error);
+        return undefined; // Or handle error differently
+    }
+}
+
+function getconversion(symbol) {
+    // Call calculateConversion and handle the Promise
+    return calculateConversion(symbol)
+    .then(data => {
+        if (data) {
+        //const exchangeRate = data[coinTo.value]; // Access conversion rate for selected currency
+        return data
+        // Use the exchangeRate for further calculations or UI updates
+        } else {
+        console.error('Error fetching conversion rate');
+        // Handle error if data is undefined
+        return error
+        }
+    });
+}
+
+async function fetchData(url) {
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data; // Return data if needed
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        return undefined; // Or handle error differently
+    }
+}
+
+
+function updateRates() {
+    // Example: Simulate updating rates for BCHBTC, ETHBTC, etc.
+    var updates = {
+
+        'XLMUSD': { rate: generateRandomRate() },
+        'BCHBTC': { rate: generateRandomRate() },
+        'BTCEUR': { rate: generateRandomRate() },
+        'BCHGBP': { rate: generateRandomRate() },
+        'BTCUSDC': { rate: generateRandomRate() },
+        'BTCEUR': { rate: generateRandomRate() },
+        'BTCGBP': { rate: generateRandomRate() },
+        'EOSBTC': { rate: generateRandomRate() },
+        'EOSEUR': { rate: generateRandomRate() },
+        'EOSUSD': { rate: generateRandomRate() },
+        'ETCBTC': { rate: generateRandomRate() },
+        'ETCEUR': { rate: generateRandomRate() },
+        'ETCGBP': { rate: generateRandomRate() },
+        'ETCUSD': { rate: generateRandomRate() },
+        'LTCBTC': { rate: generateRandomRate() },
+        'LTCEUR': { rate: generateRandomRate() },
+        'LTCGBP': { rate: generateRandomRate() },
+        'LTCUSD': { rate: generateRandomRate() },
+        'MKRBTC': { rate: generateRandomRate() },
+        'REPBTC': { rate: generateRandomRate() },
+        'REPUSD': { rate: generateRandomRate() },
+        'XLMEUR': { rate: generateRandomRate() },
+        'XLMUSD': { rate: generateRandomRate() },
+        // Add more as needed
     };
 
-    document.head.appendChild(script);
+    // Update rate elements based on updates object
+    Object.keys(updates).forEach(symbol => {
+        var priceElement = document.querySelector(`.price-${symbol}`);
+        var rateElement = document.getElementById(`${symbol}-rate`);
+        var priceSymbol = formatSymbol(symbol)
+        const [CoinFrom, CoinTo] = priceSymbol.split('/');
+        
+        const apiKey = '89a1720ae940429bd985f4fa4cbce5ee7f0a2ee111cae5ddf5c7cd05ba788a94'; // Replace with your actual API key
+        const url = `https://min-api.cryptocompare.com/data/price?fsym=${CoinFrom}&tsyms=${CoinTo}&api_key=${apiKey}`;
+
+        fetchData(url).then(data => {
+            // Do something with the data if needed
+            if (data) {
+                priceElement.textContent = data[CoinTo]
+            } else {
+                console.log("No data returned or an error occurred.");
+            }
+        });
+
+        if (rateElement) {
+            var rateInfo = updates[symbol];
+
+            // Update the rate element text
+            rateElement.innerHTML = `${rateInfo.rate} <i class="bi"></i>`;
+
+            // Determine if the rate is increasing or decreasing
+            var isIncreasing = Math.random() >= 0.5;
+
+            // Update the icon and color based on the rate change
+            var iconElement = rateElement.querySelector('i');
+            if (isIncreasing) {
+                iconElement.className = 'bi bi-caret-up-fill';
+                rateElement.classList.remove('text-danger');
+                rateElement.classList.add('text-success');
+            } else {
+                iconElement.className = 'bi bi-caret-down-fill';
+                rateElement.classList.remove('text-success');
+                rateElement.classList.add('text-danger');
+            }
+        }
+    });
 }
 
-// function changeSymbol(symbol) {
-//     console.log(`Changing symbol to: ${symbol}`);
-//     loadTradingViewWidget(symbol);
-// }
+// Example function to generate random rates
+function generateRandomRate() {
+    return (Math.random() * 2).toFixed(2);
+}
+
+// Call updateRates initially
+updateRates();
+
+// Optionally, call updateRates periodically to simulate real-time updates
+setInterval(updateRates, 5000);
 
 
-// display info of each pair on trading view 
-let assetPair = document.querySelector('.selected-pair');
-let change = document.querySelector('.selected-change')
-let high = document.querySelector('.selected-high')
-let low = document.querySelector('.selected-low')
-let volume = document.querySelector('.selected-volume')
+let a_symbol = "";
 
+let currentUpdateInterval = null;
 
-const pairInfo = {
-    XLMUSD: { pair: 'XLM-USD', symbole: 'XLM/USD', price: '0.10', high: '0.02', low: '0.02', volume: '1000', icon: 'cf-xlm me-2'},
-    BTCUSD: { pair: 'BTC-USD', symbole: 'BTC/USD', price: '300', high: '0.09', low: '0.01', volume: '2000' },
-    ETHUSD: { pair: 'ETH-USD', symbole: 'ETH/USD', price: '1800', high: '0.06', low: '0.03', volume: '1500' },
-    // Add more pairs as needed
-};
+async function changeSymbol(symbol) {
+    let quantity = document.getElementById('quantity');
+    let margins = Array.from(document.querySelectorAll('.margin'));
+    let stopLoss = document.getElementById('stopLossField');
+    let takeProfit = document.getElementById('takeProfitField');
+    let pValue = document.querySelectorAll('.p-value')
 
-function changeSymbol(pair) {
-    const info = pairInfo[pair];
-    if (info) {
-        assetPair.textContent = info.pair
-        change.textContent = info.price
-        high.textContent = info.high
-        low.textContent = info.low
-        volume.textContent = info.volume
-        loadTradingViewWidget(info.symbole);
-        
-        const iconElement = document.getElementById('trade-pair-icon');
-        const elementName = document.querySelector('.trade-selected-pair')
-        const elementPrice = document.querySelector('.selected-pair-price')
-        const elementChange = document.querySelector('.selected-change')
-        iconElement.className = info.icon;
-        elementName.textContent = info.pair
-        elementPrice.textContent = info.price
-        elementChange.textContent = info.change
+    quantity.value = ''
+    margins.value = ''
+    stopLoss.value = ''
+    takeProfit.value = ''
+    pValue.forEach(element => {
+        element.textContent = '$0.00'
+    });
 
-    } else {
-        console.log('No information available for this pair.');
+    console.log(`Changing symbol to: ${symbol}`);
+    currentSymbol = symbol;
+    a_symbol = symbol;
+    let SymbolRate = document.getElementById(`${symbol}-rate`);
+    let selectedRate = document.querySelectorAll('.selected-rate');
+
+    // Clear the previous interval if it exists
+    if (currentUpdateInterval) {
+        clearInterval(currentUpdateInterval);
     }
 
-    console.log(assetPair)
-    console.log(pairIcon)
+    // Set up a function to update the selected rate
+    function updateSelectedRate() {
+        if (SymbolRate) {
+            selectedRate.forEach(element => {
+                element.innerHTML = SymbolRate.innerHTML;
+                            // Determine if the rate is increasing or decreasing
+                var isIncreasing = Math.random() >= 0.5;
+
+                // Update the icon and color based on the rate change
+                var iconElement = element.querySelector('i');
+                if (isIncreasing) {
+                    iconElement.className = 'bi bi-caret-up-fill';
+                    element.classList.remove('text-danger');
+                    element.classList.add('text-success');
+                } else {
+                    iconElement.className = 'bi bi-caret-down-fill';
+                    element.classList.remove('text-success');
+                    element.classList.add('text-danger');
+                }
+                });
+        }
+    }
+
+    // Call the update function immediately and then every 3 seconds
+    updateSelectedRate();
+    currentUpdateInterval = setInterval(updateSelectedRate, 2000);
+
+    
+    // Get the information for the selected symbol from the updates object
+    var info = updates[symbol];
+    
+    // If information is available for the selected symbol, update the UI elements
+    if (info) {
+        document.querySelector('.selected-pair').textContent = symbol;
+        document.querySelector('.selected-price').textContent = info.price !== null ? info.price : 'N/A';
+        document.querySelector('.selected-volume').textContent = info.volume !== null ? info.volume : 'N/A';
+
+        // Update additional UI elements
+        document.getElementById('pair-name').textContent = formatSymbol(symbol);
+        var pairIconElement = document.getElementById('pair-icon');
+        var clickedIconElement = document.getElementById('icon-' + symbol);
+        pairIconElement.className = clickedIconElement.className; // Copy class name
+        document.getElementById('additional-price').textContent = info.price !== null ? info.price : 'N/A';
+
+    } else {
+        // If no information is available, set default values
+        document.querySelector('.selected-pair').textContent = symbol;
+        document.querySelector('.selected-price').textContent = 'N/A';
+        document.querySelector('.selected-volume').textContent = 'N/A';
+
+        // Update additional UI elements
+        document.getElementById('pair-name').textContent = formatSymbol(symbol);
+        var pairIconElement = document.getElementById('pair-icon');
+        var clickedIconElement = document.getElementById('icon-' + symbol);
+        pairIconElement.className = clickedIconElement.className; // Copy class name
+        document.getElementById('additional-price').textContent = 'N/A';
+
+    }
+
+
+    // Load the TradingView widget for the selected symbol
+    await loadTradingViewWidget(symbol);
 }
 
-window.onload = function() {
-    loadTradingViewWidget('NASDAQ:AAPL'); // Default symbol
-};
+// Helper function to format the symbol (implement as needed)
+function formatSymbol(symbol) {
+    // Example implementation: return the symbol in uppercase
+    return symbol.toUpperCase();
+}
 
+// Helper function to format the symbol (implement as needed)
+function formatSymbol(symbol) {
+    // Example implementation: return the symbol in uppercase
+    return symbol.toUpperCase();
+}
+
+
+function calculateRequiredMargin(shares, pricePerShare, leverageRatio) {
+    const positionValue = shares * pricePerShare;
+    const requiredMargin = positionValue / leverageRatio;
+    return Math.ceil(requiredMargin * 100) / 100;
+}
+
+const amountquantity = document.getElementById("quantity");
+    amountquantity.addEventListener('input', async function() {
+        try {
+            const exchangeRate = await getconversion(formatSymbol(a_symbol)) // Call the function to update tokens and exchange rate
+            const leverage = 33;
+            const amount = amountquantity.value
+            margin = calculateRequiredMargin(amount, exchangeRate, leverage)
+            ndmarginElement = document.querySelector(".selected-pair-margin")
+            marginElement = document.querySelector(".pair-margin")
+            marginElement.textContent = `$${margin}`
+            ndmarginElement.textContent = `$${margin}`
+            ndvalueElement = document.querySelector(".selected-pair-value")
+            valueElement = document.querySelector(".pair-value")
+            ndvalueElement.textContent = exchangeRate * amount
+            valueElement.textContent = exchangeRate * amount 
+          } catch (error) {
+                console.error("Error updating tokens and exchange rate:", error);
+          }        
+      });
+
+function formatSymbol(symbol) {
+    return symbol.slice(0, symbol.length / 2) + '/' + symbol.slice(symbol.length / 2);
+}
+
+function loadTradingViewWidget(symbol) {
+    const widgetContainer = document.getElementById('tradingview_ae7da');
+    widgetContainer.innerHTML = ''; // Clear previous widget
+
+    new TradingView.widget({
+        autosize: true,
+        symbol: symbol,
+        interval: 'D',
+        timezone: 'Etc/UTC',
+        theme: 'light',
+        style: '1',
+        locale: 'en',
+        hide_side_toolbar: true,
+        allow_symbol_change: true,
+        studies: ['STD;MACD'],
+        container_id: 'tradingview_ae7da',
+        overrides: {
+            "paneProperties.background": "#f5f5f5",
+            "paneProperties.vertGridProperties.color": "#E6E6E6",
+            "paneProperties.horzGridProperties.color": "#E6E6E6",
+            "symbolWatermarkProperties.transparency": 90,
+            "scalesProperties.textColor": "#AAA",
+            "mainSeriesProperties.candleStyle.wickUpColor": '#336854',
+            "mainSeriesProperties.candleStyle.borderUpColor": '#336854',
+            "mainSeriesProperties.candleStyle.wickDownColor": '#7f323f',
+            "mainSeriesProperties.candleStyle.borderDownColor": '#7f323f',
+        }
+    });
+}
 
 
 // open buy/sell box 
@@ -2261,6 +2643,25 @@ function openSellBox(){
     }
 }
 
+
+// handle stop loss and take profit 
+document.getElementById('stopLoss').addEventListener('change', function() {
+        var stopLossField = document.getElementById('stopLossField');
+        if (this.checked) {
+            stopLossField.classList.remove('d-none');
+        } else {
+            stopLossField.classList.add('d-none');
+        }
+    });
+
+document.getElementById('takeProfit').addEventListener('change', function() {
+    var takeProfitField = document.getElementById('takeProfitField');
+    if (this.checked) {
+        takeProfitField.classList.remove('d-none');
+    } else {
+        takeProfitField.classList.add('d-none');
+    }
+});
 
 
 
@@ -2304,6 +2705,37 @@ closeBox.addEventListener('click', () => {
     buySellBox.classList.add('d-none')
     addColClasses(tradeView)
 })
+
+
+// buy/sell logic 
+function buy() {
+    let quantity = document.getElementById('quantity');
+    let margins = Array.from(document.querySelectorAll('.margin'));
+    let stopLoss = document.getElementById('stopLossField');
+    let takeProfit = document.getElementById('takeProfitField');
+
+    console.log('Quantity:', quantity.value);
+    margins.forEach((margin, index) => {
+        console.log(`Margin ${index + 1}:`, margin.innerText);
+    });
+    console.log('Stop Loss:', stopLoss.value);
+    console.log('Take Profit:', takeProfit.value);
+}
+
+function sell() {
+    let quantity = document.getElementById('quantity');
+    let margins = Array.from(document.querySelectorAll('.margin'));
+    let stopLoss = document.getElementById('stopLossField');
+    let takeProfit = document.getElementById('takeProfitField');
+
+    console.log('Quantity:', quantity.value);
+    margins.forEach((margin, index) => {
+        console.log(`Margin ${index + 1}:`, margin.innerText);
+    });
+    console.log('Stop Loss:', stopLoss.value);
+    console.log('Take Profit:', takeProfit.value);
+}
+
 
     </script>
 </body>
