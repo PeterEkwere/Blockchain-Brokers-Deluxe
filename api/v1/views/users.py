@@ -18,6 +18,7 @@ import urllib.request
 import os
 from werkzeug.utils import secure_filename
 from sqlalchemy.exc import NoResultFound
+import random
 
 
 
@@ -556,7 +557,100 @@ def switch():
         print("User was not found")
         
     auth._db.update_user(user.id,  switch_check=switch)
-    
-    
     return jsonify({"ok": "Switch Updated successfully"}), 200
+
+
+def generate_position_id():
+  """Generates a random 5-digit string for position ID."""
+
+  # Ensure the first digit is non-zero for a more natural ID format
+  while True:
+    position_id = str(random.randint(10000, 99999))
+    if position_id[0] != '0':
+      return position_id
+  
+def generate_position_float():
+  """Generates a random float number between 0.1 (inclusive) and 9.99 (inclusive)."""
+
+  # Generate a random float between 0.0 and 9.9
+  random_float = random.uniform(0.0, 9.9)
+
+  # Add 0.1 to ensure the range is between 0.1 and 9.99
+  position_float = random_float + 0.1
+
+  # Round to two decimal places (optional)
+  return round(position_float, 2)
+
+@app_views.route('users/trade/', methods=['POST'])
+def process_trade():
+    data = request.get_json()
+    pair = data['pair']
+    amount = data['amount']
+    stop_loss = data['stopLoss']
+    take_profit = data['takeProfit']
+    action = data['action']
+    Quantity = data['Quantity']
+    expiration_time = data['expirationTime']
     
+    try:
+        if current_user.switch_check == 'demo':
+            current_user.demo_balance -= amount
+            position_id = generate_position_id()    
+            trade_position = {
+            "position_id" : position_id,
+            "action": action,
+            "assets":pair,
+            "opening_value":amount,
+            "current_value": amount + generate_position_float(),
+            "quantity": Quantity,
+            "margin_used":amount,
+            "profit_loss":None,
+            "expiration_date":expiration_time
+            }
+            current_user.demo_open_positions[trade_position['position_id']] = trade_position
+            auth._db.save()
+        else:
+            current_user.live_balance -= amount
+            position_id = generate_position_id()    
+            trade_position = {
+            "position_id" : position_id,
+            "action": action,
+            "assets": pair,
+            "opening_value": amount,
+            "current_value": amount + generate_position_float(),
+            "quantity": Quantity,
+            "margin_used": amount,
+            "profit_loss": None,
+            "expiration_date":expiration_time
+            }
+            current_user.live_open_positions[trade_position['position_id']] = trade_position
+            auth._db.save()
+            
+        return jsonify({'success': trade_position}), 201
+    except Exception as e:
+        print(f'Error placing trade: {e}')
+        return jsonify({'error': 'An error occurred'}), 500
+    
+
+@app_views.route('/users/default', methods=['POST'])
+def default():
+    # Check expired positions and handle them
+    data = request.get_json()
+    if data['name'] == 'Bitcoin Cash':
+        data['name'] = 'Bitcoin_Cash'
+    elif data['name'] == 'Tether USD':
+        data['name'] = 'Tether_USD'
+    
+    auth._db.update_user(current_user.id,   default_wallet=data['name'])
+
+    # Return a response indicating the number of expired positions handled
+    return jsonify({'ok': "Success" })
+    
+    
+@app_views.route('/api/check_expired_positions', methods=['GET'])
+def check_expired_positions():
+    # Check expired positions and handle them
+    expired_positions = current_user.check_expired_positions()
+
+    # Return a response indicating the number of expired positions handled
+    return jsonify({'expired_count': len(expired_positions)})

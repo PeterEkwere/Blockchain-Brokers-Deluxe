@@ -492,11 +492,62 @@
 
                 <!-- Currency-->
                 <div class="currency-box d-flex align-items-center me-2 px-3 py-2">
-                    <i class="cf cf-btc fs-3 currency-coin position-relative me-2" style="color: #f7931a;"></i>
-                    <h3 class="currency-name fs-6 position-relative">
-                        Bitcoin Cash 
-                        <i class="bi bi-chevron-down text-black ms-2 wallet-dropdown-toggler"></i>
-                    </h3>
+                    {% if current_user.default_wallet == 'Bitcoin_Cash' %}
+                        <i class="cf cf-btc fs-3 currency-coin position-relative me-2" style="color: #f7931a;"></i>
+                        <h3 class="currency-name fs-6 position-relative" style="color: #f7931a;">
+                            Bitcoin_Cash 
+                            <i class="bi bi-chevron-down text-black ms-2 wallet-dropdown-toggler"></i>
+                        </h3>
+                    {% elif current_user.default_wallet == 'Ethereum' %}
+                        <i class="cf cf-eth fs-3 currency-coin position-relative me-2" style="color: #74788d;"></i>
+                        <h3 class="currency-name fs-6 position-relative" style="color: #74788d;">
+                            Ethereum 
+                            <i class="bi bi-chevron-down text-black ms-2 wallet-dropdown-toggler" ></i>
+                        </h3>
+                    {% elif current_user.default_wallet == 'Tether_USD' %}
+                        <i class="cf cf-usdt fs-3 currency-coin position-relative me-2" style="color: #2ab57d;"></i>
+                        <h3 class="currency-name fs-6 position-relative" style="color: #2ab57d;">
+                            Tether_USD
+                            <i class="bi bi-chevron-down text-black ms-2 wallet-dropdown-toggler"></i>
+                        </h3>
+                    {% elif current_user.default_wallet == 'Ripple' %}
+                        <i class="cf cf-xrp fs-3 currency-coin position-relative me-2" style="color: #fd625e;"></i>
+                        <h3 class="currency-name fs-6 position-relative" style="color: #fd625e;">
+                            Ripple
+                            <i class="bi bi-chevron-down text-black ms-2 wallet-dropdown-toggler"></i>
+                        </h3>
+                    {% elif current_user.default_wallet == 'Doge' %}
+                        <i class="cf cf-doge fs-3 currency-coin position-relative me-2" style="color: #ffbf53;"></i>
+                        <h3 class="currency-name fs-6 position-relative" style="color: #ffbf53;">
+                            Doge
+                            <i class="bi bi-chevron-down text-black ms-2 wallet-dropdown-toggler"></i>
+                        </h3>
+                    {% elif current_user.default_wallet == 'Solana' %}
+                        <i class="cf cf-sol fs-3 currency-coin position-relative me-2" style="color: #54549c;"></i>
+                        <h3 class="currency-name fs-6 position-relative" style="color: #54549c;">
+                            Solana
+                            <i class="bi bi-chevron-down text-black ms-2 wallet-dropdown-toggler"></i>
+                        </h3>
+                    {% elif current_user.default_wallet == 'Polkadot' %}
+                        <i class="cf cf-dot fs-3 currency-coin position-relative me-2" style="color: #5156be;"></i>
+                        <h3 class="currency-name fs-6 position-relative" style="color: #5156be;">
+                            Polkadot
+                            <i class="bi bi-chevron-down text-black ms-2 wallet-dropdown-toggler"></i>
+                        </h3>
+                    {% elif current_user.default_wallet == 'Bitcoin Cash' %}
+                        <i class="cf cf-bch fs-3 currency-coin position-relative me-2" style="color: #0AC18E;"></i>
+                        <h3 class="currency-name fs-6 position-relative" style="color: #0AC18E;">
+                            Bitcoin Cash
+                            <i class="bi bi-chevron-down text-black ms-2 wallet-dropdown-toggler"></i>
+                        </h3>
+                    {% elif current_user.default_wallet == 'Bitcoin' %}
+                        <i class="cf cf-btc fs-3 currency-coin position-relative me-2" style="color: #f7931a;"></i>
+                        <h3 class="currency-name fs-6 position-relative" style="color: #f7931a;">
+                            Bitcoin
+                            <i class="bi bi-chevron-down text-black ms-2 wallet-dropdown-toggler"></i>
+                        </h3>
+                    {% endif %}
+
 
                     <!--    wallet dropdown -->
                     <div class="wallet-dropdown drop-down dropdown-menu">
@@ -919,12 +970,13 @@
 
 
         <!-- ======================================== FIXED-SIDE-NAV STARTS HERE ===================================== -->
+        {% if current_user.switch_check == 'demo' %}
         <div class="fixed-side-nav position-fixed top-0 start-0 border-end d-flex align-items-center flex-column nav-lg" style="background-color: #fbfaff;">
             <div class="trade-box sidenav-icon-box mb-5">
-                <i class="bi bi-bar-chart fs-4"></i>
-                <div class="icon-dropdown">
-                    <a href="trade.html" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Trade</p></a>
-                </div>
+                    <i class="bi bi-bar-chart fs-4"></i>
+                    <div class="icon-dropdown">
+                        <a href="trade.html" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Trade</p></a>
+                    </div>
             </div>
             <div class="trade-box sidenav-icon-box mb-5">
                 <i class="bi bi-radar fs-4"></i>
@@ -938,31 +990,6 @@
                 </div>
             </div>
             <div class="trade-box sidenav-icon-box mb-5">
-                <i class="bi bi-wallet2 fs-4"></i>
-                <div class="icon-dropdown">
-                    <p class="drop-header px-3 py-2">Manage Funds</p>
-                    <div class="w-100">
-                       <a href="{{ url_for('app_views.wallets') }}" class="text-decoration-none text-black"><p class="drop-list">Wallets</p></a> 
-                        <a href="{{ url_for('app_views.swap_assets') }}" class="text-decoration-none text-black"><p class="drop-list">Swap assets</p></a>
-                        <a href="{{ url_for('app_views.swap_history') }}" class="text-decoration-none text-black"><p class="drop-list">Swap history</p></a>
-                        <a href="{{ url_for('app_views.deposit_logs') }}" class="text-decoration-none text-black"><p class="drop-list">Deposit log</p></a>
-                        <a href="{{ url_for('app_views.withdrawal_logs') }}" class="text-decoration-none text-black"><p class="drop-list">Withdrawal log</p></a>
-                    </div>
-                </div>
-            </div>
-            <div class="trade-box sidenav-icon-box mb-5">
-                <i class="bi bi-graph-up-arrow fs-4"></i>
-                <div class="icon-dropdown">
-                    <a href="{{ url_for('app_views.auto_trade') }}" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Auto Trader</p></a>
-                </div>
-            </div>
-            <div class="trade-box sidenav-icon-box mb-5">
-                <i class="bi bi-safe2 fs-4"></i>
-                <div class="icon-dropdown">
-                    <a href="{{ url_for('app_views.account_types') }}" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Account Types</p></a>
-                </div>
-            </div>
-            <div class="trade-box sidenav-icon-box mb-5">
                 <i class="bi bi-person fs-4"></i>
                 <div class="icon-dropdown">
                     <p class="drop-header px-3 py-2">Profile</p>
@@ -973,6 +1000,62 @@
                 </div>
             </div>
         </div>
+        {% else %}
+            <div class="fixed-side-nav position-fixed top-0 start-0 border-end d-flex align-items-center flex-column nav-lg" style="background-color: #fbfaff;">
+                <div class="trade-box sidenav-icon-box mb-5">
+                    <i class="bi bi-bar-chart fs-4"></i>
+                    <div class="icon-dropdown">
+                        <a href="trade.html" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Trade</p></a>
+                    </div>
+                </div>
+                <div class="trade-box sidenav-icon-box mb-5">
+                    <i class="bi bi-radar fs-4"></i>
+                    <div class="icon-dropdown">
+                        <p class="drop-header px-3 py-2">Positions</p>
+                        <div class="w-100">
+                            <a href="closed_positions.html" class="text-decoration-none text-black"><p class="drop-list">Open Positons</p></a>
+                            <a href="closed_positions.html" class="text-decoration-none text-black"><p class="drop-list">Closed Positons</p></a> 
+                            <a href="earnings.html" class="text-decoration-none text-black"><p class="drop-list">Earnings</p></a> 
+                        </div>
+                    </div>
+                </div>
+                <div class="trade-box sidenav-icon-box mb-5">
+                    <i class="bi bi-wallet2 fs-4"></i>
+                    <div class="icon-dropdown">
+                        <p class="drop-header px-3 py-2">Manage Funds</p>
+                        <div class="w-100">
+                        <a href="{{ url_for('app_views.wallets') }}" class="text-decoration-none text-black"><p class="drop-list">Wallets</p></a> 
+                            <a href="{{ url_for('app_views.swap_assets') }}" class="text-decoration-none text-black"><p class="drop-list">Swap assets</p></a>
+                            <a href="{{ url_for('app_views.swap_history') }}" class="text-decoration-none text-black"><p class="drop-list">Swap history</p></a>
+                            <a href="{{ url_for('app_views.deposit_logs') }}" class="text-decoration-none text-black"><p class="drop-list">Deposit log</p></a>
+                            <a href="{{ url_for('app_views.withdrawal_logs') }}" class="text-decoration-none text-black"><p class="drop-list">Withdrawal log</p></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="trade-box sidenav-icon-box mb-5">
+                    <i class="bi bi-graph-up-arrow fs-4"></i>
+                    <div class="icon-dropdown">
+                        <a href="{{ url_for('app_views.auto_trade') }}" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Auto Trader</p></a>
+                    </div>
+                </div>
+                <div class="trade-box sidenav-icon-box mb-5">
+                    <i class="bi bi-safe2 fs-4"></i>
+                    <div class="icon-dropdown">
+                        <a href="{{ url_for('app_views.account_types') }}" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Account Types</p></a>
+                    </div>
+                </div>
+                <div class="trade-box sidenav-icon-box mb-5">
+                    <i class="bi bi-person fs-4"></i>
+                    <div class="icon-dropdown">
+                        <p class="drop-header px-3 py-2">Profile</p>
+                        <div class="w-100">
+                            <a href="{{ url_for('app_views.profile') }}" class="text-decoration-none text-black"><p class="drop-list">Edit Profile</p></a>
+                            <a href="{{ url_for('app_views.onboard') }}" class="text-decoration-none text-black"><p class="drop-list">Verify Id</p> </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
 
         <!-- ========================================== PAGE MAIN SECTION ( AUTO TRADER ) ====================================-->
         <div class="container-fluid auto-trade-box">
@@ -1281,6 +1364,23 @@ myModal.addEventListener('shown.bs.modal', () => {
             defaultCurrencyLogo.style.color = backgroundColor;
             defaultCurrencyName.textContent = newCurrencyName;
             defaultCurrencyLogo.className =  defaultCurrencyLogo.className.replace(/cf-[\w]+/, `cf-${currencyCode}`);
+
+
+            try {
+                const response = fetch('/api/v1/users/default', {
+                method: 'POST',
+                headers: {
+                        'Content-Type': 'application/json', // Specify JSON body
+                    },
+                    body: JSON.stringify({ name: newCurrencyName }), // Send new switch state in body
+                });
+        
+                if (!response.ok) {
+                    throw new Error(`Error: ${response.statusText}`); // Handle non-2xx responses
+                }
+            } catch (error) {
+                console.error('Error sending switch request:', error);
+            }
             
         });
     });
