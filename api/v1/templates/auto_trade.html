@@ -968,12 +968,13 @@
 
 
         <!-- ======================================== FIXED-SIDE-NAV STARTS HERE ===================================== -->
+        {% if current_user.switch_check == 'demo' %}
         <div class="fixed-side-nav position-fixed top-0 start-0 border-end d-flex align-items-center flex-column nav-lg" style="background-color: #fbfaff;">
             <div class="trade-box sidenav-icon-box mb-5">
-                <i class="bi bi-bar-chart fs-4"></i>
-                <div class="icon-dropdown">
-                    <a href="trade.html" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Trade</p></a>
-                </div>
+                    <i class="bi bi-bar-chart fs-4"></i>
+                    <div class="icon-dropdown">
+                        <a href="trade.html" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Trade</p></a>
+                    </div>
             </div>
             <div class="trade-box sidenav-icon-box mb-5">
                 <i class="bi bi-radar fs-4"></i>
@@ -987,31 +988,6 @@
                 </div>
             </div>
             <div class="trade-box sidenav-icon-box mb-5">
-                <i class="bi bi-wallet2 fs-4"></i>
-                <div class="icon-dropdown">
-                    <p class="drop-header px-3 py-2">Manage Funds</p>
-                    <div class="w-100">
-                       <a href="{{ url_for('app_views.wallets') }}" class="text-decoration-none text-black"><p class="drop-list">Wallets</p></a> 
-                        <a href="{{ url_for('app_views.swap_assets') }}" class="text-decoration-none text-black"><p class="drop-list">Swap assets</p></a>
-                        <a href="{{ url_for('app_views.swap_history') }}" class="text-decoration-none text-black"><p class="drop-list">Swap history</p></a>
-                        <a href="{{ url_for('app_views.deposit_logs') }}" class="text-decoration-none text-black"><p class="drop-list">Deposit log</p></a>
-                        <a href="{{ url_for('app_views.withdrawal_logs') }}" class="text-decoration-none text-black"><p class="drop-list">Withdrawal log</p></a>
-                    </div>
-                </div>
-            </div>
-            <div class="trade-box sidenav-icon-box mb-5">
-                <i class="bi bi-graph-up-arrow fs-4"></i>
-                <div class="icon-dropdown">
-                    <a href="{{ url_for('app_views.auto_trade') }}" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Auto Trader</p></a>
-                </div>
-            </div>
-            <div class="trade-box sidenav-icon-box mb-5">
-                <i class="bi bi-safe2 fs-4"></i>
-                <div class="icon-dropdown">
-                    <a href="{{ url_for('app_views.account_types') }}" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Account Types</p></a>
-                </div>
-            </div>
-            <div class="trade-box sidenav-icon-box mb-5">
                 <i class="bi bi-person fs-4"></i>
                 <div class="icon-dropdown">
                     <p class="drop-header px-3 py-2">Profile</p>
@@ -1022,6 +998,62 @@
                 </div>
             </div>
         </div>
+        {% else %}
+            <div class="fixed-side-nav position-fixed top-0 start-0 border-end d-flex align-items-center flex-column nav-lg" style="background-color: #fbfaff;">
+                <div class="trade-box sidenav-icon-box mb-5">
+                    <i class="bi bi-bar-chart fs-4"></i>
+                    <div class="icon-dropdown">
+                        <a href="trade.html" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Trade</p></a>
+                    </div>
+                </div>
+                <div class="trade-box sidenav-icon-box mb-5">
+                    <i class="bi bi-radar fs-4"></i>
+                    <div class="icon-dropdown">
+                        <p class="drop-header px-3 py-2">Positions</p>
+                        <div class="w-100">
+                            <a href="closed_positions.html" class="text-decoration-none text-black"><p class="drop-list">Open Positons</p></a>
+                            <a href="closed_positions.html" class="text-decoration-none text-black"><p class="drop-list">Closed Positons</p></a> 
+                            <a href="earnings.html" class="text-decoration-none text-black"><p class="drop-list">Earnings</p></a> 
+                        </div>
+                    </div>
+                </div>
+                <div class="trade-box sidenav-icon-box mb-5">
+                    <i class="bi bi-wallet2 fs-4"></i>
+                    <div class="icon-dropdown">
+                        <p class="drop-header px-3 py-2">Manage Funds</p>
+                        <div class="w-100">
+                        <a href="{{ url_for('app_views.wallets') }}" class="text-decoration-none text-black"><p class="drop-list">Wallets</p></a> 
+                            <a href="{{ url_for('app_views.swap_assets') }}" class="text-decoration-none text-black"><p class="drop-list">Swap assets</p></a>
+                            <a href="{{ url_for('app_views.swap_history') }}" class="text-decoration-none text-black"><p class="drop-list">Swap history</p></a>
+                            <a href="{{ url_for('app_views.deposit_logs') }}" class="text-decoration-none text-black"><p class="drop-list">Deposit log</p></a>
+                            <a href="{{ url_for('app_views.withdrawal_logs') }}" class="text-decoration-none text-black"><p class="drop-list">Withdrawal log</p></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="trade-box sidenav-icon-box mb-5">
+                    <i class="bi bi-graph-up-arrow fs-4"></i>
+                    <div class="icon-dropdown">
+                        <a href="{{ url_for('app_views.auto_trade') }}" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Auto Trader</p></a>
+                    </div>
+                </div>
+                <div class="trade-box sidenav-icon-box mb-5">
+                    <i class="bi bi-safe2 fs-4"></i>
+                    <div class="icon-dropdown">
+                        <a href="{{ url_for('app_views.account_types') }}" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Account Types</p></a>
+                    </div>
+                </div>
+                <div class="trade-box sidenav-icon-box mb-5">
+                    <i class="bi bi-person fs-4"></i>
+                    <div class="icon-dropdown">
+                        <p class="drop-header px-3 py-2">Profile</p>
+                        <div class="w-100">
+                            <a href="{{ url_for('app_views.profile') }}" class="text-decoration-none text-black"><p class="drop-list">Edit Profile</p></a>
+                            <a href="{{ url_for('app_views.onboard') }}" class="text-decoration-none text-black"><p class="drop-list">Verify Id</p> </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
 
         <!-- ========================================== PAGE MAIN SECTION ( AUTO TRADER ) ====================================-->
         <div class="container-fluid auto-trade-box">
