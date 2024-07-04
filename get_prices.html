@@ -8,6 +8,7 @@
         aiit
         <script>
             var updates = {};
+
             var priceSocket = new WebSocket("wss://stream.binance.com:9443/stream?streams=btcusd@avgPrice/bchbtc@avgPrice/bcheur@avgPrice/bchgbp@avgPrice/btceur@avgPrice/btcgbp@avgPrice/btcusdc@avgPrice/eosbtc@avgPrice/eoseur@avgPrice/eosusd@avgPrice/etcbtc@avgPrice/etceur@avgPrice/etcgbp@avgPrice/etcusd@avgPrice/ltcbtc@avgPrice/ltceur@avgPrice/ltcgbp@avgPrice/ltcusd@avgPrice/mkrbtc@avgPrice/repbtc@avgPrice/repusd@avgPrice/xlmeur@avgPrice/xlmusd@avgPrice");
             var volumeSocket = new WebSocket("wss://stream.binance.com:9443/stream?streams=btcusd@kline_1d/bchbtc@kline_1d/bcheur@kline_1d/bchgbp@kline_1d/btceur@kline_1d/btcgbp@kline_1d/btcusdc@kline_1d/eosbtc@kline_1d/eoseur@kline_1d/eosusd@kline_1d/etcbtc@kline_1d/etceur@kline_1d/etcgbp@kline_1d/etcusd@kline_1d/ltcbtc@kline_1d/ltceur@kline_1d/ltcgbp@kline_1d/ltcusd@kline_1d/mkrbtc@kline_1d/repbtc@kline_1d/repusd@kline_1d/xlmeur@kline_1d/xlmusd@kline_1d");
             
