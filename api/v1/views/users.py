@@ -20,6 +20,7 @@ from werkzeug.utils import secure_filename
 from sqlalchemy.exc import NoResultFound
 import random
 import json
+from uuid import uuid1
 
 
 
@@ -208,6 +209,13 @@ def convert():
     to_currency = data["to_currency"]
     amount = data["amount"]
     addtocurrency = data["addtocurrency"]
+    swap_detail = {
+                    "Transaction_ID" : uuid1(),
+                    "Details": f"Convert {from_currency} -> {to_currency}",
+                    "Transaction Type" : "Convertion",
+                    "Amount": amount,
+                    "Date": datetime.now(),
+                    }
     switch_check = current_user.switch_check
     demo_user_balance = {
             "BUSD": user.demo_balance,
@@ -279,12 +287,22 @@ def convert():
     
     try:
         if switch_check == 'demo':
+            if current_user.demo_swap_history == None:
+                current_user.demo_swap_history = {}
+            swap_history = current_user.demo_swap_history
+            swap_history[swap_detail["Transaction_ID"]] = swap_detail
+            auth._db.update_user(current_user.id,  demo_swap_history=swap_detail)
             sub_currency = demo_user_balance[from_currency] - amount
             add_currency = demo_user_balance[to_currency] + addtocurrency
             setattr(user, demo_attr[from_currency], sub_currency)
             setattr(user, demo_attr[to_currency], add_currency)
             auth._db.save()
         elif switch_check == 'live':
+            if current_user.live_swap_history == None:
+                current_user.live_swap_history = {}
+            swap_history = current_user.live_swap_history
+            swap_history[swap_detail["Transaction_ID"]] = swap_detail
+            auth._db.update_user(current_user.id,  live_swap_history=swap_detail)
             sub_currency = live_user_balance[from_currency] - amount
             add_currency = live_user_balance[to_currency] + addtocurrency
             setattr(user, live_attr[from_currency], sub_currency)
@@ -705,7 +723,6 @@ def check_expired_positions():
         if open_positions == None:
             open_positions = {}
         for id, position in open_positions.items():
-            print(f"position Expiration time is {position['expiration_date']}")
             if 'AM' in position['expiration_date']:
                 if position['expiration_date'][:2] == '12':
                     position['expiration_date'] = position['expiration_date'].replace('12', '00')

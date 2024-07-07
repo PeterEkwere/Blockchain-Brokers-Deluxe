@@ -69,6 +69,10 @@ class User(Base, UserMixin, BaseModel):
     live_open_positions = Column(MutableDict.as_mutable(JSON), nullable=True)  # Store open positions as a JSON list
     live_closed_positions = Column(MutableDict.as_mutable(JSON), nullable=True)  # Store closed positions as a JSON list
     live_earnings = Column(MutableDict.as_mutable(JSON), nullable=True)
+    live_swap_history = Column(MutableDict.as_mutable(JSON), nullable=True)
+    demo_swap_history = Column(MutableDict.as_mutable(JSON), nullable=True)
+    live_deposit_logs = Column(MutableDict.as_mutable(JSON), nullable=True)
+    demo_deposit_logs = Column(MutableDict.as_mutable(JSON), nullable=True)
     kyc_data = Column(JSON, nullable=True)
     payment_proof = Column(JSON, nullable=True)
     is_kyc_approved = Column(Boolean, nullable=True, default=False)

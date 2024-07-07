@@ -943,13 +943,13 @@
                         </div>
                         <div>
                             {% if current_user.switch_check == 'demo' %}
-                                <a href="#" class="dropdown-item profile-item switch-demo-live">
+                                <a href="{{ url_for('app_views.trade') }}" class="dropdown-item profile-item switch-demo-live">
                                     <i class="bi bi-toggle-on me-1"></i>
                                     <i class="bi bi-toggle-off me-1 d-none"></i>
                                     Switch : <span class="demo-live">Demo</span>
                                 </a>
                             {% else %}
-                                <a href="#" class="dropdown-item profile-item switch-demo-live">
+                                <a href="{{ url_for('app_views.trade') }}" class="dropdown-item profile-item switch-demo-live">
                                     <i class="bi bi-toggle-on me-1 d-none"></i>
                                     <i class="bi bi-toggle-off me-1"></i>
                                     Switch : <span class="demo-live">Live</span>
