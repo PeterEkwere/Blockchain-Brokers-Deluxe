@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/monzanifabio/cryptofont/cryptofont.css">
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
     <title>Verify ID - delux4.com</title>
 </head>
@@ -515,6 +517,33 @@
     /* th{
         min-width: 150px;
     } */
+
+    .buy-sell-modal-overlay{
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        overflow: hidden;
+        background-color: #00000054;
+        z-index: 100000000;
+        
+    }
+
+    .buy-sell-modal{
+        background: #fff;
+        padding: 40px;
+        border-radius: 10px !important;
+    }
+
+    #animation-box{
+        width: 200px !important;
+        height: 200px !important;
+    }
 
     td{
         font-size: 15px !important;
@@ -1995,14 +2024,22 @@
                                 <div class="row justify-content-center">
                                     <div class="buy-btn col-12 text-center d-none">
                                         <button class="btn text-white px-5 py-2 btn-block w-xl trade-btn m-1" style="box-shadow: 0px 3px 6px #2ab57d89; background-color: #2ab57d;" onclick="buy()">
-                                                <i class="bi bi-graph-up-arrow"></i>
-                                                BUY
+                                                <span class="loading-is-visible">
+                                                   <i class="bi bi-graph-up-arrow"></i>
+                                                    BUY 
+                                                </span>
+                                                <div class="spinner-border spinner-border-sm loading d-none" role="status">
+                                                </div>
                                         </button>
                                     </div>
                                     <div class="sell-btn col-12 text-center">
                                         <button class="btn text-white px-5 py-2 btn-block w-xl trade-btn m-1" style="box-shadow: 0px 3px 6px #fd635eb5; background-color: #fd625e;" onclick="sell()">
+                                            <span class="loading-is-visible">
                                                 <i class="bi bi-graph-down-arrow"></i>
-                                                SELL    
+                                                 SELL
+                                             </span>
+                                             <div class="spinner-border spinner-border-sm loading" role="status">
+                                             </div>   
                                         </button>
                                     </div>
                                     <p class="fw-medium text-center mt-3" style="font-size: 12px;">This position wil be closed in 7 days</p>
@@ -2207,9 +2244,27 @@
                     </div>
                 </div>
             </div>
+
+
+            <!-- buy/sell modal -->
+            <div class="buy-sell-modal-overlay" style="display: none !important;">
+                <div class="buy-sell-modal text-center" style="width: 500px;">
+                    <div class="modal-header mb-4 p-0 d-flex justify-content-center">
+                        <div id="animation-box" style="width: 200px; height: 200px;"></div>
+                    </div>
+                    <div class="pricing-modal-body mb-4">
+                        <div class="modal-title fw-medium fs-3 mb-2" style="opacity: 0.8;">ERRORS</div>
+                        <div>
+                            <p class="switch-modal-text " style="font-size: 18px; color: #6d6d6d;">Enter a valid amount contracts</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer pt-2">
+                        <button class="btn border-0 bg-info text-white px-4 py-2 close-switch-modal" style="border-radius: 2px;">close</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
 
     <!-- check animation -->
     <div class="check-animation-container">
@@ -3091,6 +3146,22 @@ function sell() {
         // Handle errors (e.g., display error message to user)
     }
 }
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const tradeBtns = document.querySelectorAll('.trade-btn');
+    tradeBtns.forEach(btn => {
+        btn.onclick = function() {
+        Swal.fire({
+            icon: "success",
+            title: "DONE",
+            text: "Position has been opened.",
+        });
+        };
+    });
+});
+
+
 
 
     </script>
