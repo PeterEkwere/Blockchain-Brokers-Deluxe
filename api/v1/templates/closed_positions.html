@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/monzanifabio/cryptofont/cryptofont.css">
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
     <title>Verify ID - delux4.com</title>
 </head>
@@ -277,6 +278,7 @@
         opacity: 0.4;
     }
 
+    
     @media (max-width: 991.98px) { 
         .balance-lg{
             display: none !important;
@@ -381,6 +383,7 @@
         vertical-align: middle;
         display: flex;
         align-items: center;
+        cursor: pointer;
     }
 
     .drop-list:hover{
@@ -397,36 +400,51 @@
 
 
 
-    /* ================== DEOPOSIT LOGS STYLES ================= */
-    .history-container{
-        margin-left: 100px;
-        width: 92% !important;
-        margin-top: 40px !important;
+
+
+
+/* open positions box */
+
+
+.positions-container{
+    margin-left: 100px;
+    width: 92% !important;
+    margin-top: 40px !important;
+}
+
+td{
+    font-size: 15px !important;
+    opacity: 0.8;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 500 !important;
+    padding-top: 20px !important;
+}
+
+.card{
+    border-radius: 0px !important;
+}
+
+.card-body{
+    padding: 10px !important;
+}
+
+
+
+@media (max-width: 991.98px){
+    .positions-container{
+        margin-left: 0px !important;
+        width: 100% !important;
     }
 
-    .card{
-        border-radius: 0px !important;
-    }
+    th{
+    min-width: 150px !important;
+    }   
 
-    .card-body{
-        padding: 10px !important;
-    }
+}
 
 
-    @media (max-width: 991.98px){
-        .history-container{
-            margin-left: 0px !important;
-            width: 100% !important;
-        }
+/* positions box end here */
 
-        .alert-box{
-            column-span: 3 !important;
-        }
-
-        th{
-            min-width: 200px !important;
-        }
-    }
 
 
 
@@ -461,26 +479,63 @@
         position: fixed;
         width: 100%;
         height: 100%;
-        background: white;
+        background: #fff;
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 999999999;
     }
-   
+
+    .check-animation-container{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        visibility: hidden;
+        justify-content: center;
+        align-items: center;
+        z-index: 999999999;
+        overflow: hidden !important;
+        transition: 0.3s all;
+    }
+
+    .check-animation-container.active{
+        visibility: visible;
+    }
+
+    .check-animation-box{
+        width: 350px;
+        height: 300px;
+        background-color: #fff;
+        border-radius: 5px;
+        top: 0;
+        opacity: 0;
+        margin-top: 20px;
+        transition: 0.3s;
+    }
+
+    .check-animation-box.active{
+        opacity: 1;
+        margin-top: 0;
+    }
+
 </style>
 <body>
-   
     <!-- loading animation -->
     <div id="loading-container">
         <div id="lottie-container" style="width: 200px; height: 200px;"></div>
-    </div>
+     </div>
     <!-- ====================================== MAIN PAGE ============================== -->
     <div class="main">
         <!-- ================================== HEADER STARTS HERE ====================================== -->
         <div class="header container-fluid p-0 mx-0 border-bottom d-flex justify-content-between fixed-top bg-white">
 
             <!-- ============================== HEADER LEFT ========================================  -->
+
+            <!-- Logo and balance container -->
 
             <div class="logo-balance d-flex">
 
@@ -1020,85 +1075,106 @@
             </div>
         {% endif %}
 
-        <!-- ========================================== PAGE MAIN SECTION ( DEPOSIT LOGS ) ====================================-->
-        <div class="history-container container-fluid">
-            <div class="row justify-content-center">
-                <div class="col-12 col-md-12 col-sm-12">
-                    <div class="card p-2">
-                        <div class="card-header bg-white pb-3">
-                            <h4 class="fs-4">Latest Deposits</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                      <tr>
-                                        <th scope="col" class="fw-normal">S/N</th>
-                                        <th scope="col" class="fw-normal">Transactions</th>
-                                        <th scope="col" class="fw-normal">Wallets</th>
-                                        <th scope="col" class="fw-normal">Amount Deposited</th>
-                                        <th scope="col" class="fw-normal">Value when deposited</th>
-                                        <th scope="col" class="fw-normal">Current value</th>
-                                        <th scope="col" class="fw-normal">Deposit status</th>
-                                        <th scope="col" class="fw-normal">Date</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="pt-3 alert-box" id="colspan-cell">
-                                                <div class="alert alert-info alert-outline border-0 fade show px-4 mb-0 text-center bg-white" role="alert">
-                                                    <i class="bi bi-exclamation-triangle d-block display-4 mt-2 mb-3 text-info"></i>
-                                                    <h5 class="text-info fs-6">You dont have any deposit history</h5>
-                                                    <p class="text-info" style="font-size: 14px;">Your deposit history on your account will be displayed here.</p>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+
+
+
+    <!-- MAIN PAGE STARTS HERE -->
+    <div class="positions-container container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-12 col-sm-12">
+                <div class="card p-2">
+                    <div class="card-header bg-white">
+                        <h4 style="font-size: 24px;">Closed Positions</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="fw-medium">Position ID</th>
+                                        <th scope="col" class="fw-medium">Action</th>
+                                        <th scope="col" class="fw-medium">Assets</th>
+                                        <th scope="col" class="fw-medium">Opening Value</th>
+                                        <th scope="col" class="fw-medium">CLosing Value</th>
+                                        <th scope="col" class="fw-medium">Quantity</th>
+                                        <th scope="col" class="fw-medium">Margin Used</th>
+                                        <th scope="col" class="fw-medium">Profit/Loss</th>
+                                        <th scope="col" class="fw-medium">Date/Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        {% if current_user.switch_check == 'demo' %}
+                                        {% if current_user.demo_closed_positions %}
+                                            {% for position_id, position in current_user.demo_closed_positions.items() %}
+                                            <tr>
+                                                <td class="positionId">{{ position_id }}</td>
+                                                <td class="action">{{ position['action'] }}</td>
+                                                <td class="assets">{{ position['assets'] }}</td>
+                                                <td class="openingValue">{{ position["opening_value"] }}</td>
+                                                <td class="currentValue">{{ position["current_value"] }}</td>
+                                                <td class="quantity">{{ position["quantity"] }}</td>
+                                                <td class="requiredMargin">{{ position["margin_used"] }}</td>
+                                                <td class="profitLoss">{{ position["profit_loss"] }}</td>
+                                                <td class="ExpireDateTime">{{ position["expiration_date"] }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% else %}
+                                            {% for position_id, position in current_user.live_closed_positions.items() %}
+                                            <tr>
+                                                <td class="positionId">{{ position_id }}</td>
+                                                <td class="action">{{ position['action'] }}</td>
+                                                <td class="assets">{{ position['assets'] }}</td>
+                                                <td class="openingValue">{{ position["opening_value"] }}</td>
+                                                <td class="currentValue">{{ position["current_value"] }}</td>
+                                                <td class="quantity">{{ position["quantity"] }}</td>
+                                                <td class="requiredMargin">{{ position["margin_used"] }}</td>
+                                                <td class="profitLoss">{{ position["profit_loss"] }}</td>
+                                                <td class="ExpireDateTime">{{ position["expiration_date"] }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                    {% endif %}
+                                </tbody>
+                              </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <!-- MAIN PAGE ENDS HERE -->
 
-        <!-- switch demo and live modal -->
-        <div class="switch-modal-overlay">
-            <div class="switch-modal text-center" style="width: 500px;">
-                <div class="modal-header mb-4">
-                    <i class="bi bi-exclamation-triangle mx-auto modal-icon"></i>
-                </div>
-                <div class="pricing-modal-body mb-4">
-                    <div class="modal-title fw-medium fs-5 mb-2">Info !</div>
-                    <div>
-                        <p class="switch-modal-text"></p>
+            <!-- switch demo and live modal -->
+            <div class="switch-modal-overlay">
+                <div class="switch-modal text-center" style="width: 500px;">
+                    <div class="modal-header mb-4">
+                        <i class="bi bi-exclamation-triangle mx-auto modal-icon"></i>
+                    </div>
+                    <div class="pricing-modal-body mb-4">
+                        <div class="modal-title fw-medium fs-5 mb-2">Info !</div>
+                        <div>
+                            <p class="switch-modal-text"></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer pt-2">
+                        <button class="btn border-0 bg-info text-white px-4 py-2 close-switch-modal" style="border-radius: 2px;">close</button>
                     </div>
                 </div>
-                <div class="modal-footer pt-2">
-                    <button class="btn border-0 bg-info text-white px-4 py-2 close-switch-modal" style="border-radius: 2px;">close</button>
-                </div>
             </div>
         </div>
-        
-        <!-- ========================================== PAGE MAIN SECTION ENDS HERE ( DEPOSIT LOGS ) ====================================-->
-    
-    
-    
-        <!-- =========================================== MAIN ENDS HERE====================================== -->
+    </div>
 
-
-
-    <!-- ========================================== FOOTER STARTS HERE ==================================== -->
-    <footer class="d-flex justify-content-between p-3" style="background-color: #fbfaff; margin-left: 80px;">
-        <div class="container-fluid">
-            <div class="d-flex justify-content-between">
-                <div class="col-sm-3">2024 Delux4</div>
-                <div class="col-sm-3">
-                    <p>All Rights Reserved</p>
-                </div>
+<!-- ========================================== FOOTER STARTS HERE ==================================== -->
+<footer class="d-flex justify-content-between p-3" style="background-color: #fbfaff; margin-left: 80px;">
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between">
+            <div class="col-sm-3">2024 Delux4</div>
+            <div class="col-sm-3">
+                <p>All Rights Reserved</p>
             </div>
         </div>
-    </footer>
+    </div>
+</footer>
 
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
@@ -1121,49 +1197,102 @@
     <script type="text/javascript" 
     src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
-    <script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
+<script>
+    // loading aniamtion for assets box
+function loadLottieAnimation(animationUrl, containerId) {
+const container = document.getElementById('assets-loading-container');
+
+if (!container) {
+    console.error(`Container with id ${containerId} not found.`);
+    return;
+}
+
+let animationInstance = null;
+const animation = lottie.loadAnimation({
+    container: container,
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    path: animationUrl, // Use the passed animationUrl
+})
+
+function hideLoadingAnimation() {
+    console.log('hiding assets loader');
+    if (container) {
+        container.style.display = 'none';
+    }
+}
+
+setTimeout(hideLoadingAnimation, 5000);
+}
+
+
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM fully loaded and parsed');
-    // Load the animation JSON
-    const animationData = "{{ url_for('static', filename='animations/Animation - 1718757531211.json') }}";
-
-    // Initialize Lottie
-    const animation = lottie.loadAnimation({
-        container: document.getElementById('lottie-container'), // the DOM element
-        renderer: 'svg', // renderer type
-        loop: true, // whether to loop the animation
-        autoplay: true, // whether to start the animation automatically
-        path: animationData // the path to the animation JSON
-    });
-
-    animation.addEventListener('DOMLoaded', function() {
-        console.log('Lottie animation loaded');
-    });
-
-    animation.addEventListener('data_failed', function(event) {
-        console.error('Lottie animation data failed to load:', event);
-    });
-
-    // Function to hide the loading animation
-    function hideLoadingAnimation() {
-        console.log('Page fully loaded');
-        const loadingContainer = document.getElementById('loading-container');
-        if (loadingContainer) {
-            loadingContainer.style.display = 'none';
+        console.log('DOM fully loaded and parsed');
+        // Load the animation JSON
+        const animationData = "{{ url_for('static', filename='animations/Animation - 1718757531211.json') }}"; //'../static/animations/Animation - 1718757531211.json';
+    
+        // Initialize Lottie
+        const animation = lottie.loadAnimation({
+            container: document.getElementById('lottie-container'), // the DOM element
+            renderer: 'svg', // renderer type
+            loop: true, // whether to loop the animation
+            autoplay: true, // whether to start the animation automatically
+            path: animationData // the path to the animation JSON
+        });
+    
+        animation.addEventListener('DOMLoaded', function() {
+            console.log('Lottie animation loaded');
+        });
+    
+        animation.addEventListener('data_failed', function(event) {
+            console.error('Lottie animation data failed to load:', event);
+        });
+    
+        // Function to hide the loading animation
+        function hideLoadingAnimation() {
+            console.log('Page fully loaded');
+            const loadingContainer = document.getElementById('loading-container');
+            if (loadingContainer) {
+                loadingContainer.style.display = 'none';
+            }
         }
+    
+        // Hide the loading animation once the page has fully loaded
+        window.onload = function() {
+            setTimeout(hideLoadingAnimation, 3000); // 2000 milliseconds = 2 seconds
+        };
+    });
+    
+
+    function showCheckBox() {
+        let checkContainer = document.querySelector('.check-animation-container')
+        let animationBox = document.querySelector('.check-animation-box')
+    
+        checkContainer.classList.toggle('active')
+        animationBox.classList.toggle('active')
+    
+        let animationPath = "{{ url_for('static', filename='animations/Animation - 1719074008630.json') }}"
+        const checkAnimation  = lottie.loadAnimation({
+            container: document.getElementById('check-animation'),
+            renderer: 'svg', 
+            loop: false,
+            autoplay: true,
+            path: animationPath
+        })
+    
+        checkAnimation.addEventListener('complete', () => {
+            checkContainer.classList.toggle('active')
+            animationBox.classList.toggle('active')
+        })
     }
 
-    // Hide the loading animation once the page has fully loaded
-    window.onload = function() {
-        setTimeout(hideLoadingAnimation, 3000); // 2000 milliseconds = 2 seconds
-    };
-});
 
 
 // wallet dropdown 
@@ -1171,7 +1300,7 @@ const walletDropDown = document.querySelector('.wallet-dropdown');
 const walletDropDownToggler = document.querySelector('.wallet-dropdown-toggler');
 
 walletDropDownToggler.addEventListener('click', () => {
-  walletDropDown.classList.toggle('active'); // Toggle visibility on click
+walletDropDown.classList.toggle('active'); // Toggle visibility on click
 });
 
 
@@ -1179,20 +1308,20 @@ walletDropDownToggler.addEventListener('click', () => {
 
 // close profile dropdowns when the document gets clicked
 document.addEventListener('DOMContentLoaded', function() {
-    const walletDropDownToggler = document.querySelector('.wallet-dropdown-toggler');
-    const walletDropdown = document.querySelector('.wallet-dropdown');
+const walletDropDownToggler = document.querySelector('.wallet-dropdown-toggler');
+const walletDropdown = document.querySelector('.wallet-dropdown');
 
-    // Close the dropdown when clicking outside of it
-    document.body.addEventListener('click', function(event) {
-        if (!walletDropdown.contains(event.target) && !walletDropDownToggler.contains(event.target)) {
-            walletDropdown.classList.remove('active');
-        }
-    });
+// Close the dropdown when clicking outside of it
+document.body.addEventListener('click', function(event) {
+    if (!walletDropdown.contains(event.target) && !walletDropDownToggler.contains(event.target)) {
+        walletDropdown.classList.remove('active');
+    }
+});
 
-    // Prevent the dropdown from closing when clicking inside
-    walletDropDown.addEventListener('click', function(event) {
-        event.stopPropagation();
-    });
+// Prevent the dropdown from closing when clicking inside
+walletDropDown.addEventListener('click', function(event) {
+    event.stopPropagation();
+});
 });
 
 // profile dropdown
@@ -1200,26 +1329,26 @@ const profileBox = document.querySelector('.profile-box');
 const profileDropdown = document.querySelector('.profile-dropdown');
 
 profileBox.addEventListener('click', () => {
-  profileDropdown.classList.toggle('active'); // Toggle visibility on click
+profileDropdown.classList.toggle('active'); // Toggle visibility on click
 });
 
 
 // close profile dropdowns when the document gets clicked
 document.addEventListener('DOMContentLoaded', function() {
-    const dropdownToggler = document.getElementById('profile-dropdown-toggler');
-    const dropdown = document.querySelector('.profile-dropdown');
+const dropdownToggler = document.getElementById('profile-dropdown-toggler');
+const dropdown = document.querySelector('.profile-dropdown');
 
-    // Close the dropdown when clicking outside of it
-    document.body.addEventListener('click', function(event) {
-        if (!dropdown.contains(event.target) && !dropdownToggler.contains(event.target)) {
-            dropdown.classList.remove('active');
-        }
-    });
+// Close the dropdown when clicking outside of it
+document.body.addEventListener('click', function(event) {
+    if (!dropdown.contains(event.target) && !dropdownToggler.contains(event.target)) {
+        dropdown.classList.remove('active');
+    }
+});
 
-    // Prevent the dropdown from closing when clicking inside
-    dropdown.addEventListener('click', function(event) {
-        event.stopPropagation();
-    });
+// Prevent the dropdown from closing when clicking inside
+dropdown.addEventListener('click', function(event) {
+    event.stopPropagation();
+});
 });
 
 
@@ -1229,10 +1358,10 @@ document.addEventListener('DOMContentLoaded', function() {
 const innerDropDownToggler = Array.from( document.querySelectorAll('.inner-dropdown-toggler'))
 
 innerDropDownToggler.forEach( toggler => {
-    toggler.addEventListener('click', () => {
-        let target = toggler.nextElementSibling;
-        target.classList.toggle('active')
-    })
+toggler.addEventListener('click', () => {
+    let target = toggler.nextElementSibling;
+    target.classList.toggle('active')
+})
 });
 
 
@@ -1302,10 +1431,6 @@ closeSwitchModal.addEventListener('click', () => {
 
 
 
-
-
-
-
 // hanlde colspan of alert box
 function adjustColspan() {
     const colspanCell = document.querySelector('.alert-box');
@@ -1322,51 +1447,52 @@ adjustColspan();
 
 // Adjust on window resize
 window.addEventListener('resize', adjustColspan);
-    </script>
-    <script>
 
-        const makeDefaultButtons = document.querySelectorAll('.wallet-btn');
-    
-        makeDefaultButtons.forEach(button => {
-        button.addEventListener('click', (event) => {
-            // Get the parent element (wallet section) of the clicked button
-            const clickedCurrency = event.target.closest('.wallet');
-    
-            // Extract new currency information
-            const newCurrencyName = clickedCurrency.querySelector('.coin-name').textContent;
-            const newCurrencyLogo = clickedCurrency.querySelector('.coin-logo');  // Get the element itself
-            // Update default currency display
-            const defaultCurrencyName = document.querySelector('.currency-name');
-            const defaultCurrencyLogo = document.querySelector('.currency-coin');
-            const currencyCodeMatch = newCurrencyLogo.className.match(/cf-([\w]+)/);
-            const currencyCode = currencyCodeMatch[1].toLowerCase(); // Extract and lowercase the code
-    
-    
-            const backgroundColor = clickedCurrency.style.backgroundColor;
-    
-            defaultCurrencyName.style.color = backgroundColor; // Update text color based on contrast
-            defaultCurrencyLogo.style.color = backgroundColor;
-            defaultCurrencyName.textContent = newCurrencyName;
-            defaultCurrencyLogo.className =  defaultCurrencyLogo.className.replace(/cf-[\w]+/, `cf-${currencyCode}`);
+</script>
+<script>
 
-            try {
-                const response = fetch('/api/v1/users/default', {
-                method: 'POST',
-                headers: {
-                        'Content-Type': 'application/json', // Specify JSON body
-                    },
-                    body: JSON.stringify({ name: newCurrencyName }), // Send new switch state in body
-                });
-        
-                if (!response.ok) {
-                    throw new Error(`Error: ${response.statusText}`); // Handle non-2xx responses
-                }
-            } catch (error) {
-                console.error('Error sending switch request:', error);
+    const makeDefaultButtons = document.querySelectorAll('.wallet-btn');
+
+    makeDefaultButtons.forEach(button => {
+    button.addEventListener('click', (event) => {
+        // Get the parent element (wallet section) of the clicked button
+        const clickedCurrency = event.target.closest('.wallet');
+
+        // Extract new currency information
+        const newCurrencyName = clickedCurrency.querySelector('.coin-name').textContent;
+        const newCurrencyLogo = clickedCurrency.querySelector('.coin-logo');  // Get the element itself
+        // Update default currency display
+        const defaultCurrencyName = document.querySelector('.currency-name');
+        const defaultCurrencyLogo = document.querySelector('.currency-coin');
+        const currencyCodeMatch = newCurrencyLogo.className.match(/cf-([\w]+)/);
+        const currencyCode = currencyCodeMatch[1].toLowerCase(); // Extract and lowercase the code
+
+
+        const backgroundColor = clickedCurrency.style.backgroundColor;
+
+        defaultCurrencyName.style.color = backgroundColor; // Update text color based on contrast
+        defaultCurrencyLogo.style.color = backgroundColor;
+        defaultCurrencyName.textContent = newCurrencyName;
+        defaultCurrencyLogo.className =  defaultCurrencyLogo.className.replace(/cf-[\w]+/, `cf-${currencyCode}`);
+
+        try {
+            const response = fetch('/api/v1/users/default', {
+            method: 'POST',
+            headers: {
+                    'Content-Type': 'application/json', // Specify JSON body
+                },
+                body: JSON.stringify({ name: newCurrencyName }), // Send new switch state in body
+            });
+    
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`); // Handle non-2xx responses
             }
-            
-        });
+        } catch (error) {
+            console.error('Error sending switch request:', error);
+        }
+        
     });
-        </script>
+});
+    </script>
 </body>
 </html>

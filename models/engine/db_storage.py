@@ -135,7 +135,8 @@ class DBStorage:
         new_user = User(email=email,
                         username=username,
                         hashed_password=hashed_password,
-                        PhoneNumber=PhoneNumber)
+                        PhoneNumber=PhoneNumber,
+                        role=role)
         try:
             self.new(new_user)
             self.save()

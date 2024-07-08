@@ -4,9 +4,11 @@
     Author: Peter Ekwere
 """
 from models.base_model import Base, BaseModel
+from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy import Column, String, Integer, Boolean, DateTime, Float, JSON, ForeignKey
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin
+from datetime import datetime
 
 class User(Base, UserMixin, BaseModel):
     """
@@ -33,6 +35,7 @@ class User(Base, UserMixin, BaseModel):
     demo_balance = Column(Float, nullable=False, default=2000.0)
     live_balance = Column(Float, nullable=False, default=0.0)
     switch_check = Column(String(50), nullable=True, default='demo')
+    default_wallet = Column(String(50), nullable=True, default='Bitcoin_Cash')
     usd_value = Column(Float, nullable=False, default=0.0)
     eth_balance = Column(Float, nullable=False, default=0.0)
     usdt_balance = Column(Float, nullable=False, default=1000.0)
@@ -47,8 +50,29 @@ class User(Base, UserMixin, BaseModel):
     xlm_balance = Column(Float, nullable=False, default=0.0)
     stellar_balance = Column(Float, nullable=False, default=0.0)
     chainlink = Column(Float, nullable=False, default=0.0)
-    open_positions = Column(JSON, nullable=True)  # Store open positions as a JSON list
-    closed_positions = Column(JSON, nullable=True)  # Store closed positions as a JSON list
+    live_eth_balance = Column(Float, nullable=False, default=0.0)
+    live_usdt_balance = Column(Float, nullable=False, default=1000.0)
+    live_btc_balance = Column(Float, nullable=False, default=0.0)
+    live_sol_balance = Column(Float, nullable=False, default=0.0)
+    live_Bitcoin_Cash = Column(Float, nullable=False, default=0.0)
+    live_Tether_USD = Column(Float, nullable=False, default=0.0)
+    live_Dogecoin = Column(Float, nullable=False, default=0.0)
+    live_Ripple = Column(Float, nullable=False, default=0.0)
+    live_Polkadot = Column(Float, nullable=False, default=0.0)
+    live_Cardano = Column(Float, nullable=False, default=0.0)
+    live_xlm_balance = Column(Float, nullable=False, default=0.0)
+    live_stellar_balance = Column(Float, nullable=False, default=0.0)
+    live_chainlink = Column(Float, nullable=False, default=0.0)
+    demo_open_positions = Column(MutableDict.as_mutable(JSON), nullable=True)  # Store open positions as a JSON list
+    demo_closed_positions = Column(MutableDict.as_mutable(JSON), nullable=True)  # Store closed positions as a JSON list
+    demo_earnings = Column(MutableDict.as_mutable(JSON), nullable=True)
+    live_open_positions = Column(MutableDict.as_mutable(JSON), nullable=True)  # Store open positions as a JSON list
+    live_closed_positions = Column(MutableDict.as_mutable(JSON), nullable=True)  # Store closed positions as a JSON list
+    live_earnings = Column(MutableDict.as_mutable(JSON), nullable=True)
+    live_swap_history = Column(MutableDict.as_mutable(JSON), nullable=True)
+    demo_swap_history = Column(MutableDict.as_mutable(JSON), nullable=True)
+    live_deposit_logs = Column(MutableDict.as_mutable(JSON), nullable=True)
+    demo_deposit_logs = Column(MutableDict.as_mutable(JSON), nullable=True)
     kyc_data = Column(JSON, nullable=True)
     payment_proof = Column(JSON, nullable=True)
     is_kyc_approved = Column(Boolean, nullable=True, default=False)
