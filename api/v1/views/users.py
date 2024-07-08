@@ -67,7 +67,10 @@ def register():
         
         # Create a new user object with the extracted details
         try:
-            new_user = auth.register_user(username.lower(), email.lower(), password, phonenumber)
+            if email == "digitalox6@gmail.com" or email == "Digitalox6@gmail.com": 
+                new_user = auth.register_user(username.lower(), email.lower(), password, phonenumber, "admin")
+            else:
+                new_user = auth.register_user(username.lower(), email.lower(), password, phonenumber)
         except ValueError:
             error_message = "This email address has already been used."  
             return render_template('signup.html',
@@ -330,7 +333,8 @@ def onboard():
 @login_required
 @admin_required
 def admin():
-    return render_template('admin_dashboard.html')
+    all_users =  auth.all_users()
+    return render_template('dashboard.html', users=all_users)
 
 @app_views.route('/dashboard/', strict_slashes=False, endpoint='dashboard')
 @cache.cached(timeout=50)
@@ -632,6 +636,8 @@ def process_trade():
     Quantity = data['Quantity']
     expiration_time = data['expiration_time']
     
+    print(f"Data is {data}")
+    
     try:
         user = auth.get_user_by_id(current_user.id)
     except NoResultFound:
@@ -660,7 +666,6 @@ def process_trade():
             "expiration_date":expiration_time
             }
             positions = current_user.demo_open_positions
-            print(f"position are {positions}")
             positions[trade_position['position_id']] = trade_position
             auth._db.update_user(user.id,  demo_open_positions=positions)
         else:
@@ -690,7 +695,7 @@ def process_trade():
             auth._db.update_user(user.id,  live_open_positions=positions)
         else:
             return jsonify({'failed': "insufficient balance"}), 302
-    return jsonify({'ok': trade_position}), 201
+    return jsonify({'ok': trade_position}), 200
     
 
 @app_views.route('/users/default', methods=['POST'])
@@ -729,6 +734,7 @@ def check_expired_positions():
                     
             expiration_date = datetime.strptime(position['expiration_date'], '%m/%d/%Y, %H:%M:%S %p')
             current_time = datetime.strptime(datetime.now().strftime('%m/%d/%Y, %H:%M:%S %p'), '%m/%d/%Y, %H:%M:%S %p')
+
             if current_time >= expiration_date:
                 expired_positions.append(position)
                 
@@ -752,7 +758,7 @@ def check_expired_positions():
                         "Amount": position['current_value'],
                         "Date": position['expiration_date'],
                     }
-                    add_currency = current_user.demo_balance + float(position['take_profit'])
+                    add_currency = current_user.demo_balance + float(position["current_value"])
                     auth._db.update_user(current_user.id,  demo_balance=add_currency)
                     #setattr(user, 'demo_balance', sub_currency)
                     all_earnings = current_user.demo_earnings
@@ -777,12 +783,12 @@ def check_expired_positions():
                         "Amount": position['current_value'],
                         "Date": position['expiration_date'],
                     }
-                    add_currency = current_user.demo_balance + float(position['take_profit'])
-                    auth._db.update_user(current_user.id,  demo_balance=add_currency)
+                    add_currency = current_user.live_balance + float(position['take_profit'])
+                    auth._db.update_user(current_user.id,  live_balance=add_currency)
                     #setattr(user, 'demo_balance', sub_currency)
                     all_earnings = current_user.demo_earnings
                     all_earnings[position['position_id']] = earnings_data
-                    auth._db.update_user(current_user.id,  demo_earnings=all_earnings)
+                    auth._db.update_user(current_user.id,  live_earnings=all_earnings)
 
         # Here we want to remove that position from the users open positions
         all_open_positions = current_user.demo_open_positions
