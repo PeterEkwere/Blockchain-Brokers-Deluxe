@@ -4,6 +4,7 @@
     Author: Peter Ekwere
 """
 from models.base_model import Base, BaseModel
+from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy import Column, String, Integer, Boolean, DateTime, Float, JSON, ForeignKey
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin
@@ -62,12 +63,16 @@ class User(Base, UserMixin, BaseModel):
     live_xlm_balance = Column(Float, nullable=False, default=0.0)
     live_stellar_balance = Column(Float, nullable=False, default=0.0)
     live_chainlink = Column(Float, nullable=False, default=0.0)
-    demo_open_positions = Column(JSON, nullable=True)  # Store open positions as a JSON list
-    demo_closed_positions = Column(JSON, nullable=True)  # Store closed positions as a JSON list
-    demo_earnings = Column(JSON, nullable=True)
-    live_open_positions = Column(JSON, nullable=True)  # Store open positions as a JSON list
-    live_closed_positions = Column(JSON, nullable=True)  # Store closed positions as a JSON list
-    live_earnings = Column(JSON, nullable=True)
+    demo_open_positions = Column(MutableDict.as_mutable(JSON), nullable=True)  # Store open positions as a JSON list
+    demo_closed_positions = Column(MutableDict.as_mutable(JSON), nullable=True)  # Store closed positions as a JSON list
+    demo_earnings = Column(MutableDict.as_mutable(JSON), nullable=True)
+    live_open_positions = Column(MutableDict.as_mutable(JSON), nullable=True)  # Store open positions as a JSON list
+    live_closed_positions = Column(MutableDict.as_mutable(JSON), nullable=True)  # Store closed positions as a JSON list
+    live_earnings = Column(MutableDict.as_mutable(JSON), nullable=True)
+    live_swap_history = Column(MutableDict.as_mutable(JSON), nullable=True)
+    demo_swap_history = Column(MutableDict.as_mutable(JSON), nullable=True)
+    live_deposit_logs = Column(MutableDict.as_mutable(JSON), nullable=True)
+    demo_deposit_logs = Column(MutableDict.as_mutable(JSON), nullable=True)
     kyc_data = Column(JSON, nullable=True)
     payment_proof = Column(JSON, nullable=True)
     is_kyc_approved = Column(Boolean, nullable=True, default=False)

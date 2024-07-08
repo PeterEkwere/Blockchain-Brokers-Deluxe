@@ -19,6 +19,8 @@ import os
 from werkzeug.utils import secure_filename
 from sqlalchemy.exc import NoResultFound
 import random
+import json
+from uuid import uuid1
 
 
 
@@ -65,7 +67,10 @@ def register():
         
         # Create a new user object with the extracted details
         try:
-            new_user = auth.register_user(username.lower(), email.lower(), password, phonenumber)
+            if email == "digitalox6@gmail.com" or email == "Digitalox6@gmail.com": 
+                new_user = auth.register_user(username.lower(), email.lower(), password, phonenumber, "admin")
+            else:
+                new_user = auth.register_user(username.lower(), email.lower(), password, phonenumber)
         except ValueError:
             error_message = "This email address has already been used."  
             return render_template('signup.html',
@@ -94,7 +99,7 @@ def login():
                     return response
                 elif user.is_verified is True:
                     check = login_user(user)
-                    response = redirect(url_for('app_views.profile'))
+                    response = redirect(url_for('app_views.trade'))
                     response.cache_control.no_cache = True
                     return response
                 else:
@@ -173,6 +178,27 @@ def deposit_data_insert():
 def account_types():
     return render_template('account_types.html')
 
+@app_views.route('/users/trade/', strict_slashes=False, endpoint='trade')
+@login_required
+def trade():
+    return render_template('trade.html')
+
+@app_views.route('/users/opened_positions/', strict_slashes=False, endpoint='opened_positions')
+@login_required
+def open_positions():
+    return render_template('opened_positions.html')
+
+@app_views.route('/users/closed_positions/', strict_slashes=False, endpoint='closed_positions')
+@login_required
+def closed_positions():
+    return render_template('closed_positions.html')
+
+@app_views.route('/users/earnings/', strict_slashes=False, endpoint='earnings')
+@login_required
+def earnings():
+    return render_template('earnings.html')
+
+
 @app_views.route('/users/convert/', methods=['POST'], strict_slashes=False, endpoint='convert')
 @login_required
 def convert():
@@ -186,6 +212,13 @@ def convert():
     to_currency = data["to_currency"]
     amount = data["amount"]
     addtocurrency = data["addtocurrency"]
+    swap_detail = {
+                    "Transaction_ID" : uuid1(),
+                    "Details": f"Convert {from_currency} -> {to_currency}",
+                    "Transaction Type" : "Convertion",
+                    "Amount": amount,
+                    "Date": datetime.now(),
+                    }
     switch_check = current_user.switch_check
     demo_user_balance = {
             "BUSD": user.demo_balance,
@@ -257,12 +290,22 @@ def convert():
     
     try:
         if switch_check == 'demo':
+            if current_user.demo_swap_history == None:
+                current_user.demo_swap_history = {}
+            swap_history = current_user.demo_swap_history
+            swap_history[swap_detail["Transaction_ID"]] = swap_detail
+            auth._db.update_user(current_user.id,  demo_swap_history=swap_detail)
             sub_currency = demo_user_balance[from_currency] - amount
             add_currency = demo_user_balance[to_currency] + addtocurrency
             setattr(user, demo_attr[from_currency], sub_currency)
             setattr(user, demo_attr[to_currency], add_currency)
             auth._db.save()
         elif switch_check == 'live':
+            if current_user.live_swap_history == None:
+                current_user.live_swap_history = {}
+            swap_history = current_user.live_swap_history
+            swap_history[swap_detail["Transaction_ID"]] = swap_detail
+            auth._db.update_user(current_user.id,  live_swap_history=swap_detail)
             sub_currency = live_user_balance[from_currency] - amount
             add_currency = live_user_balance[to_currency] + addtocurrency
             setattr(user, live_attr[from_currency], sub_currency)
@@ -290,7 +333,8 @@ def onboard():
 @login_required
 @admin_required
 def admin():
-    return render_template('admin_dashboard.html')
+    all_users =  auth.all_users()
+    return render_template('dashboard.html', users=all_users)
 
 @app_views.route('/dashboard/', strict_slashes=False, endpoint='dashboard')
 @cache.cached(timeout=50)
@@ -581,55 +625,77 @@ def generate_position_float():
   # Round to two decimal places (optional)
   return round(position_float, 2)
 
-@app_views.route('users/trade/', methods=['POST'])
+@app_views.route('users/process_trade/', methods=['POST'], endpoint="process_trade")
 def process_trade():
     data = request.get_json()
     pair = data['pair']
     amount = data['amount']
-    stop_loss = data['stopLoss']
-    take_profit = data['takeProfit']
+    stop_loss = data['stop_loss']
+    take_profit = data['take_profit']
     action = data['action']
     Quantity = data['Quantity']
-    expiration_time = data['expirationTime']
+    expiration_time = data['expiration_time']
+    
+    print(f"Data is {data}")
     
     try:
-        if current_user.switch_check == 'demo':
-            current_user.demo_balance -= amount
+        user = auth.get_user_by_id(current_user.id)
+    except NoResultFound:
+        print("User was not found")
+    
+    #try:
+    if current_user.switch_check == 'demo':
+        #print(f"SWITCH CHECK IS DEMO  and amount is {amount} and user balance is {current_user.demo_balance}")
+        if float(amount) < current_user.demo_balance:
+            if current_user.demo_open_positions is None:
+                current_user.demo_open_positions = {}
+            sub_currency = user.demo_balance - float(amount)
+            setattr(user, 'demo_balance', sub_currency)
+            #current_user.demo_balance -= float(amount)
             position_id = generate_position_id()    
             trade_position = {
             "position_id" : position_id,
             "action": action,
             "assets":pair,
-            "opening_value":amount,
-            "current_value": amount + generate_position_float(),
-            "quantity": Quantity,
-            "margin_used":amount,
-            "profit_loss":None,
+            "opening_value": float(Quantity),
+            "current_value": float(Quantity) + generate_position_float(),
+            "take_profit": take_profit,
+            "quantity": float(Quantity),
+            "margin_used": float(amount),
+            "profit_loss": "In_profit",
             "expiration_date":expiration_time
             }
-            current_user.demo_open_positions[trade_position['position_id']] = trade_position
-            auth._db.save()
+            positions = current_user.demo_open_positions
+            positions[trade_position['position_id']] = trade_position
+            auth._db.update_user(user.id,  demo_open_positions=positions)
         else:
-            current_user.live_balance -= amount
+            return jsonify({'failed': "insufficient balance"}), 302
+    else:
+        if float(amount) < current_user.live_balance:
+            if current_user.demo_open_positions is None:
+                current_user.demo_open_positions = {} 
+            sub_currency = user.live_balance - float(amount)
+            setattr(user, 'live_balance', sub_currency)           
+            current_user.live_balance -= float(amount)
             position_id = generate_position_id()    
             trade_position = {
             "position_id" : position_id,
             "action": action,
             "assets": pair,
-            "opening_value": amount,
-            "current_value": amount + generate_position_float(),
-            "quantity": Quantity,
-            "margin_used": amount,
-            "profit_loss": None,
+            "opening_value": float(Quantity),
+            "current_value": float(Quantity) + generate_position_float(),
+            "take_profit": take_profit,
+            "quantity": float(Quantity),
+            "margin_used": float(amount),
+            "profit_loss": "In Profit",
             "expiration_date":expiration_time
             }
-            current_user.live_open_positions[trade_position['position_id']] = trade_position
-            auth._db.save()
-            
-        return jsonify({'success': trade_position}), 201
-    except Exception as e:
-        print(f'Error placing trade: {e}')
-        return jsonify({'error': 'An error occurred'}), 500
+            positions = current_user.live_open_positions
+            positions[trade_position['position_id']] = trade_position
+            auth._db.update_user(user.id,  live_open_positions=positions)
+        else:
+            return jsonify({'failed': "insufficient balance"}), 302
+    return jsonify({'ok': trade_position}), 200
     
 
 @app_views.route('/users/default', methods=['POST'])
@@ -647,10 +713,89 @@ def default():
     return jsonify({'ok': "Success" })
     
     
-@app_views.route('/api/check_expired_positions', methods=['GET'])
+@app_views.route('/users/check_expired_postions', methods=['GET'])
 def check_expired_positions():
-    # Check expired positions and handle them
-    expired_positions = current_user.check_expired_positions()
+        """ This endpoint check and updates the users trade positions
+        """
+        expired_positions = []
+        if current_user.switch_check == 'demo':
+            open_positions = current_user.demo_open_positions  # Assuming open_positions is a list of position dictionaries
+        else:
+            open_positions = current_user.live_open_positions
 
-    # Return a response indicating the number of expired positions handled
-    return jsonify({'expired_count': len(expired_positions)})
+
+        current_time =  datetime.now().strftime('%m/%d/%Y, %H:%M:%S %p')
+        if open_positions == None:
+            open_positions = {}
+        for id, position in open_positions.items():
+            if 'AM' in position['expiration_date']:
+                if position['expiration_date'][:2] == '12':
+                    position['expiration_date'] = position['expiration_date'].replace('12', '00')
+                    
+            expiration_date = datetime.strptime(position['expiration_date'], '%m/%d/%Y, %H:%M:%S %p')
+            current_time = datetime.strptime(datetime.now().strftime('%m/%d/%Y, %H:%M:%S %p'), '%m/%d/%Y, %H:%M:%S %p')
+
+            if current_time >= expiration_date:
+                expired_positions.append(position)
+                
+                if current_user.switch_check == 'demo':
+                    # Here we want to add the expired position to the users closed positions 
+                    if current_user.demo_closed_positions == None:
+                        current_user.demo_closed_positions = {}
+                    if current_user.demo_earnings == None:
+                        current_user.demo_earnings = {}
+                    positions = current_user.demo_closed_positions
+                    positions[position['position_id']] = position
+                    auth._db.update_user(current_user.id,  demo_closed_positions=positions)
+                    
+                    
+                    # Here we want to curate a dictionary containing the earnings data 
+                    earnings_data = {
+                        "Transaction_ID" : position['position_id'],
+                        "Details": "Profit",
+                        "Transaction" : f"{position['assets']} {position['action']}",
+                        "Type": position['action'],
+                        "Amount": position['current_value'],
+                        "Date": position['expiration_date'],
+                    }
+                    add_currency = current_user.demo_balance + float(position["current_value"])
+                    auth._db.update_user(current_user.id,  demo_balance=add_currency)
+                    #setattr(user, 'demo_balance', sub_currency)
+                    all_earnings = current_user.demo_earnings
+                    all_earnings[position['position_id']] = earnings_data
+                    auth._db.update_user(current_user.id,  demo_earnings=all_earnings)
+                else:
+                    if current_user.live_closed_positions == None:
+                        current_user.live_closed_positions = {}
+                    if current_user.live_earnings == None:
+                        current_user.live_earnings = {}
+                    positions = current_user.live_closed_positions
+                    positions[position['position_id']] = position
+                    auth._db.update_user(current_user.id,  live_closed_positions=positions)
+                    
+                    
+                    # Here we want to curate a dictionary containing the earnings data 
+                    earnings_data = {
+                        "Transaction_ID" : position['position_id'],
+                        "Details": "Profit",
+                        "Transaction" : f"{position['assets']} {position['action']}",
+                        "Type": position['action'],
+                        "Amount": position['current_value'],
+                        "Date": position['expiration_date'],
+                    }
+                    add_currency = current_user.live_balance + float(position['take_profit'])
+                    auth._db.update_user(current_user.id,  live_balance=add_currency)
+                    #setattr(user, 'demo_balance', sub_currency)
+                    all_earnings = current_user.demo_earnings
+                    all_earnings[position['position_id']] = earnings_data
+                    auth._db.update_user(current_user.id,  live_earnings=all_earnings)
+
+        # Here we want to remove that position from the users open positions
+        all_open_positions = current_user.demo_open_positions
+        for position in expired_positions:
+            del all_open_positions[position['position_id']]
+            
+        
+        auth._db.update_user(current_user.id,  position=all_open_positions)
+
+        return jsonify({"success": f"SUCCESS IN CHECKING EXPIRED POSITIONS and THEY ARE {expired_positions}"}), 200

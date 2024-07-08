@@ -746,15 +746,15 @@
                                 <p class="coin-name mb-2 fs-6">Bitcoin</p>
                                 {% if current_user.switch_check == 'demo' %}
                                     {% if current_user.btc_balance %}
-                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.btc_balance }}</span> BTC</p>
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.btc_balance }}</span> BTC</p>
                                     {% else %}
-                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> BTC</p>
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> BTC</p>
                                     {% endif %}
                                 {% else %}
                                     {% if current_user.live_btc_balance %}
-                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.live_btc_balance }}</span> BTC</p>
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">{{ current_user.live_btc_balance }}</span> BTC</p>
                                     {% else %}
-                                    <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> BTC</p>
+                                        <p class="coin-balance fw-bold fs-4 mb-1" class="coin-balance">0</span> BTC</p>
                                     {% endif %}
                                 {% endif %}
                             </div>
@@ -859,44 +859,8 @@
                 </div>
 
                 <!-- Translations -->
-                <div class="translations px-3">
-                    <div class="dropdown drop-down">
-                        <button class="border-0 bg-white position-relative flags-dropdown-btn dropdown-toggler" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://flagcdn.com/w40/es.png" srcset="https://flagcdn.com/w80/es.png 2x" width="30" alt="Spain" class="flag-btn">
-                        </button>
-                        <ul class="dropdown-menu flag-menu closable">
-                            <li class="d-flex">
-                                <a class="dropdown-item" href="#">
-                                    <img src="{{ url_for('static', filename='img/us.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
-                                    English
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">
-                                    <img src="{{ url_for('static', filename='img/es.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
-                                    Spanish
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">
-                                    <img src="{{ url_for('static', filename='img/de.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
-                                    German
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">
-                                    <img src="{{ url_for('static', filename='img/it.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
-                                    Italian
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">
-                                    <img src="{{ url_for('static', filename='img/ru.png') }}" alt="" class="flag-logo me-2" style="width: 18px; height: 12px;">
-                                    Russian
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="translations px-3 py-3">
+                    <div id="google_translate_element"></div>
                 </div>
 
                  <!-- Profile Dropdown -->
@@ -924,7 +888,7 @@
                                 <i class="bi bi-wallet-fill me-1"></i>
                                 Wallet
                             </a>
-                            <a href="trade.html" class="dropdown-item profile-item ">
+                            <a href="{{ url_for('app_views.trade') }}" class="dropdown-item profile-item ">
                                 <i class="bi bi-bar-chart me-1"></i>
                                 Trade
                             </a>
@@ -934,9 +898,9 @@
                                     Positions 
                                 </div>
                                 <div class="inner-dropdown">
-                                    <a href="open_postions.html" class="inner-dropdown-item">Open positions</a>
-                                    <a href="closed_positions.html" class="inner-dropdown-item">Closed positions</a>
-                                    <a href="earnings.html" class="inner-dropdown-item">Earnings</a>
+                                    <a href="{{ url_for('app_views.opened_positions') }}" class="inner-dropdown-item">Open positions</a>
+                                    <a href="{{ url_for('app_views.closed_positions') }}" class="inner-dropdown-item">Closed positions</a>
+                                    <a href="{{ url_for('app_views.earnings') }}" class="inner-dropdown-item">Earnings</a>
                                 </div>
                             </div>
                             <div class="dropdown-item profile-item " data-toggle="inner-dropdown">
@@ -994,7 +958,7 @@
             <div class="trade-box sidenav-icon-box mb-5">
                     <i class="bi bi-bar-chart fs-4"></i>
                     <div class="icon-dropdown">
-                        <a href="trade.html" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Trade</p></a>
+                        <a href="{{ url_for('app_views.trade') }}" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Trade</p></a>
                     </div>
             </div>
             <div class="trade-box sidenav-icon-box mb-5">
@@ -1002,9 +966,9 @@
                 <div class="icon-dropdown">
                     <p class="drop-header px-3 py-2">Positions</p>
                     <div class="w-100">
-                        <a href="closed_positions.html" class="text-decoration-none text-black"><p class="drop-list">Open Positons</p></a>
-                        <a href="closed_positions.html" class="text-decoration-none text-black"><p class="drop-list">Closed Positons</p></a> 
-                        <a href="earnings.html" class="text-decoration-none text-black"><p class="drop-list">Earnings</p></a> 
+                        <a href="{{ url_for('app_views.opened_positions') }}" class="text-decoration-none text-black"><p class="drop-list">Open Positons</p></a>
+                        <a href="{{ url_for('app_views.closed_positions') }}" class="text-decoration-none text-black"><p class="drop-list">Closed Positons</p></a> 
+                        <a href="{{ url_for('app_views.earnings') }}" class="text-decoration-none text-black"><p class="drop-list">Earnings</p></a> 
                     </div>
                 </div>
             </div>
@@ -1024,7 +988,7 @@
                 <div class="trade-box sidenav-icon-box mb-5">
                     <i class="bi bi-bar-chart fs-4"></i>
                     <div class="icon-dropdown">
-                        <a href="trade.html" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Trade</p></a>
+                        <a href="{{ url_for('app_views.trade') }}" class="text-decoration-none text-black"><p class="drop-list px-3 py-2">Trade</p></a>
                     </div>
                 </div>
                 <div class="trade-box sidenav-icon-box mb-5">
@@ -1032,9 +996,9 @@
                     <div class="icon-dropdown">
                         <p class="drop-header px-3 py-2">Positions</p>
                         <div class="w-100">
-                            <a href="closed_positions.html" class="text-decoration-none text-black"><p class="drop-list">Open Positons</p></a>
-                            <a href="closed_positions.html" class="text-decoration-none text-black"><p class="drop-list">Closed Positons</p></a> 
-                            <a href="earnings.html" class="text-decoration-none text-black"><p class="drop-list">Earnings</p></a> 
+                            <a href="{{ url_for('app_views.opened_positions') }}" class="text-decoration-none text-black"><p class="drop-list">Open Positons</p></a>
+                            <a href="{{ url_for('app_views.closed_positions') }}" class="text-decoration-none text-black"><p class="drop-list">Closed Positons</p></a> 
+                            <a href="{{ url_for('app_views.earnings') }}" class="text-decoration-none text-black"><p class="drop-list">Earnings</p></a> 
                         </div>
                     </div>
                 </div>
@@ -1167,7 +1131,27 @@
         </div>
     </footer>
 
-    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/coinMarquee.js"></script>
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='https://embed.tawk.to/6689eccde1e4f70f24ee42f1/1i25ca14j';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+    <script type="text/javascript"> 
+        function googleTranslateElementInit() {
+       new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+       }
+     </script>
+    <script type="text/javascript" 
+    src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
