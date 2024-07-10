@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS  deluxe_db.surebets;
+DROP DATABASE IF EXISTS deluxe_db;

@@ -1055,7 +1055,7 @@
                             </h5>
                             <h5 class="text-center">
                                 <span class="fw-medium wallet-address">
-                                    TFUNNhXoEwo8RavRqKJToHHysThTStibEo
+                                    {{ current_user.deposit_wallet }}
                                 </span>
                             </h5>
                         </div>
@@ -1211,6 +1211,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const walletDropDownToggler = document.querySelector('.wallet-dropdown-toggler');
     const walletDropdown = document.querySelector('.wallet-dropdown');
+
+    console.log("Wallet drop down ", walletDropDownToggler)
 
     // Close the dropdown when clicking outside of it
     document.body.addEventListener('click', function(event) {

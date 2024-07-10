@@ -1071,7 +1071,11 @@
                                             </li>
                                         </div>
                                         <div class="mt-4 pt-2">
-                                            <a href="javascript::void();" class="btn plan-btn pricing-btn 5k-btn">Not Active</a>
+                                            {% if current_user.last_deposit >= 5000 and current_user.last_deposit <= 19000 %}
+                                                <a href="javascript::void();" class="btn plan-btn pricing-btn 5k-btn" style="background-color: blue;">Active</a>
+                                            {% else %}
+                                                <a href="javascript::void();" class="btn plan-btn pricing-btn 5k-btn">Not Active</a>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
@@ -1110,7 +1114,11 @@
                                             </li>
                                         </div>
                                         <div class="mt-4 pt-2">
-                                            <a href="javascript::void();" class="btn plan-btn pricing-btn 20k-btn">Not Active</a>
+                                            {% if current_user.last_deposit >= 20000 and current_user.last_deposit <= 49000 %}
+                                                <a href="javascript::void();" class="btn plan-btn pricing-btn 20k-btn" style="background-color: blue;">Active</a>
+                                            {% else %}
+                                                <a href="javascript::void();" class="btn plan-btn pricing-btn 20k-btn">Not Active</a>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
@@ -1149,7 +1157,11 @@
                                             </li>
                                         </div>
                                         <div class="mt-4 pt-2">
-                                            <a href="javascript::void();" class="btn plan-btn pricing-btn 50k-btn">Not Active</a>
+                                            {% if current_user.last_deposit >= 50000 and current_user.last_deposit <= 99000 %}
+                                                <a href="javascript::void();" class="btn plan-btn pricing-btn 50k-btn" style="background-color: blue;">Active</a>
+                                            {% else %}
+                                                <a href="javascript::void();" class="btn plan-btn pricing-btn 50k-btn">Not Active</a>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
@@ -1349,7 +1361,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Prevent the dropdown from closing when clicking inside
-    walletDropDown.addEventListener('click', function(event) {
+    walletDropdown.addEventListener('click', function(event) {
         event.stopPropagation();
     });
 });
