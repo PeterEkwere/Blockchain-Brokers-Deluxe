@@ -2441,12 +2441,12 @@ function showCheckBox() {
 
 
 // wallet dropdown 
-const walletDropDown = document.querySelector('.wallet-dropdown');
-const walletDropDownToggler = document.querySelector('.wallet-dropdown-toggler');
+//const walletDropDown = document.querySelector('.wallet-dropdown');
+//const walletDropDownToggler = document.querySelector('.wallet-dropdown-toggler');
 
-walletDropDownToggler.addEventListener('click', () => {
-  walletDropDown.classList.toggle('active'); // Toggle visibility on click
-});
+//walletDropDownToggler.addEventListener('click', () => {
+//  walletDropDown.classList.toggle('active'); // Toggle visibility on click
+//});
 
 
 
@@ -2455,6 +2455,10 @@ walletDropDownToggler.addEventListener('click', () => {
 document.addEventListener('DOMContentLoaded', function() {
     const walletDropDownToggler = document.querySelector('.wallet-dropdown-toggler');
     const walletDropdown = document.querySelector('.wallet-dropdown');
+
+    walletDropDownToggler.addEventListener('click', () => {
+        walletDropDown.classList.toggle('active'); // Toggle visibility on click
+      });
 
     // Close the dropdown when clicking outside of it
     document.body.addEventListener('click', function(event) {
