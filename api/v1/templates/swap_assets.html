@@ -1665,7 +1665,7 @@
                         </div>
                     </div>
                     <div class="modal-footer pt-2">
-                        <button class="btn border-0 bg-info text-white px-4 py-2" style="border-radius: 2px;"><a href="wallets.html" class="text-decoration-none text-white">Deposit Now</a></button>
+                        <button class="btn border-0 bg-info text-white px-4 py-2 close-error-modal" style="border-radius: 2px;">close</button>
                     </div>
                 </div>
             </div>
@@ -1865,7 +1865,7 @@ async function calculateConversion() {
     const amount = document.getElementById("AmountInput").value
       
 
-    const apiKey = '89a1720ae940429bd985f4fa4cbce5ee7f0a2ee111cae5ddf5c7cd05ba788a94'; // Replace with your actual API key
+    const apiKey = 'd2d7b9aa10c19d7c9d1fda439e5473cec25526e1de9635a09c7a329cc9844821'; // Replace with your actual API key
     const url = `https://min-api.cryptocompare.com/data/price?fsym=${coinFrom.value}&tsyms=${coinTo.value}&api_key=${apiKey}`;
   
     try {
@@ -2011,6 +2011,19 @@ document.addEventListener('DOMContentLoaded', function() {
     
     //const transferBtn = document.querySelector('.transfer-btn');
 
+let closeErrorModal = document.querySelector('.close-error-modal');
+let someErrorelement = document.querySelector('.update-balance-overlay');
+
+document.body.addEventListener('click', (event) => {
+    if (!closeErrorModal.contains(event.target) && !someErrorelement.contains(event.target)) {
+        someErrorelement.classList.remove('active');
+    };
+});
+
+closeErrorModal.addEventListener('click', () => {
+    someErrorelement.style.visibility = 'hidden';
+    document.body.style.overflowY = 'auto';
+});
     //transferBtn.addEventListener('click', sendConversionRequest);
     function sendConversionRequest(exchangeRate) {
         const fromCurrency = coinFrom.value;

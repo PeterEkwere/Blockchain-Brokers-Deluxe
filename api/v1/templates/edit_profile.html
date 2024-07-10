@@ -1114,14 +1114,8 @@
             <input type="hidden" id="A_USER_ID" name="user_id" value="{{ user_id }}">
                 <div class="card me-4 shadow-sm rounded-0" style="width: 18rem; height: fit-content;">
                     {% if profile_path %}
-                        <script>
-                            console.log("I SHOULD WORK IN PROFILE PATH CHECK")
-                        </script>
                         <img src="{{ url_for('static', filename='' + profile_path) }}" class="card-img-top profile-img rounded-0" id="profile-img" alt="...">
                     {% else %}
-                        <script>
-                            console.log("I SHOULDnt SHOW")
-                        </script>
                         <img src="{{ url_for('static', filename='img/user-default.png') }}" class="card-img-top profile-img rounded-0" id="profile-img" alt="...">
                     {% endif %}
                     <div class="card-body">
@@ -1547,8 +1541,7 @@ $(document).ready(function() {
         processData: false,
         success: function(response) {
           if (response) {
-            console.log("SERVER ReSPONDED WITH THE IMAGE I GUESS")
-            document.getElementById("profile-img").src = "/static/" + response.profile_path;;  // Update image source
+            document.getElementById("profile-img").src = "/static/" + response.profile_path;  // Update image source
           }
         },
         error: function(error) {
@@ -1565,7 +1558,7 @@ $(document).ready(function() {
             const userData = {
                 first_name: document.getElementById('firstName').value,
                 last_name: document.getElementById('lastName').value,
-                userEmail: document.getElementById('userEmail').value, // Assuming email ID is in the 'userEmail' field
+                email: document.getElementById('userEmail').value, // Assuming email ID is in the 'userEmail' field
                 PhoneNumber: document.getElementById('userPhone').value,
                 address: document.getElementById('floatingTextarea2').value,
                 city: document.getElementById('userCity').value,

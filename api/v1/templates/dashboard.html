@@ -107,10 +107,14 @@
       }
 
       .kyc-img{
-        width: 300px;
-        height: 200px !important;
+        width: 400px !important;
+        height: 500px !important;
         margin-left: 10px;
         margin-right: 10px;
+      }
+
+      .modal{
+        --bs-modal-width : 800px !important;
       }
 
       .save-user-btn{
@@ -145,11 +149,11 @@
 
       .profile-img-container{
         display: flex;
-        align-items: center;
+        /** align-items: center; */
         justify-content: center;
         border-radius: 50%;
         width: 50px;
-        height: 50px;
+        height: 40px;
       }
     </style>
 
@@ -310,7 +314,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
+              <a class="nav-link d-flex align-items-center gap-2" href="{{ url_for('app_views.logout') }}">
                 <svg class="bi"><use xlink:href="#door-closed"/></svg>
                 Sign out
               </a>
@@ -350,35 +354,116 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="user-img">
-                <div class="profile-img-container">
-                  <i class="bi bi-person-circle fs-4 text-secondary"></i><input type="file" id="user-profile-pic" class="user-profile-pic-input d-none" accept="image/*">
-                </div> 
-              </td>
-              <td class="user-id">12001</td>
-              <td class="user-email">JohnDoe1999@gmail.com</td>
-              <td class="user-name">John</td>
-              <td>
-                <input type="text" class="user-demo-balance form-control form-control-sm" value="$ 10,000">
-              </td>
-              <td>
-                <input type="text" class="user-live-balance form-control form-control-sm" value="$ 0.00">
-              </td>
-              <td class="user-info">
-                <button type="button" class="btn btn-sm btn-secondary info-btn" data-bs-toggle="modal" data-bs-target="#user-info-modal">View Info</button>
-              </td>
-              <td class="user-kyc">
-                <button type="button" class="btn btn-sm btn-secondary kyc-btn" data-user-id="12001" data-bs-toggle="modal" data-bs-target="#user-kyc-modal">View KYC</button>
-              </td>
-              <td class="align-text-top user-active">
-                <i class="bi bi-check-circle text-success fs-4 active-icon"></i>
-                <i class="bi bi-x-circle text-danger fs-4 active-icon d-none"></i>
-              </td>
-              <td class="save-user-btn">
-                <button type="button" class="btn btn-sm btn-success text-white save-btn"git>Save</button>
-              </td>
-            </tr>
+            {% for user in users %}
+              <tr>
+                      <td class="user-img">
+                        <div class="profile-img-container">
+                          <!-- <img src="{{ url_for('static', filename='img/favicon.png') }}" alt="" class="profile_photo">
+                          "{{ url_for('static', filename='img/favicon.png') }}" -->
+                          {% if user.profile_photo['front'] == None or  user.profile_photo['front'] == Null or  user.profile_photo['front'] == "" %}
+                            <img src="#" alt="">
+                          {% else %}
+                            <img src="{{ url_for('static', filename='' + user.profile_photo['front']) }}" alt="">
+                            <!-- <i class="bi bi-person-circle fs-4 text-secondary"></i><input type="file" id="user-profile-pic" class="user-profile-pic-input d-none" accept="image/*"> -->
+                          {% endif %}
+                        </div> 
+                      </td>
+                      <td class="user-id">{{ user.id }}</td>
+                      <td class="user-email">{{ user.email }}</td>
+                      <td class="user-name">{{ user.username }}</td>
+                      <td>
+                        <input type="text" class="user-demo-balance form-control form-control-sm" value="$ {{ user.demo_balance }}">
+                      </td>
+                      <td>
+                        <input type="text" class="user-live-balance form-control form-control-sm" value="$ {{ user.live_balance }}">
+                      </td>
+                      <td class="user-info">
+                        <button type="button" class="btn btn-sm btn-secondary info-btn" data-bs-toggle="modal" data-bs-target="#user-info-modal">View Info</button>
+                      </td>
+                      <td class="user-kyc">
+                        <button type="button" class="btn btn-sm btn-secondary kyc-btn" data-user-id="12001" data-bs-toggle="modal" data-bs-target="#user-kyc-modal">View KYC</button>
+                      </td>
+                      <td class="align-text-top user-active">
+                        <i class="bi bi-check-circle text-success fs-4 active-icon"></i>
+                        <i class="bi bi-x-circle text-danger fs-4 active-icon d-none"></i>
+                      </td>
+                      <td class="save-user-btn">
+                        <button type="button" class="btn btn-sm btn-success text-white save-btn"git>Save</button>
+                      </td>
+              </tr>
+              <!-- USER INFO MODAL -->
+                <div class="modal fade" id="user-info-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title fs-5" id="exampleModalLabel">Edit User Information</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <form>
+                          <div class="mb-3">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstName" required placeholder="First name">
+                          </div>
+                          <div class="mb-3">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" required placeholder="Last name">
+                          </div>
+                          <div class="mb-3">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="tel" class="form-control" id="phone" required placeholder="Phone Number">
+                          </div>
+                          <div class="mb-3">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="address" required placeholder="Address ">
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 mb-3">
+                              <label for="city" class="form-label">City</label>
+                              <input type="text" class="form-control" id="city" required placeholder="City">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                              <label for="state" class="form-label">State</label>
+                              <input type="text" class="form-control" id="state" required placeholder="State">
+                            </div>
+                            <div class="col-md-2 mb-3">
+                              <label for="zipCode" class="form-label">Zip Code</label>
+                              <input type="text" class="form-control" id="zipCode" required placeholder="ZipCode">
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save Changes</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- KYC MODAL -->
+              <div class="modal fade" id="user-kyc-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">KYC</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body d-flex">
+                    <div class="kyc-img front-img-box border border-secondary-subtle">
+                      <img src="{{ url_for('static', filename='img/user-default.png') }}" class="card-img-top profile-img rounded-0" id="kyc-1" alt="...">
+                    </div>
+                    <div class="kyc-img back-img-box border border-secondary-subtle">
+                      <img src="{{ url_for('static', filename='img/user-default.png') }}" class="card-img-top profile-img rounded-0" id="kyc-2" alt="...">
+                    </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-success">Approve</button>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
           </tbody>
         </table>
 
@@ -403,88 +488,12 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save Payment</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-
-
-
-
-       <!-- USER INFO MODAL -->
-       <div class="modal fade" id="user-info-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title fs-5" id="exampleModalLabel">Edit User Information</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="mb-3">
-                  <label for="firstName" class="form-label">First Name</label>
-                  <input type="text" class="form-control" id="firstName" required>
-                </div>
-                <div class="mb-3">
-                  <label for="lastName" class="form-label">Last Name</label>
-                  <input type="text" class="form-control" id="lastName" required>
-                </div>
-                <div class="mb-3">
-                  <label for="phone" class="form-label">Phone</label>
-                  <input type="tel" class="form-control" id="phone" required>
-                </div>
-                <div class="mb-3">
-                  <label for="address" class="form-label">Address</label>
-                  <input type="text" class="form-control" id="address" required>
-                </div>
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label for="city" class="form-label">City</label>
-                    <input type="text" class="form-control" id="city" required>
-                  </div>
-                  <div class="col-md-4 mb-3">
-                    <label for="state" class="form-label">State</label>
-                    <input type="text" class="form-control" id="state" required>
-                  </div>
-                  <div class="col-md-2 mb-3">
-                    <label for="zipCode" class="form-label">Zip Code</label>
-                    <input type="text" class="form-control" id="zipCode" required>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save Changes</button>
+              <button type="button" class="btn btn-primary" id="payment_method">Save Payment</button>
             </div>
           </div>
         </div>
       </div>
 
-
-
-
-      <!-- KYC MODAL -->
-      <div class="modal fade" id="user-kyc-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">KYC</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body d-flex">
-            <div class="kyc-img front-img-box border border-secondary-subtle"></div>
-            <div class="kyc-img back-img-box border border-secondary-subtle"></div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-success">Approve</button>
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
       </div>
     </main>
   </div>
@@ -495,28 +504,74 @@
 <script src="sweetalert2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js" integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous"></script><script src="{{ url_for('static', filename='scripts/dashboard.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <script>
+
+function done() {
+
+    Swal.fire({
+        icon: "success",
+        title: "DONE",
+        text: "User INFO UPDATED",
+    });
+}
+
+function insufficient() {
+
+    Swal.fire({
+        icon: "error",
+        title: "FAILED",
+        text: "ERROR PLEASE REACH OUT TO THE DEV",
+    });
+}
 
 $(document).ready(function() {
   // Save button click handler
   $('.save-btn').click(function() {
-    const userId = $(this).closest('tr').find('.user-id').text().trim();
+    const id = $(this).closest('tr').find('.user-id').text().trim();
     const userEmail = $(this).closest('tr').find('.user-email').text().trim();
-    const userName = $(this).closest('tr').find('.user-name').text().trim();
-    const demoBalance = $(this).closest('tr').find('.user-demo-balance').val().trim();
-    const liveBalance = $(this).closest('tr').find('.user-live-balance').val().trim();
+    const username = $(this).closest('tr').find('.user-name').text().trim();
+    const demo_balance = $(this).closest('tr').find('.user-demo-balance').val().trim();
+    const live_balance = $(this).closest('tr').find('.user-live-balance').val().trim();
 
     // You can add logic to retrieve KYC image information here (optional)
 
     const userInfo = {
-      userId,
-      userEmail,
-      userName,
-      demoBalance,
-      liveBalance,
+      id: id,
+      email: userEmail.replace("$ ", ""),
+      username : username,
+      demo_balance: demo_balance.replace("$ ", ""),
+      live_balance: live_balance.replace("$ ", ""),
+      last_deposit: live_balance.replace("$ ", ""),
       // Add KYC info object if retrieved
     };
-
+    try {
+      const response = fetch('/api/v1/users/update_profile/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userInfo),
+      });
+    
+      // Use .then to handle the promise returned by fetch
+      response.then(response => {
+          if (response.ok) {
+            done()
+          } else {
+            response.json().then(data => {
+              insufficient()
+            });
+          }
+        })
+      .catch(error => {
+        console.error('Error sending switch request:', error);
+        // Handle errors (e.g., display error message to user)
+      });
+    } catch (error) {
+      console.error('Unexpected error:', error);
+    }
     console.log("Saved User Information:", userInfo);
   });
 
@@ -525,6 +580,107 @@ $(document).ready(function() {
   });
 
   // ... existing KYC modal logic (if any)
+});
+
+
+function updateUserProfile(user) {
+  // Update DOM elements with user information
+  const profileName = document.getElementById("firstName");  // Assuming element IDs
+  const lastName = document.getElementById("lastName");
+  const phone = document.getElementById("phone");
+  const address = document.getElementById("address");
+  const city = document.getElementById("city");
+  const state = document.getElementById("state");
+  const zipcode = document.getElementById('zipCode')
+  document.getElementById("kyc-1").src = "/static/" + user.kyc_data['front'];
+  document.getElementById("kyc-2").src = "/static/" + user.kyc_data['back'];
+  activeElement = document.querySelector(".text-success")
+  notactiveElement = document.querySelector(".text-danger")
+
+
+  if (user.is_verified === 'false') {
+    activeElement.classList = 'd-none'
+  } else {
+    notactiveElement.classList = 'd-none'
+  }
+  //const profileEmail = document.getElementById("profile-email");
+  if (profileName) {
+    profileName.value = user.username;
+  }
+  if (lastName) {
+    lastName.value = user.last_name;
+  } 
+  if (phone) {
+    phone.value = user.PhoneNumber
+  }
+  if (address) {
+    address.value = user.address 
+  }
+  if (city) {
+    city.value = user.city
+  }
+  if (state) {
+    state.value = user.state
+  }
+  if (zipcode) {
+    zipcode.value = user.zipcode
+  }
+}
+
+
+
+function getUserInfo(userId) {
+  
+  $.ajax({
+    url: `/api/v1/getInfo/user_id=${userId}`,
+    type: 'GET',
+    cache: false,
+    success: function(response) {
+      if (response) {
+        const user = response.success
+        updateUserProfile(user);  
+        //document.getElementById("profile-img").src = "/static/" + response.profile_path;;  // Update image source
+      }
+    },
+    error: function(error) {
+      console.error('Error uploading profile picture:', error);
+    }
+  });
+}
+
+
+
+$('.info-btn').click(function() {
+  const userId = $(this).closest('tr').find('.user-id').text().trim();
+  getUserInfo(userId)
+});
+
+$('.kyc-btn').click(function() {
+  const userId = $(this).closest('tr').find('.user-id').text().trim();
+  getUserInfo(userId)
+});
+
+
+
+$('.payment_method').click(function() {
+  const payment_method = document.getElementById("paymentAddress")
+  console.log("payment method set ", payment_method)
+  $.ajax({
+    url: `/api/v1/update_payment/method=${payment_method}`,
+    type: 'POST',
+    cache: false,
+    success: function(response) {
+      if (response) {
+        const user = response.success
+        done() 
+        //document.getElementById("profile-img").src = "/static/" + response.profile_path;;  // Update image source
+      }
+    },
+    error: function(error) {
+      console.error('Error uploading profile picture:', error);
+      insufficient()
+    }
+  });
 });
 
 
