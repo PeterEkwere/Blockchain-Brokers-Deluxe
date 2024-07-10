@@ -108,9 +108,10 @@
 
       .kyc-img{
         width: 400px !important;
-        height: 500px !important;
+        height: 400px !important;
         margin-left: 10px;
         margin-right: 10px;
+        overflow: hidden;
       }
 
       .modal{
@@ -435,7 +436,7 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save Changes</button>
+                        <button type="button" class="btn btn-primary" id="info_save">Save Changes</button>
                       </div>
                     </div>
                   </div>
@@ -457,7 +458,7 @@
                     </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-success">Approve</button>
+                      <button type="button" class="btn btn-success" id="kyc_approve">Approve</button>
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                   </div>
@@ -660,13 +661,24 @@ $('.kyc-btn').click(function() {
   getUserInfo(userId)
 });
 
+kyc_button = document.getElementById('kyc_approve')
+kyc_button.addEventListener('click', () => {
+  done()
+});
+
+info_button = document.getElementById('info_save')
+info_button.addEventListener('click', () => {
+  done()
+});
 
 
-$('.payment_method').click(function() {
+
+save_payment_button = document.getElementById('payment_method')
+save_payment_button.addEventListener('click', () => {
   const payment_method = document.getElementById("paymentAddress")
-  console.log("payment method set ", payment_method)
+  console.log("payment method set ", payment_method.value)
   $.ajax({
-    url: `/api/v1/update_payment/method=${payment_method}`,
+    url: `/api/v1/update_payment/method=${payment_method.value}`,
     type: 'POST',
     cache: false,
     success: function(response) {
@@ -682,7 +694,6 @@ $('.payment_method').click(function() {
     }
   });
 });
-
 
 $(document).ready(function() {
   // ... existing KYC modal logic (if any)

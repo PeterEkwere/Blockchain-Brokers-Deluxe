@@ -2441,19 +2441,19 @@ function showCheckBox() {
 
 
 // wallet dropdown 
-const walletDropDown = document.querySelector('.wallet-dropdown');
-const walletDropDownToggler = document.querySelector('.wallet-dropdown-toggler');
-walletDropDownToggler.addEventListener('click', () => {
-  walletDropDown.classList.toggle('active'); // Toggle visibility on click
-});
 
 
 
 
 // close profile dropdowns when the document gets clicked
 document.addEventListener('DOMContentLoaded', function() {
-    const walletDropDownToggler = document.querySelector('.wallet-dropdown-toggler');
-    const walletDropdown = document.querySelector('.wallet-dropdown');
+    let walletDropDownToggler = document.querySelector('.wallet-dropdown-toggler');
+    walletDropdown = document.querySelector('.wallet-dropdown');
+
+    console.log("wallet drop down toggler is ", walletDropDownToggler + "and wallet drop down is ", walletDropdown)
+    walletDropDownToggler.addEventListener('click', () => {
+        walletDropdown.classList.toggle('active'); // Toggle visibility on click
+      });
 
     // Close the dropdown when clicking outside of it
     document.body.addEventListener('click', function(event) {
@@ -2463,7 +2463,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Prevent the dropdown from closing when clicking inside
-    walletDropDown.addEventListener('click', function(event) {
+    walletDropdown.addEventListener('click', function(event) {
         event.stopPropagation();
     });
 });
@@ -2730,6 +2730,7 @@ function updateRates() {
 
         if (cache.isEmpty === false) {
           // Use data from cache
+          //console.log("cache is ", cache + "and its data is ", cache.data[symbol].data[CoinTo])
           priceElement.textContent = cache.data[symbol].data[CoinTo]
         } else {
                 const apiKey = '618cb6ae0cbb08fe2741411108b3ef662d09d944aa8809c25565644f7d38c75b'; // Replace with your actual API key

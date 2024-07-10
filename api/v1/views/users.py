@@ -541,8 +541,8 @@ def upload_profile_image():
             file1_path = os.path.join(PROFILE_FOLDER, file1name)
             file1.save(file1_path)
             prefix_to_strip = "api/v1/static/"
-            value = user.profile_photo['front']
-            main_filename = value[len(prefix_to_strip):]
+            #value = user.profile_photo['front']
+            main_filename = file1_path[len(prefix_to_strip):]
             main_filename = main_filename.replace("\\", "/")
             auth._db.update_user(user.id,  profile_photo={"front": main_filename})
             message = "Your Profile Image Has Been Uploaded."
