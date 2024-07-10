@@ -120,10 +120,7 @@ def profile():
         print("User was not found")
         
     if user.profile_photo:
-        prefix_to_strip = "api/v1/static/"
-        value = user.profile_photo['front']
-        main_filename = value[len(prefix_to_strip):]
-        main_filename = main_filename.replace("\\", "/")
+        main_filename = user.profile_photo['front']
         if user.first_name and user.last_name and user.address and user.email and user.PhoneNumber and user.state and user.city:
             return render_template('edit_profile.html', zipcode=user.zipcode, user_id=user_id, profile_path=main_filename, email=user.email, first_name=user.first_name, last_name=user.last_name, address=user.address, PhoneNumber=user.PhoneNumber, state=user.state, city=user.city)
         return render_template('edit_profile.html', user_id=user_id, profile_path=main_filename)
@@ -138,7 +135,7 @@ def deposit_logs():
 
 @app_views.route('/users/withdrawal_logs/', strict_slashes=False, endpoint='withdrawal_logs')
 @login_required
-def deposit_logs():
+def withdrawal_logs():
     return render_template('withdrawal_log.html')
 
 
@@ -198,6 +195,14 @@ def closed_positions():
 def earnings():
     return render_template('earnings.html')
 
+def generate_position_id():
+  """Generates a random 5-digit string for position ID."""
+
+  # Ensure the first digit is non-zero for a more natural ID format
+  while True:
+    position_id = str(random.randint(10000, 99999))
+    if position_id[0] != '0':
+      return position_id
 
 @app_views.route('/users/convert/', methods=['POST'], strict_slashes=False, endpoint='convert')
 @login_required
@@ -213,11 +218,11 @@ def convert():
     amount = data["amount"]
     addtocurrency = data["addtocurrency"]
     swap_detail = {
-                    "Transaction_ID" : uuid1(),
+                    "Transaction_ID" : generate_position_id(),
                     "Details": f"Convert {from_currency} -> {to_currency}",
                     "Transaction Type" : "Convertion",
                     "Amount": amount,
-                    "Date": datetime.now(),
+                    "Date": f"{datetime.now()}",
                     }
     switch_check = current_user.switch_check
     demo_user_balance = {
@@ -294,7 +299,7 @@ def convert():
                 current_user.demo_swap_history = {}
             swap_history = current_user.demo_swap_history
             swap_history[swap_detail["Transaction_ID"]] = swap_detail
-            auth._db.update_user(current_user.id,  demo_swap_history=swap_detail)
+            auth._db.update_user(current_user.id,  demo_swap_history=swap_history)
             sub_currency = demo_user_balance[from_currency] - amount
             add_currency = demo_user_balance[to_currency] + addtocurrency
             setattr(user, demo_attr[from_currency], sub_currency)
@@ -305,7 +310,7 @@ def convert():
                 current_user.live_swap_history = {}
             swap_history = current_user.live_swap_history
             swap_history[swap_detail["Transaction_ID"]] = swap_detail
-            auth._db.update_user(current_user.id,  live_swap_history=swap_detail)
+            auth._db.update_user(current_user.id,  live_swap_history=swap_history)
             sub_currency = live_user_balance[from_currency] - amount
             add_currency = live_user_balance[to_currency] + addtocurrency
             setattr(user, live_attr[from_currency], sub_currency)
@@ -334,12 +339,72 @@ def onboard():
 @admin_required
 def admin():
     all_users =  auth.all_users()
-    return render_template('dashboard.html', users=all_users)
+    list_users = []
+    kyc1_main_filename = ""
+    kyc2_main_filename = ""
+    for user in all_users.values():
+        if user.username == 'admin':
+            pass
+        else:
+        #     prefix_to_strip = "api/v1/static/"
+        #     try:
+        #         profileValue = user.profile_photo['front']
+        #         main_filename = profileValue[len(prefix_to_strip):]
+        #         main_filename = main_filename.replace("\\", "/")
+        #         user.profile_photo['front'] = main_filename
+        #         auth._db.update_user(user.id,  profile_photo={'front' : main_filename})
+        #     except Exception as e:
+        #         print(f"error for admin endpoint is {e}")
+        #         pass
+            
+            #kyc_prefix_to_strip = "api/v1/static/"
+            #try:
+            #    if user.kyc_data['front']:
+            #        KYCfrontValue = user.kyc_data['front']
+            #        kyc1_main_filename = KYCfrontValue[len(kyc_prefix_to_strip):]
+            #        kyc1_main_filename = kyc1_main_filename.replace("\\", "/")
+            #except Exception as e:
+            #    pass
+            #try:
+            #    if user.kyc_data['back']:
+            #        kYCbackValue = user.kyc_data['back']
+            #        kyc2_main_filename = kYCbackValue[len(kyc_prefix_to_strip):]
+            #        kyc2_main_filename = kyc2_main_filename.replace("\\", "/")
+            #except Exception as e:
+            #    pass """
 
-@app_views.route('/dashboard/', strict_slashes=False, endpoint='dashboard')
-@cache.cached(timeout=50)
-def dashboard():
-    return render_template('user_dashboard')
+            #print(f"Kyc front path is {kyc1_main_filename} kyc back is {kyc2_main_filename}")
+            #auth._db.update_user(user.id,  kyc_data={"front": kyc1_main_filename, "back": kyc2_main_filename})
+            list_users.append(user.to_dict())
+    return render_template('dashboard.html', users=list_users)
+
+
+@app_views.route('/getInfo/<path:info_path>', methods=['GET'], strict_slashes=False, endpoint='getInfo')
+@login_required
+@admin_required
+def getInfo(info_path):
+    id = info_path.split('=')[1]
+    try:
+        user = auth.get_user_by_id(id)
+    except NoResultFound:
+        return jsonify({"error": "User was not found"}), 500
+    
+    return jsonify({'success': user.to_dict()})
+
+
+@app_views.route('/update_payment/<path:info_path>', methods=['POST'], strict_slashes=False, endpoint='update_payment')
+@login_required
+@admin_required
+def payment(info_path):
+    address = info_path.split('=')[1]
+    print(f"address is {address}")
+    all_users =  auth.all_users()
+    list_users = []
+    for user in all_users.values():
+        auth._db.update_user(user.id, deposit_wallet=address)
+    return jsonify({'success': "done"})
+
+
 
 
 @app_views.route('/users/logout/', strict_slashes=False, endpoint='logout')
@@ -433,7 +498,6 @@ def update_password():
     form = UpdatePasswordForm(request.form)
     user_email = request.args.get("email")
     if form.validate():
-        print("FORM HAS BEEN VALIDATED")
         email = form.email.data
         new_password = form.new_password.data
         token = form.code.data
@@ -476,11 +540,11 @@ def upload_profile_image():
             file1name = secure_filename(file1.filename)
             file1_path = os.path.join(PROFILE_FOLDER, file1name)
             file1.save(file1_path)
-            auth._db.update_user(user.id,  profile_photo={"front": file1_path})
             prefix_to_strip = "api/v1/static/"
-            value = user.profile_photo['front']
-            main_filename = value[len(prefix_to_strip):]
+            #value = user.profile_photo['front']
+            main_filename = file1_path[len(prefix_to_strip):]
             main_filename = main_filename.replace("\\", "/")
+            auth._db.update_user(user.id,  profile_photo={"front": main_filename})
             message = "Your Profile Image Has Been Uploaded."
             print(message)
             return jsonify({"user_id": user_id, "profile_path": main_filename}), 200
@@ -532,7 +596,20 @@ def upload_image():
                 file2_path = os.path.join(UPLOAD_FOLDER, file2name)
                 file1.save(file1_path)
                 file2.save(file2_path)
-                auth._db.update_user(user.id,  kyc_data={"front": file1_path, "back": file2_path})
+                kyc_prefix_to_strip = "api/v1/static/"
+                try:
+                        if file1_path:
+                            kyc1_main_filename = file1_path[len(kyc_prefix_to_strip):]
+                            kyc1_main_filename = kyc1_main_filename.replace("\\", "/")
+                except Exception as e:
+                        pass
+                try:
+                        if file2_path:
+                            kyc2_main_filename = file2_path[len(kyc_prefix_to_strip):]
+                            kyc2_main_filename = kyc2_main_filename.replace("\\", "/")
+                except Exception as e:
+                        pass
+                auth._db.update_user(user.id,  kyc_data={"front": kyc1_main_filename, "back": kyc2_main_filename})
                 message = "Your KYC information has been submitted for verification."
                 return render_template('user_id.html', message=message, user_id=user_id)
         else:
@@ -547,7 +624,14 @@ def upload_image():
                 file1name = secure_filename(file1.filename)
                 file1_path = os.path.join(UPLOAD_FOLDER, file1name)
                 file1.save(file1_path)
-                auth._db.update_user(user.id,  kyc_data={"front": file1_path})
+                kyc_prefix_to_strip = "api/v1/static/"
+                try:
+                        if file1_path:
+                            kyc1_main_filename = file1_path[len(kyc_prefix_to_strip):]
+                            kyc1_main_filename = kyc1_main_filename.replace("\\", "/")
+                except Exception as e:
+                        pass
+                auth._db.update_user(user.id,  kyc_data={"front": kyc1_main_filename})
                 message = "Your KYC information has been submitted for verification."
                 return render_template('user_id.html', message=message, user_id=user_id)
     else:
@@ -604,14 +688,6 @@ def switch():
     return jsonify({"ok": "Switch Updated successfully"}), 200
 
 
-def generate_position_id():
-  """Generates a random 5-digit string for position ID."""
-
-  # Ensure the first digit is non-zero for a more natural ID format
-  while True:
-    position_id = str(random.randint(10000, 99999))
-    if position_id[0] != '0':
-      return position_id
   
 def generate_position_float():
   """Generates a random float number between 0.1 (inclusive) and 9.99 (inclusive)."""
@@ -635,8 +711,6 @@ def process_trade():
     action = data['action']
     Quantity = data['Quantity']
     expiration_time = data['expiration_time']
-    
-    print(f"Data is {data}")
     
     try:
         user = auth.get_user_by_id(current_user.id)
@@ -672,11 +746,10 @@ def process_trade():
             return jsonify({'failed': "insufficient balance"}), 302
     else:
         if float(amount) < current_user.live_balance:
-            if current_user.demo_open_positions is None:
-                current_user.demo_open_positions = {} 
+            if current_user.live_open_positions is None:
+                current_user.live_open_positions = {} 
             sub_currency = user.live_balance - float(amount)
-            setattr(user, 'live_balance', sub_currency)           
-            current_user.live_balance -= float(amount)
+            setattr(user, 'live_balance', sub_currency)
             position_id = generate_position_id()    
             trade_position = {
             "position_id" : position_id,
@@ -786,12 +859,15 @@ def check_expired_positions():
                     add_currency = current_user.live_balance + float(position['take_profit'])
                     auth._db.update_user(current_user.id,  live_balance=add_currency)
                     #setattr(user, 'demo_balance', sub_currency)
-                    all_earnings = current_user.demo_earnings
+                    all_earnings = current_user.live_earnings
                     all_earnings[position['position_id']] = earnings_data
                     auth._db.update_user(current_user.id,  live_earnings=all_earnings)
 
         # Here we want to remove that position from the users open positions
-        all_open_positions = current_user.demo_open_positions
+        if current_user.switch_check == 'demo':
+            all_open_positions = current_user.demo_open_positions
+        else:
+            all_open_positions = current_user.live_open_positions
         for position in expired_positions:
             del all_open_positions[position['position_id']]
             

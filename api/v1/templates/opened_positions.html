@@ -1104,8 +1104,7 @@ td{
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        {% if current_user.switch_check == 'demo'%}
+                                    {% if current_user.switch_check == 'demo'%}
                                         {% if current_user.demo_open_positions %}
                                             {% for position_id, position in current_user.demo_open_positions.items() %}
                                                 <tr>
@@ -1138,7 +1137,6 @@ td{
                                             {% endfor %}
                                         {% endif %}
                                     {% endif %}
-                                    </tr>
                                 </tbody>
                               </table>
                         </div>
