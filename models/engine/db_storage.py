@@ -34,7 +34,7 @@ class DBStorage:
                                       'mysql+mysqldb://{}:{}@{}/{}'.format(Deluxe_MYSQL_USER,
                                              Deluxe_MYSQL_PWD,
                                              Deluxe_MYSQL_HOST,
-                                             Deluxe_MYSQL_DB))
+                                             Deluxe_MYSQL_DB), pool_recycle=280)
         #self._engine = create_engine("sqlite:///a.db", echo=False)
         Base.metadata.create_all(self.__engine)
         self.__session = None
