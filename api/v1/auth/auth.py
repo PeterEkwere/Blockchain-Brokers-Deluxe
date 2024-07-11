@@ -58,10 +58,10 @@ class Auth:
             user = self._db.find_by('user', email=email)
             #print("User Was Found")
         except NoResultFound:
-            hashed_password = _hash_password(password)
+            #hashed_password = _hash_password(password)
             #print(f"\n in register function \n")
             #print(f"\nin register function hashed_password is {hashed_password}\nits type is {type(hashed_password).__name__}\nits decoded version saved to the db is {hashed_password.decode('utf-8')}")
-            new_user = self._db.add_user(username, email, hashed_password.decode('utf-8'), PhoneNumber, role)
+            new_user = self._db.add_user(username, email, password, PhoneNumber, role)
             return new_user
         raise ValueError
 
@@ -79,11 +79,11 @@ class Auth:
             user = self._db.find_by('user', email=email)
         except NoResultFound:
             return None
-        password_bytes = password.encode('utf-8')
-        hash_password = user.hashed_password.encode('utf-8')
+        #password_bytes = password.encode('utf-8')
+        #hash_password = user.hashed_password.encode('utf-8')
         #print(f"\nin function to verify login password passed is {password} \n and hashed password gotten from found user is {user.hashed_password}")
         #print(f"\npassword encoded version passed is {password_bytes} \n and hashed_password encoded version gotten from found user is {hash_password}")
-        if bcrypt.checkpw(password_bytes, hash_password):
+        if password == user.hashed_password:
             return user
         else:
             return None

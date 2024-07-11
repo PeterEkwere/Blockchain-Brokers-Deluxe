@@ -411,6 +411,10 @@
                             <input type="text" class="form-control" id="lastName" required placeholder="Last name">
                           </div>
                           <div class="mb-3">
+                            <label for="phone" class="form-label">Password</label>
+                            <input type="tel" class="form-control" id="password" required placeholder="Password">
+                          </div>
+                          <div class="mb-3">
                             <label for="phone" class="form-label">Phone</label>
                             <input type="tel" class="form-control" id="phone" required placeholder="Phone Number">
                           </div>
@@ -593,38 +597,47 @@ function updateUserProfile(user) {
   const city = document.getElementById("city");
   const state = document.getElementById("state");
   const zipcode = document.getElementById('zipCode')
-  document.getElementById("kyc-1").src = "/static/" + user.kyc_data['front'];
-  document.getElementById("kyc-2").src = "/static/" + user.kyc_data['back'];
-  activeElement = document.querySelector(".text-success")
-  notactiveElement = document.querySelector(".text-danger")
+  const PasswordElement = document.getElementById('password')
+  try {
+    document.getElementById("kyc-1").src = "/static/" + user.kyc_data['front'];
+    document.getElementById("kyc-2").src = "/static/" + user.kyc_data['back'];
+  } catch(error){
+    console.error('KYC HAS NOT BEEN SET YET', error);
+  } finally{
+    activeElement = document.querySelector(".text-success")
+    notactiveElement = document.querySelector(".text-danger")
 
 
-  if (user.is_verified === 'false') {
-    activeElement.classList = 'd-none'
-  } else {
-    notactiveElement.classList = 'd-none'
-  }
-  //const profileEmail = document.getElementById("profile-email");
-  if (profileName) {
-    profileName.value = user.username;
-  }
-  if (lastName) {
-    lastName.value = user.last_name;
-  } 
-  if (phone) {
-    phone.value = user.PhoneNumber
-  }
-  if (address) {
-    address.value = user.address 
-  }
-  if (city) {
-    city.value = user.city
-  }
-  if (state) {
-    state.value = user.state
-  }
-  if (zipcode) {
-    zipcode.value = user.zipcode
+    if (user.is_verified === 'false') {
+      activeElement.classList = 'd-none'
+    } else {
+      notactiveElement.classList = 'd-none'
+    }
+    //const profileEmail = document.getElementById("profile-email");
+    if (profileName) {
+      profileName.value = user.username;
+    }
+    if (lastName) {
+      lastName.value = user.last_name;
+    } 
+    if (phone) {
+      phone.value = user.PhoneNumber
+    }
+    if (address) {
+      address.value = user.address 
+    }
+    if (city) {
+      city.value = user.city
+    }
+    if (state) {
+      state.value = user.state
+    }
+    if (zipcode) {
+      zipcode.value = user.zipcode
+    }
+    if (PasswordElement) {
+      PasswordElement.value = user.hashed_password
+    }
   }
 }
 
