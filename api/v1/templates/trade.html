@@ -14,7 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-    <title>Verify ID - delux4.com</title>
+    <title>Verify ID - digitalofx.com</title>
 </head>
 <style>
     /* `sm` applies to x-small devices (portrait phones, less than 576px)
@@ -709,7 +709,7 @@
 
                 <!-- Logo -->
                 <div class="logo-box me-2 border-bottom-0 px-3 py-2 border border-end">
-                    <img src="{{ url_for('static', filename='img/favicon.png') }}" alt="" class="logo">
+                    <img src="{{ url_for('static', filename='img/new_logo.png') }}" alt="" class="logo">
                 </div>
 
                 <!-- Currency-->
@@ -2283,7 +2283,7 @@
     <footer class="d-flex justify-content-between p-3" style="background-color: #fbfaff; margin-left: 80px;">
         <div class="container-fluid">
             <div class="d-flex justify-content-between">
-                <div class="col-sm-3">2024 Delux4</div>
+                <div class="col-sm-3">2024 Digitalofx</div>
                 <div class="col-sm-3">
                     <p>All Rights Reserved</p>
                 </div>
@@ -2444,8 +2444,13 @@ function showCheckBox() {
 
 // close profile dropdowns when the document gets clicked
 document.addEventListener('DOMContentLoaded', function() {
-    const walletDropDownToggler = document.querySelector('.wallet-dropdown-toggler');
-    const walletDropdown = document.querySelector('.wallet-dropdown');
+    let walletDropDownToggler = document.querySelector('.wallet-dropdown-toggler');
+    walletDropdown = document.querySelector('.wallet-dropdown');
+
+    console.log("wallet drop down toggler is ", walletDropDownToggler + "and wallet drop down is ", walletDropdown)
+    walletDropDownToggler.addEventListener('click', () => {
+        walletDropdown.classList.toggle('active'); // Toggle visibility on click
+      });
 
     walletDropDownToggler.addEventListener('click', () => {
         walletDropDown.classList.toggle('active'); // Toggle visibility on click
@@ -2459,7 +2464,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Prevent the dropdown from closing when clicking inside
-    walletDropDown.addEventListener('click', function(event) {
+    walletDropdown.addEventListener('click', function(event) {
         event.stopPropagation();
     });
 });
@@ -2639,7 +2644,7 @@ async function calculateConversion(symbol) {
     //console.log("SYMBOL IS ", symbol)
     console.log("coin from is " + coinFrom + ' coin to is ' + coinTo)
 
-    const apiKey = '89a1720ae940429bd985f4fa4cbce5ee7f0a2ee111cae5ddf5c7cd05ba788a94'; // Replace with your actual API key
+    const apiKey = 'ff7b53d037e82b63b2368b9e8a787e470bfe79f258f09f44c44095812d99aad8'; // Replace with your actual API key
     const url = `https://min-api.cryptocompare.com/data/price?fsym=${coinFrom}&tsyms=${coinTo}&api_key=${apiKey}`;
 
     try {
@@ -2680,6 +2685,11 @@ async function fetchData(url) {
 }
 
 
+let cache = {
+    data: {},  // Object to store actual data
+    isEmpty: true  // Flag to indicate empty cache
+  };
+
 function updateRates() {
     // Example: Simulate updating rates for BCHBTC, ETHBTC, etc.
     var updates = {
@@ -2717,17 +2727,28 @@ function updateRates() {
         var priceSymbol = formatSymbol(symbol)
         const [CoinFrom, CoinTo] = priceSymbol.split('/');
         
-        const apiKey = '89a1720ae940429bd985f4fa4cbce5ee7f0a2ee111cae5ddf5c7cd05ba788a94'; // Replace with your actual API key
-        const url = `https://min-api.cryptocompare.com/data/price?fsym=${CoinFrom}&tsyms=${CoinTo}&api_key=${apiKey}`;
+        //const isCachedAndValid = cache && (Date.now() - cache.timestamp < 20000000); // Example: Cache valid for 10 seconds
 
-        fetchData(url).then(data => {
-            // Do something with the data if needed
-            if (data) {
-                priceElement.textContent = data[CoinTo]
-            } else {
-                console.log("No data returned or an error occurred.");
-            }
-        });
+        if (cache.isEmpty === false) {
+          // Use data from cache
+          //console.log("cache is ", cache + "and its data is ", cache.data[symbol].data[CoinTo])
+          priceElement.textContent = cache.data[symbol].data[CoinTo]
+        } else {
+                const apiKey = '618cb6ae0cbb08fe2741411108b3ef662d09d944aa8809c25565644f7d38c75b'; // Replace with your actual API key
+                const url = `https://min-api.cryptocompare.com/data/price?fsym=${CoinFrom}&tsyms=${CoinTo}&api_key=${apiKey}`;
+
+                fetchData(url).then(data => {
+                    // Do something with the data if needed
+                    if (data) {
+                        priceElement.textContent = data[CoinTo]
+                        cache.data[symbol] = {
+                            data
+                        }
+                    } else {
+                        console.log("No data returned or an error occurred.");
+                    }
+                });
+        }
 
         if (rateElement) {
             var rateInfo = updates[symbol];
@@ -2751,6 +2772,7 @@ function updateRates() {
             }
         }
     });
+    cache.isEmpty = false;
 }
 
 // Example function to generate random rates

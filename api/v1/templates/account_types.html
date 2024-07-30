@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/monzanifabio/cryptofont/cryptofont.css">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-    <title>Verify ID - delux4.com</title>
+    <title>Verify ID - digitalofx.com</title>
 </head>
 <style>
     /* `sm` applies to x-small devices (portrait phones, less than 576px)
@@ -501,7 +501,7 @@
 
                 <!-- Logo -->
                 <div class="logo-box me-2 border-bottom-0 px-3 py-2 border border-end">
-                    <img src="{{ url_for('static', filename='img/favicon.png') }}" alt="" class="logo">
+                    <img src="{{ url_for('static', filename='img/new_logo.png') }}" alt="" class="logo">
                 </div>
 
                 <!-- Currency-->
@@ -1071,7 +1071,11 @@
                                             </li>
                                         </div>
                                         <div class="mt-4 pt-2">
-                                            <a href="javascript::void();" class="btn plan-btn pricing-btn 5k-btn">Not Active</a>
+                                            {% if current_user.last_deposit >= 5000 and current_user.last_deposit <= 19000 %}
+                                                <a href="javascript::void();" class="btn plan-btn pricing-btn 5k-btn" style="background-color: blue;">Active</a>
+                                            {% else %}
+                                                <a href="javascript::void();" class="btn plan-btn pricing-btn 5k-btn">Not Active</a>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
@@ -1110,7 +1114,11 @@
                                             </li>
                                         </div>
                                         <div class="mt-4 pt-2">
-                                            <a href="javascript::void();" class="btn plan-btn pricing-btn 20k-btn">Not Active</a>
+                                            {% if current_user.last_deposit >= 20000 and current_user.last_deposit <= 49000 %}
+                                                <a href="javascript::void();" class="btn plan-btn pricing-btn 20k-btn" style="background-color: blue;">Active</a>
+                                            {% else %}
+                                                <a href="javascript::void();" class="btn plan-btn pricing-btn 20k-btn">Not Active</a>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
@@ -1149,7 +1157,11 @@
                                             </li>
                                         </div>
                                         <div class="mt-4 pt-2">
-                                            <a href="javascript::void();" class="btn plan-btn pricing-btn 50k-btn">Not Active</a>
+                                            {% if current_user.last_deposit >= 50000 and current_user.last_deposit <= 99000 %}
+                                                <a href="javascript::void();" class="btn plan-btn pricing-btn 50k-btn" style="background-color: blue;">Active</a>
+                                            {% else %}
+                                                <a href="javascript::void();" class="btn plan-btn pricing-btn 50k-btn">Not Active</a>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
@@ -1249,7 +1261,7 @@
     <footer class="d-flex justify-content-between p-3" style="background-color: #fbfaff; margin-left: 80px;">
         <div class="container-fluid">
             <div class="d-flex justify-content-between">
-                <div class="col-sm-3">2024 Delux4</div>
+                <div class="col-sm-3">2024 digitalofx</div>
                 <div class="col-sm-3">
                     <p>All Rights Reserved</p>
                 </div>
@@ -1349,7 +1361,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Prevent the dropdown from closing when clicking inside
-    walletDropDown.addEventListener('click', function(event) {
+    walletDropdown.addEventListener('click', function(event) {
         event.stopPropagation();
     });
 });
