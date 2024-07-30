@@ -1,0 +1,7 @@
+[2024-07-26 20:23:27 +0200] [596805] [INFO] Starting gunicorn 20.1.0
+[2024-07-26 20:23:27 +0200] [596805] [INFO] Listening at: http://127.0.0.1:8000 (596805)
+[2024-07-26 20:23:27 +0200] [596805] [INFO] Using worker: sync
+[2024-07-26 20:23:27 +0200] [596808] [INFO] Booting worker with pid: 596808
+[2024-07-26 20:39:12 +0200] [596805] [INFO] Handling signal: term
+[2024-07-26 20:39:12 +0200] [596808] [INFO] Worker exiting (pid: 596808)
+[2024-07-26 20:39:12 +0200] [596805] [INFO] Shutting down: Master

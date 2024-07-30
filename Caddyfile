@@ -1,3 +1,7 @@
-http://178.32.229.77 {
+www.trade.digitalofx.com {
+    redir https://www.trade.digitalofx.com{uri}
+}
+
+trade.digitalofx.com {
     reverse_proxy localhost:8000
 }
