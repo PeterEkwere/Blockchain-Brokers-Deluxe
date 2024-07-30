@@ -537,6 +537,14 @@ body{
     .back-to-top:hover {
 	    bottom: 40px;
     }
+	#togglepassword {
+        float: right;
+        margin-left: -65px;
+        margin-top: -40px;
+        right: 20px;
+        position: relative;
+        z-index: 2;
+    }
 
 
 	</style>
@@ -674,6 +682,7 @@ body{
 						<div class="w-50 me-5 pw-container">
 							<label for="exampleInputPassword1">Enter Your Password</label>
 							{{ register_form.password(class="form-control input-box shadow-lg px-4", placeholder = "Choose a password") }}
+							<i class="bi bi-eye-slash" id="togglepassword"> </i>
 							<!-- <input type="password" class="form-control input-box shadow-lg px-4 pw-box" id="exampleInputPassword1" placeholder="Choose a password"> -->
 						</div>
 						<div class="w-50 cpw-container">
@@ -802,6 +811,17 @@ body{
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+		<script>
+			const togglepassword = document.getElementById("togglepassword")
+			const password = document.getElementById("password")
+			console.log("tp element is ", togglepassword, "password element is ", password)
+			togglepassword.addEventListener('click', (e) => {
+				console.log("tp was clicked")
+				const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+				password.setAttribute('type', type);
+				e.target.classList.toggle('bi-eye')
+			});
+		</script>
 		<script>
 			$(document).ready(function() {
 				var input = document.querySelector("#phone");

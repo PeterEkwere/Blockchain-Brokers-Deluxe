@@ -537,6 +537,14 @@
     .h-p {
         text-decoration: red;
     }
+    #togglepassword {
+        float: right;
+        margin-left: -65px;
+        margin-top: -40px;
+        right: 20px;
+        position: relative;
+        z-index: 2;
+    }
 
 
 </style>
@@ -653,6 +661,7 @@
                         <label for="exampleInputPassword1">Enter Your Password</label>
                         <!-- <input type="password" class="form-control input-box shadow-lg px-4 pw-box" id="exampleInputPassword1" placeholder="Valid password"> -->
                         {{ Login_form.password(class="form-control input-box shadow-lg px-4 pw-box", placeholder = "Valid password") }}
+                        <i class="bi bi-eye-slash" id="togglepassword"> </i>
                     </div>
                 </div>
 
@@ -774,13 +783,25 @@
     </div>
 <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/coinMarquee.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script>
+    const togglepassword = document.getElementById("togglepassword")
+    const password = document.getElementById("password")
+    console.log("tp element is ", togglepassword, "password element is ", password)
+    togglepassword.addEventListener('click', (e) => {
+        console.log("tp was clicked")
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        e.target.classList.toggle('bi-eye')
+    });
+</script>
+<script>
     $(document).ready(function() {
-        var input = document.querySelector("#phone");
+        var input = document.querySelector(".phone");
         var iti = window.intlTelInput(input, {
             initialCountry: "auto",
             geoIpLookup: function(callback) {
