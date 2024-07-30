@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-    <title>Login - delux4.com</title>
+    <title>Login - Digitalofx.com</title>
 </head>
 <style>
 /* `sm` applies to x-small devices (portrait phones, less than 576px)
@@ -80,7 +80,7 @@
     }
 
     .logo{
-        width: 230px;
+        width: 82px;
     }
 
     .nav-link{
@@ -296,7 +296,8 @@
         }
 
         .logo{
-            width: 160px !important;
+            width: 60px !important;
+	    margin-left: 10px !important;
         }
 
 
@@ -553,8 +554,8 @@
             <div class="container-fluid px-5 py-0 nav-container">
 
                 <!-- WEBSITE LOGO -->
-                <a class="navbar-brand p-0" href="#">
-                    <img src="logo-light.png" alt="" class="logo">
+                <a class="navbar-brand p-0" href="https://www.digitalofx.com/">
+			<img src="{{ url_for('static', filename='img/new_logo.png') }}" alt="" class="logo mx-auto">
                 </a>
 
                 <!-- SIGN UP & LOGIN ICON FOR MOBILE VIEW -->
@@ -574,19 +575,19 @@
                 <div class="collapse navbar-collapse main-menu" id="navbarNavDropdown">
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
                         <li class="nav-item">
-                            <a class="nav-link active text-white aria-current"="page" href="#">HOME</a>
+                            <a class="nav-link active text-white aria-current"="page" href="https://www.digitalofx.com/">HOME</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             RESOURCE
                             </a>
                             <ul class="dropdown-menu shadow-lg">
-                            <li><a class="dropdown-item" href="#">Bitcoin Trading</a></li>
-                            <li><a class="dropdown-item" href="#">Bitcoin Cash Trading</a></li>
-                            <li><a class="dropdown-item" href="#">Litecoin Trading</a></li>
-                            <li><a class="dropdown-item" href="#">Ethereum Trading</a></li>
-                            <li><a class="dropdown-item" href="#">Ripple Trading</a></li>
-                            <li><a class="dropdown-item" href="#">Economic Calender</a></li>
+                            <li><a class="dropdown-item" href="https://www.digitalofx.com/bitcoin-trading.html">Bitcoin Trading</a></li>
+                            <li><a class="dropdown-item" href="https://www.digitalofx.com/bitcoin-cash-trading.html">Bitcoin Cash Trading</a></li>
+                            <li><a class="dropdown-item" href="https://www.digitalofx.com/litecoin-trading.html">Litecoin Trading</a></li>
+                            <li><a class="dropdown-item" href="https://www.digitalofx.com/ethereum-trading.html">Ethereum Trading</a></li>
+                            <li><a class="dropdown-item" href="https://www.digitalofx.com/ripple-trading.html">Ripple Trading</a></li>
+                            <li><a class="dropdown-item" href="https://www.digitalofx.com/economic-calender.html">Economic Calender</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -594,16 +595,16 @@
                             COMPANY
                             </a>
                             <ul class="dropdown-menu shadow-lg">
-                            <li><a class="dropdown-item" href="#">Afiliate Program</a></li>
-                            <li><a class="dropdown-item" href="#">About Us</a></li>
-                            <li><a class="dropdown-item" href="#">Terms Of Services</a></li>
+                            <li><a class="dropdown-item" href="https://www.digitalofx.com/affiliate-program.html">Afiliate Program</a></li>
+                            <li><a class="dropdown-item" href="https://www.digitalofx.com/about-deluxe-4.html">About Us</a></li>
+                            <li><a class="dropdown-item" href="https://www.digitalofx.com/terms-of-service.html">Terms Of Services</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">NEWS</a>
+                            <a class="nav-link" href="https://www.digitalofx.com/blog.html">NEWS</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">CONTACT</a>
+                            <a class="nav-link" href="https://www.digitalofx.com/contact-us.html">CONTACT</a>
                         </li>
 
                         <!-- SIGN-UP & LOGIN ICONS FOR LARGE WIDTH DEVICES -->
@@ -636,7 +637,7 @@
         <div class="form-container mx-auto">
             <div class="form-banner mb-5">
                 <h1 class="text-center fs-3 form-h1">Login Account.</h1>
-                <p class="text-center form-banner-p">Use the form below to Login your delux4 account</p>
+                <p class="text-center form-banner-p">Use the form below to Login your Digitalofx account</p>
             </div>
             <form method="POST" id="Login_form" class="mt-5" data-aos="fade-up" data-aos-duration="1000">
                 <div class="mb-4 w-100">
@@ -674,7 +675,7 @@
                 <div>
                     <!-- <button type="submit" class="submit-btn w-100 mb-3">Login</button> -->
                     {{ Login_form.submit(class="submit-btn w-100 mb-3") }}
-                    <p class="fs-6">Dont have an account ? <a href="{{ url_for('app_views.register') }}" class="text-info text-decoration-none">Sign up</p>
+		    <p class="fs-6">Dont have an account ? <a href="{{ url_for('app_views.register') }}" class="text-info text-decoration-none">Sign up</p> </a>
                 </div>
             </form>
         </div>
@@ -691,87 +692,56 @@
                 <!-- ABOUT US -->
                 <div class="col-lg-4 col-md-6 col-sm-6 abt-us me-5 mb-5">
                     <div class="footer-box-title">
-                       <h2 class="fs-4">About Delux4</h2> 
+                       <h2 class="fs-4">About Digitalofx</h2> 
                     </div>
                     <p class="abt-us-p footer-p">
-                        Deluxe 4 is a modern trading platform curated with all categories of traders in mind.
-                         With an easy to explore and use interface, we built integrity, innovation,
-                          and security into a product that is quickly becoming the favorite among traders
-                           in over 60 countries. We are happy to help people unleash their true potential while
-                            expanding their portfolios in a wide range of digital currencies. FCA REGULATED
+                        Digitalofx is a modern trading platform curated with all categories of traders in mind.
+                        With an easy to explore and use interface, we built integrity, innovation,
+                        and security into a product that is quickly becoming the favorite among traders
+                        in over 60 countries. We are happy to help people unleash their true potential while
+                        expanding their portfolios in a wide range of digital currencies. FCA REGULATED
                     </p>
-                    <div class="abt-us-icons d-flex">
-                        <div class="twitter social-container me-3">
-                            <i class="bi bi-twitter-x fs-5"></i>
-                        </div>
-                        <div class="mail social-container">
-                            <i class="bi bi-envelope-fill fs-5"></i>
-                        </div>
-                    </div>
+              
                 </div>
 
                 <!-- NAVIGATION LINKS -->
-                <div class="col-lg-2 col-md-6 col-sm-6 navigation-links mb-5">
+                <div class="col-lg-3 col-md-6 col-sm-6 navigation-links mb-5">
                     <div class="footer-box-title">
-                      <h2 class="fs-4">Navigation</h2>  
+                      <h2 class="fs-4">Useful Links</h2>  
                     </div>
                     <ul class="list-unstyled">
                         <li class="footer-list-item">
-                            <i class="bi bi-arrow-right-short text-info footer-p"></i>
+				<a href="https://www.digitalofx.com/index.html" style="color: inherit; text-decoration: none;">
+                            	<i class="bi bi-arrow-right-short text-info footer-p"></i>
                             Home
+				</a>
                         </li>
                         <li class="footer-list-item">
-                            <i class="bi bi-arrow-right-short text-info footer-p"></i>
-                            News
+				<a href="https://www.digitalofx.com/blog.html" style="color: inherit; text-decoration: none;">
+                            	<i class="bi bi-arrow-right-short text-info footer-p"></i>
+                            	News
+				</a>
                         </li>
                         <li class="footer-list-item">
+				<a href="https://coinmama.com/" style="color: inherit; text-decoration: none;">
                             <i class="bi bi-arrow-right-short text-info footer-p"></i>
                             Coin mama
+				</a>
                         </li>
                         <li class="footer-list-item">
+				<a href="http://178.32.229.77/api/v1/users/login/" style="color: inherit; text-decoration: none;">
                             <i class="bi bi-arrow-right-short text-info footer-p"></i>
-                            Blockchain Wallet
+                            User Login
+				</a>
                         </li>
                         <li class="footer-list-item">
-                            <i class="bi bi-arrow-right-short text-info footer-p"></i>
-                            Coin market cap
+				<a href="https://coinmarketcap.com/" style="color: inherit; text-decoration: none;">
+                            	<i class="bi bi-arrow-right-short text-info footer-p"></i>
+                            	Coin market cap
+				</a>
                         </li>
                     </ul>
                 </div>
-
-                <!-- RESOURCES -->
-                <div class="col-lg-2 col-md-6 col-sm-6 resources mb-5">
-                    <div class="footer-box-title">
-                       <h2 class="fs-4">Resources</h2> 
-                    </div>
-                    <ul class="list-unstyled">
-                        <li class="footer-list-item">
-                            <i class="bi bi-arrow-right-short text-info footer-p"></i>
-                            Account Types
-                        </li>
-                        <li class="footer-list-item">
-                            <i class="bi bi-arrow-right-short text-info footer-p"></i>
-                            Help Center
-                        </li>
-                        <li class="footer-list-item">
-                            <i class="bi bi-arrow-right-short text-info footer-p"></i>
-                            Funding Methods
-                        </li>
-                        <li class="footer-list-item">
-                            <i class="bi bi-arrow-right-short text-info footer-p"></i>
-                            Withdrawal Methods
-                        </li>
-                        <li class="footer-list-item">
-                            <i class="bi bi-arrow-right-short text-info footer-p"></i>
-                            Legal Agreements
-                        </li>
-                        <li class="footer-list-item">
-                            <i class="bi bi-arrow-right-short text-info footer-p"></i>
-                            Privacy Policy
-                        </li>
-                    </ul>
-                </div>
-
                 <!-- CONTACT -->
                 <div class="col-lg-3 col-md-6 col-sm-6 contact-info mb-5">
                     <div class="footer-box-title">
@@ -786,12 +756,12 @@
                     </div>
                     <div class="email footer-p">
                         <i class="bi bi-envelope-fill text-info me-2"></i>
-                        helpdesk@deluxe4.com
+                        helpdesk@digitalofx.com
                     </div>
                 </div>
             </div>
             <div class="footer-bottom text-center mt-5 footer-p">
-                <p>© Copyright Deluxe 4 2024. All Rights Reserved.</p>
+                <p>© Copyright Digitalofx 2024. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
@@ -879,7 +849,7 @@
                 mobileIcon.classList.add('mobile-icon-white');
             })
             navToggler.classList.remove('white-toggler');
-            logo.src = "{{ url_for('static', filename='img/logo (1).png') }}"
+            logo.src = "{{ url_for('static', filename='img/new_logo.png') }}"
         } else {
             navbar.classList.remove('scrolled');
             navbar.classList.remove('shadow-lg')
@@ -891,7 +861,7 @@
                 mobileIcon.classList.remove('mobile-icon-white')
             })
             navToggler.classList.add('white-toggler')
-            logo.src = "{{ url_for('static', filename='img/logo-light.png') }}"
+            logo.src = "{{ url_for('static', filename='img/new_logo.png') }}"
         }
     });
 

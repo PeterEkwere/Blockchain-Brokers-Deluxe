@@ -124,7 +124,7 @@ class Auth:
         try:
             # Create the password reset email message
             msg = Message('PASSWORD RESET CODE', recipients=[user.email])
-            msg.body = f"SUBJECT: Reset Password for Deluxe4.com\n\nHi {user.username},\n\nTo reset your password, use the following token: {token}\n\nIf you didn't request this, please ignore this email."
+            msg.body = f"SUBJECT: Reset Password for Digitalofx.com\n\nHi {user.username},\n\nTo reset your password, use the following token: {token}\n\nIf you didn't request this, please ignore this email."
             mail.send(msg)
         except Exception as e:
             print(f"Error sending password reset code to  email({user.email}) error:{e}")
@@ -133,7 +133,7 @@ class Auth:
         try:
             # Create the password reset email message
             msg = Message('EMAIL VERIFICATION CODE', recipients=[user.email])
-            msg.body = f"Subject: Email Verification Code for Deluxe4.com **\n\nHi {user.username},\n\nYout Code IS {token}\n\nIf you didn't request this, please ignore this email."
+            msg.body = f"Subject: Email Verification Code for Digitalofx.com **\n\nHi {user.username},\n\nYout Code IS {token}\n\nIf you didn't request this, please ignore this email."
             mail.send(msg)
         except Exception as e:
             print(f"Error sending verification code for Email({user.email}) Error:{e}")
