@@ -486,8 +486,20 @@
             <div class="modal-body">
               <form>
                 <div class="mb-3">
-                  <label for="paymentAddress" class="form-label">Wallet Address</label>
-                  <input type="text" class="form-control form-control-lg border border-secondary" id="paymentAddress" required>
+                  <label for="usdt_paymentAddress" class="form-label">USDT Payment Address</label>
+                  <input type="text" class="form-control form-control-lg border border-secondary" id="usdt_paymentAddress" required>
+                </div>
+                <div class="mb-3">
+                  <label for="btc_paymentAddress" class="form-label">BTC Payment Address</label>
+                  <input type="text" class="form-control form-control-lg border border-secondary" id="btc_paymentAddress" required>
+                </div>
+                <div class="mb-3">
+                  <label for="eth_paymentAddress" class="form-label">ETH Payment Address</label>
+                  <input type="text" class="form-control form-control-lg border border-secondary" id="eth_paymentAddress" required>
+                </div>
+                <div class="mb-3">
+                  <label for="sol_paymentAddress" class="form-label">SOL PAyment Address</label>
+                  <input type="text" class="form-control form-control-lg border border-secondary" id="sol_paymentAddress" required>
                 </div>
               </form>
             </div>
@@ -688,12 +700,26 @@ info_button.addEventListener('click', () => {
 
 save_payment_button = document.getElementById('payment_method')
 save_payment_button.addEventListener('click', () => {
-  const payment_method = document.getElementById("paymentAddress")
+  const usdt_payment_method = document.getElementById("usdt_paymentAddress")
+  const btc_payment_method = document.getElementById("btc_paymentAddress")
+  const sol_payment_method = document.getElementById("sol_paymentAddress")
+  const eth_payment_method = document.getElementById("eth_paymentAddress")
+
+
   console.log("payment method set ", payment_method.value)
+  data = {
+    "usdt": usdt_payment_method.value,
+    "eth": eth_payment_method.value,
+    "btc": btc_payment_method.value,
+    "sol": sol_payment_method.value,
+  }
+
   $.ajax({
-    url: `/api/v1/update_payment/method=${payment_method.value}`,
+    url: `/api/v1/update_payment/`,
     type: 'POST',
     cache: false,
+    contentType: 'application/json',  // Set the correct Content-Type
+    data: JSON.stringify(data),
     success: function(response) {
       if (response) {
         const user = response.success
