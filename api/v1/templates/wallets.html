@@ -1122,11 +1122,11 @@
                                 </div>
                                 <div class="col-12 mt-2 text-start">
                                     <div class="btn-group">
-                                        <button type="button" class="btn border-white text-white fs-6">
+                                        <button type="button" class="btn border-white text-white fs-6" data-bs-toggle="modal" data-bs-target="#btc-deposit-box">
                                             <i class="bi bi-box-arrow-in-down"></i>
                                             Deposit
                                         </button>
-                                        <button type="button" class="btn border-white text-white">
+                                        <button type="button" class="btn border-white text-white" data-bs-toggle="modal" data-bs-target="#btc-withdrawal-box">
                                             <i class="bi bi-bank"></i>
                                             Withdraw
                                         </button>
@@ -1178,11 +1178,11 @@
                                 </div>
                                 <div class="col-12 mt-2 text-start">
                                     <div class="btn-group">
-                                        <button type="button" class="btn border-white text-white fs-6">
+                                        <button type="button" class="btn border-white text-white fs-6" data-bs-toggle="modal" data-bs-target="#eth-deposit-box">
                                             <i class="bi bi-box-arrow-in-down"></i>
                                             Deposit
                                         </button>
-                                        <button type="button" class="btn border-white text-white">
+                                        <button type="button" class="btn border-white text-white" data-bs-toggle="modal" data-bs-target="#eth-withdrawal-box">
                                             <i class="bi bi-bank"></i>
                                             Withdraw
                                         </button>
@@ -1506,11 +1506,11 @@
                                 </div>
                                 <div class="col-12 mt-2 text-start">
                                     <div class="btn-group">
-                                        <button type="button" class="btn border-white text-white fs-6">
+                                        <button type="button" class="btn border-white text-white fs-6" data-bs-toggle="modal" data-bs-target="#sol-deposit-box">
                                             <i class="bi bi-box-arrow-in-down"></i>
                                             Deposit
                                         </button>
-                                        <button type="button" class="btn border-white text-white">
+                                        <button type="button" class="btn border-white text-white" data-bs-toggle="modal" data-bs-target="#sol-withdrawal-box">
                                             <i class="bi bi-bank"></i>
                                             Withdraw
                                         </button>
@@ -1712,7 +1712,7 @@
                 </div>
             </div>
     <div class="token-deposit-boxes">
-        <!-- Deposit box for btc -->
+        <!-- Deposit box for usdt -->
         <div class="deposit-modal modal fade" id="usdt-deposit-box" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
               <div class="modal-content">
@@ -1729,7 +1729,7 @@
                         <h5 class="fs-6">DEPOSIT AMOUNT</h5>
                         <h4 class="deposit-amount fs-5">0.00</h4>
                     </div>
-                    <div class="form-group mt-3">
+                    <div class="form-group mt-3 usdt">
                         <div class="row">
                             <div class="col mb-3">
                                 <button class="btn btn-dark" type="button">$2,000.00</button>   
@@ -1748,13 +1748,13 @@
                     <div class="col-auto mt-4">
                         <div class="form-group">
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Enter Amount" aria-label="Amount" aria-describedby="basic-addon2">
+                                <input type="text" class="form-control usdt" placeholder="Enter Amount" aria-label="Amount" aria-describedby="basic-addon2">
                                 <span class="input-group-text" id="basic-addon2">USDT</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer usdt">
                   <button type="button" class="btn text-white" style="background-color: #fd625e; box-shadow: 0px 3px 6px #fd635e92;" data-bs-dismiss="modal">Close</button>
                   <button type="button" class="btn text-white" style="background-color: #2ab57d; box-shadow: 0px 3px 6px #2ab57d90;">
                     <a href="" class="text-decoration-none text-white">
@@ -1785,6 +1785,243 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" aria-label="Amount" aria-describedby="basic-addon2">
                                 <span class="input-group-text coin-currency" id="basic-addon2">Btc</span>
+                            </div>
+                            <button class="btn mt-3 text-white rounded-0" style="background-color: #5156be; box-shadow: 0px 3px 6px #5156be6e; border-radius: 2px !important;">Continue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="deposit-modal modal fade" id="btc-deposit-box" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h3 class="modal-title fs-5" id="exampleModalLabel">Deposit Using BTC</h3>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-primary" role="alert">
+                        <h4 class="fs-5">Make Deposit</h4>
+                        Enter the deposit amount in the field below and click deposit to proceed.
+                    </div>
+                    <div class="col-md-12">
+                        <h5 class="fs-6">DEPOSIT AMOUNT</h5>
+                        <h4 class="deposit-amount fs-5">0.00</h4>
+                    </div>
+                    <div class="form-group mt-3 btc">
+                        <div class="row">
+                            <div class="col mb-3">
+                                <button class="btn btn-dark" type="button">$2,000.00</button>   
+                            </div>
+                            <div class="col mb-3">
+                                <button class="btn btn-dark" type="button">$10,000.00</button>   
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-dark" type="button">$50,000.00</button>   
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-dark" type="button">$100,000.00</button>   
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto mt-4">
+                        <div class="form-group">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control btc" placeholder="Enter Amount" aria-label="Amount" aria-describedby="basic-addon2">
+                                <span class="input-group-text" id="basic-addon2">BTC</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer btc">
+                  <button type="button" class="btn text-white" style="background-color: #fd625e; box-shadow: 0px 3px 6px #fd635e92;" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn text-white" style="background-color: #2ab57d; box-shadow: 0px 3px 6px #2ab57d90;">
+                    <a href="" class="text-decoration-none text-white">
+                      <i class="bi bi-credit-card"></i>
+                    Deposit 
+                    </a>
+                  </button>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <!-- withdrwal box -->
+        <div class="modal fade" id="btc-withdrawal-box" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Withdraw via BTC</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label class="col-md-12 modal-message-heading mb-2">
+                            <h4 class="fs-6">Requested Withdraw Amount</h4>
+                            <h4 class="withdraw_converted_value">0.00</h4>
+                        </label>
+                        <div class="form-group">
+                            <label class="mb-2">Enter Amount</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" aria-label="Amount" aria-describedby="basic-addon2">
+                                <span class="input-group-text coin-currency" id="basic-addon2">BTC</span>
+                            </div>
+                            <button class="btn mt-3 text-white rounded-0" style="background-color: #5156be; box-shadow: 0px 3px 6px #5156be6e; border-radius: 2px !important;">Continue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="deposit-modal modal fade" id="eth-deposit-box" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h3 class="modal-title fs-5" id="exampleModalLabel">Deposit Using ETH</h3>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-primary" role="alert">
+                        <h4 class="fs-5">Make Deposit</h4>
+                        Enter the deposit amount in the field below and click deposit to proceed.
+                    </div>
+                    <div class="col-md-12">
+                        <h5 class="fs-6">DEPOSIT AMOUNT</h5>
+                        <h4 class="deposit-amount fs-5">0.00</h4>
+                    </div>
+                    <div class="form-group mt-3 eth">
+                        <div class="row">
+                            <div class="col mb-3">
+                                <button class="btn btn-dark" type="button">$2,000.00</button>   
+                            </div>
+                            <div class="col mb-3">
+                                <button class="btn btn-dark" type="button">$10,000.00</button>   
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-dark" type="button">$50,000.00</button>   
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-dark" type="button">$100,000.00</button>   
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto mt-4">
+                        <div class="form-group">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control eth" placeholder="Enter Amount" aria-label="Amount" aria-describedby="basic-addon2">
+                                <span class="input-group-text" id="basic-addon2">ETH</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer eth">
+                  <button type="button" class="btn text-white" style="background-color: #fd625e; box-shadow: 0px 3px 6px #fd635e92;" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn text-white" style="background-color: #2ab57d; box-shadow: 0px 3px 6px #2ab57d90;">
+                    <a href="" class="text-decoration-none text-white">
+                      <i class="bi bi-credit-card"></i>
+                    Deposit 
+                    </a>
+                  </button>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <!-- withdrwal box -->
+        <div class="modal fade" id="eth-withdrawal-box" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Withdraw via ETH</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label class="col-md-12 modal-message-heading mb-2">
+                            <h4 class="fs-6">Requested Withdraw Amount</h4>
+                            <h4 class="withdraw_converted_value">0.00</h4>
+                        </label>
+                        <div class="form-group">
+                            <label class="mb-2">Enter Amount</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" aria-label="Amount" aria-describedby="basic-addon2">
+                                <span class="input-group-text coin-currency" id="basic-addon2">ETH</span>
+                            </div>
+                            <button class="btn mt-3 text-white rounded-0" style="background-color: #5156be; box-shadow: 0px 3px 6px #5156be6e; border-radius: 2px !important;">Continue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="deposit-modal modal fade" id="sol-deposit-box" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h3 class="modal-title fs-5" id="exampleModalLabel">Deposit Using SOL</h3>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-primary" role="alert">
+                        <h4 class="fs-5">Make Deposit</h4>
+                        Enter the deposit amount in the field below and click deposit to proceed.
+                    </div>
+                    <div class="col-md-12">
+                        <h5 class="fs-6">DEPOSIT AMOUNT</h5>
+                        <h4 class="deposit-amount fs-5">0.00</h4>
+                    </div>
+                    <div class="form-group mt-3 sol">
+                        <div class="row">
+                            <div class="col mb-3">
+                                <button class="btn btn-dark" type="button">$2,000.00</button>   
+                            </div>
+                            <div class="col mb-3">
+                                <button class="btn btn-dark" type="button">$10,000.00</button>   
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-dark" type="button">$50,000.00</button>   
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-dark" type="button">$100,000.00</button>   
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto mt-4">
+                        <div class="form-group">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control sol" placeholder="Enter Amount" aria-label="Amount" aria-describedby="basic-addon2">
+                                <span class="input-group-text" id="basic-addon2">SOL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer sol">
+                  <button type="button" class="btn text-white" style="background-color: #fd625e; box-shadow: 0px 3px 6px #fd635e92;" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn text-white" style="background-color: #2ab57d; box-shadow: 0px 3px 6px #2ab57d90;">
+                    <a href="" class="text-decoration-none text-white">
+                      <i class="bi bi-credit-card"></i>
+                    Deposit 
+                    </a>
+                  </button>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <!-- withdrwal box -->
+        <div class="modal fade" id="sol-withdrawal-box" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Withdraw via SOL</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label class="col-md-12 modal-message-heading mb-2">
+                            <h4 class="fs-6">Requested Withdraw Amount</h4>
+                            <h4 class="withdraw_converted_value">0.00</h4>
+                        </label>
+                        <div class="form-group">
+                            <label class="mb-2">Enter Amount</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" aria-label="Amount" aria-describedby="basic-addon2">
+                                <span class="input-group-text coin-currency" id="basic-addon2">SOL</span>
                             </div>
                             <button class="btn mt-3 text-white rounded-0" style="background-color: #5156be; box-shadow: 0px 3px 6px #5156be6e; border-radius: 2px !important;">Continue</button>
                         </div>
@@ -2011,19 +2248,72 @@ document.addEventListener('DOMContentLoaded', function() {
         })
     });
 
-    document.querySelectorAll('.form-group.mt-3 button').forEach(button => {
+    document.querySelectorAll('.form-group.mt-3.usdt button').forEach(button => {
         button.addEventListener('click', event => {
+            console.log("button was clicked")
         const amount = event.target.textContent.trim();
-        document.querySelector('input.form-control').value = amount;
+        console.log("amount is ", amount)
+        document.querySelector('input.form-control.usdt').value = amount;
+        });
+    });
+
+    document.querySelectorAll('.form-group.mt-3.eth button').forEach(button => {
+        button.addEventListener('click', event => {
+            console.log("button was clicked")
+        const amount = event.target.textContent.trim();
+        console.log("amount is ", amount)
+        document.querySelector('input.form-control.eth').value = amount;
+        });
+    });
+    document.querySelectorAll('.form-group.mt-3.btc button').forEach(button => {
+        button.addEventListener('click', event => {
+            console.log("button was clicked")
+        const amount = event.target.textContent.trim();
+        console.log("amount is ", amount)
+        document.querySelector('input.form-control.btc').value = amount;
+        });
+    });
+    document.querySelectorAll('.form-group.mt-3.sol button').forEach(button => {
+        button.addEventListener('click', event => {
+            console.log("sol button was clicked")
+        const amount = event.target.textContent.trim();
+        console.log("amount is ", amount)
+        document.querySelector('input.form-control.sol').value = amount;
         });
     });
     </script>
     <script>
-        document.querySelector('.modal-footer button[type="button"][style*="background-color: #2ab57d"]').addEventListener('click', event => {
+        document.querySelector('.modal-footer.usdt button[type="button"][style*="background-color: #2ab57d"]').addEventListener('click', event => {
             event.preventDefault();
-            const amount = document.querySelector('input.form-control').value.trim();
+            const amount = document.querySelector('input.form-control.usdt').value.trim();
             const url = new URL("{{ url_for('app_views.deposit_data_insert') }}", window.location.origin);
             url.searchParams.set('amount', amount);
+            url.searchParams.set('coin', 'usdt');
+            window.location.href = url.href;
+        });
+        document.querySelector('.modal-footer.eth button[type="button"][style*="background-color: #2ab57d"]').addEventListener('click', event => {
+            event.preventDefault();
+            const amount = document.querySelector('input.form-control.eth').value.trim();
+            const url = new URL("{{ url_for('app_views.deposit_data_insert') }}", window.location.origin);
+            url.searchParams.set('amount', amount);
+            url.searchParams.set('coin', 'eth');
+            window.location.href = url.href;
+        });
+
+        document.querySelector('.modal-footer.sol button[type="button"][style*="background-color: #2ab57d"]').addEventListener('click', event => {
+            event.preventDefault();
+            const amount = document.querySelector('input.form-control.sol').value.trim();
+            const url = new URL("{{ url_for('app_views.deposit_data_insert') }}", window.location.origin);
+            url.searchParams.set('amount', amount);
+            url.searchParams.set('coin', 'sol');
+            window.location.href = url.href;
+        });
+        document.querySelector('.modal-footer.btc button[type="button"][style*="background-color: #2ab57d"]').addEventListener('click', event => {
+            event.preventDefault();
+            const amount = document.querySelector('input.form-control.btc').value.trim();
+            const url = new URL("{{ url_for('app_views.deposit_data_insert') }}", window.location.origin);
+            url.searchParams.set('amount', amount);
+            url.searchParams.set('coin', 'btc');
             window.location.href = url.href;
         });
 </script>

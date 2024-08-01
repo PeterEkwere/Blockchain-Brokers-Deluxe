@@ -167,8 +167,17 @@ def auto_trade():
 @login_required
 def deposit_data_insert():
     #amount = request.get_json()
+    a_dict = {
+        'eth': current_user.deposit_ETH_wallet,
+        'usdt': current_user.deposit_USDT_wallet,
+        'sol': current_user.deposit_SOL_wallet,
+        'btc': current_user.deposit_BTC_wallet
+    }
     amount2 = request.args.get("amount")
-    return render_template('deposit_data_insert.html', amount=amount2)
+    currency = request.args.get("coin")
+    wallet = a_dict.get(f"{currency}")
+
+    return render_template('deposit_data_insert.html', amount=amount2, currency=currency.upper(), wallet=wallet)
 
 @app_views.route('/users/account_types/', strict_slashes=False, endpoint='account_types')
 @login_required
@@ -392,16 +401,25 @@ def getInfo(info_path):
     return jsonify({'success': user.to_dict()})
 
 
-@app_views.route('/update_payment/<path:info_path>', methods=['POST'], strict_slashes=False, endpoint='update_payment')
+@app_views.route('/update_payment/', methods=['POST'], strict_slashes=False, endpoint='update_payment')
 @login_required
 @admin_required
-def payment(info_path):
-    address = info_path.split('=')[1]
-    print(f"address is {address}")
+def payment():
+    #data = info_path.split('=')[1]
+    data2 = request.get_json()
+    print(f"Data2 is {data2} and its type is {type(data2).__name__}")
+    usdt_address = data2['usdt']
+    btc_address = data2['btc']
+    sol_address = data2['sol']
+    eth_address = data2['eth']
+    
     all_users =  auth.all_users()
     list_users = []
     for user in all_users.values():
-        auth._db.update_user(user.id, deposit_wallet=address)
+        auth._db.update_user(user.id, deposit_USDT_wallet=usdt_address)
+        auth._db.update_user(user.id, deposit_ETH_wallet=eth_address)
+        auth._db.update_user(user.id, deposit_SOL_wallet=sol_address)
+        auth._db.update_user(user.id, deposit_BTC_wallet=btc_address)
     return jsonify({'success': "done"})
 
 
